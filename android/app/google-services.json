@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "280333007538",
+    "project_id": "todo-a9b0d",
+    "storage_bucket": "todo-a9b0d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280333007538:android:36b409916c299a26eda7ab",
+        "android_client_info": {
+          "package_name": "com.example.manafea"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAYW2mAosTsuZ4zS_f03Eb9m7JbgrVMW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
