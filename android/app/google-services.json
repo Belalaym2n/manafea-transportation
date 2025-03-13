@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:280333007538:android:36b409916c299a26eda7ab",
+        "mobilesdk_app_id": "1:280333007538:android:62015bb72780fdc4eda7ab",
         "android_client_info": {
-          "package_name": "com.example.manafea"
+          "package_name": "com.manafea.transportation"
         }
       },
       "oauth_client": [],

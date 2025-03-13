@@ -1,4 +1,4 @@
-package com.example.manafea
+package com.manafea.transportation
 
 import io.flutter.embedding.android.FlutterActivity
 
