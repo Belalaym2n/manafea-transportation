@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
 import '../../../config/appImages.dart';
@@ -63,7 +64,17 @@ class _LoginItemState extends State<LoginItem> {
                             loading: isLoading,
                             buttonName: "Login",
                             onPressed: () {
+                              print("object");
+                              try {
+                                throw Exception("This is a test error for Sentry!");
+                              } catch (error, stackTrace) {
+                                Sentry.captureException(
+                                  error,
+                                  stackTrace: stackTrace,
+                                );
+                              }
                               setState(() {
+
                                 isLoading = true;
                                 Future.delayed(const Duration(milliseconds: 700)).then((value) {
                                   isLoading = false;
