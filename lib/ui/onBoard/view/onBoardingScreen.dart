@@ -68,7 +68,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                             currentIndex++;
                             setState(() {});
                           } else {
-                         Navigator.pushNamed(context, AppRoutes.bottomNav);
+                         Navigator.pushNamed(context, AppRoutes.login);
                           }
                         },
                       );

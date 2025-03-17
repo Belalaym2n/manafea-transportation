@@ -64,10 +64,11 @@ class WelcomeUserWidget extends StatelessWidget {
 
   Widget _buildProfileIcon() {
     return Container(
-      width: AppConstants.screenWidth * 0.12,
-      height: AppConstants.screenWidth * 0.12,
+
+      // width: AppConstants.screenWidth * 0.12,
+      // height: AppConstants.screenWidth * 0.12,
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(5),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -91,12 +92,14 @@ class WelcomeUserWidget extends StatelessWidget {
       ),
       child: Center(
         child: Icon(
-          Icons.person_rounded,
+          Icons.menu,
           size: AppConstants.screenWidth * 0.08,
-          color: Colors.grey.shade700,
+          color: Colors.black,
         ),
       ),
     );
 
   }
+
+
 }

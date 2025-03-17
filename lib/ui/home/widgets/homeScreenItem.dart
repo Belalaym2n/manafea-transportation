@@ -28,11 +28,11 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
               WelcomeUserWidget(),
 
               SizedBox(height: 110, child: CasualImage()),
-              SizedBox(height: 14),
+              SizedBox(height: 0),
               TransportationWidget(),
-              SizedBox(height: 14),
+              SizedBox(height: 10),
               HotelWidget(),
-              SizedBox(height: 14),
+              SizedBox(height: 10),
               TravelWidget(),
               SizedBox(height: 14),
 

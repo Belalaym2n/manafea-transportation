@@ -13,19 +13,19 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await SentryFlutter.init(
-        (options) {
-      options.dsn = 'https://f98968bded543a720197a8d0e76ef160@o4508100777082880.ingest.us.sentry.io/4508972885737472';
-      // Adds request headers and IP for users,
-      // visit: https://docs.sentry.io/platforms/dart/data-management/data-collected/ for more info
-      options.sendDefaultPii = true;
-    },
-    appRunner: () => runApp(
-      SentryWidget(
-        child: const MyApp(),
-      ),
-    ),
-  );
+  // await SentryFlutter.init(
+  //       (options) {
+  //     options.dsn = 'https://f98968bded543a720197a8d0e76ef160@o4508100777082880.ingest.us.sentry.io/4508972885737472';
+  //     // Adds request headers and IP for users,
+  //     // visit: https://docs.sentry.io/platforms/dart/data-management/data-collected/ for more info
+  //     options.sendDefaultPii = true;
+  //   },
+  //   appRunner: () => runApp(
+  //     SentryWidget(
+  //       child: const MyApp(),
+  //     ),
+  //   ),
+  // );
 
 }
 

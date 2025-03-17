@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:manafea/ui/bottomNav/view/bottomNav.dart';
 import 'package:manafea/ui/home/view/homeScreen.dart';
 import 'package:manafea/ui/login/view/loginScreen.dart';
+import 'package:manafea/ui/login/widgets/verifyScreen.dart';
 import 'package:manafea/ui/onBoard/view/onBoardingScreen.dart';
 import 'package:manafea/ui/splashScreen/view/splashScreen%5D.dart';
 
 class AppRoutes{
   static const String splash="/";
   static const String onBoard="/sfsdf";
-  static const String login="login";
+  static const String login="login/";
+  static const String verifyScreen="verify";
   static const String homeScreen="home";
   static const String bottomNav="bottom";
 }
@@ -20,6 +22,8 @@ class Routes{
     switch (setting.name){
       case AppRoutes.onBoard:
         return MaterialPageRoute(builder: (context) => const Onboardingscreen(),);
+      case AppRoutes.verifyScreen:
+        return MaterialPageRoute(builder: (context) => const VerifyScreen(),);
 
 
       case AppRoutes.splash:
