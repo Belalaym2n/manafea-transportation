@@ -4,6 +4,8 @@ import 'package:manafea/ui/home/widgets/transportation_widget.dart';
 import 'package:manafea/ui/home/widgets/travelWidget.dart';
 import 'package:manafea/ui/home/widgets/welcomUser.dart';
 
+import '../../profile_screen/view/profileScreen.dart';
+import '../../profile_screen/widgets/profileScreenItem.dart';
 import 'carsuoImage.dart';
 import 'hotelWidget.dart';
 
@@ -19,6 +21,8 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
   Widget build(BuildContext context) {
     return   const SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
+        drawer: Drawer(child: ProfileScreen()),
 
         body: SingleChildScrollView(
           child: Column(
@@ -27,8 +31,8 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
             children: [
               WelcomeUserWidget(),
 
-              SizedBox(height: 110, child: CasualImage()),
-              SizedBox(height: 0),
+              SizedBox(height: 210, child: CasualImage()),
+              SizedBox(height: 10),
               TransportationWidget(),
               SizedBox(height: 10),
               HotelWidget(),

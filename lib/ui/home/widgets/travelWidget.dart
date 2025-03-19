@@ -20,73 +20,89 @@ class _TravelWidgetState extends State<TravelWidget> {
     return Column(
       children: [
         serviceName(name: 'Travels'),
-        hotelWidget(),
-
+        SizedBox(
+          height: 30,
+        ),
+        PhysicalModel(
+          color: Colors.white,
+          // لون الخلفية
+          elevation: 10,
+          // ارتفاع الظل
+          shadowColor: Colors.black.withOpacity(0.3),
+          // لون الظل وشفافيته
+          borderRadius: BorderRadius.circular(12),
+          // تدوير الحواف
+          child:_buildHotelList(),)
       ],
     );
   }
-  Widget hotelWidget() {
-    return Container(
-      margin: const EdgeInsets.only(left: 16, top: 3),
-      height: 155,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 12,
-            offset: Offset(0, 6),
-          ),
-        ],
-      ),
-      child: ListView.separated(
-          separatorBuilder: (context, index) =>
-          const SizedBox(
-            width: 16,
-          ),
-          scrollDirection: Axis.horizontal,
-          itemCount: 4,
-          itemBuilder: (context, index) {
-            return PhysicalModel(
-                color: Colors.white,
-                // لون الخلفية
-                elevation: 10,
-                // ارتفاع الظل
-                shadowColor: Colors.black.withOpacity(0.3),
-                // لون الظل وشفافيته
-                borderRadius: BorderRadius.circular(12),
-                // تدوير الحواف
-                child: Container(
-                  width: 160,
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 3,
-                          ),
-                          imageNetwork(
-                            image: "assets/images/v2.jpg"
-                          ),
-                          const SizedBox(
-                            height: 1.4,
-                          ),
-                          hotelName(),
-                          SizedBox(
-                            height: 3,
-                          ),
-                          hotelLocation(),
-                          priceText()
 
-                        ],
-                      ),
-                    ),
-                  ),
-                ));
-          }),
+  Widget _buildHotelList() {
+    return SizedBox(
+      height: 180,
+      child: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        scrollDirection: Axis.horizontal,
+        itemCount: 4,
+        separatorBuilder: (_, __) => const SizedBox(width: 16),
+        itemBuilder: (context, index) {
+          return PhysicalModel(
+              color: Colors.white,
+              // لون الخلفية
+              elevation: 10,
+              // ارتفاع الظل
+              shadowColor: Colors.black.withOpacity(0.3),
+              // لون الظل وشفافيته
+              borderRadius: BorderRadius.circular(12),
+              // تدوير الحواف
+              child:_buildHotelCard());
+        },
+      ),
     );
   }
-
+  //
+  Widget _buildHotelCard() {
+    return PhysicalModel(
+        color: Colors.white,
+        // لون الخلفية
+        elevation: 10,
+        // ارتفاع الظل
+        shadowColor: Colors.black.withOpacity(0.3),
+        // لون الظل وشفافيته
+        borderRadius: BorderRadius.circular(12),
+        // تدوير الحواف
+        child:Container(
+          width: 280,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              imageNetwork(image: "assets/images/v2.jpg"),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    hotelName(),
+                    const SizedBox(height: 4),
+                    hotelLocation(),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ) );
+  }
 
 
 

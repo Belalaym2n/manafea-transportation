@@ -3,19 +3,22 @@ import 'package:manafea/config/appColors.dart';
 import '../../../config/appConstants.dart';
 import '../../../config/appImages.dart';
 
-class WelcomeUserWidget extends StatelessWidget {
+class WelcomeUserWidget extends StatefulWidget {
   const WelcomeUserWidget({super.key});
 
   @override
+  State<WelcomeUserWidget> createState() => _WelcomeUserWidgetState();
+}
+
+class _WelcomeUserWidgetState extends State<WelcomeUserWidget> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute elements evenly
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: _buildWelcomeText(),
-          ),
+          Expanded(child: _buildWelcomeText()),
           _buildProfileIcon(),
         ],
       ),
@@ -24,82 +27,77 @@ class WelcomeUserWidget extends StatelessWidget {
 
   Widget _buildWelcomeText() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start, // Improved text alignment
-      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: [  Text(
-          "Welcome",
-          style: TextStyle(
-            color: Colors.grey.shade600, // Subtle and friendly color
-            fontSize: AppConstants.screenWidth * 0.04, // Slightly larger font size
-            fontWeight: FontWeight.w500, // Medium weight for clarity
-          ),
-        ),
-        SizedBox(width: AppConstants.screenWidth * 0.01), // Add spacing between text and icon
-
-        Icon(
-          Icons.waving_hand_sharp, // Handshake icon for a greeting or hello gesture
-          color: Colors.amber, // Matching the icon color with the name
-          size: AppConstants.screenWidth * 0.056, // Balanced icon size for visibility
-          weight: 60,
-          applyTextScaling: true,
-          // Adjusted icon size for balance
-        ), ],
-        ),
-
+          children: [
             Text(
-              "Belal Ayman",
+              "Welcome,",
               style: TextStyle(
-                color: AppColors.primaryColor, // Use primary color for name
-                fontSize: AppConstants.screenWidth * 0.05, // Larger font size for the name
-                fontWeight: FontWeight.bold, // Bold to emphasize the name
+                color: Colors.grey.shade600,
+                fontSize: AppConstants.screenWidth * 0.045,
+                fontWeight: FontWeight.w500,
               ),
             ),
+            const SizedBox(width: 6),
+             Icon(
+                Icons.waving_hand,
+                color: Colors.amber.shade700,
+                size: AppConstants.screenWidth * 0.06,
+              ),
 
-
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          "Belal Ayman",
+          style: TextStyle(
+            color: AppColors.primaryColor,
+            fontSize: AppConstants.screenWidth * 0.055,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
 
   Widget _buildProfileIcon() {
     return Container(
-
-      // width: AppConstants.screenWidth * 0.12,
-      // height: AppConstants.screenWidth * 0.12,
+      width: AppConstants.screenWidth * 0.12,
+      height: AppConstants.screenWidth * 0.12,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
+        shape: BoxShape.circle,
         gradient: LinearGradient(
+          colors: [Colors.white.withOpacity(0.9), Colors.grey.shade200],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withOpacity(0.9),
-            Colors.grey.shade200,
-          ],
         ),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade400,
             blurRadius: 6,
-            offset: Offset(3, 3),
+            offset: const Offset(3, 3),
           ),
-          BoxShadow(
+          const BoxShadow(
             color: Colors.white,
             blurRadius: 6,
             offset: Offset(-3, -3),
           ),
         ],
       ),
-      child: Center(
-        child: Icon(
+      child: IconButton(
+        icon: Icon(
           Icons.menu,
-          size: AppConstants.screenWidth * 0.08,
+          size: AppConstants.screenWidth * 0.07,
           color: Colors.black,
         ),
+        onPressed: () {
+          print("bee");
+          Scaffold.of(context).openDrawer();
+
+          // Add functionality if needed
+        },
       ),
     );
-
   }
-
-
 }

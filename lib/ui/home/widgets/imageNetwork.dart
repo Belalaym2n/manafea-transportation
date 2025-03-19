@@ -1,29 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:manafea/config/appColors.dart';
 
-Widget imageNetwork({
-  required String image
-}) {
+Widget imageNetwork({required String image}) {
   return Stack(
     children: [
       Container(
-        width: 158,
-        height: 85,
+        width: 280,
+        height: 120,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          image:  DecorationImage(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
+          ),
+          image: DecorationImage(
             image: AssetImage(image),
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
       ),
       Positioned(
-        top: 4, // تعديل الموقع العلوي
-        right: 5, // تعديل الموقع الجانبي
+        top: 8,
+        right: 8,
         child: Container(
-          width: 30, // تعديل الحجم
-          height: 30, // تعديل الحجم
+          width: 32,
+          height: 32,
           decoration: BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
@@ -31,18 +33,17 @@ Widget imageNetwork({
               BoxShadow(
                 color: Colors.black.withOpacity(0.2),
                 blurRadius: 8,
-                offset: Offset(0, 4),
+                offset: const Offset(0, 4),
               ),
             ],
           ),
           child: const Icon(
             Icons.favorite_border,
-            size: 20, // ضبط حجم الأيقونة
-            color: Colors.red, // لون الأيقونة
+            size: 20,
+            color: Colors.red,
           ),
         ),
       ),
     ],
   );
 }
-

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
+import 'package:manafea/routing/appRoutes.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../config/appConstants.dart';
@@ -31,7 +32,7 @@ class VerifyScreen extends StatelessWidget {
               SizedBox(
                 height: 60,
               ),
-              _buildVrifyButton()
+              _buildVrifyButton(context)
             ],
           ),
         ),
@@ -39,12 +40,12 @@ class VerifyScreen extends StatelessWidget {
     ));
   }
 
-  Widget _buildVrifyButton() {
+  Widget _buildVrifyButton(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: ElevatedButton(
         onPressed: () {
-
+Navigator.pushNamed(context, AppRoutes.personDetailed);
         },
         child: Text(
           'Verify',
@@ -123,7 +124,7 @@ class VerifyScreen extends StatelessWidget {
               style: TextStyle(color: Colors.black, fontSize: 18, height: 1.4),
               children: <TextSpan>[
                 TextSpan(
-                  text: '34 643 43',
+                  text: '+966 676 66 677',
                   style: TextStyle(color: AppColors.primaryColor),
                 ),
               ],
