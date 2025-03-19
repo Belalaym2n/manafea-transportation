@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/home/widgets/priceText.dart';
 import 'package:manafea/ui/home/widgets/serviceName.dart';
-
 import '../../core/shared_widget/elevatedButton.dart';
 import 'imageNetwork.dart';
 
@@ -14,95 +13,128 @@ class HotelWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         serviceName(name: 'Recommended Hotels'),
-        hotelWidget(),
+        const SizedBox(height: 8),
+        PhysicalModel(
+    color: Colors.white,
+    // لون الخلفية
+    elevation: 10,
+    // ارتفاع الظل
+    shadowColor: Colors.black.withOpacity(0.3),
+    // لون الظل وشفافيته
+    borderRadius: BorderRadius.circular(12),
+    // تدوير الحواف
+    child:InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, AppRoutes.hotels);
+        },
+        child: _buildHotelList()),)
       ],
     );
   }
 
-  Widget hotelWidget() {
-    return Container(
-      margin: const EdgeInsets.only(left: 16, top: 3),
-      height: 155,
+  Widget _buildHotelList() {
+    return SizedBox(
+      height: 180,
+      child: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        scrollDirection: Axis.horizontal,
+        itemCount: 4,
+        separatorBuilder: (_, __) => const SizedBox(width: 16),
+        itemBuilder: (context, index) {
+          return PhysicalModel(
+              color: Colors.white,
+              // لون الخلفية
+              elevation: 10,
+              // ارتفاع الظل
+              shadowColor: Colors.black.withOpacity(0.3),
+          // لون الظل وشفافيته
+          borderRadius: BorderRadius.circular(12),
+          // تدوير الحواف
+          child:_buildHotelCard());
+        },
+      ),
+    );
+  }
+
+  Widget _buildHotelCard() {
+    return PhysicalModel(
+        color: Colors.white,
+        // لون الخلفية
+        elevation: 10,
+        // ارتفاع الظل
+        shadowColor: Colors.black.withOpacity(0.3),
+    // لون الظل وشفافيته
+    borderRadius: BorderRadius.circular(12),
+    // تدوير الحواف
+    child:Container(
+      width: 280,
       decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.08),
             blurRadius: 12,
-            offset: Offset(0, 6),
+            offset: const Offset(0, 6),
           ),
         ],
       ),
-      child: ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(width: 16),
-        scrollDirection: Axis.horizontal,
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return PhysicalModel(
-            color: Colors.white,
-            elevation: 10,
-            shadowColor: Colors.black.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(12),
-            child: Container(
-              width: 160,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 3),
-                      imageNetwork(image: "assets/images/hotel (2).jpg"),
-                      const SizedBox(height: 1.4),
-                      hotelName(),
-                      const SizedBox(height: 3),
-                      hotelLocation(),
-                      priceText(),
-                    ],
-                  ),
-                ),
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          imageNetwork(image: "assets/images/hotel (2).jpg"),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                hotelName(),
+                const SizedBox(height: 4),
+                hotelLocation(),
+              ],
             ),
-          );
-        },
+          ),
+        ],
       ),
-    );
+    ) );
   }
 }
 
 Widget hotelLocation() {
   return Row(
     children: [
-      Icon(Icons.location_on, color: Colors.red, size: 14),
-      SizedBox(width: 5),
-      Text(
-        "New York, U.S.",
-        style: TextStyle(color: Colors.black54, fontSize: AppConstants.screenWidth * 0.03),
+      const Icon(Icons.location_on, color: Colors.red, size: 14),
+      const SizedBox(width: 5),
+      Expanded(
+        child: Text(
+          "109 Annonces De Locations apparence",
+          style: TextStyle(
+            color: AppColors.primaryColor,
+            fontSize: AppConstants.screenWidth * 0.03,
+          ),
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     ],
   );
 }
 
 Widget hotelName() {
-  return Row(
-    textDirection: TextDirection.ltr,
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      Text(
-        textAlign: TextAlign.left,
-        "Luxury Hotel",
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          shadows: [
-            Shadow(
-              color: Colors.black.withOpacity(0.5),
-              offset: const Offset(1, 0),
-            ),
-          ],
+  return Text(
+    "Luxury Hotel",
+    style: TextStyle(
+      color: AppColors.primaryColor,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      shadows: [
+        Shadow(
+          color: Colors.black.withOpacity(0.2),
+          offset: const Offset(1, 1),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }

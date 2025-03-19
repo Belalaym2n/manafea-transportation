@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
@@ -11,7 +10,6 @@ class TransportationWidget extends StatefulWidget {
 }
 
 class _TransportationWidgetState extends State<TransportationWidget> {
-  // Variable to track selected icon
   IconData? selectedIcon;
 
   @override
@@ -19,19 +17,17 @@ class _TransportationWidgetState extends State<TransportationWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        chooseText(),
-        const SizedBox(
-          height: 3,
-        ),
+        _chooseText(),
+        const SizedBox(height: 8),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              transportWidget(icon: Icons.car_crash),
-              transportWidget(icon: Icons.bus_alert_rounded),
-              transportWidget(icon: Icons.business_center),
-              transportWidget(icon: Icons.motorcycle_sharp),
+              _transportWidget(icon: Icons.directions_car, iconName: "Car"),
+              _transportWidget(icon: Icons.directions_bus, iconName: "Bus"),
+              _transportWidget(icon: Icons.local_taxi, iconName: "Taxi"),
+              _transportWidget(icon: Icons.motorcycle, iconName: "Bike"),
             ],
           ),
         ),
@@ -39,45 +35,62 @@ class _TransportationWidgetState extends State<TransportationWidget> {
     );
   }
 
-  transportWidget({required IconData icon}) {
-    bool isSelected = selectedIcon == icon; // Check if the current icon is selected
+  Widget _transportWidget({required IconData icon, required String iconName}) {
+    bool isSelected = selectedIcon == icon;
 
     return GestureDetector(
       onTap: () {
         setState(() {
-          selectedIcon = isSelected ? null : icon; // Toggle selection
+          selectedIcon = isSelected ? null : icon;
         });
       },
-      child: Material(
-        color:isSelected ? Colors.black :null ,
-        borderRadius: BorderRadius.circular(10),
-        elevation: 10,
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: isSelected ? Colors.black : Colors.transparent, // Set black background when selected
+      child: Column(
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isSelected ? AppColors.primaryColor : Colors.grey[300],
+              boxShadow: isSelected
+                  ? [
+                BoxShadow(
+                  color: AppColors.primaryColor.withOpacity(0.4),
+                  blurRadius: 12,
+                  offset: const Offset(0, 6),
+                )
+              ]
+                  : [],
+            ),
+            child: Icon(
+              icon,
+              size: 28,
+              color: isSelected ? Colors.white : Colors.black87,
+            ),
           ),
-          margin: EdgeInsets.all(8),
-          height: 40,
-          width: 50,
-          child: Icon(
-            icon,
-            size: 30,
-            color: isSelected ? Colors.white : Colors.black, // Set white icon when selected
+          const SizedBox(height: 6),
+          Text(
+            iconName,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: isSelected ? AppColors.primaryColor : Colors.black54,
+              fontSize: 14,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  chooseText() {
+  Widget _chooseText() {
     return Padding(
-      padding: const EdgeInsets.only(left: 12),
+      padding: const EdgeInsets.only(left: 16),
       child: Text(
-        'Choose Transportation',
+        'Choose Your Transportation',
         style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: AppConstants.screenWidth * 0.045,
+          fontWeight: FontWeight.bold,
+          fontSize: AppConstants.screenWidth * 0.05,
           color: AppColors.primaryColor,
         ),
       ),

@@ -42,49 +42,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
         body: SizedBox(
           width: AppConstants.screenWidth,
           height: AppConstants.screenHeight,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 4,
-                child:  OnBoardItem(index: currentIndex)
-
-                ),
-
-              SizedBox(
-                height: AppConstants.screenHeight*0.07,
-              ),
-              Expanded(
-                flex: 1,
-                child: OnBoardScreenChanges(
-                  pageController: pageController,
-                  index: currentIndex,
-                  changeIndex: () {
-
-                      Timer(
-                        //aa@gmail.mas 1234567
-                        const Duration(milliseconds: 300),
-                        () {
-                          if (currentIndex < 2) {
-                            currentIndex++;
-                            setState(() {});
-                          } else {
-                         Navigator.pushNamed(context, AppRoutes.bottomNav);
-                          }
-                        },
-                      );
-
-                  },
-                  onChangedSmooth: () {
-                    setState(() {
-                      pageController.animateToPage(currentIndex,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease);
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
+          child: OnBoardItem(index: 1),
         ));
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:manafea/config/appImages.dart';
+import 'package:manafea/routing/appRoutes.dart';
+import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
@@ -7,83 +10,241 @@ import '../../../domain/models/onBoardModel.dart';
 import 'animationDo.dart';
 
 class OnBoardItem extends StatefulWidget {
-   OnBoardItem({super.key,required this.index});
+  OnBoardItem({super.key, required this.index});
 
-   int index;
+  int index;
+
   @override
   State<OnBoardItem> createState() => _OnBoardItemState();
 }
 
+
 class _OnBoardItemState extends State<OnBoardItem> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
   List<OnBoardModel> items = OnBoardModel.items;
+  int _currentStep = 0;
+  int languageIndex=-1;
+  final int _totalSteps = 4; // عدد المراحل
+
+  void _nextStep() {
+    if (_currentStep < _totalSteps - 1) {
+      setState(() {
+        _currentStep++;
+      });
+    } else {
+      Navigator.pushNamed(context, AppRoutes.login);
+    }
+  }
+
+  void _prevStep() {
+    if (_currentStep > 0) {
+      setState(() {
+        _currentStep--;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    return SizedBox(
-      width: AppConstants.screenWidth,
-      height: AppConstants.screenHeight,
-      child: SingleChildScrollView(
-        child: Column(
+    double progress = (_currentStep + 1) / _totalSteps;
+    _buildLineIndicator() {
+      return Expanded(
+        child: Stack(
           children: [
-
+            // الخلفية الرمادية
             Container(
-              margin: const EdgeInsets.fromLTRB(15, 40, 15, 10),
-              width: AppConstants.screenWidth,
-              height: AppConstants.screenHeight / 2.9,
-              child: animationDo(
-                widget.index,
-                100,
-                Image.asset(items[widget.index].imageUrl,
-
-                  fit: widget.index==0?BoxFit.fill:
-                  BoxFit.cover,
-
-                ),
+              height: 5,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(5),
               ),
             ),
-
-            Padding(
-                padding:
-                const EdgeInsets.only(top: 25, bottom: 15),
-                child: animationDo(
-                  widget.index,
-                  300,
-                  Text(
-                    items[widget.index].headline,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: AppConstants.screenWidth * 0.076),
+            // الشريط المتغير
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
+                  height: 5,
+                  width: constraints.maxWidth * progress,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                )),
-
-            animationDo(
-              widget.index,
-              500,
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    items[widget.index].description,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: AppConstants.screenWidth * 0.03),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),
+      );
+    } // نسبة التقدم
+
+    _buildHeaderScreen() {
+      return Row(children: [
+        _buildBackIcon(),
+        SizedBox(
+          width: 15,
+        ),
+        _buildLineIndicator(),
+      ]);
+    }
+
+    return SafeArea(
+      child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SizedBox(
+            width: AppConstants.screenWidth,
+            height: AppConstants.screenHeight,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _buildHeaderScreen(),
+                SizedBox(
+                  height: 20,
+                ),
+
+                _buildHeadLineText(),
+                _currentStep < _totalSteps - 1?
+                SizedBox(
+
+                ):SizedBox(height: 160,) ,
+                _currentStep < _totalSteps - 1?
+                _buildImage():Center(child: _buildChooseLanguage(
+                  onTap: (){
+                    setState(() {
+                      languageIndex=1;
+                    });
+                  },
+                     isSelected: languageIndex==1,
+                  text: 'English'
+                )),
+                _currentStep < _totalSteps - 1?
+                SizedBox(
+
+                ):SizedBox(height: 30,) ,
+                _currentStep < _totalSteps - 1?
+                _buildDescriptionText():Center(child:
+                _buildChooseLanguage(
+                    onTap: (){
+                      setState(() {
+                        languageIndex=2;
+                      });
+                    },
+                    isSelected: languageIndex==2,
+                  text: 'عربى'
+                )),
+                Spacer(),
+                elevated_button(onPressed: () {
+                      _nextStep();
+                    }, buttonName: "Next", valid:
+                _currentStep < _totalSteps - 1 ?
+                true :_currentStep == _totalSteps - 1
+                    && languageIndex !=-1?
+                true:false
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
+          )),
+    );
+  }
+
+  Widget _buildChooseLanguage({
+    required String text,
+    required Function onTap,
+    required bool isSelected
+}){
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Material(
+        color: isSelected ? Colors.black : Color(0xFFdcdcdc),
+        borderRadius: BorderRadius.circular(10),
+        elevation: isSelected ? 10 : 0,
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isSelected
+                ? Colors.black
+                : Color(0xFFdcdcdc), // Set black background when selected
+          ),
+          margin: EdgeInsets.all(8),
+          height: 40,
+          width: 300,
+          child: Center(child: Text(text,textAlign: TextAlign.center,
+          style: TextStyle(
+            color: isSelected?Colors.white:AppColors.primaryColor,
+            fontSize: AppConstants.screenWidth*0.045,
+            fontWeight: FontWeight.w900
+          ),
+          ))
+        ),
       ),
     );
+  }
+
+  _buildBackIcon() {
+    return Container(
+      width: 35,
+      decoration:
+          BoxDecoration(color: Color(0xFFdcdcdc), shape: BoxShape.circle),
+      child: IconButton(
+        icon: const Icon(Icons.arrow_back,
+
+            color: AppColors.primaryColor),
+        onPressed: _prevStep,
+      ),
+    );
+  }
+
+  _buildHeadLineText() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        animationDo(
+          _currentStep,
+          300,
+          Text(
+            items[_currentStep].headline,
+            style: TextStyle(
+                fontSize: 22, fontWeight: FontWeight.w900, color: Colors.black),
+          ),
+        )
+      ],
+    );
+  }
+
+  _buildDescriptionText() {
+    return animationDo(
+        _currentStep,
+        500,
+        Text(
+          items[_currentStep].description,
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.blueGrey[700],
+            height: 1.5,
+          ),
+          textAlign: TextAlign.start,
+        ));
+  }
+
+  _buildImage() {
+    return Container(
+        margin: const EdgeInsets.fromLTRB(15, 40, 15, 10),
+        width: AppConstants.screenWidth,
+        height: AppConstants.screenHeight / 2.9,
+        child: animationDo(
+            _currentStep, 100, Image.asset(items[_currentStep].imageUrl)));
   }
 }

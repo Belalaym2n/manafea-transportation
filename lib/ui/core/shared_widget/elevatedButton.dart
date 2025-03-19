@@ -6,6 +6,7 @@ import '../../../config/appConstants.dart';
 Widget elevated_button({
   required Function onPressed,
   required String buttonName,
+  bool valid=false,
    Color? bgColor,
   Size? buttonSize,
   bool? loading,
@@ -16,8 +17,9 @@ Widget elevated_button({
         style: ElevatedButton.styleFrom(
           fixedSize:buttonSize??
               Size(AppConstants.screenWidth, AppConstants.screenHeight / 15),
-          backgroundColor:bgColor ?? AppColors.primaryColor,
-          elevation: 10,
+          backgroundColor:valid==false?
+          Colors.grey: bgColor ?? AppColors.primaryColor,
+
           shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         ),

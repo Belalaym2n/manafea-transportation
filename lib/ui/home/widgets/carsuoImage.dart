@@ -1,10 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:manafea/config/appConstants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../config/appColors.dart';
+import '../../../config/appConstants.dart';
 import '../../../config/appImages.dart';
 
 class CasualImage extends StatefulWidget {
@@ -13,98 +12,87 @@ class CasualImage extends StatefulWidget {
   @override
   State<CasualImage> createState() => _CasualImageState();
 }
+
 class _CasualImageState extends State<CasualImage> {
   int _currentIndex = 0;
-  PageController pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController();
+
+  final List<String> imageUrls = [
+    AppImages.carsualImage2,
+    AppImages.carsualImage1,
+    AppImages.carsualImage2,
+  ];
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(AppConstants.screenWidth * 0.05)),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                showImages(),
-                Column(
-                  children: [
-                    SizedBox(height: AppConstants.screenHeight * 0.113),
-                    Center(child: smoothIndicator()),
-                  ],
-                )
-              ],
-            ),
-          ],
-        ),
+      borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.05),
+      child: Column(
+        children: [
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              showImages(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: smoothIndicator(),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 
-  smoothIndicator() {
-    return SmoothPageIndicator(
-      controller: PageController(initialPage: _currentIndex),
+  Widget smoothIndicator() {
+    return AnimatedSmoothIndicator(
+      activeIndex: _currentIndex,
       count: imageUrls.length,
-      effect: const ExpandingDotsEffect(
+      effect: ExpandingDotsEffect(
         spacing: 6.0,
-        radius: 10.0,
+        radius: 8.0,
         dotWidth: 8.0,
         dotHeight: 8.0,
-        expansionFactor: 1.2,
-        dotColor: Colors.white,
+        expansionFactor: 1.5,
+        dotColor: Colors.grey.shade400,
         activeDotColor: AppColors.primaryColor,
       ),
-      onDotClicked: (newIndex) {
+      onDotClicked: (index) {
         setState(() {
-          pageController.animateToPage(_currentIndex,
-              duration: const Duration(milliseconds: 500), curve: Curves.ease);
+          _currentIndex = index;
         });
       },
     );
   }
 
-  showImages() => Material(
-    borderRadius: BorderRadius.circular(23),
-    child: CarouselSlider(
+  Widget showImages() {
+    return CarouselSlider.builder(
+      itemCount: imageUrls.length,
       options: CarouselOptions(
         autoPlay: true,
-        autoPlayCurve: Curves.linear,
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayCurve: Curves.easeInOut,
         aspectRatio: 16 / 9,
-        onPageChanged: (index, reason) {
-          _currentIndex = index;
-          setState(() {});
-        },
-        initialPage: 0,
-        enableInfiniteScroll: true,
-        viewportFraction: 0.93,
-        reverse: false,
         enlargeCenterPage: true,
-        enlargeFactor: 0.5,
-        scrollDirection: Axis.horizontal,
+        enlargeStrategy: CenterPageEnlargeStrategy.scale,
+        viewportFraction: 0.9,
+        onPageChanged: (index, reason) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
-      items: imageUrls.map((imageUrl) {
-        return Stack(children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.04),
-            child: SizedBox(
-              width: double.infinity,
-              child: Image.asset(
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-                imageUrl,
-                fit: BoxFit.fill,
-              ),
-            ),
+      itemBuilder: (context, index, realIndex) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.04),
+          child: Image.asset(
+            imageUrls[index],
+            width: double.infinity,
+            height: 200,
+            fit: BoxFit.fill,
           ),
-        ]);
-      }).toList(),
-    ),
-  );
-
-  final imageUrls = [
-    AppImages.carsualImage2,
-    AppImages.carsualImage1,
-    AppImages.carsualImage2,
-  ];
+        );
+      },
+    );
+  }
 }

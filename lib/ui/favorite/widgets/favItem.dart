@@ -45,7 +45,6 @@ class FavItem extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 4),
-                  priceText(),
                   SizedBox(height: 6),
                   _buildLocation(),
                 ],

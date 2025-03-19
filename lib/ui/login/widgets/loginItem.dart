@@ -1,3 +1,4 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -16,143 +17,135 @@ class LoginItem extends StatefulWidget {
 }
 
 class _LoginItemState extends State<LoginItem> {
-  bool isLoading=false;
+  bool isLoading = false;
+  bool isValid = false;
+  TextEditingController controller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      setState(() {
+        isValid = controller.text.isNotEmpty; // التحقق من أن النص ليس فارغًا
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
             resizeToAvoidBottomInset: false,
-            body: Padding(
-                padding: EdgeInsets.all(AppConstants.screenWidth * 0.08),
-                child: SingleChildScrollView(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                      SizedBox(
-                        height: AppConstants.screenHeight * 0.02,
-                      ),
-                      image(),
-                      login_text(),
-                      SizedBox(
-                        height: AppConstants.screenHeight * 0.018,
-                      ),
-                      textFormField(
-                          prefixIcon: const Icon(
-                            Icons.person,
-                            color: Colors.black,
-                          ),
-                          label: "enter your email"),
-                      SizedBox(
-                        height: AppConstants.screenHeight * 0.03,
-                      ),
-                      textFormField(
-                          prefixIcon: const Icon(Icons.lock, color: Colors.black),
-                          isShowText: true,
-                          label: "enter your password"),
-                      SizedBox(
-                        height: AppConstants.screenHeight * 0.03,
-                      ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: forget_password(),
-                      ),
-                      SizedBox(
-                        height: AppConstants.screenHeight * 0.03,
-                      ),
-                          elevated_button(
-                            loading: isLoading,
-                            buttonName: "Login",
-                            onPressed: () {
-                              print("object");
-                              try {
-                                throw Exception("This is a test error for Sentry!");
-                              } catch (error, stackTrace) {
-                                Sentry.captureException(
-                                  error,
-                                  stackTrace: stackTrace,
-                                );
-                              }
-                              setState(() {
-
-                                isLoading = true;
-                                Future.delayed(const Duration(milliseconds: 700)).then((value) {
-                                  isLoading = false;
-                                  Navigator.pushReplacementNamed(
-                                      context, AppRoutes.bottomNav);
-                                });
-                              });
-                              //Navigator.pushNamed(context, AppRoutes.bottomNavScreen
-
-                            },
-
-                          ),
-                          registerText()
-                    ])))));
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(child: enter_number_text()),
+                SizedBox(
+                  height: 35,
+                ),
+                saudi_flag(),
+                SizedBox(
+                  height: 55,
+                ),
+                textFormField(),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: elevated_button(
+                      valid: isValid,
+                      onPressed: () {
+                        isValid?
+                        Navigator.pushNamed(context, AppRoutes.verifyScreen)
+                       :null;
+                      },
+                      buttonName: "Next"),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+              ],
+            )));
   }
 
-  Widget registerText() => Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Don't have account?",
-              style: TextStyle(fontSize: AppConstants.screenWidth * 0.04),
+  textFormField() {
+    return Center(
+      child: SizedBox(
+        width: 250, // تقليل العرض ليكون متناسقًا
+        child: TextFormField(
+          controller: controller,
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: AppConstants.screenWidth * 0.08),
+          keyboardType: TextInputType.phone,
+          textAlign: TextAlign.center,
+          // جعل النص في المنتصف
+          decoration: InputDecoration(
+            hintText: "+966 50 123 4567",
+            // مثال رقم الجوال
+            hintStyle: TextStyle(
+                color: Colors.grey.shade500,
+                fontWeight: FontWeight.w700,
+                fontSize: AppConstants.screenWidth * 0.08),
+            contentPadding: const EdgeInsets.symmetric(vertical: 12),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: Colors.grey.shade400, width: 1.5), // خط رمادي خفيف
             ),
-            TextButton(
-                onPressed: () {
-                  //  Navigator.pushNamed(context, AppRoutes.signUp);
-                },
-                child: Text(
-                  'Register',
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: AppConstants.screenWidth * 0.04),
-                ))
-          ],
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: AppColors.lightBlack , width: 2), // خط أخضر عند التركيز
+            ),
+          ),
         ),
-      );
-
-  forget_password() {
-    return Text(
-      textAlign: TextAlign.right,
-      "Forget Password ?",
-      style: TextStyle(
-          color: AppColors.primaryColor,
-          fontWeight: FontWeight.w500,
-          fontSize: AppConstants.screenWidth * 0.04),
+      ),
     );
   }
 
-  login_text() {
+  enter_number_text() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          'Login',
-          style: TextStyle(
-              fontWeight: FontWeight.w900,
-              fontSize: AppConstants.screenWidth * 0.09),
+        SizedBox(
+          height: 40,
         ),
         Text(
-          'Please Login to continue',
+          'Enter Mobile Number',
           style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: AppConstants.screenWidth * 0.04),
+              fontWeight: FontWeight.w900,
+              fontSize: AppConstants.screenWidth * 0.07),
         ),
       ],
     );
   }
 
-  image() {
-    return Image.asset(
-      AppImages.loginImage,
-      width: AppConstants.screenWidth,
-      height: AppConstants.screenHeight * 0.37,
-      fit: BoxFit.fitWidth,
-
+  saudi_flag() {
+    return Container(
+      height: 35,
+      width: AppConstants.screenWidth * 0.3,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Colors.black54)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: 10,
+          ),
+          CountryFlag.fromCountryCode(
+            'SA', // كود السعودية
+            width: 40,
+            height: 25,
+            shape: Rectangle(),
+            // حواف ناعمة
+          ),
+          const SizedBox(width: 8), // مسافة بين العلم والرقم
+          Text(
+            "+966",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+        ],
+      ),
     );
   }
-
 }
