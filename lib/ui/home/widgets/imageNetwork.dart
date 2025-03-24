@@ -7,7 +7,7 @@ Widget imageNetwork({required String image}) {
     children: [
       Container(
         width: 280,
-        height: 120,
+        height: 100,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
@@ -20,30 +20,7 @@ Widget imageNetwork({required String image}) {
           ),
         ),
       ),
-      Positioned(
-        top: 8,
-        right: 8,
-        child: Container(
-          width: 32,
-          height: 32,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: const Icon(
-            Icons.favorite_border,
-            size: 20,
-            color: Colors.red,
-          ),
-        ),
-      ),
+
     ],
   );
 }

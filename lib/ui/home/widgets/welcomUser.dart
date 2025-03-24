@@ -45,7 +45,6 @@ class _WelcomeUserWidgetState extends State<WelcomeUserWidget> {
                 color: Colors.amber.shade700,
                 size: AppConstants.screenWidth * 0.06,
               ),
-
           ],
         ),
         const SizedBox(height: 4),

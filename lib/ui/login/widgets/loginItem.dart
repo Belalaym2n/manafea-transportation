@@ -37,12 +37,12 @@ class _LoginItemState extends State<LoginItem> {
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Center(child: enter_number_text()),
-                SizedBox(
+                Center(child: _buildEnterNumberText()),
+                const SizedBox(
                   height: 35,
                 ),
-                saudi_flag(),
-                SizedBox(
+                _buildSaudiFlag(),
+                const SizedBox(
                   height: 55,
                 ),
                 textFormField(),
@@ -99,7 +99,7 @@ class _LoginItemState extends State<LoginItem> {
     );
   }
 
-  enter_number_text() {
+  _buildEnterNumberText() {
     return Column(
       children: [
         SizedBox(
@@ -115,7 +115,7 @@ class _LoginItemState extends State<LoginItem> {
     );
   }
 
-  saudi_flag() {
+  _buildSaudiFlag() {
     return Container(
       height: 35,
       width: AppConstants.screenWidth * 0.3,

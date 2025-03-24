@@ -43,7 +43,8 @@ Widget elevated_button({
 
 
 Widget smallElevatedButton({
-  required String buttonName
+  required String buttonName,
+ required Function onTap
 }){
   return
      ElevatedButton(
@@ -56,7 +57,7 @@ Widget smallElevatedButton({
           backgroundColor:AppColors.primaryColor,
         ),
         onPressed: () {
-
+          onTap();
         }, child:  Text(buttonName,style: const TextStyle(
         color: Colors.white
     ),));

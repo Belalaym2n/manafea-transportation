@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/ui/bottomNav/view/bottomNav.dart';
+import 'package:manafea/ui/carBooking/view/car_bookin_screen.dart';
 import 'package:manafea/ui/home/view/homeScreen.dart';
 import 'package:manafea/ui/login/view/loginScreen.dart';
 import 'package:manafea/ui/login/widgets/userPersonalDetails.dart';
@@ -8,6 +9,7 @@ import 'package:manafea/ui/login/widgets/verifyScreen.dart';
 import 'package:manafea/ui/onBoard/view/onBoardingScreen.dart';
 import 'package:manafea/ui/splashScreen/view/splashScreen%5D.dart';
 
+import '../ui/carBooking/view/cars_screen.dart';
 import '../ui/hotelBooking/view/hotelBookinScreen.dart';
 
 class AppRoutes{
@@ -16,9 +18,11 @@ class AppRoutes{
   static const String login="login/";
   static const String verifyScreen="verify";
   static const String homeScreen="home";
-  static const String bottomNav="bottom";
+  static const String bottomNav="sdf/";
   static const String personDetailed="err";
   static const String hotels="hotel";
+  static const String carsScreen="car";
+  static const String carBooking="car";
 }
 
 class Routes{
@@ -29,12 +33,22 @@ class Routes{
         return MaterialPageRoute(builder: (context) => const Onboardingscreen(),);
       case AppRoutes.verifyScreen:
         return MaterialPageRoute(builder: (context) => const VerifyScreen(),);
-      case AppRoutes.verifyScreen:
+      case AppRoutes.carsScreen:
+        return MaterialPageRoute(builder: (context) => const CarsScreen(
+
+        ),);
+
+      case AppRoutes.carBooking:
+        return MaterialPageRoute(builder: (context) => const CarBookingScreen(
+
+
+        ),);
+        case AppRoutes.hotels:
         return MaterialPageRoute(builder: (context) => const HotelBookingScreen(),);
 
-          case AppRoutes.hotels:
+          case AppRoutes.personDetailed:
         return MaterialPageRoute(builder: (context) => const
-        UserPersonalDetails(),);
+        UserPersonalDetails(),) ;
 
 
       case AppRoutes.splash:

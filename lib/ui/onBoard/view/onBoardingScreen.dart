@@ -1,17 +1,10 @@
-import 'dart:async';
 
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
-import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/onBoard/widgets/onBoardItem.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../config/appColors.dart';
 import '../../../domain/models/onBoardModel.dart';
-import '../widgets/animationDo.dart';
-import '../widgets/onBoardScreenChanges.dart';
 
 class Onboardingscreen extends StatefulWidget {
   const Onboardingscreen({super.key});

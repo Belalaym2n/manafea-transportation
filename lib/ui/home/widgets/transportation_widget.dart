@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/routing/appRoutes.dart';
 
 class TransportationWidget extends StatefulWidget {
   const TransportationWidget({super.key});
@@ -17,17 +18,21 @@ class _TransportationWidgetState extends State<TransportationWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _chooseText(),
+        _buildTransportationText(),
         const SizedBox(height: 8),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _transportWidget(icon: Icons.directions_car, iconName: "Car"),
-              _transportWidget(icon: Icons.directions_bus, iconName: "Bus"),
-              _transportWidget(icon: Icons.local_taxi, iconName: "Taxi"),
-              _transportWidget(icon: Icons.motorcycle, iconName: "Bike"),
+              _buildTransportWidget(
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoutes.carBooking);
+                  },
+                  icon: Icons.directions_car, iconName: "Car"),
+              _buildTransportWidget(icon: Icons.directions_bus, iconName: "Bus"),
+              _buildTransportWidget(icon: Icons.local_taxi, iconName: "Taxi"),
+              _buildTransportWidget(icon: Icons.motorcycle, iconName: "Bike"),
             ],
           ),
         ),
@@ -35,7 +40,10 @@ class _TransportationWidgetState extends State<TransportationWidget> {
     );
   }
 
-  Widget _transportWidget({required IconData icon, required String iconName}) {
+  Widget _buildTransportWidget({required IconData icon,
+    required String iconName,
+  Function? onTap
+  }) {
     bool isSelected = selectedIcon == icon;
 
     return GestureDetector(
@@ -43,6 +51,10 @@ class _TransportationWidgetState extends State<TransportationWidget> {
         setState(() {
           selectedIcon = isSelected ? null : icon;
         });
+        Future.delayed(Duration(milliseconds: 700), () {
+          onTap!();
+        });
+
       },
       child: Column(
         children: [
@@ -83,15 +95,15 @@ class _TransportationWidgetState extends State<TransportationWidget> {
     );
   }
 
-  Widget _chooseText() {
+  Widget _buildTransportationText() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16),
+      padding: const EdgeInsets.only(left: 16) ,
       child: Text(
-        'Choose Your Transportation',
+        '#ChooseYourTransportation',
         style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: AppConstants.screenWidth * 0.05,
+          fontWeight: FontWeight.w900,
           color: AppColors.primaryColor,
+          fontSize: AppConstants.screenWidth * 0.056,
         ),
       ),
     );

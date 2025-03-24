@@ -52,6 +52,13 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   # for loading
   skeletonizer: ^1.4.3
+  #for date
+  intl: ^0.20.2
+  # for booking check-In and check-out
+  table_calendar: ^3.2.0
+  # for success order
+  lottie: ^3.2.0
+
 flutter_launcher_icons:
 
   ios: true
@@ -90,6 +97,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/jsonAnimations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

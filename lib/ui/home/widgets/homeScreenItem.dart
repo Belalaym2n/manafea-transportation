@@ -37,8 +37,8 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
               SizedBox(height: 10),
               HotelWidget(),
               SizedBox(height: 10),
-              TravelWidget(),
-              SizedBox(height: 14),
+              // TravelWidget(),
+              // SizedBox(height: 14),
 
 
 

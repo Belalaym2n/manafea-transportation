@@ -17,18 +17,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Notification",style: TextStyle(
-            color: Colors.white,
-
-            overflow: TextOverflow.ellipsis,
-            shadows: [
-              Shadow(
-                color: Colors.black.withOpacity(0.2),
-                offset: const Offset(1, 1),
-                blurRadius: 2,
-              ),
-            ],
-          ),),
+          title: _buildNotificationText(),
           elevation: 4,
           backgroundColor: AppColors.primaryColor,
           leading: Icon(Icons.notifications_active, color: Colors.white),
@@ -43,5 +32,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
             return NotificationScreenItem();
           },
         ));
+  }
+ Widget _buildNotificationText(){
+    return Text( "Notification",style: TextStyle(
+      color: Colors.white,
+
+      overflow: TextOverflow.ellipsis,
+      shadows: [
+        Shadow(
+          color: Colors.black.withOpacity(0.2),
+          offset: const Offset(1, 1),
+          blurRadius: 2,
+        ),
+      ],
+    ),);
   }
 }

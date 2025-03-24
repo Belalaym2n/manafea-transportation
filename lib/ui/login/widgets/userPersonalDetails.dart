@@ -14,9 +14,10 @@ class UserPersonalDetails extends StatefulWidget {
 }
 
 class _UserPersonalDetailsState extends State<UserPersonalDetails> {
-  TextEditingController firstNameController=TextEditingController();
-  TextEditingController lastNameController=TextEditingController();
-  bool isValid=false;
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  bool isValid = false;
+
   @override
   void initState() {
     super.initState();
@@ -25,6 +26,7 @@ class _UserPersonalDetailsState extends State<UserPersonalDetails> {
     firstNameController.addListener(updateValidation);
     lastNameController.addListener(updateValidation);
   }
+
   void updateValidation() {
     setState(() {
       isValid = firstNameController.text.isNotEmpty &&
@@ -41,38 +43,35 @@ class _UserPersonalDetailsState extends State<UserPersonalDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
+    return SafeArea(
+        child: Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
             height: 50,
           ),
-          Center(child:
-          _buildIntro()),
+          Center(child: _buildHeader()),
           SizedBox(
             height: 50,
           ),
           _buildTextFormField(
-            controller: firstNameController,
-            hint: 'First Name'
-          ),
+              controller: firstNameController, hint: 'First Name'),
           _buildTextFormField(
-            controller: lastNameController,
-              hint: 'Last Name'
-          ),
-
+              controller: lastNameController, hint: 'Last Name'),
           SizedBox(
             height: 50,
           ),
           Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 30.0),
-            child: elevated_button(onPressed: (){
-              Navigator.pushNamed(context, AppRoutes.bottomNav);
-            },
-                valid: isValid ,
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: elevated_button(
+                onPressed: () {
+                  isValid
+                      ? Navigator.pushNamed(context, AppRoutes.bottomNav)
+                      : SizedBox();
+                },
+                valid: isValid,
                 buttonName: "Next"),
           ),
           SizedBox(
@@ -81,53 +80,48 @@ class _UserPersonalDetailsState extends State<UserPersonalDetails> {
         ],
       ),
     ));
-
   }
 
   _buildTextFormField({
     required String hint,
     required TextEditingController controller,
-}){
+  }) {
+    return Center(
+      child: SizedBox(
+        width: 280, // تقليل العرض ليكون متناسقًا
+        child: TextFormField(
+          controller: controller,
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: AppConstants.screenWidth * 0.05),
+          keyboardType: TextInputType.text,
+          textAlign: TextAlign.start,
 
-      return Center(
-        child: SizedBox(
-          width: 280, // تقليل العرض ليكون متناسقًا
-          child: TextFormField(
-controller: controller,
-            style: TextStyle(
-
+          // جعل النص في المنتصف
+          decoration: InputDecoration(
+            suffixIcon: Icon(Icons.person),
+            hintText: hint,
+            // مثال رقم الجوال
+            hintStyle: TextStyle(
+                color: Colors.grey.shade500,
                 fontWeight: FontWeight.w700,
                 fontSize: AppConstants.screenWidth * 0.05),
-            keyboardType: TextInputType.text,
-            textAlign: TextAlign.start,
-
-            // جعل النص في المنتصف
-            decoration: InputDecoration(
-              suffixIcon: Icon(Icons.person),
-              hintText: hint,
-              // مثال رقم الجوال
-              hintStyle: TextStyle(
-                  color: Colors.grey.shade500,
-                  fontWeight: FontWeight.w700,
-                  fontSize: AppConstants.screenWidth * 0.05),
-              contentPadding: const EdgeInsets.symmetric(vertical: 12),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                    color: Colors.grey.shade400, width: 1.5), // خط رمادي خفيف
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                    color: AppColors.lightBlack , width: 2), // خط أخضر عند التركيز
-              ),
+            contentPadding: const EdgeInsets.symmetric(vertical: 12),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: Colors.grey.shade400, width: 1.5), // خط رمادي خفيف
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: AppColors.lightBlack, width: 2), // خط أخضر عند التركيز
             ),
           ),
         ),
-      );
-
-
+      ),
+    );
   }
 
-  _buildIntro(){
+  _buildHeader() {
     return const Text(
       'Personal Detail',
       style: TextStyle(

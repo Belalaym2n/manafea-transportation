@@ -17,27 +17,24 @@ class _UserOrdersScreenItemState extends State<UserOrdersScreenItem> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        screenName(
-
-        ),
+        _buildScreenName(),
         TabControllerItem(),
         Expanded(
           child: ListView.builder(
             itemCount: 3,
             itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0),
-              child: OrderItem(),
-            );
-          },),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: OrderItem(),
+              );
+            },
+          ),
         )
-
       ],
     );
   }
 
-  Widget screenName() {
+  Widget _buildScreenName() {
     return Text(
       "Orders",
       style: TextStyle(

@@ -29,7 +29,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
   List<OnBoardModel> items = OnBoardModel.items;
   int _currentStep = 0;
   int languageIndex=-1;
-  final int _totalSteps = 4; // عدد المراحل
+  final int _totalSteps = OnBoardModel.items.length; // عدد المراحل
 
   void _nextStep() {
     if (_currentStep < _totalSteps - 1) {
@@ -51,12 +51,13 @@ class _OnBoardItemState extends State<OnBoardItem> {
 
   @override
   Widget build(BuildContext context) {
+
+    // 1/0 1  => 0.025
     double progress = (_currentStep + 1) / _totalSteps;
     _buildLineIndicator() {
       return Expanded(
         child: Stack(
           children: [
-            // الخلفية الرمادية
             Container(
               height: 5,
               width: double.infinity,
@@ -65,11 +66,10 @@ class _OnBoardItemState extends State<OnBoardItem> {
                 borderRadius: BorderRadius.circular(5),
               ),
             ),
-            // الشريط المتغير
             LayoutBuilder(
               builder: (context, constraints) {
                 return AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   height: 5,
                   width: constraints.maxWidth * progress,
                   decoration: BoxDecoration(
@@ -196,7 +196,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
     return Container(
       width: 35,
       decoration:
-          BoxDecoration(color: Color(0xFFdcdcdc), shape: BoxShape.circle),
+          const BoxDecoration(color: Color(0xFFdcdcdc), shape: BoxShape.circle),
       child: IconButton(
         icon: const Icon(Icons.arrow_back,
 

@@ -4,7 +4,7 @@ import 'package:manafea/ui/home/view/homeScreen.dart';
 import 'package:manafea/ui/login/view/loginScreen.dart';
 import 'package:manafea/ui/notification/view/notifcationScreen.dart';
 
-import '../../favorite/view/favoriteScreen.dart';
+import '../../activity/view/activityScreen.dart';
 import '../../userOrders/view/userOrders.dart';
 
 class BottomNavViewModel extends BaseViewModel {
@@ -19,7 +19,7 @@ class BottomNavViewModel extends BaseViewModel {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const FavoriteScreen(),
+    const ActivityScreen(),
     const NotificationScreen(),
     const UserOrders(),
   ];
