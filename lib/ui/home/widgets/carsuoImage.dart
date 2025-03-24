@@ -32,7 +32,7 @@ class _CasualImageState extends State<CasualImage> {
           Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              showImages(),
+              _buildImages(),
               Padding(
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: smoothIndicator(),
@@ -65,7 +65,7 @@ class _CasualImageState extends State<CasualImage> {
     );
   }
 
-  Widget showImages() {
+  Widget _buildImages() {
     return CarouselSlider.builder(
       itemCount: imageUrls.length,
       options: CarouselOptions(
@@ -84,7 +84,8 @@ class _CasualImageState extends State<CasualImage> {
       ),
       itemBuilder: (context, index, realIndex) {
         return ClipRRect(
-          borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.04),
+          borderRadius: BorderRadius.
+          circular(AppConstants.screenWidth * 0.04),
           child: Image.asset(
             imageUrls[index],
             width: double.infinity,

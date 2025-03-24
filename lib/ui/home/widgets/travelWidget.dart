@@ -5,6 +5,7 @@ import 'package:manafea/ui/home/widgets/priceText.dart';
 import 'package:manafea/ui/home/widgets/serviceName.dart';
 
 import '../../../config/appConstants.dart';
+import '../../../routing/appRoutes.dart';
 import '../../core/shared_widget/elevatedButton.dart';
 
 class TravelWidget extends StatefulWidget {
@@ -19,7 +20,7 @@ class _TravelWidgetState extends State<TravelWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        serviceName(name: 'Travels'),
+        serviceName(name: '#RecommendedTravels'),
         SizedBox(
           height: 30,
         ),
@@ -32,14 +33,15 @@ class _TravelWidgetState extends State<TravelWidget> {
           // لون الظل وشفافيته
           borderRadius: BorderRadius.circular(12),
           // تدوير الحواف
-          child:_buildHotelList(),)
+          child: _buildHotelList(),
+        )
       ],
     );
   }
 
   Widget _buildHotelList() {
     return SizedBox(
-      height: 180,
+      height: 205,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         scrollDirection: Axis.horizontal,
@@ -55,11 +57,12 @@ class _TravelWidgetState extends State<TravelWidget> {
               // لون الظل وشفافيته
               borderRadius: BorderRadius.circular(12),
               // تدوير الحواف
-              child:_buildHotelCard());
+              child: _buildHotelCard());
         },
       ),
     );
   }
+
   //
   Widget _buildHotelCard() {
     return PhysicalModel(
@@ -71,7 +74,7 @@ class _TravelWidgetState extends State<TravelWidget> {
         // لون الظل وشفافيته
         borderRadius: BorderRadius.circular(12),
         // تدوير الحواف
-        child:Container(
+        child: Container(
           width: 280,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -89,41 +92,50 @@ class _TravelWidgetState extends State<TravelWidget> {
             children: [
               imageNetwork(image: "assets/images/v2.jpg"),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    hotelName(),
+                    _buildTravelName(),
                     const SizedBox(height: 4),
-                    hotelLocation(),
+                    _buildMoveTravelLocation(),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          smallElevatedButton(
+                              buttonName: "Book Now",
+                              onTap: () {
+                                Navigator.pushNamed(context, AppRoutes.hotels);
+                              }),
+                        ])
                   ],
                 ),
               ),
             ],
           ),
-        ) );
+        ));
   }
-
-
-
-
 }
 
-
-Widget hotelLocation(){
-  return   Row(
-
+Widget _buildMoveTravelLocation() {
+  return Row(
     children: [
-      Icon(Icons.location_on,color: Colors.black54,size: 14,),
-      Text("New York, U.S.",style: TextStyle(
-          color: Colors.black54,
-          fontSize: AppConstants.screenWidth*0.03
-      ),)
+      const Icon(
+        Icons.location_on,
+        color: Colors.black54,
+        size: 14,
+      ),
+      Text(
+        "New York, U.S.",
+        style: TextStyle(
+            color: Colors.black54, fontSize: AppConstants.screenWidth * 0.03),
+      )
     ],
   );
 }
 
-Widget hotelName(){
+Widget _buildTravelName() {
   return Row(
     textDirection: TextDirection.ltr,
     mainAxisAlignment: MainAxisAlignment.start,
@@ -132,7 +144,6 @@ Widget hotelName(){
           textAlign: TextAlign.left,
           "Luxury Hotel",
           style: TextStyle(
-
               color: Colors.black,
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -141,9 +152,8 @@ Widget hotelName(){
                   //blurRadius: 4,
                   color: Colors.black.withOpacity(0.5),
                   offset: const Offset(1, 0),
-                )])),
+                )
+              ])),
     ],
   );
 }
-
-

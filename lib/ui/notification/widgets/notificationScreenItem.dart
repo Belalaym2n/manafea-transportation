@@ -24,24 +24,11 @@ class _NotificationScreenItemState extends State<NotificationScreenItem> {
     );
   }
 
-  Widget _notificationCard() {
+Widget _notificationCard() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: EdgeInsets.all(
-            AppConstants.screenHeight * 0.014,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.amber.withOpacity(0.1),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            Icons.notifications,
-            size: AppConstants.screenWidth * 0.075,
-            color: AppColors.primaryColor,
-          ),
-        ),
+        _buildNotificationIcon(),
         SizedBox(width: AppConstants.screenWidth * 0.03),
         // Notification Details
         Expanded(
@@ -52,67 +39,101 @@ class _NotificationScreenItemState extends State<NotificationScreenItem> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Belal Ayman",
-                    //widget.notificationModel.title.toString(),
-                    style: TextStyle(
-                      fontSize: AppConstants.screenWidth * 0.045,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.primaryColor,
-                    ),
-                  ),
-                  Text(
-
-                    "2/10/2024",
-              //     widget.notificationModel.date.toString().substring(0, 16),
-                    style: TextStyle(
-                      fontSize: AppConstants.screenWidth * 0.038,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.primaryColor,
-                    ),
-                  ),
+                  _buildNotificationTitle(),
+                  _buildNotificationTimeText()
                 ],
               ),
               SizedBox(height: AppConstants.screenHeight * 0.01),
               // Description
-              Text(
-                "This description is professional, concise, and highlights the key features of a hotel booking service. Let me know if you'd like any changes",
-                style: TextStyle(
-                  fontSize: AppConstants.screenWidth * 0.035,
-                  color: AppColors.lightBlack,
-                  // Limit to 4 lines
-                  overflow: TextOverflow.ellipsis,
-                ),
-                maxLines: 4,
-              ),
+              _buildNotificationDescription(),
               SizedBox(height: AppConstants.screenHeight * 0.02),
+              _buildViewDetailedButton()
               // Actions
-              Row(
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => NotificationDetailed(
-                      //           notificationModel: widget.notificationModel),
-                      //     ));
-                    },
-                    child: Text(
-                      "View Detailed",
-                      style: TextStyle(
-                        fontSize: AppConstants.screenWidth * 0.04,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: AppConstants.screenWidth * 0.02),
-                ],
-              ),
+
             ],
           ),
         ),
+      ],
+    );
+  }
+  Widget _buildNotificationIcon(){
+    return  Container(
+      padding: EdgeInsets.all(
+        AppConstants.screenHeight * 0.014,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.amber.withOpacity(0.1),
+        shape: BoxShape.circle,
+      ),
+      child: Icon(
+        Icons.notifications,
+        size: AppConstants.screenWidth * 0.075,
+        color: AppColors.primaryColor,
+      ),
+    );
+  }
+
+
+  Text _buildNotificationTitle(){
+    return  Text(
+      "Belal Ayman",
+      //widget.notificationModel.title.toString(),
+      style: TextStyle(
+        fontSize: AppConstants.screenWidth * 0.045,
+        fontWeight: FontWeight.w600,
+        color: AppColors.primaryColor,
+      ),
+    );
+  }
+
+  Text _buildNotificationTimeText(){
+    return Text(
+
+      "2/10/2024",
+      //     widget.notificationModel.date.toString().substring(0, 16),
+      style: TextStyle(
+        fontSize: AppConstants.screenWidth * 0.038,
+        fontWeight: FontWeight.w400,
+        color: AppColors.primaryColor,
+      ),
+    );
+  }
+
+  Text _buildNotificationDescription(){
+    return Text(
+      "This description is professional, concise, and highlights the key features of a hotel booking service. Let me know if you'd like any changes",
+      style: TextStyle(
+        fontSize: AppConstants.screenWidth * 0.035,
+        color: AppColors.lightBlack,
+        // Limit to 4 lines
+        overflow: TextOverflow.ellipsis,
+      ),
+      maxLines: 4,
+    );
+  }
+
+  Widget _buildViewDetailedButton(){
+    return   Row(
+      children: [
+        TextButton(
+          onPressed: () {
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => NotificationDetailed(
+            //           notificationModel: widget.notificationModel),
+            //     ));
+          },
+          child: Text(
+            "View Detailed",
+            style: TextStyle(
+              fontSize: AppConstants.screenWidth * 0.04,
+              fontWeight: FontWeight.w500,
+              color: Colors.red,
+            ),
+          ),
+        ),
+        SizedBox(width: AppConstants.screenWidth * 0.02),
       ],
     );
   }

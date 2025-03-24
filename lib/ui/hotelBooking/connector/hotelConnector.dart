@@ -1,6 +1,6 @@
 import 'package:manafea/config/base_class.dart';
 
-class HotelConnector extends BaseConnector{
+abstract class HotelConnector extends BaseConnector{
   @override
   onError(String message) {
     // TODO: implement onError
@@ -12,5 +12,12 @@ class HotelConnector extends BaseConnector{
     // TODO: implement showLoading
     throw UnimplementedError();
   }
+
+  stepOneContentInStepper();
+  stepTwoContentInStepper();
+  stepTwoContentInStepperForCommonRoomType();
+  stepThreeContentInStepper();
+  stepFourContentInStepperUserBookingInfo();
+  stepFiveContentInStepperBookingButton();
 
 }

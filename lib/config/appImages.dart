@@ -10,4 +10,5 @@ class AppImages{
   static const String logoImageSplash='${AppConstants.imageUrl}splash.png';
   static const String profile='${AppConstants.imageUrl}profile.png';
   static const String travel='${AppConstants.imageUrl}v2.jpg';
+  static const String search='${AppConstants.imageUrl}search.png';
 }

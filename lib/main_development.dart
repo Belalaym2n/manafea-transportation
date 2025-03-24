@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/routing/appRoutes.dart';
+import 'package:manafea/ui/hotelBooking/viewModel/hottelBookingViewModel.dart';
+import 'package:provider/provider.dart';
 
 import 'config/appConstants.dart';
 import 'firebase_options.dart';
@@ -12,9 +14,14 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp(
-
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HotelBookingViewModel()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

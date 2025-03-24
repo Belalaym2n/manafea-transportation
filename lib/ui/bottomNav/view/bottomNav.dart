@@ -68,8 +68,8 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
               ),
               GButton(
                 margin: EdgeInsets.symmetric(vertical: AppConstants.screenHeight * 0.02),
-                icon: Icons.favorite_border, // Notification icon
-                text: 'Favorite',
+                icon: Icons.local_activity_outlined, // Notification icon
+                text: 'Activity',
                 iconColor: Colors.white, // Cool tone for notifications
               ),
               GButton(

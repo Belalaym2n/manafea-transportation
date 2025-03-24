@@ -9,24 +9,26 @@ Widget serviceName({
 }){
   return     Padding(
       padding: const EdgeInsets.symmetric(
-      horizontal: 12.0, vertical: 0), child: Row(
+      horizontal: 14.0, vertical: 0), child: Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(
         textAlign: TextAlign.start,
         name,
         style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: AppConstants.screenWidth * 0.045,
+            fontWeight: FontWeight.w900,
+
+              fontSize: AppConstants.screenWidth * 0.056,
+
             color: AppColors.primaryColor),
       ),
-      Text(
-        textAlign: TextAlign.start,
-        'view all',
-        style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize:AppConstants.screenWidth * 0.038,
-            color: AppColors.primaryColor),
-      ),
+      // Text(
+      //   textAlign: TextAlign.start,
+      //   'view all',
+      //   style: TextStyle(
+      //       fontWeight: FontWeight.w500,
+      //       fontSize:AppConstants.screenWidth * 0.038,
+      //       color: AppColors.primaryColor),
+      // ),
     ],
   ));}
