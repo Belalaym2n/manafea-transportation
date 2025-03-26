@@ -5,6 +5,7 @@ import 'package:manafea/config/base_class.dart';
 import 'package:manafea/ui/carBooking/connector/carBookingConnector.dart';
 import 'package:manafea/ui/carBooking/viewModel/CarBookingViewModel.dart';
 import 'package:manafea/ui/carBooking/widgets/car_booking_screen_item.dart';
+import 'package:manafea/ui/core/shared_widget/succes_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/shared_widget/buildConfirmBookingInStepper.dart';
@@ -37,7 +38,8 @@ class _CarBookingScreenState
       child: Consumer<CarBookingViewModel>(
           builder: (context, viewModel, child) => SafeArea(
                 child: Scaffold(
-                    body: SingleChildScrollView(
+
+                    body: viewModel.orderIsDone==false?SingleChildScrollView(
                   child: Column(
                     children: [
                       CarBookingScreenItem(),
@@ -47,7 +49,7 @@ class _CarBookingScreenState
                           child: Stepper(
                             controlsBuilder: (context, details) =>
                                 viewModel.index != 3
-                                    ? ElevatedButtonStepperHotelBooking(
+                                    ? ElevatedButtonStepper(
                                         onStepCancel: viewModel.onStepCancel,
                                         onStepContinue:
                                             viewModel.onStepContinue,
@@ -59,7 +61,7 @@ class _CarBookingScreenState
                           ))
                     ],
                   ),
-                )),
+                ):done_order_widget(context)),
               )),
     );
   }

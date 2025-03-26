@@ -10,6 +10,7 @@ import 'package:manafea/ui/hotelBooking/widgets/stepTwoWidget.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/shared_widget/buildConfirmBookingInStepper.dart';
+import '../../core/shared_widget/buildStepCounterInStepper.dart';
 import '../../core/shared_widget/build_check_in_check_out_widget_in_stepper.dart';
 import '../../core/shared_widget/succes_widget.dart';
 import '../widgets/elevatedButtonStepper.dart';
@@ -58,7 +59,7 @@ BaseView<HotelBookingViewModel,HotelBookingScreen>
                    ?const SizedBox()
                          :
                      viewModel.index==5 && viewModel.selectedRoomType=='Common'?
-                    SizedBox(): ElevatedButtonStepperHotelBooking(
+                    SizedBox(): ElevatedButtonStepper(
 
                     onStepCancel: viewModel.onStepCancel,
                     onStepContinue: viewModel.onStepContinue ,
@@ -113,7 +114,7 @@ BaseView<HotelBookingViewModel,HotelBookingScreen>
     return
       Consumer<HotelBookingViewModel>(
         builder: (context, viewModel, child) =>
-        buildStepTwoStepperContentSpecialRoom(
+            buildStepCounterInStepper(
 title: viewModel.selectedRoomType=="Common"?'People Number':"Room Count",
             increaseCount:
         viewModel.increaseRoomCount, minusCount: viewModel.minusRoomCount

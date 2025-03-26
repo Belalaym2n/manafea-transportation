@@ -10,7 +10,12 @@ import '../../core/shared_widget/elevatedButton.dart';
 import '../../core/shared_widget/textFormField.dart';
 
 class LoginItem extends StatefulWidget {
-  const LoginItem({super.key});
+   LoginItem({super.key,
+  required this.controller,
+  required this.checkNumberValidation,
+  });
+  TextEditingController controller;
+  Function checkNumberValidation;
 
   @override
   State<LoginItem> createState() => _LoginItemState();
@@ -19,13 +24,12 @@ class LoginItem extends StatefulWidget {
 class _LoginItemState extends State<LoginItem> {
   bool isLoading = false;
   bool isValid = false;
-  TextEditingController controller = TextEditingController();
   @override
   void initState() {
     super.initState();
-    controller.addListener(() {
+    widget.controller.addListener(() {
       setState(() {
-        isValid = controller.text.isNotEmpty; // التحقق من أن النص ليس فارغًا
+        isValid = widget.controller.text.isNotEmpty; // التحقق من أن النص ليس فارغًا
       });
     });
   }
@@ -53,7 +57,9 @@ class _LoginItemState extends State<LoginItem> {
                       valid: isValid,
                       onPressed: () {
                         isValid?
-                        Navigator.pushNamed(context, AppRoutes.verifyScreen)
+                       // widget.
+                     //   checkNumberValidation()
+                      Navigator.pushNamed(context, AppRoutes.verifyScreen)
                        :null;
                       },
                       buttonName: "Next"),
@@ -70,7 +76,7 @@ class _LoginItemState extends State<LoginItem> {
       child: SizedBox(
         width: 250, // تقليل العرض ليكون متناسقًا
         child: TextFormField(
-          controller: controller,
+          controller: widget.controller,
           style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: AppConstants.screenWidth * 0.08),
@@ -78,7 +84,7 @@ class _LoginItemState extends State<LoginItem> {
           textAlign: TextAlign.center,
           // جعل النص في المنتصف
           decoration: InputDecoration(
-            hintText: "+966 50 123 4567",
+            hintText: "0598765432",
             // مثال رقم الجوال
             hintStyle: TextStyle(
                 color: Colors.grey.shade500,

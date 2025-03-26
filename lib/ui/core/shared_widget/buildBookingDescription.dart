@@ -15,7 +15,7 @@ Widget buildBookingDescription({
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "About the hotel",
+            BookingTittle,
             style: TextStyle(
               fontSize: AppConstants.screenWidth * 0.05,
               fontWeight: FontWeight.bold,
