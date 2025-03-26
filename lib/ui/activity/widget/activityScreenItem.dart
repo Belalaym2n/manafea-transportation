@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/config/appImages.dart';
+import 'package:manafea/ui/activity/widget/searchResultScreen.dart';
 
 class ActivityScreenItem extends StatefulWidget {
   const ActivityScreenItem({super.key});
@@ -76,7 +77,7 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
               Expanded(
                 child: Center(
                   child: isSearchPressed
-                      ? _searchResultsWidget() // Show widget after search
+                      ? SearchResultScreen() // Show widget after search
                       : _buildDefaultImage(), // Show image by default
                 ),
               ),

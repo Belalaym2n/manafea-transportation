@@ -4,9 +4,9 @@ import 'package:manafea/config/appConstants.dart';
 
 import '../../../config/appColors.dart';
 
-class ElevatedButtonStepperHotelBooking extends StatelessWidget {
+class ElevatedButtonStepper extends StatelessWidget {
 
-  ElevatedButtonStepperHotelBooking({
+  ElevatedButtonStepper({
     super.key,
     required this.onStepContinue,
     required this.onStepCancel,

@@ -141,7 +141,10 @@ class _OnBoardItemState extends State<OnBoardItem> {
                 )),
                 Spacer(),
                 elevated_button(onPressed: () {
-                      _nextStep();
+                  _currentStep == _totalSteps - 1
+                      && languageIndex ==-1? 
+                      SizedBox():
+                  _nextStep();
                     }, buttonName: "Next", valid:
                 _currentStep < _totalSteps - 1 ?
                 true :_currentStep == _totalSteps - 1

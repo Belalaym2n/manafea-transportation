@@ -6,24 +6,26 @@ class UserBookingData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(16), // مسافة خارجية
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 🟢 الحقل الأول
-          CustomTextField(
+          const CustomTextField(
+            textInputType: TextInputType.text,
             label: "First Name",
             hintText: "Enter your first name",
             icon: Icons.person,
           ),
-          SizedBox(height: 16), // مسافة بين الحقول
+          const SizedBox(height: 20),
 
           // 🔵 الحقل الثاني
-          CustomTextField(
+          const CustomTextField(
+            textInputType: TextInputType.number,
             label: "Phone Number",
-            hintText: " Phone Number",
-            icon: Icons.person_outline,
+            hintText: "Enter your phone number",
+            icon: Icons.phone,
           ),
         ],
       ),
@@ -35,9 +37,12 @@ class CustomTextField extends StatelessWidget {
   final String label;
   final String hintText;
   final IconData icon;
+  final TextInputType textInputType;
 
   const CustomTextField({
+    super.key,
     required this.label,
+    required this.textInputType,
     required this.hintText,
     required this.icon,
   });
@@ -45,20 +50,24 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType:textInputType ,
       decoration: InputDecoration(
-        labelText: label, // اسم الحقل
-        hintText: hintText, // نص المساعدة
-        prefixIcon: Icon(icon, color: AppColors.primaryColor), // أيقونة الإدخال
+        labelText: label,
+        hintText: hintText,
+        prefixIcon: Icon(icon, color: AppColors.primaryColor),
         filled: true,
-        fillColor: Colors.grey.shade100, // خلفية خفيفة للحقل
+        fillColor: Colors.grey.shade200,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12), // زوايا ناعمة
-          borderSide: BorderSide.none, // إزالة الإطار الافتراضي
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
+
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+              color: AppColors.primaryColor, width: 1.5),
         ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       ),
     );
   }
