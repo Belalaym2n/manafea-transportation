@@ -108,6 +108,6 @@ class _CarBookingScreenState
   @override
   stepTwoContentInStepperChooseCheckInAndCheckOut() {
     // TODO: implement stepTwoContentInStepperChooseCheckInAndCheckOut
-    return CheckInCheckOut();
+    return Container();
   }
 }

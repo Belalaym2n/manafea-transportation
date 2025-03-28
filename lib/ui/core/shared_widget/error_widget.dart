@@ -42,7 +42,7 @@ error_widget({
                 curve: Curves.easeInOut,
                 padding: EdgeInsets.all(AppConstants.screenWidth * 0.02),
                 decoration: BoxDecoration(
-                  color: Colors.red[50],
+                  color: Colors.white,
                   borderRadius:
                   BorderRadius.circular(AppConstants.screenWidth * 0.03),
                 ),

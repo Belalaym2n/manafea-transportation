@@ -87,6 +87,7 @@ class _ActivityScreenBookingState extends BaseView
       Consumer<ActivityBookingViewModel>(
           builder: (context, viewModel, child) =>
               buildStepCounterInStepper(
+                  totalPrice: 22,
                   title: "People Count",
                   increaseCount:
                   viewModel.increaseRoomCount, minusCount: viewModel.minusRoomCount
