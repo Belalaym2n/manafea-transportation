@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/data/repositories/orderRepo/requestOrderRepo.dart';
+import 'package:manafea/data/services/orderServices/requestOrderService.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/core/shared_widget/userBookingData.dart';
 import 'package:manafea/ui/hotelBooking/connector/hotelConnector.dart';
@@ -23,77 +25,83 @@ class HotelBookingScreen extends StatefulWidget {
   State<HotelBookingScreen> createState() => _HotelBookingScreenState();
 }
 
-class _HotelBookingScreenState extends
-BaseView<HotelBookingViewModel,HotelBookingScreen>
-    implements HotelConnector{
+class _HotelBookingScreenState
+    extends BaseView<HotelBookingViewModel, HotelBookingScreen>
+    implements HotelConnector {
   DateTime selectedDate = DateTime.now(); // تخزين التاريخ في المتغير
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.connector=this;
+    viewModel.connector = this;
   }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (context) => viewModel,
-    child:Consumer<HotelBookingViewModel>(
-      builder: (context, viewModel, child) =>
-    SafeArea(
-        child: Scaffold(
-            backgroundColor: Colors.grey.shade100, // Light background for elegance
+        child: Consumer<HotelBookingViewModel>(
+          builder: (context, viewModel, child) => SafeArea(
+            child: Scaffold(
+                backgroundColor: Colors.grey.shade100,
+                // Light background for elegance
 
-            body: viewModel.orderIsDone==false?
-        SingleChildScrollView(
-          child: Column(
-            children: [
-               const HotelScreenItem(),
-          SingleChildScrollView(
-            child:Material(  // ✅ Wrap Stepper with Material
-                child: Stepper(
-
-                    key: ValueKey(viewModel.selectedRoomType),
-                  controlsBuilder: (context, details) =>
-                     viewModel.index==4 && viewModel.selectedRoomType=='Special'
-                   ?const SizedBox()
-                         :
-                     viewModel.index==5 && viewModel.selectedRoomType=='Common'?
-                    SizedBox(): ElevatedButtonStepper(
-
-                    onStepCancel: viewModel.onStepCancel,
-                    onStepContinue: viewModel.onStepContinue ,
-                  ),
-                  margin: const EdgeInsets.all(0),
-
-
-
-                  steps: viewModel.steps,
-                  currentStep: viewModel.index,
-                )),
-              ),
-            ],
-          ),):done_order_widget(
-              context
-            )
-        ),
-      ),
-    ));
+                body: viewModel.orderIsDone == false
+                    ? SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const HotelScreenItem(),
+                            SingleChildScrollView(
+                              child: Material(
+                                  // ✅ Wrap Stepper with Material
+                                  child: Stepper(
+                                key: ValueKey(viewModel.selectedRoomType),
+                                controlsBuilder: (context, details) =>
+                                    viewModel.index == 4 &&
+                                            viewModel.selectedRoomType ==
+                                                'Special'
+                                        ? const SizedBox()
+                                        : viewModel.index == 5 &&
+                                                viewModel.selectedRoomType ==
+                                                    'Common'
+                                            ? SizedBox()
+                                            : ElevatedButtonStepper(
+                                                onStepCancel:
+                                                    viewModel.onStepCancel,
+                                                onStepContinue:
+                                                    viewModel.onStepContinue,
+                                              ),
+                                margin: const EdgeInsets.all(0),
+                                steps: viewModel.steps,
+                                currentStep: viewModel.index,
+                              )),
+                            ),
+                          ],
+                        ),
+                      )
+                    : done_order_widget(context)),
+          ),
+        ));
   }
+
   @override
   stepOneContentInStepper() {
     return Consumer<HotelBookingViewModel>(
-    builder: (context, viewModel, child) =>
-        buildStepOneContentInStepper(
-      onSelectRoom: viewModel.changeRoomSelected,
-      selectedRoomType: viewModel.selectedRoomType,
-    ) );
+        builder: (context, viewModel, child) =>
+            buildStepOneContentInStepper(
+              onSelectRoom: viewModel.changeRoomSelected,
+              selectedRoomType: viewModel.selectedRoomType,
+            ));
   }
 
   @override
   HotelBookingViewModel init_my_view_model() {
+    RequestOrderService requestOrderService = RequestOrderService();
+
+    RequestOrderRepo requestOrderRepo = RequestOrderRepo(requestOrderService);
     // TODO: implement init_my_view_model
-    return HotelBookingViewModel();
+    return HotelBookingViewModel(requestOrderRepo);
   }
 
   @override
@@ -111,20 +119,25 @@ BaseView<HotelBookingViewModel,HotelBookingScreen>
   @override
   stepTwoContentInStepper() {
     // TODO: implement stepTwoContentInStepper
-    return
-      Consumer<HotelBookingViewModel>(
-        builder: (context, viewModel, child) =>
-            buildStepCounterInStepper(
-title: viewModel.selectedRoomType=="Common"?'People Number':"Room Count",
-            increaseCount:
-        viewModel.increaseRoomCount, minusCount: viewModel.minusRoomCount
-            , count: viewModel.roomCount));
+    return Consumer<HotelBookingViewModel>(
+        builder: (context, viewModel, child) => buildStepCounterInStepper(
+            title: viewModel.selectedRoomType == "Common"
+                ? 'People Number'
+                : "Room Count",
+            increaseCount: viewModel.increaseRoomCount,
+            minusCount: viewModel.minusRoomCount,
+            count: viewModel.roomCount, totalPrice: viewModel.totalPrice ));
   }
+
   @override
   stepThreeContentInStepper() {
     return CheckInCheckOut(
-
-
+      onSelectCheckInDate: viewModel.changeSelectCheckInDate,
+      onSelectCheckOutDate: viewModel.changeSelectCheckOutDate,
+      focusedDateCheckInDate: viewModel.focusedDateCheckIn,
+      focusedDateCheckOutDate: viewModel.focusedDateCheckOut,
+      checkInDateString: viewModel.checkInDateString,
+      checkOutDateString: viewModel.checkOutDateString,
     );
   }
 
@@ -146,19 +159,10 @@ title: viewModel.selectedRoomType=="Common"?'People Number':"Room Count",
   @override
   stepTwoContentInStepperForCommonRoomType() {
     // TODO: implement stepTwoContentInStepperForCommonRoomType
-   return Consumer<HotelBookingViewModel>(
+    return Consumer<HotelBookingViewModel>(
         builder: (context, viewModel, child) =>
-       buildStepTwoContentInStepperForCommonRoomJust
-         (onSelectRoom: viewModel.changeCommonRoomTypeSelected,
-       selectedCoomonRoomType: viewModel.selectedCommonRoomType
-       )
-
-
-
-   );
+            buildStepTwoContentInStepperForCommonRoomJust(
+                onSelectRoom: viewModel.changeCommonRoomTypeSelected,
+                selectedCoomonRoomType: viewModel.selectedCommonRoomType));
   }
-
-
-
-
 }

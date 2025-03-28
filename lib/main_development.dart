@@ -19,12 +19,7 @@ void main() async {
 
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => HotelBookingViewModel()),
-      ],
-      child: const MyApp(),
-    ),
+    const MyApp(),
   );
 }
 
