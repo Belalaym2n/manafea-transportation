@@ -12,10 +12,10 @@ import '../../core/shared_widget/textFormField.dart';
 class LoginItem extends StatefulWidget {
    LoginItem({super.key,
   required this.controller,
-  required this.checkNumberValidation,
+  required this.sendOTP,
   });
   TextEditingController controller;
-  Function checkNumberValidation;
+  Function sendOTP;
 
   @override
   State<LoginItem> createState() => _LoginItemState();
@@ -56,10 +56,10 @@ class _LoginItemState extends State<LoginItem> {
                   child: elevated_button(
                       valid: isValid,
                       onPressed: () {
+                        print("object");
                         isValid?
-                       // widget.
-                     //   checkNumberValidation()
-                      Navigator.pushNamed(context, AppRoutes.verifyScreen)
+                     widget.sendOTP()
+                   //   Navigator.pushNamed(context, AppRoutes.verifyScreen)
                        :null;
                       },
                       buttonName: "Next"),

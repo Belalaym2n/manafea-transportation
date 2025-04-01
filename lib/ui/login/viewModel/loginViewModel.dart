@@ -1,25 +1,57 @@
+import 'package:flutter/cupertino.dart';
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
+import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/login/connector/loginConnector.dart';
 
-import '../../../data/services/OTPServie/otpService.dart'; // Import OTP service
+import '../../../data/repositories/authRepo/otpRepo.dart';
 
 class LoginViewModel extends BaseViewModel<LoginConnector> {
-  final OTPService otpService = OTPService(); // Create OTPService instance
+  final OTPRepo _otpRepo;
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  LoginViewModel(this._otpRepo);
 
   Future<void> sendVerification({required String number}) async {
-    print("dsf");
-    // ✅ Validate number before sending OTP
-    // String? validationMessage = validateSaudiNumber(number: number);
-    // if (validationMessage != null) {
-    //   return; // Stop execution if number is invalid
-    // }
-
     try {
-      await otpService.sendOTP(phoneNumber: number);
-      print("success");
+      validateSaudiNumber(number: number);
+      setLoading(true);
+      await Future.delayed(
+          const Duration(seconds: 1)); // ✅ انتظر قبل تنفيذ الطلب
+      await _otpRepo.sendOTP(phoneNumber: number);
+      await setLoading(false);
+
+
+SharedPreferencesHelper.saveData(key: "phoneNumber", value: number);
+print(await SharedPreferencesHelper.getData("phoneNumber"));
+      await Future.delayed(
+          const Duration(milliseconds: 300)); // ✅ انتظر قبل تنفيذ الطلب
+      connector!.navigateToVerify();
     } catch (e) {
-      print("error ${e.toString()}");
+      setLoading(false);
       connector?.onError("❌ Failed to send OTP: ${e.toString()}");
+    } finally {
+      setLoading(
+          false); // ❌ لا يجب أن يكون `true` هنا، بل `false` لإخفاء اللودينج
+    }
+  }
+
+  Future<void> verifyNumber(String smsCode) async {
+    try {
+      String? verificationId = _otpRepo.getVerificationId();
+      if (verificationId == null) {
+        throw Exception("No verification ID found. Request OTP again.");
+      }
+      await _otpRepo.verifyNumber(smsCode: smsCode);
+      connector!.navigateToPersonalDetailed();
+    } catch (e) {
+      print(await SharedPreferencesHelper.getData("phoneNumber"));
+
+      print("❌ Verification error: $e");
+      setLoading(false);
+      connector?.onError("❌ Verification failed: ${e.toString()}");
     }
   }
 
@@ -30,21 +62,19 @@ class LoginViewModel extends BaseViewModel<LoginConnector> {
 
     number = number.trim();
 
-    if (!checkRegExp(number)) {
-      return connector?.onError("Please enter a valid Saudi number");
-    }
+    // if (!checkRegExp(number)) {
+    //   return connector?.onError("Please enter a valid Saudi number");
+    // }
 
     return null; // ✅ Number is valid
   }
 
-  bool checkRegExp(String number) {
-    RegExp regex = RegExp(r'^(05)[0-9]{8}$');
-    return regex.hasMatch(number);
+  setLoading(bool isLoading) {
+    _isLoading = isLoading; // عدّلنا السطر ده
+    notifyListeners(); // نخبر الواجهة بضرورة التحديث
   }
 
   bool nullableNumber(String? number) {
-    return number == null || number
-        .trim()
-        .isEmpty;
+    return number == null || number.trim().isEmpty;
   }
 }

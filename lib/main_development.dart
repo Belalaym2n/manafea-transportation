@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +9,7 @@ import 'package:manafea/ui/hotelBooking/viewModel/hottelBookingViewModel.dart';
 import 'package:provider/provider.dart';
 
 import 'config/appConstants.dart';
+import 'data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -14,14 +17,14 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseAuth.instance.setSettings
-    (appVerificationDisabledForTesting: true);
+  FirebaseAuth.instance.setSettings(
+      appVerificationDisabledForTesting: true);
 
+  await SharedPreferencesHelper.init();
 
-  runApp(
-    const MyApp(),
-  );
+  runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     AppConstants.initSize(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,

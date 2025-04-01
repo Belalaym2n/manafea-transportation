@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:manafea/config/appImages.dart';
-import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
+import 'package:manafea/ui/login/view/loginScreen.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
@@ -33,11 +32,13 @@ class _OnBoardItemState extends State<OnBoardItem> {
 
   void _nextStep() {
     if (_currentStep < _totalSteps - 1) {
+
       setState(() {
         _currentStep++;
       });
     } else {
-      Navigator.pushNamed(context, AppRoutes.login);
+      Navigator.push(context, MaterialPageRoute(builder:
+      (context) => const LoginScreen()));
     }
   }
 
@@ -87,7 +88,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
     _buildHeaderScreen() {
       return Row(children: [
         _buildBackIcon(),
-        SizedBox(
+        const SizedBox(
           width: 15,
         ),
         _buildLineIndicator(),
@@ -105,29 +106,31 @@ class _OnBoardItemState extends State<OnBoardItem> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 _buildHeaderScreen(),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
 
                 _buildHeadLineText(),
                 _currentStep < _totalSteps - 1?
-                SizedBox(
+                const SizedBox(
 
-                ):SizedBox(height: 160,) ,
+                ):const SizedBox(height: 160,) ,
                 _currentStep < _totalSteps - 1?
                 _buildImage():Center(child: _buildChooseLanguage(
                   onTap: (){
+
                     setState(() {
                       languageIndex=1;
                     });
+
                   },
                      isSelected: languageIndex==1,
                   text: 'English'
                 )),
                 _currentStep < _totalSteps - 1?
-                SizedBox(
+                const SizedBox(
 
-                ):SizedBox(height: 30,) ,
+                ):const SizedBox(height: 30,) ,
                 _currentStep < _totalSteps - 1?
                 _buildDescriptionText():Center(child:
                 _buildChooseLanguage(
@@ -139,10 +142,10 @@ class _OnBoardItemState extends State<OnBoardItem> {
                     isSelected: languageIndex==2,
                   text: 'عربى'
                 )),
-                Spacer(),
+                const Spacer(),
                 elevated_button(onPressed: () {
                   _currentStep == _totalSteps - 1
-                      && languageIndex ==-1? 
+                      && languageIndex ==-1?
                       SizedBox():
                   _nextStep();
                     }, buttonName: "Next", valid:
@@ -151,7 +154,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
                     && languageIndex !=-1?
                 true:false
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               ],
@@ -170,7 +173,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
         onTap();
       },
       child: Material(
-        color: isSelected ? Colors.black : Color(0xFFdcdcdc),
+        color: isSelected ? Colors.black : const Color(0xFFdcdcdc),
         borderRadius: BorderRadius.circular(10),
         elevation: isSelected ? 10 : 0,
         child: Container(
@@ -178,9 +181,9 @@ class _OnBoardItemState extends State<OnBoardItem> {
             shape: BoxShape.circle,
             color: isSelected
                 ? Colors.black
-                : Color(0xFFdcdcdc), // Set black background when selected
+                : const Color(0xFFdcdcdc), // Set black background when selected
           ),
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           height: 40,
           width: 300,
           child: Center(child: Text(text,textAlign: TextAlign.center,
@@ -219,7 +222,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
           300,
           Text(
             items[_currentStep].headline,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 22, fontWeight: FontWeight.w900, color: Colors.black),
           ),
         )

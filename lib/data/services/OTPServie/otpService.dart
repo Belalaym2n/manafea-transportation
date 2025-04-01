@@ -11,16 +11,18 @@ class OTPService {
       verificationFailed: verificationFailed,
       codeSent: codeSent,
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-      timeout: const Duration(seconds: 60),
+      timeout: const Duration(seconds: 120),
       forceResendingToken: null, // 🔹 اختياري: تعطيل إعادة الإرسال الإجباري
       multiFactorSession: null, // 🔹 تعطيل التحقق الثنائي
     );
+  }
+  String? getVerificationId() {
+    return verificationId;
   }
 
   void verificationCompleted(PhoneAuthCredential credential) async {
     try {
       await auth.signInWithCredential(credential,
-
       );
       print("✅ Auto verification successful!");
     } catch (e) {
@@ -32,11 +34,10 @@ class OTPService {
     print("❌ OTP Error: ${e.code} - ${e.message}");
   }
 
-  void codeSent(String verificationId, int? resendToken) {
+  void codeSent(String verificationID, int? resendToken) {
     print("📩 OTP has been sent. Verification ID: $verificationId");
-
-    // Store verificationId for later use when manually verifying OTP
-    this.verificationId = verificationId;
+    verificationId = verificationID;
+    print("📩 OTP has been sent. Verification ID: $verificationId");
 
   }
 
@@ -44,10 +45,11 @@ class OTPService {
     print("⏳ OTP auto-retrieval timed out. Verification ID: $verificationId");
     this.verificationId = verificationId; // Store verification ID
   }
-
-  /// Manually verifies OTP entered by the user
   Future<void> verifyOTP(String smsCode) async {
     try {
+      print("📝 Verifying OTP...");
+      print("🔍 Current Verification ID: $verificationId");
+
       if (verificationId == null) {
         print("❌ Error: No verification ID found. Please request OTP again.");
         return;
@@ -62,6 +64,8 @@ class OTPService {
       print("✅ OTP Verified! User signed in.");
     } catch (e) {
       print("❌ OTP Verification Failed: ${e.toString()}");
+      throw Exception();
     }
   }
+
 }

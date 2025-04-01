@@ -34,10 +34,7 @@ class Routes {
         return MaterialPageRoute(
           builder: (context) => const Onboardingscreen(),
         );
-      case AppRoutes.verifyScreen:
-        return MaterialPageRoute(
-          builder: (context) => const VerifyScreen(),
-        );
+
       case AppRoutes.carsScreen:
         return MaterialPageRoute(
           builder: (context) => const CarsScreen(),
