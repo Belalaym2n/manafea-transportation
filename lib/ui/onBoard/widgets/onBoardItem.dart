@@ -37,7 +37,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
         _currentStep++;
       });
     } else {
-      Navigator.push(context, MaterialPageRoute(builder:
+      Navigator.pushReplacement (context, MaterialPageRoute(builder:
       (context) => const LoginScreen()));
     }
   }

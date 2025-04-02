@@ -57,10 +57,7 @@ class Routes {
           builder: (context) => const HotelBookingScreen(),
         );
 
-      case AppRoutes.personDetailed:
-        return MaterialPageRoute(
-          builder: (context) => const UserPersonalDetails(),
-        );
+
 
       case AppRoutes.splash:
         return MaterialPageRoute(

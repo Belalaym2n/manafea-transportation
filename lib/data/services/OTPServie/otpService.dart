@@ -1,6 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class OTPService {
+   static OTPService? _instance;
+   OTPService._internal();
+   factory OTPService() {
+     _instance ??= OTPService._internal();
+     return _instance!;
+   }
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   String? verificationId; // Store verification ID for manual OTP verification
 
@@ -12,17 +19,20 @@ class OTPService {
       codeSent: codeSent,
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
       timeout: const Duration(seconds: 120),
-      forceResendingToken: null, // 🔹 اختياري: تعطيل إعادة الإرسال الإجباري
+      forceResendingToken: null,
+      // 🔹 اختياري: تعطيل إعادة الإرسال الإجباري
       multiFactorSession: null, // 🔹 تعطيل التحقق الثنائي
     );
   }
+
   String? getVerificationId() {
     return verificationId;
   }
 
   void verificationCompleted(PhoneAuthCredential credential) async {
     try {
-      await auth.signInWithCredential(credential,
+      await auth.signInWithCredential(
+        credential,
       );
       print("✅ Auto verification successful!");
     } catch (e) {
@@ -38,13 +48,13 @@ class OTPService {
     print("📩 OTP has been sent. Verification ID: $verificationId");
     verificationId = verificationID;
     print("📩 OTP has been sent. Verification ID: $verificationId");
-
   }
 
   void codeAutoRetrievalTimeout(String verificationId) {
     print("⏳ OTP auto-retrieval timed out. Verification ID: $verificationId");
     this.verificationId = verificationId; // Store verification ID
   }
+
   Future<void> verifyOTP(String smsCode) async {
     try {
       print("📝 Verifying OTP...");
@@ -67,5 +77,4 @@ class OTPService {
       throw Exception();
     }
   }
-
 }

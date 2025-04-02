@@ -39,6 +39,11 @@ dependencies:
   cloud_firestore: ^5.6.5
   firebase_auth: ^5.5.1
   shared_preferences: ^2.5.3
+  onesignal_flutter: ^5.2.2
+
+#for loading in notification screen
+  shimmer: ^3.0.0
+
   smooth_page_indicator: ^1.2.1
   animate_do: ^4.2.0
   curved_navigation_bar: ^1.0.6

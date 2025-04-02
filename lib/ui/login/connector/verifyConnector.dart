@@ -1,6 +1,6 @@
-import 'package:manafea/config/base_class.dart';
+import '../../../config/base_class.dart';
 
-abstract class LoginConnector extends BaseConnector{
+abstract class VerifyConnector extends BaseConnector{
   @override
   onError(String message) {
     // TODO: implement onError
@@ -13,6 +13,6 @@ abstract class LoginConnector extends BaseConnector{
     throw UnimplementedError();
   }
 
-  navigateToVerify();
+  navigateToPersonalDetailed();
 
 }

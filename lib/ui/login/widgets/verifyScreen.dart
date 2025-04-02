@@ -19,48 +19,33 @@ class VerifyScreen extends StatefulWidget {
 class _VerifyScreenState extends State<VerifyScreen> {
   String? otpCode;
 
-  bool _isLoading = false;
-  void _startLoading() {
-    if (!_isLoading) {
-      setState(() {
-        _isLoading = true;
-      });
 
-      showLoadingDialog(context);
-    }
-  }
 
-  void _stopLoading() {
-    if (mounted && Navigator.of(context, rootNavigator: true).canPop()) {
-      Navigator.of(context, rootNavigator: true).pop(); // ✅ يغلق فقط الـ Dialog
-    }
-  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Colors.white,
-            body:  Container(
-              margin: const EdgeInsets.symmetric(horizontal: 32, vertical: 88),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildIntroTexts(),
-                    const SizedBox(height: 88),
-                    _buildPinCodeFields(context),
-                    const SizedBox(height: 60),
-                    _buildVerifyButton(context),
-                  ],
-                ),
-              ),
-            ),
-
-
-                 ));
+      backgroundColor: Colors.white,
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 32, vertical: 88),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildIntroTexts(),
+              const SizedBox(height: 88),
+              _buildPinCodeFields(context),
+              const SizedBox(height: 60),
+              _buildVerifyButton(context),
+            ],
+          ),
+        ),
+      ),
+    ));
   }
 
-   showLoadingDialog(BuildContext context) {
+  showLoadingDialog(BuildContext context) {
     showDialog(
       barrierColor: Colors.black.withOpacity(0.3), // خلفية شفافة للحجب
       barrierDismissible: false, // يمنع إغلاقه بالضغط خارجه
@@ -77,20 +62,9 @@ class _VerifyScreenState extends State<VerifyScreen> {
       child: ElevatedButton(
         onPressed: () async {
 
-          _startLoading();
-
-          try {
-            await Future.delayed(const Duration(seconds: 1)); // محاكاة عملية التحقق
             widget.verifyNumber(otpCode ?? '');
-            _stopLoading();
 
-          } catch (e) {
-            print("Error during verification: $e");
-          }
-          _startLoading();
-
-          // _stopLoading();  ✅ إيقاف التحميل بعد انتهاء العملية
-    },
+          },
         child: Text(
           'Verify',
           style: TextStyle(color: Colors.white, fontSize: 16),
