@@ -1,43 +1,51 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:manafea/domain/models/userModel.dart';
 import 'package:manafea/routing/appRoutes.dart';
+import 'package:manafea/ui/bottomNav/view/bottomNav.dart';
 import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
 
-class UserPersonalDetails extends StatefulWidget {
-  const UserPersonalDetails({super.key});
+class UserPersonalDetailsItem extends StatefulWidget {
+   UserPersonalDetailsItem({super.key,required this.firstNameController
+  ,required this.lastNameController
+  ,required this.uploadUserDat
+     ,required this.phoneNumber,
+  });
+  TextEditingController firstNameController ;
+  TextEditingController lastNameController ;
+   String phoneNumber ;
+  Function({required UserModel user}) uploadUserDat ;
 
   @override
-  State<UserPersonalDetails> createState() => _UserPersonalDetailsState();
+  State<UserPersonalDetailsItem> createState() => _UserPersonalDetailsItemState();
 }
 
-class _UserPersonalDetailsState extends State<UserPersonalDetails> {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  bool isValid = false;
+class _UserPersonalDetailsItemState extends State<UserPersonalDetailsItem> {
+   bool isValid = false;
 
   @override
   void initState() {
     super.initState();
     updateValidation();
 
-    firstNameController.addListener(updateValidation);
-    lastNameController.addListener(updateValidation);
+    widget.firstNameController.addListener(updateValidation);
+    widget. lastNameController.addListener(updateValidation);
   }
 
   void updateValidation() {
     setState(() {
-      isValid = firstNameController.text.isNotEmpty &&
-          lastNameController.text.isNotEmpty;
+      isValid = widget. firstNameController.text.isNotEmpty &&
+          widget. lastNameController.text.isNotEmpty;
     });
   }
 
   @override
   void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
+    widget. firstNameController.dispose();
+    widget.lastNameController.dispose();
     super.dispose();
   }
 
@@ -56,9 +64,9 @@ class _UserPersonalDetailsState extends State<UserPersonalDetails> {
             height: 50,
           ),
           _buildTextFormField(
-              controller: firstNameController, hint: 'First Name'),
+              controller:  widget.firstNameController, hint: 'First Name'),
           _buildTextFormField(
-              controller: lastNameController, hint: 'Last Name'),
+              controller: widget. lastNameController, hint: 'Last Name'),
           SizedBox(
             height: 50,
           ),
@@ -67,8 +75,13 @@ class _UserPersonalDetailsState extends State<UserPersonalDetails> {
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: elevated_button(
                 onPressed: () {
+                  var user = UserModel.builder()
+                      .setFirstName(widget.firstNameController.text)
+                      .setLastName(widget.lastNameController.text)
+                      .setPhoneNumber(widget.phoneNumber)
+                      .build();
                   isValid
-                      ? Navigator.pushNamed(context, AppRoutes.bottomNav)
+                  ?widget.uploadUserDat(user: user)
                       : SizedBox();
                 },
                 valid: isValid,

@@ -1,0 +1,53 @@
+import 'package:manafea/config/base_class.dart';
+import 'package:manafea/data/repositories/loginDataRepo/loginDataRepo.dart';
+
+import '../../../data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
+import '../../../domain/models/userModel.dart';
+import '../connector/personalDetailedConnector.dart';
+
+class PersonalDetailedViewModel
+    extends BaseViewModel<PersonalDetailedConnector> {
+  LoginDataRepo loginDataRepo;
+  bool _isLoading = false;
+  String? _phoneNumber;
+
+  bool get isLoading => _isLoading;
+
+  String? get phoneNumber => _phoneNumber;
+
+  PersonalDetailedViewModel(this.loginDataRepo);
+
+  uploadUserToDatabase({required UserModel user}) async {
+    setLoading(true);
+    loadPhoneNumber();
+    bool notNull = isNullable(user);
+    if (!notNull) {
+      setLoading(false);
+      return connector!.onError("please enter firstName and lastName");
+    }
+    try {
+      await loginDataRepo.uploadUserToDatabase(user: user);
+      connector!.navigateToHomeScreen();
+    } catch (e) {
+      connector!.onError(e.toString());
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  bool isNullable(UserModel user) {
+    return user.firstName.trim().isNotEmpty &&
+        user.lastName.trim().isNotEmpty &&
+        user.phoneNumber.trim().isNotEmpty;
+  }
+
+  setLoading(bool isLoading) {
+    _isLoading = isLoading;
+    notifyListeners();
+  }
+
+  loadPhoneNumber() async {
+    _phoneNumber = await SharedPreferencesHelper.getData('phoneNumber');
+    notifyListeners();
+  }
+}

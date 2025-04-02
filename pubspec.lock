@@ -424,6 +424,14 @@ packages:
       url: "http://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  onesignal_flutter:
+    dependency: "direct main"
+    description:
+      name: onesignal_flutter
+      sha256: f1bc3cfa7bf8f9d06977f305802a0dcd31b007a9f95910c41b14bc99c3612828
+      url: "http://pub.flutter-io.cn"
+    source: hosted
+    version: "5.3.0"
   package_info_plus:
     dependency: transitive
     description:
@@ -584,6 +592,14 @@ packages:
       url: "http://pub.flutter-io.cn"
     source: hosted
     version: "2.4.1"
+  shimmer:
+    dependency: "direct main"
+    description:
+      name: shimmer
+      sha256: "5f88c883a22e9f9f299e5ba0e4f7e6054857224976a5d9f839d4ebdc94a14ac9"
+      url: "http://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   simple_gesture_detector:
     dependency: transitive
     description:

@@ -6,10 +6,7 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      content: Center(
+    return  Center(
         child: Container(
           width: 150,
           height: 150,
@@ -35,9 +32,7 @@ class LoadingWidget extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
+
+    )) );
   }
 }

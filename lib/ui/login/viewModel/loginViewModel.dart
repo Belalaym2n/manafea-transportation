@@ -14,44 +14,36 @@ class LoginViewModel extends BaseViewModel<LoginConnector> {
 
   LoginViewModel(this._otpRepo);
 
+  bool _isDisposed =
+      false; // إضافة متغير لتتبع إذا كان الـ ViewModel تم التخلص منه.
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
+  }
+
+  setLoading(bool isLoading) {
+    _isLoading = isLoading;
+    notifyListeners();
+  }
+
   Future<void> sendVerification({required String number}) async {
     try {
       validateSaudiNumber(number: number);
       setLoading(true);
-      await Future.delayed(
-          const Duration(seconds: 1)); // ✅ انتظر قبل تنفيذ الطلب
+      await Future.delayed(const Duration(seconds: 1));
       await _otpRepo.sendOTP(phoneNumber: number);
-      await setLoading(false);
+      setLoading(false);
 
+      await SharedPreferencesHelper.saveData(key: "phoneNumber", value: number);
 
-SharedPreferencesHelper.saveData(key: "phoneNumber", value: number);
-print(await SharedPreferencesHelper.getData("phoneNumber"));
-      await Future.delayed(
-          const Duration(milliseconds: 300)); // ✅ انتظر قبل تنفيذ الطلب
+      await Future.delayed(const Duration(milliseconds: 300));
       connector!.navigateToVerify();
     } catch (e) {
       setLoading(false);
       connector?.onError("❌ Failed to send OTP: ${e.toString()}");
     } finally {
-      setLoading(
-          false); // ❌ لا يجب أن يكون `true` هنا، بل `false` لإخفاء اللودينج
-    }
-  }
-
-  Future<void> verifyNumber(String smsCode) async {
-    try {
-      String? verificationId = _otpRepo.getVerificationId();
-      if (verificationId == null) {
-        throw Exception("No verification ID found. Request OTP again.");
-      }
-      await _otpRepo.verifyNumber(smsCode: smsCode);
-      connector!.navigateToPersonalDetailed();
-    } catch (e) {
-      print(await SharedPreferencesHelper.getData("phoneNumber"));
-
-      print("❌ Verification error: $e");
-      setLoading(false);
-      connector?.onError("❌ Verification failed: ${e.toString()}");
+      setLoading(false); // تأكد من إيقاف اللودينج بعد تنفيذ العملية
     }
   }
 
@@ -67,11 +59,6 @@ print(await SharedPreferencesHelper.getData("phoneNumber"));
     // }
 
     return null; // ✅ Number is valid
-  }
-
-  setLoading(bool isLoading) {
-    _isLoading = isLoading; // عدّلنا السطر ده
-    notifyListeners(); // نخبر الواجهة بضرورة التحديث
   }
 
   bool nullableNumber(String? number) {

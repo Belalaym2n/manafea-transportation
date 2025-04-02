@@ -1,11 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 
 import '../../../config/appColors.dart';
+import '../../../domain/models/notificationModel.dart';
 
 class NotificationScreenItem extends StatefulWidget {
-  const NotificationScreenItem({super.key});
+   NotificationScreenItem({super.key ,
+     required this.notificationModel,
+  });
+
+  NotificationModel notificationModel;
 
   @override
   State<NotificationScreenItem> createState() => _NotificationScreenItemState();
@@ -39,9 +45,14 @@ Widget _notificationCard() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildNotificationTitle(),
-                  _buildNotificationTimeText()
-                ],
+                  Flexible(
+                    flex: 2, // اجعل العنوان يأخذ حصة أكبر
+                    child: _buildNotificationTitle(),
+                  ),
+                  Flexible(
+                    flex: 2, // اجعل الوقت يأخذ مساحة أقل
+                    child: _buildNotificationTimeText(),
+                  ), ],
               ),
               SizedBox(height: AppConstants.screenHeight * 0.01),
               // Description
@@ -76,12 +87,14 @@ Widget _notificationCard() {
 
   Text _buildNotificationTitle(){
     return  Text(
-      "Belal Ayman",
+     widget.notificationModel.title??'belal',
       //widget.notificationModel.title.toString(),
       style: TextStyle(
         fontSize: AppConstants.screenWidth * 0.045,
         fontWeight: FontWeight.w600,
         color: AppColors.primaryColor,
+        overflow: TextOverflow.ellipsis
+
       ),
     );
   }
@@ -89,7 +102,7 @@ Widget _notificationCard() {
   Text _buildNotificationTimeText(){
     return Text(
 
-      "2/10/2024",
+      widget.notificationModel.date.toString().substring(0, 16),
       //     widget.notificationModel.date.toString().substring(0, 16),
       style: TextStyle(
         fontSize: AppConstants.screenWidth * 0.038,
@@ -101,7 +114,7 @@ Widget _notificationCard() {
 
   Text _buildNotificationDescription(){
     return Text(
-      "This description is professional, concise, and highlights the key features of a hotel booking service. Let me know if you'd like any changes",
+      widget.notificationModel.description,
       style: TextStyle(
         fontSize: AppConstants.screenWidth * 0.035,
         color: AppColors.lightBlack,
@@ -117,12 +130,12 @@ Widget _notificationCard() {
       children: [
         TextButton(
           onPressed: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => NotificationDetailed(
-            //           notificationModel: widget.notificationModel),
-            //     ));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NotificationDetailedItem(
+                      notificationModel: widget.notificationModel),
+                ));
           },
           child: Text(
             "View Detailed",
