@@ -46,19 +46,22 @@ class _CarBookingScreenState
                       SizedBox(
                           height: AppConstants.screenHeight / 1.6,
                           // ✅ Wrap Stepper with Material
-                          child: Stepper(
-                            controlsBuilder: (context, details) =>
-                                viewModel.index != 3
-                                    ? ElevatedButtonStepper(
-                                        onStepCancel: viewModel.onStepCancel,
-                                        onStepContinue:
-                                            viewModel.onStepContinue,
-                                      )
-                                    : SizedBox(),
-                            margin: const EdgeInsets.all(0),
-                            steps: viewModel.steps,
-                            currentStep: viewModel.index,
-                          ))
+                          // child:
+                          // Stepper(
+                          //   controlsBuilder: (context, details) =>
+                          //       viewModel.index != 3
+                          //           ? ElevatedButtonStepper(
+                          //               onStepCancel: viewModel.onStepCancel,
+                          //               onStepContinue:
+                          //                   viewModel.onStepContinue,
+                          //             )
+                          //           : SizedBox(),
+                          //   margin: const EdgeInsets.all(0),
+                          //   steps: viewModel.steps,
+                          //   currentStep: viewModel.index,
+                          // )
+                      //)
+                      )
                     ],
                   ),
                 ):done_order_widget(context)),
@@ -87,10 +90,10 @@ class _CarBookingScreenState
   @override
   stepFourContentInStepperBookingButton() {
     // TODO: implement stepFiveContentInStepperBookingButton
-    return ConfirmBookingInStepper(
-      onStepCancel: viewModel.onStepCancel,
-      onStepContinue: viewModel.onStepContinue,
-    );
+    // return ConfirmBookingInStepper(
+    //   onStepCancel: viewModel.onStepCancel,
+    //   onStepContinue: viewModel.onStepContinue,
+    // );
   }
 
   @override

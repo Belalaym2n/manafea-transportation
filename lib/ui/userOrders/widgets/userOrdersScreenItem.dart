@@ -1,40 +1,11 @@
-import 'package:flutter/cupertino.dart';
+
+
+  import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:manafea/config/appConstants.dart';
-import 'package:manafea/ui/userOrders/widgets/tabController.dart';
 
-import 'orderItem.dart';
+import '../../../config/appConstants.dart';
 
-class UserOrdersScreenItem extends StatefulWidget {
-  const UserOrdersScreenItem({super.key});
-
-  @override
-  State<UserOrdersScreenItem> createState() => _UserOrdersScreenItemState();
-}
-
-class _UserOrdersScreenItemState extends State<UserOrdersScreenItem> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _buildScreenName(),
-        TabControllerItem(),
-        Expanded(
-          child: ListView.builder(
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: OrderItem(),
-              );
-            },
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildScreenName() {
+Widget buildScreenName() {
     return Text(
       "Orders",
       style: TextStyle(
@@ -53,4 +24,4 @@ class _UserOrdersScreenItemState extends State<UserOrdersScreenItem> {
       ),
     );
   }
-}
+

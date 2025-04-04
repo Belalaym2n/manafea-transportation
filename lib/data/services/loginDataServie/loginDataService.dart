@@ -8,6 +8,7 @@ class LoginDataService {
   LoginDataService(this.fireStore);
 
   Future<void> uploadUserDataToDatabase({required UserModel user}) async {
-  await  fireStore.collection("users_development").doc().set(user.toJson());
+  await  fireStore.collection("users_development").doc()
+      .set(user.toJson());
   }
 }

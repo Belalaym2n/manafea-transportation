@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/domain/models/baseOrderModel/baseOrderModel.dart';
 import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
 
 class OrderItem extends StatefulWidget {
-  const OrderItem({super.key});
+   OrderItem({super.key,required this.order});
 
+   BaseOrder order;
   @override
   State<OrderItem> createState() => _OrderItemState();
 }
@@ -67,7 +69,7 @@ class _OrderItemState extends State<OrderItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Order ID: 34SDF4532597",
+                widget.order.id,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: AppConstants.screenWidth * 0.038,
@@ -75,7 +77,7 @@ class _OrderItemState extends State<OrderItem> {
               ),
               const SizedBox(height: 4),
               Text(
-                "Total Price: 143\$",
+                "Total Price: ${widget.order.price}\$",
                 style: TextStyle(
                   fontSize: AppConstants.screenWidth * 0.032,
                   fontWeight: FontWeight.w500,
@@ -99,14 +101,14 @@ class _OrderItemState extends State<OrderItem> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Common Room",
+    widget.order.name,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: AppConstants.screenWidth * 0.034,
                 ),
               ),
               Text(
-                "x2",
+    widget.order.time.toString(),
                 style: TextStyle(
                   fontSize: AppConstants.screenWidth * 0.032,
                   fontWeight: FontWeight.w600,
