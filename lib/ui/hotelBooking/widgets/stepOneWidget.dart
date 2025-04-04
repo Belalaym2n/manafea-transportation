@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
 
-Widget buildStepOneContentInStepper({
+Widget buildStepOneContentInStepperChooseRoomType({
   required Function(String) onSelectRoom,
   required String selectedRoomType,
 }) {

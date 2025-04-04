@@ -5,8 +5,9 @@ class RequestOrderModel {
   final String time;
   final String date;
   final String roomType;
-  final String bookingType;
   final String? roomCount;
+  final String bookingType;
+
   final String? price;
 
   RequestOrderModel._({

@@ -43,22 +43,24 @@ class _ActivityScreenBookingState extends BaseView
                   child: Column(
                     children: [
                       ActivityScreenBookingItem(),
-                      SizedBox(
-                          height: AppConstants.screenHeight / 1.6,
-                          // ✅ Wrap Stepper with Material
-                          child: Stepper(
-                            controlsBuilder: (context, details) =>
-                            viewModel.index != 3
-                                ? ElevatedButtonStepper(
-                              onStepCancel: viewModel.onStepCancel,
-                              onStepContinue:
-                              viewModel.onStepContinue,
-                            )
-                                : SizedBox(),
-                            margin: const EdgeInsets.all(0),
-                            steps: viewModel.steps,
-                            currentStep: viewModel.index,
-                          ))
+                      // SizedBox(
+                      //     height: AppConstants.screenHeight / 1.6,
+                      //     // ✅ Wrap Stepper with Material
+                      //     child: Stepper(
+                      //       controlsBuilder: (context, details) =>
+                      //       viewModel.index != 3
+                      //           ? ElevatedButtonStepper(
+                      //         onStepCancel: viewModel.onStepCancel,
+                      //         onStepContinue:
+                      //         viewModel.onStepContinue(
+                      //
+                      //         ),
+                      //       )
+                      //           : SizedBox(),
+                      //       margin: const EdgeInsets.all(0),
+                      //       steps: viewModel.steps,
+                      //       currentStep: viewModel.index,
+                      //     ))
                     ],
                   ),
                 ):done_order_widget(
@@ -98,7 +100,8 @@ class _ActivityScreenBookingState extends BaseView
   @override
   buildStepFourContentBooking() {
     // TODO: implement buildStepTwoContentConfirmData
-    return ConfirmBookingInStepper(onStepCancel: viewModel.onStepCancel, onStepContinue: viewModel.onStepContinue);
+    // return ConfirmBookingInStepper(onStepCancel: viewModel.onStepCancel,
+    //     onStepContinue: viewModel.onStepContinue);
   }
   @override
   ActivityBookingViewModel init_my_view_model() {

@@ -25,10 +25,6 @@ class CheckInCheckOut extends StatefulWidget {
 
 class _CheckInCheckOutState extends State<CheckInCheckOut> {
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +124,8 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
   void _showCalendarDialog(
       {
         required Function(DateTime) onSelectDate,
-        required DateTime focusedDate, bool checkIn = false}) {
+        required DateTime focusedDate,
+        bool checkIn = false}) {
     showDialog(
       context: context,
       builder: (context) {
@@ -155,7 +152,8 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
                   firstDay: DateTime.utc(2020, 1, 1),
                   lastDay: DateTime.utc(2040, 12, 31),
                   focusedDay: selectedDate,
-                  selectedDayPredicate: (day) => isSameDay(selectedDate, day),
+                  selectedDayPredicate: (day) =>
+                      isSameDay(selectedDate, day),
                   onDaySelected: (selectedDay, focusedDay) {
 
                     setState(() {
@@ -163,7 +161,6 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
                     });
                     onSelectDate(selectedDate);
 
-                    //  changeDate(selectedDay);
                     Future.delayed(
                       Duration(milliseconds: 700),
                       () {
@@ -211,7 +208,8 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
                   enabledDayPredicate: (day) {
                     return checkIn == true
                         ? !day.isBefore(
-                            DateTime.now().subtract(Duration(days: 1)))
+                            DateTime.now().
+                            subtract(Duration(days: 1)))
                         : !day.isBefore(DateTime
                             .now()); // تعطيل الأيام التي بعد focusedDate
                   },

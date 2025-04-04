@@ -14,12 +14,12 @@ import '../ui/carBooking/view/cars_screen.dart';
 import '../ui/hotelBooking/view/hotelBookinScreen.dart';
 
 class AppRoutes {
-  static const String splash = "/";
+  static const String splash = "sdfs/";
   static const String onBoard = "/sfsdf";
   static const String login = "login/";
   static const String verifyScreen = "verify";
   static const String homeScreen = "home";
-  static const String bottomNav = "sdf/";
+  static const String bottomNav = "/";
   static const String personDetailed = "err";
   static const String hotels = "hotel";
   static const String carsScreen = "carscreen";
