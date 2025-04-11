@@ -106,7 +106,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   Widget _animatedSlide(double offset, Widget child) {
     return TweenAnimationBuilder(
-      tween: Tween<Offset>(begin: Offset(offset, 0), end: Offset.zero),
+      tween: Tween<Offset>(begin:
+      Offset(offset, 0), end: Offset.zero),
       duration: const Duration(milliseconds: 1200),
       curve: Curves.easeOutExpo,
       builder: (_, value, child) {

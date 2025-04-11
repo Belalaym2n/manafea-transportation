@@ -43,58 +43,66 @@ class _HotelBookingScreenState
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => viewModel,
-        child: Consumer<HotelBookingViewModel>(
-          builder: (context, viewModel, child) => SafeArea(
-            child: AbsorbPointer(
-    absorbing: viewModel.isLoading,
-    child:Scaffold(
-                backgroundColor: Colors.grey.shade100,
-                // Light background for elegance
-
-                body: viewModel.orderIsDone == false
-                    ? Stack(
+      create: (context) => viewModel,
+      child: Consumer<HotelBookingViewModel>(
+        builder: (context, viewModel, child) => SafeArea(
+          child: AbsorbPointer(
+            absorbing: viewModel.isLoading,
+            child: Scaffold(
+              backgroundColor: Colors.grey.shade100,
+              body: viewModel.orderIsDone == false
+                  ? Stack(
+                children: [
+                  SingleChildScrollView( // لفّ الـ Column بالـ SingleChildScrollView
+                    child: Column(
                       children: [
-                        SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const HotelScreenItem(),
-                                SingleChildScrollView(
-                                  child: Material(
-                                      child: Stepper(
-                                    key: ValueKey(viewModel.selectedRoomType),
-                                    controlsBuilder: (context, details) =>
-                                        viewModel.index == 4 &&
-                                                viewModel.selectedRoomType ==
-                                                    'Special'
-                                            ? const SizedBox()
-                                            : viewModel.index == 5 &&
-                                                    viewModel.selectedRoomType ==
-                                                        'Common'
-                                                ? SizedBox()
-                                                : ElevatedButtonStepper(
-                                                    onStepCancel:
-                                                        viewModel.onStepCancel,
-                                          onStepContinue: (phone, name) => viewModel.onStepContinue(
-                                            phoneNumber: phoneController.text,
-                                            name: nameController.text,
-                                          ),
-                                                  ),
-                                    margin: const EdgeInsets.all(0),
-                                    steps: viewModel.steps,
-                                    currentStep: viewModel.index,
-                                  )),
-                                ),
-                              ],
+                        const HotelScreenItem(), // العنصر الثابت
+                        // هنا قمنا بوضع الـ Stepper داخل SingleChildScrollView
+                        Material(
+                          child: Stepper(
+                            key: ValueKey(viewModel.selectedRoomType),
+                            controlsBuilder: (context, details) =>
+                            viewModel.index == 4 &&
+                                viewModel.selectedRoomType
+                                    == 'Special'
+                                ? const SizedBox()
+                                : viewModel.index == 5 &&
+                                viewModel.selectedRoomType
+                                    == 'Common'
+                                ? SizedBox()
+                                : ElevatedButtonStepper(
+                              onStepCancel: viewModel.onStepCancel,
+                              onStepContinue: (phone, name) =>
+                              viewModel.selectedRoomType==''||
+                                  viewModel.selectedRoomType
+                                      =='Special'?
+
+                                  viewModel.onStepContinue(
+                                    phoneNumber: phoneController.text,
+                                    name: nameController.text,
+                                  ): viewModel.onStepContinueForCommonRoom(
+                                phoneNumber: phoneController.text,
+                                name: nameController.text,
+                              ),
                             ),
+                            margin: const EdgeInsets.all(0),
+                            steps: viewModel.steps,
+                            currentStep: viewModel.index,
                           ),
-                        if (viewModel.isLoading) // إذا كان في حالة تحميل، عرض الـ loading indicator
-                          showLoading()
+                        ),
                       ],
-                    )
-                    : done_order_widget(context)),)
+                    ),
+                  ),
+                  if (viewModel.isLoading) // عرض الـ loading indicator
+                    showLoading(),
+                ],
+              )
+                  : done_order_widget(context),
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
 
@@ -167,7 +175,11 @@ class _HotelBookingScreenState
     // TODO: implement stepFiveContentInStepperBookingButton
 
     return ConfirmBookingInStepper(
-        onStepContinue: viewModel.onStepContinue,
+        onStepContinue:
+        viewModel.selectedRoomType
+            =='Special'?
+        viewModel.onStepContinue
+            :viewModel.onStepContinueForCommonRoom,
         onStepCancel: viewModel.onStepCancel);
   }
 
@@ -176,8 +188,10 @@ class _HotelBookingScreenState
     // TODO: implement stepTwoContentInStepperForCommonRoomType
     return Consumer<HotelBookingViewModel>(
         builder: (context, viewModel, child) =>
-            buildStepTwoContentInStepperForCommonRoomJust(
-                onSelectRoom: viewModel.changeCommonRoomTypeSelected,
-                selectedCoomonRoomType: viewModel.selectedCommonRoomType));
+            buildStepTwoContentInStepperForCommonRoomChooseManOrWoman(
+                chooseType:
+                viewModel.chooseCommonRoomType ,
+                selectedCommonRoomType:
+                viewModel.selectedCommonRoomType ));
   }
 }

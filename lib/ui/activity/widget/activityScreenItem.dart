@@ -19,37 +19,42 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
     "Riyadh - Malaz",
     "Riyadh - Suwaidi"
   ];
-  bool isSearchPressed = false; // Track if the search button is clicked
+  bool isSearchPressed = false;
 
   _buildQuestionText(){
     return  Text(
       "Where do you want to move from?",
-      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      style: TextStyle(fontSize: AppConstants.screenWidth * 0.045, fontWeight: FontWeight.bold), // حجم الخط بناءً على العرض
     );
   }
+
   @override
   Widget build(BuildContext context) {
+    // تحديد أبعاد الشاشة
+    AppConstants.initSize(context);
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(AppConstants.screenWidth * 0.04), // 4% من العرض
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               _buildQuestionText(),
-              const SizedBox(height: 10),
+              _buildQuestionText(),
+              SizedBox(height: AppConstants.screenHeight * 0.02), // 2% من الارتفاع
               Row(
                 children: [
                   Expanded(
                     child: InkWell(
                       onTap: () => _showLocationPicker(),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 16),
+                        padding: EdgeInsets.symmetric(
+                            vertical: AppConstants.screenHeight * 0.015, // 1.5% من الارتفاع
+                            horizontal: AppConstants.screenWidth * 0.04), // 4% من العرض
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: AppColors.primaryColor,
-                            width: 1.5
+                              color: AppColors.primaryColor,
+                              width: 1.5
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -58,8 +63,9 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
                           children: [
                             Text(
                               selectedLocation ?? "Select a location",
-                              style: const TextStyle(
-                                  fontSize: 16, color: Colors.black54),
+                              style: TextStyle(
+                                  fontSize: AppConstants.screenWidth * 0.04, // 4% من العرض
+                                  color: Colors.black54),
                             ),
                             Icon(Icons.arrow_drop_down_circle)
                           ],
@@ -67,11 +73,11 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: AppConstants.screenWidth * 0.04), // 4% من العرض
                   _buildElevatedButton() ,
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: AppConstants.screenHeight * 0.03), // 3% من الارتفاع
 
               // Display Image or Widget based on search button state
               Expanded(
@@ -97,18 +103,19 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primaryColor,
-        padding: const EdgeInsets.symmetric(
-            horizontal: 24, vertical: 14),
+        padding: EdgeInsets.symmetric(
+            horizontal: AppConstants.screenWidth * 0.1, // 10% من العرض
+            vertical: AppConstants.screenHeight * 0.02), // 2% من الارتفاع
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8)),
       ),
-      child: const Text("Search",
-
+      child: Text("Search",
           style: TextStyle(
               color: Colors.white,
-              fontSize: 16)),
+              fontSize: AppConstants.screenWidth * 0.04)), // 4% من العرض
     );
   }
+
   void _showLocationPicker() {
     showModalBottomSheet(
       context: context,
@@ -118,26 +125,25 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return StatefulBuilder( // لجعل الـ setState يعمل داخل الـ bottomSheet
+        return StatefulBuilder(
           builder: (context, setModalState) {
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+              padding: EdgeInsets.symmetric(
+                  vertical: AppConstants.screenHeight * 0.02, // 2% من الارتفاع
+                  horizontal: AppConstants.screenWidth * 0.04), // 4% من العرض
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // العنوان
                   Text(
                     "Select a Location",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: AppConstants.screenWidth * 0.06, // 6% من العرض
                       fontWeight: FontWeight.w600,
                       color: Colors.black87,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: AppConstants.screenHeight * 0.02), // 2% من الارتفاع
                   Divider(thickness: 1.2, color: Colors.grey[300]),
-
-                  // قائمة الأماكن مع تغيير لون الخلفية عند الاختيار
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
@@ -147,24 +153,21 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
 
                       return AnimatedContainer(
                         duration: Duration(milliseconds: 300),
-                        margin: EdgeInsets.symmetric(vertical: 6),
+                        margin: EdgeInsets.symmetric(vertical: AppConstants.screenHeight * 0.01), // 1% من الارتفاع
                         decoration: BoxDecoration(
-                          color: isSelected ?
-                AppColors.primaryColor
-                              : Colors.transparent,
+                          color: isSelected ? AppColors.primaryColor : Colors.transparent,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ListTile(
-                          leading:  Icon(
-                              Icons.location_on, color: isSelected ?
-                        Colors.white:Colors.red),
+                          leading: Icon(
+                              Icons.location_on,
+                              color: isSelected ? Colors.white : Colors.red),
                           title: Text(
                             locations[index],
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: AppConstants.screenWidth * 0.04, // 4% من العرض
                               fontWeight: FontWeight.w500,
-                              color: isSelected ? Colors.white
-                                  : AppColors.primaryColor,
+                              color: isSelected ? Colors.white : AppColors.primaryColor,
                             ),
                           ),
                           onTap: () {
@@ -172,10 +175,9 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
                               selectedLocation = locations[index];
                             });
 
-                            setModalState(() {}); // تحديث لون العنصر المختار
-
+                            setModalState(() {});
                             Future.delayed(Duration(seconds: 1), () {
-                              Navigator.pop(context); // إغلاق النافذة بعد ثانية
+                              Navigator.pop(context);
                             });
                           },
                         ),
@@ -191,27 +193,12 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
     );
   }
 
-
   Widget _buildDefaultImage() {
     return Image.asset(
       AppImages.search, // Replace with your image path
       width: AppConstants.screenWidth,
-      height: AppConstants.screenHeight*0.45,
+      height: AppConstants.screenHeight * 0.45, // 45% من الارتفاع
       fit: BoxFit.fill,
-    );
-  }
-
-  Widget _searchResultsWidget() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.blueAccent.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: const Text(
-        "Search results appear here...",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-      ),
     );
   }
 }

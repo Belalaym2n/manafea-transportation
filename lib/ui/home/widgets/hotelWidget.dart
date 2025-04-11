@@ -17,20 +17,19 @@ class HotelWidget extends StatefulWidget {
 class _HotelWidgetState extends State<HotelWidget> {
   @override
   Widget build(BuildContext context) {
+    // تحديد أبعاد الشاشة
+    AppConstants.initSize(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         serviceName(name: '#RecommendedHotels'),
-        const SizedBox(height: 8),
+        SizedBox(height: AppConstants.screenHeight * 0.01), // 2% من الارتفاع
         PhysicalModel(
           color: Colors.white,
-          // لون الخلفية
           elevation: 10,
-          // ارتفاع الظل
           shadowColor: Colors.black.withOpacity(0.3),
-          // لون الظل وشفافيته
           borderRadius: BorderRadius.circular(12),
-          // تدوير الحواف
           child: _buildHotelList(),
         )
       ],
@@ -39,22 +38,20 @@ class _HotelWidgetState extends State<HotelWidget> {
 
   Widget _buildHotelList() {
     return SizedBox(
-      height: 215 ,
+      height: AppConstants.screenHeight * 0.296, // 30% من الارتفاع
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal:
+        AppConstants.screenWidth * 0.04), // 4% من العرض
         scrollDirection: Axis.horizontal,
         itemCount: 4,
-        separatorBuilder: (_, __) => const SizedBox(width: 16),
+        separatorBuilder: (_, __) => SizedBox(
+            width: AppConstants.screenWidth * 0.04), // 4% من العرض
         itemBuilder: (context, index) {
           return PhysicalModel(
               color: Colors.white,
-              // لون الخلفية
               elevation: 10,
-              // ارتفاع الظل
               shadowColor: Colors.black.withOpacity(0.3),
-              // لون الظل وشفافيته
               borderRadius: BorderRadius.circular(12),
-              // تدوير الحواف
               child: _buildHotelCard());
         },
       ),
@@ -64,16 +61,11 @@ class _HotelWidgetState extends State<HotelWidget> {
   Widget _buildHotelCard() {
     return PhysicalModel(
         color: Colors.white,
-        // لون الخلفية
         elevation: 10,
-        // ارتفاع الظل
         shadowColor: Colors.black.withOpacity(0.3),
-        // لون الظل وشفافيته
         borderRadius: BorderRadius.circular(12),
-        // تدوير الحواف
         child: Container(
-
-          width: 280,
+          width: AppConstants.screenWidth * 0.7, // 70% من العرض
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -85,37 +77,44 @@ class _HotelWidgetState extends State<HotelWidget> {
               ),
             ],
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              imageNetwork(image: "assets/images/hotel (2).jpg"),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    hotelName(),
-                    const SizedBox(height: 4),
-                    hotelLocation(),
-                  ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                imageNetwork(
+                    image: "assets/images/hotel (2).jpg"),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppConstants.screenWidth
+                          * 0.03, vertical: 4), // 3% من العرض
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      hotelName(),
+                      SizedBox(height: AppConstants.screenHeight * 0.01), // 1% من الارتفاع
+                      hotelLocation(),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [ Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: smallElevatedButton(
+                SizedBox(height: AppConstants.screenHeight * 0.01), // 2% من الارتفاع
 
-                      buttonName: "Book Now", onTap: (){
-                  Navigator.pushNamed(context, AppRoutes.hotels);
-
-                }),
-              ),
-  ])
-            ],
+                // 1% من الارتفاع
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal:
+                        AppConstants.screenWidth * 0.02), // 3% من العرض
+                      child: smallElevatedButton(
+                          buttonName: "Book Now", onTap: (){
+                        Navigator.pushNamed(context, AppRoutes.hotels);
+                      }),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ));
   }
@@ -125,13 +124,13 @@ Widget hotelLocation() {
   return Row(
     children: [
       const Icon(Icons.location_on, color: Colors.red, size: 14),
-      const SizedBox(width: 5),
+      SizedBox(width: AppConstants.screenWidth * 0.02), // 2% من العرض
       Expanded(
         child: Text(
           "109 Annonces De Locations apparence",
           style: TextStyle(
             color: AppColors.primaryColor,
-            fontSize: AppConstants.screenWidth * 0.03,
+            fontSize: AppConstants.screenWidth * 0.03, // حجم الخط بناءً على العرض
           ),
           overflow: TextOverflow.ellipsis,
         ),
@@ -145,7 +144,7 @@ Widget hotelName() {
     "Luxury Hotel",
     style: TextStyle(
       color: AppColors.primaryColor,
-      fontSize: 16,
+      fontSize: AppConstants.screenWidth * 0.04, // حجم الخط بناءً على العرض
       fontWeight: FontWeight.bold,
       shadows: [
         Shadow(

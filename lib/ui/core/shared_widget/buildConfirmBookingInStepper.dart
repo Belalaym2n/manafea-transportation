@@ -24,13 +24,13 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
     return Column(
       children: [
         Container(
-          height: AppConstants.screenHeight * 0.09,
+          height: AppConstants.screenHeight * 0.1 ,
           decoration: BoxDecoration(
             color: AppColors.primaryColor,
             borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.05),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:   EdgeInsets.all(AppConstants.screenWidth*0.023),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -42,10 +42,11 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
             ),
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: AppConstants.screenHeight*0.013),
         elevated_button(
           bgColor: Colors.red,
-          buttonSize: Size(AppConstants.screenWidth, AppConstants.screenHeight * 0.06),
+          buttonSize: Size(AppConstants.screenWidth,
+              AppConstants.screenHeight * 0.06),
           onPressed: widget.onStepCancel,
           buttonName: "Cancel",
           valid: true,
@@ -62,7 +63,7 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
         Text(
           "All Booking",
           style: TextStyle(
-            fontSize: 12,
+            fontSize: AppConstants.screenWidth*0.033,
             fontWeight: FontWeight.w500,
             color: Colors.white,
           ),
@@ -71,7 +72,7 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
         Text(
           "25 thousand ",
           style: TextStyle(
-            fontSize: 16,
+            fontSize: AppConstants.screenWidth*0.044,
             fontWeight: FontWeight.w700,
             color: Colors.white,
           ),
@@ -92,7 +93,7 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
       child: Text(
         "Booking",
         style: TextStyle(
-          fontSize: 18,
+          fontSize: AppConstants.screenWidth*0.05,
           fontWeight: FontWeight.bold,
           color: AppColors.primaryColor,
         ),

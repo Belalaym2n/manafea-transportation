@@ -33,7 +33,7 @@ class UserBookingData extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: AppConstants.screenHeight*0.025),
 
           // 🔵 الحقل الثاني - رقم الهاتف
           customTextFormField(
@@ -74,12 +74,13 @@ Widget customTextFormField({
         validator: validator,
         style: TextStyle(
           fontWeight: FontWeight.w600,
-          fontSize: 16,
+          fontSize:            AppConstants.screenWidth*0.044,
+
           color: Colors.black87,
         ),
         decoration: InputDecoration(
           prefixIcon: Container(
-            padding: const EdgeInsets.all(12),
+            padding:   EdgeInsets.all( AppConstants.screenWidth*0.034),
             // decoration: BoxDecoration(
             //   color: AppColors.primaryColor.withOpacity(0.1),
             //   shape: BoxShape.circle,
@@ -90,11 +91,12 @@ Widget customTextFormField({
           hintStyle: TextStyle(
             color: Colors.grey.shade500,
             fontWeight: FontWeight.w500,
-            fontSize: 14,
+            fontSize:  AppConstants.screenWidth*0.038,
           ),
           filled: true,
           fillColor: Colors.grey.shade100, // لون الخلفية الفاتح
-          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          contentPadding:  EdgeInsets.symmetric(vertical:  AppConstants.screenHeight*0.022
+              , horizontal:  AppConstants.screenWidth*0.05),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade300, width: 1.5),
             borderRadius: BorderRadius.circular(12),
@@ -119,45 +121,3 @@ Widget customTextFormField({
 
 
 
-class CustomTextField extends StatelessWidget {
-  final String label;
-  final String hintText;
-  final IconData icon;
-  final TextInputType textInputType;
-  final TextEditingController controller;
-
-  const CustomTextField({
-    super.key,
-    required this.label,
-    required this.controller,
-    required this.textInputType,
-    required this.hintText,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: textInputType,
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hintText,
-        prefixIcon: Icon(icon, color: AppColors.primaryColor),
-        filled: true,
-        fillColor: Colors.grey.shade200,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide:
-              const BorderSide(color: AppColors.primaryColor, width: 1.5),
-        ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      ),
-    );
-  }
-}

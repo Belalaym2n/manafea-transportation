@@ -10,10 +10,7 @@ import '../../core/shared_widget/elevatedButton.dart';
 import '../../core/shared_widget/textFormField.dart';
 
 class LoginItem extends StatefulWidget {
-   LoginItem({super.key,
-  required this.controller,
-  required this.sendOTP,
-  });
+  LoginItem({super.key, required this.controller, required this.sendOTP});
   TextEditingController controller;
   Function sendOTP;
 
@@ -24,6 +21,7 @@ class LoginItem extends StatefulWidget {
 class _LoginItemState extends State<LoginItem> {
   bool isLoading = false;
   bool isValid = false;
+
   @override
   void initState() {
     super.initState();
@@ -33,71 +31,71 @@ class _LoginItemState extends State<LoginItem> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(child: _buildEnterNumberText()),
-                const SizedBox(
-                  height: 35,
-                ),
-                _buildSaudiFlag(),
-                const SizedBox(
-                  height: 55,
-                ),
-                textFormField(),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(14.0),
-                  child: elevated_button(
-                      valid: isValid,
-                      onPressed: () {
-                        print("object");
-                        isValid?
-                     widget.sendOTP()
-                   //   Navigator.pushNamed(context, AppRoutes.verifyScreen)
-                       :null;
-                      },
-                      buttonName: "Next"),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-              ],
-            )));
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(child: _buildEnterNumberText()),
+            SizedBox(height: AppConstants.screenHeight * 0.04), // تغيير المسافة
+            _buildSaudiFlag(),
+            SizedBox(height: AppConstants.screenHeight * 0.07), // تغيير المسافة
+            textFormField(),
+            Spacer(),
+            Padding(
+              padding: EdgeInsets.all(AppConstants.screenWidth * 0.04), // تغيير padding
+              child: elevated_button(
+                valid: isValid,
+                onPressed: () {
+                  if (isValid) widget.sendOTP();
+                },
+                buttonName: "Next",
+              ),
+            ),
+            SizedBox(
+              height: AppConstants.screenHeight * 0.04, // تغيير المسافة
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   textFormField() {
     return Center(
       child: SizedBox(
-        width: 250, // تقليل العرض ليكون متناسقًا
+        width: AppConstants.screenWidth * 0.7, // تعديل العرض ليكون أكثر مرونة
         child: TextFormField(
           controller: widget.controller,
           style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: AppConstants.screenWidth * 0.08),
+            fontWeight: FontWeight.w700,
+            fontSize: AppConstants.screenWidth * 0.08, // التعديل ليكون مرن
+          ),
           keyboardType: TextInputType.phone,
           textAlign: TextAlign.center,
-          // جعل النص في المنتصف
           decoration: InputDecoration(
             hintText: "0598765432",
-            // مثال رقم الجوال
             hintStyle: TextStyle(
-                color: Colors.grey.shade500,
-                fontWeight: FontWeight.w700,
-                fontSize: AppConstants.screenWidth * 0.08),
-            contentPadding: const EdgeInsets.symmetric(vertical: 12),
+              color: Colors.grey.shade500,
+              fontWeight: FontWeight.w700,
+              fontSize: AppConstants.screenWidth * 0.08, // التعديل ليكون مرن
+            ),
+            contentPadding: EdgeInsets.symmetric(vertical: AppConstants.screenHeight * 0.015), // تغيير padding
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                  color: Colors.grey.shade400, width: 1.5), // خط رمادي خفيف
+                color: Colors.grey.shade400,
+                width: 1.5,
+              ),
             ),
             focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
-                  color: AppColors.lightBlack , width: 2), // خط أخضر عند التركيز
+                color: AppColors.lightBlack,
+                width: 2,
+              ),
             ),
           ),
         ),
@@ -108,14 +106,13 @@ class _LoginItemState extends State<LoginItem> {
   _buildEnterNumberText() {
     return Column(
       children: [
-        SizedBox(
-          height: 40,
-        ),
+        SizedBox(height: AppConstants.screenHeight * 0.05), // تعديل المسافة
         Text(
           'Enter Mobile Number',
           style: TextStyle(
-              fontWeight: FontWeight.w900,
-              fontSize: AppConstants.screenWidth * 0.07),
+            fontWeight: FontWeight.w900,
+            fontSize: AppConstants.screenWidth * 0.07, // تعديل الحجم ليتناسب
+          ),
         ),
       ],
     );
@@ -123,29 +120,27 @@ class _LoginItemState extends State<LoginItem> {
 
   _buildSaudiFlag() {
     return Container(
-      height: 35,
+      height: AppConstants.screenHeight * 0.05, // تعديل الارتفاع ليكون مرن
       width: AppConstants.screenWidth * 0.3,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.black54)),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Colors.black54),
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            width: 10,
-          ),
+          SizedBox(width: AppConstants.screenWidth * 0.03), // تعديل المسافة
           CountryFlag.fromCountryCode(
-            'SA', // كود السعودية
-            width: 40,
-            height: 25,
+            'SA',
+            width: AppConstants.screenWidth * 0.1, // تعديل العرض ليكون مرن
+            height: AppConstants.screenHeight * 0.025, // تعديل الارتفاع ليكون مرن
             shape: Rectangle(),
-            // حواف ناعمة
           ),
-          const SizedBox(width: 8), // مسافة بين العلم والرقم
+          SizedBox(width: AppConstants.screenWidth * 0.02), // تعديل المسافة
           Text(
             "+966",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppConstants.screenWidth * 0.04, // تعديل الحجم ليكون مرن
               fontWeight: FontWeight.bold,
               color: Colors.black87,
             ),

@@ -3,11 +3,13 @@ import 'package:manafea/domain/models/baseOrderModel/baseOrderModel.dart';
 class RequestHotelBooking extends BaseOrder {
   final String roomType;
   final int roomCount;
+  final String ? commonRoomTyp;
 
   RequestHotelBooking._({
     required String id,
     required String orderDate,
     required this.roomType,
+      this.commonRoomTyp ,
     required this.roomCount,
     required String time, // تم تمرير الوقت هنا
     required String name, // تم تمرير الوقت هنا
@@ -46,6 +48,9 @@ class RequestHotelBooking extends BaseOrder {
     final json = super.toJson(); // Get the BaseOrder JSON first
     json['roomType'] = roomType;
     json['roomCount'] = roomCount;
+    if (commonRoomTyp != null) {
+      json['commonRoomTyp'] = commonRoomTyp;
+    }
     return json;
   }
   // RequestHotelBooking copyWith({String? id}) {
@@ -68,6 +73,7 @@ class RequestHotelBookingBuilder
     extends BaseOrderBuilder<RequestHotelBooking, RequestHotelBookingBuilder> {
   String? roomType;
   int? roomCount;
+  String? commonRoomTyp;
 
   RequestHotelBookingBuilder setRoomType(String roomType) {
     this.roomType = roomType;
@@ -78,12 +84,17 @@ class RequestHotelBookingBuilder
     this.roomCount = roomCount;
     return this;
   }
-
+  RequestHotelBookingBuilder setCommonRoomTyp(String commonRoomTyp) {
+    this.commonRoomTyp = commonRoomTyp;
+    return this;
+  }
   @override
   RequestHotelBooking build() {
 
     return RequestHotelBooking._(
       id: id??'sd',
+
+      commonRoomTyp: commonRoomTyp,
       name: name ?? 'sd',
       userId: userId ?? 'user',
       status: status ?? 'pending',

@@ -16,7 +16,8 @@ Widget elevated_button({
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           fixedSize:buttonSize??
-              Size(AppConstants.screenWidth, AppConstants.screenHeight / 15),
+              Size(AppConstants.screenWidth,
+                  AppConstants.screenHeight / 15),
           backgroundColor:valid==false?
           Colors.grey: bgColor ?? AppColors.primaryColor,
 

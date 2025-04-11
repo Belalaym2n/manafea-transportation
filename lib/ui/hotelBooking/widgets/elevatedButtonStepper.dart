@@ -22,11 +22,13 @@ class ElevatedButtonStepper extends StatelessWidget {
       children: [
         ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColors.primaryColor),
+            backgroundColor: MaterialStateProperty.all(
+                AppColors.primaryColor),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius:
-                    BorderRadius.circular(AppConstants.screenWidth * 0.03),
+                    BorderRadius.circular(
+                        AppConstants.screenWidth * 0.03),
               ),
             ),
           ),
@@ -34,7 +36,8 @@ class ElevatedButtonStepper extends StatelessWidget {
            child: Text(
             "Continue",
             style: TextStyle(
-                color: Colors.white, fontSize: AppConstants.screenWidth * 0.04),
+                color: Colors.white,
+                fontSize: AppConstants.screenWidth * 0.04),
           ),
         ),
         SizedBox(width: AppConstants.screenWidth * 0.02),
@@ -52,7 +55,8 @@ class ElevatedButtonStepper extends StatelessWidget {
           child: Text(
             "Cancel",
             style: TextStyle(
-                color: Colors.white, fontSize: AppConstants.screenWidth * 0.03),
+                color: Colors.white,
+                fontSize: AppConstants.screenWidth * 0.03),
           ),
         )
       ],

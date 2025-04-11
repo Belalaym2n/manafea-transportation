@@ -8,9 +8,9 @@ import 'package:manafea/ui/hotelBooking/widgets/stepOneWidget.dart';
 import '../../../config/appConstants.dart';
 
 
-buildStepTwoContentInStepperForCommonRoomJust({
-required Function(String) onSelectRoom,
-required String selectedCoomonRoomType,
+buildStepTwoContentInStepperForCommonRoomChooseManOrWoman({
+required Function(String) chooseType,
+required String selectedCommonRoomType,
 }){
   return  Column(
       children: [
@@ -23,17 +23,17 @@ required String selectedCoomonRoomType,
           height: AppConstants.screenHeight * 0.01,
         ),
         buildChooseRoom(
-          onTap: () => onSelectRoom("Female"),
-          isSelected: selectedCoomonRoomType == "Female",
+          onTap: () => chooseType("Female"),
+          isSelected: selectedCommonRoomType == "Female",
           text: "Female",
         ),
         SizedBox(
           height: AppConstants.screenHeight * 0.02,
         ),
         buildChooseRoom(
-          isSelected: selectedCoomonRoomType == "Male",
+          isSelected: selectedCommonRoomType == "Male",
           text: "Male",
-          onTap: () => onSelectRoom("Male"),
+          onTap: () => chooseType("Male"),
         ),
         SizedBox(
           height: AppConstants.screenHeight * 0.02,

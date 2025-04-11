@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
+import 'package:manafea/config/appConstants.dart';
 
-buildStepCounterInStepper({
+Widget buildStepCounterInStepper({
   required Function increaseCount,
   required Function minusCount,
   required String title,
   required int count,
-  required double totalPrice, // 👈 إضافة سعر الوحدة
-  String currency = "USD", // 👈 خيار لتحديد العملة
+  required double totalPrice,
+  String currency = "USD",
 }) {
-
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -17,58 +17,64 @@ buildStepCounterInStepper({
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title, // العنوان
-            style: const TextStyle(
-              fontSize: 18,
+            title,
+            style: TextStyle(
+              fontSize: AppConstants.screenWidth * (18 / 360),
               fontWeight: FontWeight.bold,
               color: AppColors.primaryColor,
             ),
           ),
-          const SizedBox(height: 5), // مسافة بين العنوان والسعر
+          SizedBox(
+            height: AppConstants.screenHeight * (5 / 776),
+          ),
           Text(
-            "$totalPrice $currency", // 👈 عرض السعر الإجمالي
+            "$totalPrice $currency",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppConstants.screenWidth * (16 / 360),
               fontWeight: FontWeight.w600,
-              color: Colors.green.shade700, // لون مميز للسعر
+              color: Colors.green.shade700,
             ),
           ),
-
         ],
       ),
       Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppConstants.screenWidth * (10 / 360),
+          vertical: AppConstants.screenHeight * (5 / 776),
+        ),
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(AppConstants.screenWidth * (10 / 360)),
         ),
         child: Row(
           children: [
-            // زر الناقص
             IconButton(
               onPressed: () => minusCount(),
-              icon: Icon(Icons.remove, color: AppColors.primaryColor),
+              icon: Icon(
+                Icons.remove,
+                color: AppColors.primaryColor,
+                size: AppConstants.screenWidth * (24 / 360),
+              ),
             ),
-
-            // العدد
             Text(
               "$count",
-              style: const TextStyle(
-                fontSize: 20,
+              style: TextStyle(
+                fontSize: AppConstants.screenWidth * (20 / 360),
                 fontWeight: FontWeight.bold,
                 color: Colors.blueAccent,
               ),
             ),
-
-            // زر الزائد
             IconButton(
               onPressed: () => increaseCount(),
-              icon: Icon(Icons.add, color: AppColors.primaryColor),
+              icon: Icon(
+                Icons.add,
+                color: AppColors.primaryColor,
+                size: AppConstants.screenWidth * (24 / 360),
+              ),
             ),
           ],
         ),
       ),
-
     ],
   );
 }

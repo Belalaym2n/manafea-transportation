@@ -4,6 +4,7 @@ import 'package:manafea/ui/home/widgets/transportation_widget.dart';
 import 'package:manafea/ui/home/widgets/travelWidget.dart';
 import 'package:manafea/ui/home/widgets/welcomUser.dart';
 
+import '../../../config/appConstants.dart';
 import '../../profile_screen/view/profileScreen.dart';
 import '../../profile_screen/widgets/profileScreenItem.dart';
 import 'carsuoImage.dart';
@@ -19,29 +20,26 @@ class HomeScreenItem extends StatefulWidget {
 class _HomeScreenItemState extends State<HomeScreenItem> {
   @override
   Widget build(BuildContext context) {
-    return   const SafeArea(
+    return   SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        drawer: Drawer(child: ProfileScreen()),
+        drawer: const Drawer(child: ProfileScreen()),
 
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              WelcomeUserWidget(),
+              const WelcomeUserWidget(),
 
-              SizedBox(height: 210, child: CasualImage()),
-              SizedBox(height: 10),
-              TransportationWidget(),
-              SizedBox(height: 10),
-              HotelWidget(),
-              SizedBox(height: 10),
-              // TravelWidget(),
-              // SizedBox(height: 14),
-
-
-
+              SizedBox(
+                height: AppConstants.screenHeight * 0.25,
+                child: const CasualImage(),
+              ),               const SizedBox(height: 10),
+              const TransportationWidget(),
+                SizedBox(height: AppConstants.screenHeight * 0.013 ),
+              const HotelWidget(),
+                SizedBox(height: AppConstants.screenHeight*0.03    ),
             ],
           ),
         ),

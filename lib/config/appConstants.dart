@@ -19,7 +19,7 @@ class AppConstants{
   static late double screenWidth;
 
   static void initSize(BuildContext context) {
-    screenHeight = MediaQuery.sizeOf(context).height;
-    screenWidth = MediaQuery.sizeOf(context).width;
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
   }
 }
