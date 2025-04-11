@@ -11,21 +11,24 @@ Widget buildStepOneContentInStepperChooseRoomType({
 }) {
   return Column(
     children: [
-      const Text(
+      Text(
         "Please Choose your Room type ?",
         style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w900, color: Colors.black),
+          fontSize: AppConstants.screenWidth * (18 / 360), // 18 -> 0.05 تقريبًا
+          fontWeight: FontWeight.w900,
+          color: Colors.black,
+        ),
       ),
       SizedBox(
-        height: AppConstants.screenHeight * 0.01,
+        height: AppConstants.screenHeight * (8 / 776), // كان 0.01
       ),
       buildChooseRoom(
         onTap: () => onSelectRoom("Special"),
         isSelected: selectedRoomType == "Special",
         text: "Special",
       ),
-      SizedBox( 
-        height: AppConstants.screenHeight * 0.02,
+      SizedBox(
+        height: AppConstants.screenHeight * (15 / 776), // كان 0.02
       ),
       buildChooseRoom(
         isSelected: selectedRoomType == "Common",
@@ -33,13 +36,11 @@ Widget buildStepOneContentInStepperChooseRoomType({
         onTap: () => onSelectRoom("Common"),
       ),
       SizedBox(
-        height: AppConstants.screenHeight * 0.02,
+        height: AppConstants.screenHeight * (15 / 776),
       ),
     ],
   );
 }
-
-
 
 Widget buildChooseRoom({
   required String text,
@@ -49,27 +50,30 @@ Widget buildChooseRoom({
   return GestureDetector(
     onTap: () => onTap(),
     child: Material(
-        color: isSelected ? Colors.black : Color(0xFFdcdcdc),
-        borderRadius: BorderRadius.circular(10),
-        elevation: isSelected ? 10 : 0,
-        child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isSelected
-                  ? Colors.black
-                  : Color(0xFFdcdcdc), // Set black background when selected
+      color: isSelected ? Colors.black : const Color(0xFFdcdcdc),
+      borderRadius: BorderRadius.circular(AppConstants.screenWidth * (10 / 360)),
+      elevation: isSelected ? 10 : 0,
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(AppConstants.screenWidth * (10 / 360)),
+          color: isSelected ? Colors.black : const Color(0xFFdcdcdc),
+        ),
+        margin: EdgeInsets.all(AppConstants.screenWidth * (8 / 360)),
+        height: AppConstants.screenHeight * (25 / 776),
+        width: AppConstants.screenWidth * (300 / 360),
+        child: Center(
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: isSelected ? Colors.white : AppColors.primaryColor,
+              fontSize: AppConstants.screenWidth * (16 / 360), // كان 0.045
+              fontWeight: FontWeight.w900,
             ),
-            margin: EdgeInsets.all(8),
-            height: 25,
-            width: 300,
-            child: Center(
-                child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: isSelected ? Colors.white : AppColors.primaryColor,
-                  fontSize: AppConstants.screenWidth * 0.045,
-                  fontWeight: FontWeight.w900),
-            )))),
+          ),
+        ),
+      ),
+    ),
   );
 }

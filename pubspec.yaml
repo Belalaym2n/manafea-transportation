@@ -40,7 +40,8 @@ dependencies:
   firebase_auth: ^5.5.1
   shared_preferences: ^2.5.3
   onesignal_flutter: ^5.2.2
-
+#
+  device_preview: ^1.2.0
 #for loading in notification screen
   shimmer: ^3.0.0
 
@@ -60,9 +61,12 @@ dependencies:
   # for loading
   skeletonizer: ^1.4.3
   #for date
-  intl: ^0.20.2
+  intl: ^0.19.0
+#  intl: ^0.20.2
   # for booking check-In and check-out
-  table_calendar: ^3.2.0
+  table_calendar: ^3.0.8
+
+  #  table_calendar: ^3.2.0
   # for success order
   lottie: ^3.2.0
 

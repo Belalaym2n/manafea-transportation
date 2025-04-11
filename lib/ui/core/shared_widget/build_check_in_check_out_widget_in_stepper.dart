@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:manafea/config/appConstants.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CheckInCheckOut extends StatefulWidget {
@@ -19,19 +20,28 @@ class CheckInCheckOut extends StatefulWidget {
     required this.checkOutDateString,
     required this.focusedDateCheckOutDate,
   });
+
   @override
   _CheckInCheckOutState createState() => _CheckInCheckOutState();
 }
 
 class _CheckInCheckOutState extends State<CheckInCheckOut> {
-
+  String calculateStayDuration(
+      DateTime checkIn, DateTime checkOut) {
+    final duration = checkOut.difference(checkIn);
+     int days = duration.inDays;
+    if(days==0) {
+      days=days+1;
+    }
+    return '$days ${days == 1 ? 'day' : 'days'}';
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(16),
+          padding:   EdgeInsets.all(AppConstants.screenWidth*0.044),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -47,22 +57,31 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildCheckInWidget(widget.checkInDateString!,widget.focusedDateCheckInDate),
-              _buildCheckoutWidget(widget.checkOutDateString!,widget.focusedDateCheckOutDate),
+              _buildCheckInWidget(widget.checkInDateString!, widget.focusedDateCheckInDate),
+              _buildCheckoutWidget(widget.checkOutDateString!
+                  , widget.focusedDateCheckOutDate),
             ],
           ),
         ),
-        const SizedBox(height: 20),
+          SizedBox(height: AppConstants.screenHeight*0.024),
+        // Display the duration of the stay (difference between check-in and check-out)
+        if (widget.checkInDateString != null
+            && widget.checkOutDateString != null)
+          Text(
+            'Stay Duration: ${calculateStayDuration(widget.focusedDateCheckInDate, widget.focusedDateCheckOutDate)}',
+            style: TextStyle(fontSize: AppConstants.screenWidth*0.044, fontWeight: FontWeight.bold),
+          ),
+        SizedBox(height: AppConstants.screenHeight*0.024),
+
       ],
     );
   }
 
-  Widget _buildCheckoutWidget(String todayDate,DateTime focusedDate) {
+  Widget _buildCheckoutWidget(String todayDate, DateTime focusedDate) {
     return GestureDetector(
       onTap: () => _showCalendarDialog(
         onSelectDate: widget.onSelectCheckOutDate,
         focusedDate: focusedDate,
-//focusedDate: DateTime.now().add(const Duration(days: 1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -70,16 +89,16 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
           Text(
             "Check-out",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppConstants.screenWidth*0.044,
               fontWeight: FontWeight.bold,
               color: Colors.red.shade700,
             ),
           ),
-          const SizedBox(height: 5),
+            SizedBox(height: AppConstants.screenHeight*0.008),
           Text(
             todayDate,
-            style: const TextStyle(
-              fontSize: 14,
+            style:   TextStyle(
+              fontSize: AppConstants.screenWidth*0.04,
               color: Colors.black87,
             ),
           ),
@@ -88,14 +107,12 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
     );
   }
 
-  Widget _buildCheckInWidget(
-      String todayDate,DateTime focusedDate) {
+  Widget _buildCheckInWidget(String todayDate, DateTime focusedDate) {
     return GestureDetector(
       onTap: () =>
           _showCalendarDialog(
-            onSelectDate: widget.onSelectCheckInDate,
-            focusedDate: focusedDate,
-              //focusedDate: DateTime.now(),
+              onSelectDate: widget.onSelectCheckInDate,
+              focusedDate: focusedDate,
               checkIn: true),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,16 +120,16 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
           Text(
             "Check-in",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppConstants.screenWidth*0.044,
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
-          const SizedBox(height: 5),
+            SizedBox(height: AppConstants.screenHeight*0.007),
           Text(
             todayDate,
-            style: const TextStyle(
-              fontSize: 14,
+            style:   TextStyle(
+              fontSize: AppConstants.screenWidth*0.038,
               color: Colors.black87,
             ),
           ),
@@ -122,8 +139,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
   }
 
   void _showCalendarDialog(
-      {
-        required Function(DateTime) onSelectDate,
+      {required Function(DateTime) onSelectDate,
         required DateTime focusedDate,
         bool checkIn = false}) {
     showDialog(
@@ -132,89 +148,90 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
         DateTime selectedDate = focusedDate;
 
         return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: const Center(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title:   Center(
             child: Text(
               "Select Date",
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: AppConstants.screenWidth*0.056,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87),
             ),
           ),
-          content: SizedBox(
-            height: 400,
-            width: double.maxFinite,
-            child: StatefulBuilder(
-              builder: (context, setState) {
-                return TableCalendar(
-                  firstDay: DateTime.utc(2020, 1, 1),
-                  lastDay: DateTime.utc(2040, 12, 31),
-                  focusedDay: selectedDate,
-                  selectedDayPredicate: (day) =>
-                      isSameDay(selectedDate, day),
-                  onDaySelected: (selectedDay, focusedDay) {
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: AppConstants.screenHeight*0.54  ,
+              width: double.maxFinite,
+              child: StatefulBuilder(
 
-                    setState(() {
-                      selectedDate = selectedDay;
-                    });
-                    onSelectDate(selectedDate);
+                builder: (context, setState) {
+                  return TableCalendar(
 
-                    Future.delayed(
-                      Duration(milliseconds: 700),
-                      () {
-                        Navigator.pop(context);
+                      firstDay: DateTime.utc(2020, 1, 1),
+                      lastDay: DateTime.utc(2040, 12, 31),
+                      focusedDay: selectedDate,
+                      selectedDayPredicate: (day) => isSameDay(selectedDate, day),
+                      onDaySelected: (selectedDay, focusedDay) {
+                        setState(() {
+                          selectedDate = selectedDay;
+                        });
+                        onSelectDate(selectedDate);
+
+                        Future.delayed(
+                          Duration(milliseconds: 700),
+                              () {
+                            Navigator.pop(context);
+                          },
+                        );
                       },
-                    );
-                  },
-                  headerStyle: const HeaderStyle(
-                    formatButtonVisible: false,
-                    titleCentered: true,
-                    titleTextStyle: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87),
-                    leftChevronIcon: Icon(Icons.chevron_left,
-                        color: Colors.blueGrey, size: 28),
-                    rightChevronIcon: Icon(Icons.chevron_right,
-                        color: Colors.blueGrey, size: 28),
-                  ),
-                  daysOfWeekStyle: const DaysOfWeekStyle(
-                    weekendStyle: TextStyle(
-                        color: Colors.redAccent, fontWeight: FontWeight.bold),
-                    weekdayStyle: TextStyle(
-                        color: Colors.black87, fontWeight: FontWeight.bold),
-                  ),
-                  calendarStyle: CalendarStyle(
-                    isTodayHighlighted: true,
-                    todayDecoration: BoxDecoration(
-                      color: Colors.blueAccent.withOpacity(0.5),
-                      shape: BoxShape.circle,
-                    ),
-                    selectedDecoration: BoxDecoration(
-                      color: Colors.deepOrange,
-                      shape: BoxShape.circle,
-                    ),
-                    weekendTextStyle: const TextStyle(color: Colors.red),
-                    defaultTextStyle: const TextStyle(
-                        color: Colors.black87,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
-                    outsideDaysVisible: false,
-                    disabledTextStyle: TextStyle(
-                        color: Colors.grey), // تغيير لون الأيام غير المسموح بها
-                  ),
-                  enabledDayPredicate: (day) {
-                    return checkIn == true
-                        ? !day.isBefore(
-                            DateTime.now().
-                            subtract(Duration(days: 1)))
-                        : !day.isBefore(DateTime
-                            .now()); // تعطيل الأيام التي بعد focusedDate
-                  },
-                );
-              },
+                      headerStyle:   HeaderStyle(
+                        formatButtonVisible: false,
+                        titleCentered: true,
+                        titleTextStyle: TextStyle(
+                            fontSize: AppConstants.screenWidth*0.05,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87),
+                        leftChevronIcon:
+                        Icon(Icons.chevron_left, color:
+                        Colors.blueGrey, size: AppConstants.screenWidth*0.08),
+                        rightChevronIcon: Icon(Icons.chevron_right, color: Colors.blueGrey, size: 28),
+                      ),
+                      daysOfWeekStyle: const DaysOfWeekStyle(
+                        weekendStyle: TextStyle(
+                            color: Colors.redAccent, fontWeight: FontWeight.bold),
+                        weekdayStyle: TextStyle(
+                            color: Colors.black87, fontWeight: FontWeight.bold),
+                      ),
+                      calendarStyle: CalendarStyle(
+                        isTodayHighlighted: true,
+                        todayDecoration: BoxDecoration(
+                          color: Colors.blueAccent.withOpacity(0.5),
+                          shape: BoxShape.circle,
+                        ),
+                        selectedDecoration: BoxDecoration(
+                          color: Colors.deepOrange,
+                          shape: BoxShape.circle,
+                        ),
+                        weekendTextStyle: const TextStyle(color: Colors.red),
+                        defaultTextStyle:   TextStyle(
+                            color: Colors.black87, fontSize:
+                        AppConstants.screenWidth*0.044, fontWeight: FontWeight.w500),
+                        outsideDaysVisible: false,
+                        disabledTextStyle: TextStyle(
+                            color: Colors.grey), // Change the color of disabled days
+                      ),
+                      enabledDayPredicate: (day) {
+                        if (checkIn) {
+                          return !day.isBefore(DateTime.now().
+                          subtract(const Duration(days: 1)));
+                        } else {
+                          return !day.isBefore(
+                              widget.focusedDateCheckInDate.add(const Duration(days: 1)));
+                        }
+                      }
+                  );
+                },
+              ),
             ),
           ),
         );

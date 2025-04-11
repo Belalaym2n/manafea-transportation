@@ -26,20 +26,25 @@ class _CasualImageState extends State<CasualImage> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.05),
-      child: Column(
-        children: [
-          Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              _buildImages(),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: smoothIndicator(),
-              ),
-            ],
-          ),
-        ],
+      borderRadius: BorderRadius.circular(
+          AppConstants.screenWidth * 0.05),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                _buildImages(),
+                Padding(
+                  padding: EdgeInsets.only(
+                    bottom: AppConstants.screenHeight * 0.015,
+                  ),
+                  child: smoothIndicator(),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -49,10 +54,10 @@ class _CasualImageState extends State<CasualImage> {
       activeIndex: _currentIndex,
       count: imageUrls.length,
       effect: ExpandingDotsEffect(
-        spacing: 6.0,
-        radius: 8.0,
-        dotWidth: 8.0,
-        dotHeight: 8.0,
+        spacing: AppConstants.screenWidth * 0.016,
+        radius: AppConstants.screenWidth * 0.02,
+        dotWidth: AppConstants.screenWidth * 0.022,
+        dotHeight: AppConstants.screenWidth * 0.022,
         expansionFactor: 1.5,
         dotColor: Colors.grey.shade400,
         activeDotColor: AppColors.primaryColor,
@@ -69,6 +74,7 @@ class _CasualImageState extends State<CasualImage> {
     return CarouselSlider.builder(
       itemCount: imageUrls.length,
       options: CarouselOptions(
+        height: AppConstants.screenHeight*0.25,
         autoPlay: true,
         autoPlayInterval: const Duration(seconds: 3),
         autoPlayCurve: Curves.easeInOut,
@@ -84,12 +90,12 @@ class _CasualImageState extends State<CasualImage> {
       ),
       itemBuilder: (context, index, realIndex) {
         return ClipRRect(
-          borderRadius: BorderRadius.
-          circular(AppConstants.screenWidth * 0.04),
+          borderRadius:
+          BorderRadius.circular(AppConstants.screenWidth * 0.04),
           child: Image.asset(
             imageUrls[index],
             width: double.infinity,
-            height: 200,
+            height: AppConstants.screenHeight * 0.25, // بدل 200 ثابت
             fit: BoxFit.fill,
           ),
         );

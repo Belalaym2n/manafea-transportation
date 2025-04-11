@@ -39,7 +39,8 @@ class _CarBookingScreenState
           builder: (context, viewModel, child) => SafeArea(
                 child: Scaffold(
 
-                    body: viewModel.orderIsDone==false?SingleChildScrollView(
+                    body: viewModel.orderIsDone
+                        ==false?SingleChildScrollView(
                   child: Column(
                     children: [
                       CarBookingScreenItem(),

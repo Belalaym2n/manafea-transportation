@@ -27,7 +27,7 @@ Widget done_order_widget(BuildContext context) {
               children: [
                 SizedBox(height: AppConstants.screenHeight * 0.12), // مسافة للزر العلوي
                 Padding(
-                  padding: const EdgeInsets.all(19.0),
+                  padding:   EdgeInsets.all(    AppConstants.screenWidth*0.052,),
                   child: Center(
                     child: Container(
                       color: Colors.white,

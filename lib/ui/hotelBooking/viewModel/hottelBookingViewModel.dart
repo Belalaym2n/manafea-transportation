@@ -17,12 +17,14 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   String _phoneNumber = '';
   String _name = '';
   String _selectedCommonRoomType = "";
+  String _selectedType = "";
   bool _orderIsDone = false;
   bool _isLoading = false;
   String checkInDateString = DateFormat('dd/MM/yyyy').format(DateTime.now());
   String checkOutDateString =
       DateFormat('dd/MM/yyyy').format(DateTime.now().add(Duration(days: 1)));
-  DateTime focusedDateCheckOut = DateTime.now().add(const Duration(days: 1));
+  DateTime focusedDateCheckOut =
+  DateTime.now().add(const Duration(days: 1));
   DateTime focusedDateCheckIn = DateTime.now();
 
   bool get orderIsDone => _orderIsDone;
@@ -31,7 +33,13 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
 
   String get selectedRoomType => _selectedRoomType;
 
+  String get name => _name;
+
+  String get phoneNumber => _phoneNumber;
+
   String get selectedCommonRoomType => _selectedCommonRoomType;
+
+  String get selectedType => _selectedType;
 
   int get totalSteps => selectedRoomType == "Common" ? 6 : 5;
 
@@ -50,34 +58,87 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     String? phoneNumber,
     String? name,
   }) async {
-    print("index $index");
-    if (index == 0 && selectedRoomType.isEmpty) {
-      connector?.onError("Please choose your Room type ");
-      return;
+    bool isRoomTypeNullable = roomTypeNullable();
+    bool isDatsValid = validDatesSelected(2);
+    bool isValidDataBooking = await validBookingData(
+        name: name, phoneNumber: phoneNumber, stepIndex: 3);
+    if (isRoomTypeNullable == true) {
+     return connector?.onError("Please choose your Room type ");
     }
 
-    if (index == 2 && checkInDateString == checkOutDateString) {
+    if (isDatsValid == false) {
       return connector!.onError("booking at least one day");
     }
-    if (index == 3) {
+
+    if (isValidDataBooking == false) {
+      return connector?.onError("Name and Number must not be empty");
+    }
+
+    if (index == 4) {
+      print("Sending request...");
+      await requestOrder();
+    }
+    _moveToNextStep(4);
+    print("index $index");
+  }
+
+
+  bool roomTypeNullable(){
+    if (index == 0 && selectedRoomType.isEmpty) {
+      return true ;
+    }
+    return false;
+  }
+
+  bool validDatesSelected(int stepIndex) {
+    if (index == stepIndex &&
+        checkInDateString == checkOutDateString) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> validBookingData(
+      {String? phoneNumber, String? name, int? stepIndex}) async {
+    if (index == stepIndex) {
       print("room $selectedRoomType");
       if ((phoneNumber?.trim().isEmpty ?? true) ||
           (name?.trim().isEmpty ?? true)) {
-        print(index);
-        connector?.onError("Name and Number must not be empty");
-        return;
+        return false;
       } else {
-        await setUserDate(phoneNumber: phoneNumber, name: name);
-        print("phone $_phoneNumber");
+        print(" nsf $_name");
+        await setUserDate(phoneNumber: phoneNumber ?? "", name: name ?? '');
+        print(" nsf $_name");
+        print(" nsf $_phoneNumber");
       }
     }
-    if (index == 4 && selectedRoomType == "Special") {
+    return true;
+  }
+
+  onStepContinueForCommonRoom({
+    String? phoneNumber,
+    String? name,
+  }) async {
+    print("index $index");
+
+    if (index == 1 && _selectedCommonRoomType == '') {
+      return connector!.onError("Please Choose Common Room Type");
+    }
+    bool isDatsValid = validDatesSelected(3);
+    bool isValidDataBooking = await validBookingData(
+        name: name, phoneNumber: phoneNumber, stepIndex: 4);
+    if (isDatsValid == false) {
+      return connector!.onError("booking at least one day");
+    }
+    if (isValidDataBooking == false) {
+      return connector?.onError("Name and Number must not be empty");
+    }
+    print("Sending request...$index");
+
+    if (index == 5) {
       try {
         print("Sending request...");
-        await requestOrder(
-          phoneNumber: phoneNumber ?? "",
-          name: name ?? '',
-        );
+        await requestOrder();
 
         return;
       } catch (e) {
@@ -85,8 +146,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
         return connector?.onError(e.toString());
       }
     }
-    _moveToNextStep();
-    print("index $index");
+    _moveToNextStep(5);
   }
 
   void onStepCancel() {
@@ -96,10 +156,11 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     }
   }
 
-  void _moveToNextStep() {
-    if (index < totalSteps) {
+  void _moveToNextStep(int lastIndex) {
+    if (index < lastIndex) {
       index++;
       notifyListeners();
+      print("index $index");
     } else {
       print("You have reached the last step.");
     }
@@ -112,8 +173,13 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     notifyListeners();
   }
 
-  void changeCommonRoomTypeSelected(String roomType) {
-    _selectedCommonRoomType = roomType;
+  void chooseType(String type) {
+    _selectedType = type;
+    notifyListeners();
+  }
+
+  void chooseCommonRoomType(String type) {
+    _selectedCommonRoomType = type;
     notifyListeners();
   }
 
@@ -151,24 +217,28 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
 
   // step five user booking data
 
-  requestOrder({
-    required String name,
-    required String phoneNumber,
-  }) async {
+  requestOrder() async {
     try {
       setLoading(true);
-
-      final order = RequestHotelBookingBuilder()
-          .setName(_name)
-          .setPhoneNumber(_phoneNumber)
+      print("name $name");
+      final orderBuilder = RequestHotelBookingBuilder()
+          .setName(name)
+          .setPhoneNumber(phoneNumber)
           .setOrderDate(DateTime.now().toString())
           .setPrice(_totalPrice)
           .setUserId("userID")
           .setStatus("Pending")
           .setTime("10:00 AM")
           .setRoomType(_selectedRoomType)
-          .setRoomCount(_roomCount)
-          .build();
+          .setRoomCount(_roomCount);
+      print("name $name");
+      print(orderBuilder.name);
+      if (_selectedCommonRoomType != '') {
+        print("belal]");
+        orderBuilder.setCommonRoomTyp(_selectedCommonRoomType);
+      }
+
+      final order = orderBuilder.build();
 
       await requestOrderRepo.requestOrder(requestOrder: order);
       await setLoading(false);
@@ -184,11 +254,11 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
 
 //set user data
   setUserDate({
-    String? phoneNumber,
-    String? name,
-  }) {
-    _phoneNumber = phoneNumber ?? 'not exist ';
-    _name = name ?? '';
+    required String phoneNumber,
+    required String name,
+  }) async {
+    _phoneNumber = phoneNumber;
+    _name = name;
     notifyListeners();
   }
 

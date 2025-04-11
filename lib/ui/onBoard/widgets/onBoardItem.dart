@@ -17,28 +17,26 @@ class OnBoardItem extends StatefulWidget {
   State<OnBoardItem> createState() => _OnBoardItemState();
 }
 
-
 class _OnBoardItemState extends State<OnBoardItem> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
+
   List<OnBoardModel> items = OnBoardModel.items;
   int _currentStep = 0;
-  int languageIndex=-1;
+  int languageIndex = -1;
   final int _totalSteps = OnBoardModel.items.length; // عدد المراحل
 
   void _nextStep() {
     if (_currentStep < _totalSteps - 1) {
-
       setState(() {
         _currentStep++;
       });
     } else {
-      Navigator.pushReplacement (context, MaterialPageRoute(builder:
-      (context) => const LoginScreen()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
     }
   }
 
@@ -52,7 +50,6 @@ class _OnBoardItemState extends State<OnBoardItem> {
 
   @override
   Widget build(BuildContext context) {
-
     // 1/0 1  => 0.025
     double progress = (_currentStep + 1) / _totalSteps;
     _buildLineIndicator() {
@@ -60,7 +57,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
         child: Stack(
           children: [
             Container(
-              height: 5,
+              height: AppConstants.screenHeight * 0.0085,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
@@ -71,7 +68,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
               builder: (context, constraints) {
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
-                  height: 5,
+                  height: AppConstants.screenHeight * 0.0085,
                   width: constraints.maxWidth * progress,
                   decoration: BoxDecoration(
                     color: AppColors.primaryColor,
@@ -88,8 +85,8 @@ class _OnBoardItemState extends State<OnBoardItem> {
     _buildHeaderScreen() {
       return Row(children: [
         _buildBackIcon(),
-        const SizedBox(
-          width: 15,
+        SizedBox(
+          width: AppConstants.screenWidth * 0.04,
         ),
         _buildLineIndicator(),
       ]);
@@ -106,56 +103,59 @@ class _OnBoardItemState extends State<OnBoardItem> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 _buildHeaderScreen(),
-                const SizedBox(
-                  height: 20,
+                  SizedBox(
+                  height: AppConstants.screenHeight*0.023,
                 ),
-
                 _buildHeadLineText(),
-                _currentStep < _totalSteps - 1?
-                const SizedBox(
-
-                ):const SizedBox(height: 160,) ,
-                _currentStep < _totalSteps - 1?
-                _buildImage():Center(child: _buildChooseLanguage(
-                  onTap: (){
-
-                    setState(() {
-                      languageIndex=1;
-                    });
-
-                  },
-                     isSelected: languageIndex==1,
-                  text: 'English'
-                )),
-                _currentStep < _totalSteps - 1?
-                const SizedBox(
-
-                ):const SizedBox(height: 30,) ,
-                _currentStep < _totalSteps - 1?
-                _buildDescriptionText():Center(child:
-                _buildChooseLanguage(
-                    onTap: (){
-                      setState(() {
-                        languageIndex=2;
-                      });
-                    },
-                    isSelected: languageIndex==2,
-                  text: 'عربى'
-                )),
+                _currentStep < _totalSteps - 1
+                    ? const SizedBox()
+                    :   SizedBox(
+                        height: AppConstants.screenHeight*0.23,
+                      ),
+                _currentStep < _totalSteps - 1
+                    ? _buildImage()
+                    : Center(
+                        child: _buildChooseLanguage(
+                            onTap: () {
+                              setState(() {
+                                languageIndex = 1;
+                              });
+                            },
+                            isSelected: languageIndex == 1,
+                            text: 'English')),
+                _currentStep < _totalSteps - 1
+                    ? const SizedBox()
+                    :   SizedBox(
+                        height: AppConstants.screenHeight*0.04,
+                      ),
+                _currentStep < _totalSteps - 1
+                    ? _buildDescriptionText()
+                    : Center(
+                        child: _buildChooseLanguage(
+                            onTap: () {
+                              print("screen hight${AppConstants.screenHeight}");
+                              print("screen widht ${AppConstants.screenWidth}");
+                              setState(() {
+                                languageIndex = 2;
+                              });
+                            },
+                            isSelected: languageIndex == 2,
+                            text: 'عربى')),
                 const Spacer(),
-                elevated_button(onPressed: () {
-                  _currentStep == _totalSteps - 1
-                      && languageIndex ==-1?
-                      SizedBox():
-                  _nextStep();
-                    }, buttonName: "Next", valid:
-                _currentStep < _totalSteps - 1 ?
-                true :_currentStep == _totalSteps - 1
-                    && languageIndex !=-1?
-                true:false
-                ),
-                const SizedBox(
-                  height: 20,
+                elevated_button(
+                    onPressed: () {
+                      _currentStep == _totalSteps - 1 && languageIndex == -1
+                          ? SizedBox()
+                          : _nextStep();
+                    },
+                    buttonName: "Next",
+                    valid: _currentStep < _totalSteps - 1
+                        ? true
+                        : _currentStep == _totalSteps - 1 && languageIndex != -1
+                            ? true
+                            : false),
+                  SizedBox(
+                  height: AppConstants.screenHeight*0.03,
                 ),
               ],
             ),
@@ -163,11 +163,10 @@ class _OnBoardItemState extends State<OnBoardItem> {
     );
   }
 
-  Widget _buildChooseLanguage({
-    required String text,
-    required Function onTap,
-    required bool isSelected
-}){
+  Widget _buildChooseLanguage(
+      {required String text,
+      required Function onTap,
+      required bool isSelected}) {
     return GestureDetector(
       onTap: () {
         onTap();
@@ -177,37 +176,41 @@ class _OnBoardItemState extends State<OnBoardItem> {
         borderRadius: BorderRadius.circular(10),
         elevation: isSelected ? 10 : 0,
         child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: isSelected
-                ? Colors.black
-                : const Color(0xFFdcdcdc), // Set black background when selected
-          ),
-          margin: const EdgeInsets.all(8),
-          height: 40,
-          width: 300,
-          child: Center(child: Text(text,textAlign: TextAlign.center,
-          style: TextStyle(
-            color: isSelected?Colors.white:AppColors.primaryColor,
-            fontSize: AppConstants.screenWidth*0.045,
-            fontWeight: FontWeight.w900
-          ),
-          ))
-        ),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isSelected
+                  ? Colors.black
+                  : const Color(
+                      0xFFdcdcdc), // Set black background when selected
+            ),
+            margin: const EdgeInsets.all(8),
+            height: AppConstants.screenHeight*0.05,
+            width: AppConstants.screenWidth*0.95,
+            child: Center(
+                child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: isSelected ? Colors.white : AppColors.primaryColor,
+                  fontSize: AppConstants.screenWidth * 0.045,
+                  fontWeight: FontWeight.w900),
+            ))),
       ),
     );
   }
 
   _buildBackIcon() {
     return Container(
-      width: 35,
+      width: AppConstants.screenWidth * 0.096,
       decoration:
           const BoxDecoration(color: Color(0xFFdcdcdc), shape: BoxShape.circle),
-      child: IconButton(
-        icon: const Icon(Icons.arrow_back,
-
-            color: AppColors.primaryColor),
-        onPressed: _prevStep,
+      child: Center(
+        child: IconButton(
+          icon: Icon(Icons.arrow_back,
+              size: AppConstants.screenWidth * 0.065,
+              color: AppColors.primaryColor),
+          onPressed: _prevStep,
+        ),
       ),
     );
   }
@@ -222,8 +225,10 @@ class _OnBoardItemState extends State<OnBoardItem> {
           300,
           Text(
             items[_currentStep].headline,
-            style: const TextStyle(
-                fontSize: 22, fontWeight: FontWeight.w900, color: Colors.black),
+            style: TextStyle(
+                fontSize://22
+          AppConstants.screenWidth*0.062
+                , fontWeight: FontWeight.w900, color: Colors.black),
           ),
         )
       ],
@@ -237,7 +242,9 @@ class _OnBoardItemState extends State<OnBoardItem> {
         Text(
           items[_currentStep].description,
           style: TextStyle(
-            fontSize: 18,
+            fontSize:
+           AppConstants.screenWidth*0.05
+            ,
             color: Colors.blueGrey[700],
             height: 1.5,
           ),
@@ -251,6 +258,8 @@ class _OnBoardItemState extends State<OnBoardItem> {
         width: AppConstants.screenWidth,
         height: AppConstants.screenHeight / 2.9,
         child: animationDo(
-            _currentStep, 100, Image.asset(items[_currentStep].imageUrl)));
+
+            _currentStep, 100,
+            Image.asset(items[_currentStep].imageUrl)));
   }
 }

@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
+import 'package:manafea/config/appConstants.dart';
 
 Widget imageNetwork({required String image}) {
   return Stack(
     children: [
-      Container(
-        width: 280,
-        height: 100,
+        Container(
+        width: AppConstants.screenWidth*0.75,
+        height: AppConstants.screenHeight*0.14,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(

@@ -19,9 +19,9 @@ class _TransportationWidgetState extends State<TransportationWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildTransportationText(),
-        const SizedBox(height: 8),
+          SizedBox(height: 0.01 * AppConstants.screenHeight), // Adjust space based on screen height
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 0.04 * AppConstants.screenWidth), // Adjust padding based on screen width
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -39,6 +39,10 @@ class _TransportationWidgetState extends State<TransportationWidget> {
       ],
     );
   }
+
+
+
+
 
   Widget _buildTransportWidget({required IconData icon,
     required String iconName,
@@ -61,7 +65,7 @@ class _TransportationWidgetState extends State<TransportationWidget> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(0.034 * AppConstants.screenWidth), // Adjust padding based on screen width
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isSelected ? AppColors.primaryColor : Colors.grey[300],
@@ -77,17 +81,17 @@ class _TransportationWidgetState extends State<TransportationWidget> {
             ),
             child: Icon(
               icon,
-              size: 28,
+              size: 0.076 * AppConstants.screenWidth, // Adjust icon size based on screen width
               color: isSelected ? Colors.white : Colors.black87,
             ),
           ),
-          const SizedBox(height: 6),
+            SizedBox(height: AppConstants.screenHeight*0.0087),
           Text(
             iconName,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               color: isSelected ? AppColors.primaryColor : Colors.black54,
-              fontSize: 14,
+              fontSize: 0.035 * AppConstants.screenWidth, // Adjust font size based on screen width
             ),
           ),
         ],
@@ -97,7 +101,7 @@ class _TransportationWidgetState extends State<TransportationWidget> {
 
   Widget _buildTransportationText() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16) ,
+      padding: EdgeInsets.only(left: 0.042 * AppConstants.screenWidth), // Adjust padding based on screen width
       child: Text(
         '#ChooseYourTransportation',
         style: TextStyle(

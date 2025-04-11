@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,18 +18,11 @@ import 'config/appConstants.dart';
 import 'data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 import 'domain/models/notificationModel.dart';
 import 'firebase_options.dart';
-void customLogHandler(String message, {String? name, int level = 0}) {
-  if (!message.contains('BLASTBufferQueue')) {
-    developer.log(message, name: name ?? 'FlutterApp', level: level);
-  }
-}
+
 
 void main() async {
 
-  debugPrint = (String? message, {int? wrapWidth}) {
-    if (message?.contains("BLASTBufferQueue") == true) return;
-    debugPrintSynchronously(message, wrapWidth: wrapWidth);
-  };
+
 
   WidgetsFlutterBinding.ensureInitialized();
   print("object");
@@ -40,8 +34,15 @@ void main() async {
   FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: true);
 
   await SharedPreferencesHelper.init();
-
-  runApp(const MyApp());
+  //runApp(const MyApp());
+  //
+  runApp(
+      DevicePreview(
+          enabled: true,
+          tools: const [
+            ...DevicePreview.defaultTools,
+          ],
+          builder: (context) => const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
