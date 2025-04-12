@@ -1,6 +1,6 @@
 import 'package:manafea/config/base_class.dart';
 
-class GetUserOrderConnector extends BaseConnector{
+abstract class GetUserOrderConnector extends BaseConnector{
   @override
   onError(String message) {
     // TODO: implement onError
@@ -12,5 +12,7 @@ class GetUserOrderConnector extends BaseConnector{
     // TODO: implement showLoading
     throw UnimplementedError();
   }
+
+  deleteOrderLoading();
 
 }

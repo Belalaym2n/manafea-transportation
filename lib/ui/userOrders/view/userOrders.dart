@@ -6,8 +6,12 @@ import 'package:manafea/data/services/userHistoryOrderDatabaseService/userOrders
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/login/widgets/loadingWidget.dart';
 import 'package:manafea/ui/userOrders/connector/getUserOrderConnector.dart';
+import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../domain/models/baseOrderModel/baseOrderModel.dart';
 import '../viewModel/getOrdersViewModel.dart';
+import '../widgets/orderItem.dart';
 import '../widgets/tabController.dart';
 import '../widgets/userOrdersScreenItem.dart';
 
@@ -18,36 +22,59 @@ class UserOrders extends StatefulWidget {
   State<UserOrders> createState() => _UserOrdersState();
 }
 
-class _UserOrdersState extends BaseView<GetUserOrdersViewModel
-,UserOrders>  implements GetUserOrderConnector{
-
+class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
+    implements GetUserOrderConnector {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.connector=this;
+    viewModel.connector = this;
+    viewModel.getOrders();
   }
+
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-      child: Scaffold(
-        body:Column(
-          children: [
-            buildScreenName(),
-            TabControllerItem(),
-            viewModel.showOrder(),
-          ],
-        )
+    return SafeArea(
+      child: ChangeNotifierProvider.value(
+        value: viewModel,
+        child: Consumer<GetUserOrdersViewModel>(
+          builder: (context, view, child) {
+            return AbsorbPointer(
+                absorbing: view.deleteOrderLoading,
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        buildScreenName(),
+                        TabControllerItem(
+                          selectStatus: (status) {
+                            view.changeStatus(status);
+                           },
+                        ),
+                        view.isLoading == true
+                            ? showLoading()
+                            : view.showOrder(),
+                      ],
+                    ),
+                    if (view.deleteOrderLoading == true)
+                      Center(
+                        child: deleteOrderLoading(), // يظهر الـ loading هنا
+                      ),
+                  ],
+                ));
+          },
+        ),
       ),
-    ) ;
+    );
   }
 
   @override
   GetUserOrdersViewModel init_my_view_model() {
-    UserOrderHistoryService _userOrderHistoryService=UserOrderHistoryService();
+    UserOrderHistoryFirebaseService _userOrderHistoryService =
+        UserOrderHistoryFirebaseService();
 
-    UserOrderHistoryRepo userOrderHistoryRepo
-    =UserOrderHistoryRepo(_userOrderHistoryService);
+    UserOrderHistoryFirebaseRepo userOrderHistoryRepo =
+        UserOrderHistoryFirebaseRepo(_userOrderHistoryService);
     // TODO: implement init_my_view_model
     return GetUserOrdersViewModel(userOrderHistoryRepo);
   }
@@ -60,9 +87,33 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel
 
   @override
   showLoading() {
-    // TODO: implement showLoading
-    return LoadingWidget(
-
+    return Expanded(
+      child: Skeletonizer(
+        child: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            return OrderItem(
+                cancelOrder: (String id) {},
+                orderDetailedChanged: Container(),
+                order: BaseOrder(
+                    service: 'sdfsd',
+                    phoneNumber: "01224343",
+                    name: "BELAL Ayman",
+                    id: "5973ijdsljljsljdjf",
+                    price: 2424,
+                    time: "2o4uo2",
+                    orderDate: "dsfj",
+                    userId: "dsf",
+                    status: "sdfsd"));
+          },
+        ),
+      ),
     );
+  }
+
+  @override
+  deleteOrderLoading() {
+    // TODO: implement deleteOrderLoading
+    return LoadingWidget();
   }
 }

@@ -20,11 +20,11 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   String _selectedType = "";
   bool _orderIsDone = false;
   bool _isLoading = false;
-  String checkInDateString = DateFormat('dd/MM/yyyy').format(DateTime.now());
+  String checkInDateString =
+  DateFormat('dd/MM/yyyy').format(DateTime.now());
   String checkOutDateString =
       DateFormat('dd/MM/yyyy').format(DateTime.now().add(Duration(days: 1)));
-  DateTime focusedDateCheckOut =
-  DateTime.now().add(const Duration(days: 1));
+  DateTime focusedDateCheckOut = DateTime.now().add(const Duration(days: 1));
   DateTime focusedDateCheckIn = DateTime.now();
 
   bool get orderIsDone => _orderIsDone;
@@ -63,7 +63,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     bool isValidDataBooking = await validBookingData(
         name: name, phoneNumber: phoneNumber, stepIndex: 3);
     if (isRoomTypeNullable == true) {
-     return connector?.onError("Please choose your Room type ");
+      return connector?.onError("Please choose your Room type ");
     }
 
     if (isDatsValid == false) {
@@ -82,17 +82,15 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     print("index $index");
   }
 
-
-  bool roomTypeNullable(){
+  bool roomTypeNullable() {
     if (index == 0 && selectedRoomType.isEmpty) {
-      return true ;
+      return true;
     }
     return false;
   }
 
   bool validDatesSelected(int stepIndex) {
-    if (index == stepIndex &&
-        checkInDateString == checkOutDateString) {
+    if (index == stepIndex && checkInDateString == checkOutDateString) {
       return false;
     }
     return true;
@@ -219,6 +217,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
 
   requestOrder() async {
     try {
+      final DateFormat formatter = DateFormat('h:mm a');
       setLoading(true);
       print("name $name");
       final orderBuilder = RequestHotelBookingBuilder()
@@ -228,9 +227,12 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
           .setPrice(_totalPrice)
           .setUserId("userID")
           .setStatus("Pending")
-          .setTime("10:00 AM")
+          .setTime(formatter.format(DateTime.now()))
+          .setCheckIn(checkInDateString)
+          .setCheckOut(checkOutDateString)
           .setRoomType(_selectedRoomType)
-          .setRoomCount(_roomCount);
+          .setRoomCount(_roomCount).setService("Hotel Booking");
+
       print("name $name");
       print(orderBuilder.name);
       if (_selectedCommonRoomType != '') {
