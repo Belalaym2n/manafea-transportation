@@ -6,6 +6,7 @@ class BaseOrder {
   final String name;
   final String userId;
   final String status;
+  final String service;
   final String orderDate;
 
   BaseOrder({
@@ -14,6 +15,7 @@ class BaseOrder {
     required this.price,
     required this.name,
     required this.userId,
+    required this.service,
     required this.status,
     required this.phoneNumber,
     required this.orderDate,
@@ -29,6 +31,7 @@ class BaseOrder {
       'id': id,
       'time': time,
       'status': status,
+      'service': service,
       'userId': userId,
       'price': price,
       'name': name,
@@ -43,6 +46,7 @@ class BaseOrder {
         userId: json['userId'],
         name: json['name'],
         id: json['id'],
+        service: json['service'],
         time: json['time'],
         price: json['price'],
         phoneNumber: json['phoneNumber'],
@@ -60,10 +64,17 @@ abstract class BaseOrderBuilder<T extends BaseOrder,
   String? name;
   double? price;
   String? userId;
+  String? service;
   String? status;
 
   B setId(String id) {
     this.id = id;
+    return this as B;
+  }
+
+
+  B setService(String serviceName) {
+    this.service = serviceName;
     return this as B;
   }
 

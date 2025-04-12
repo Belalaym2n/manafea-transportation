@@ -1,18 +1,33 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:manafea/domain/models/baseOrderModel/baseOrderModel.dart';
 
-class UserOrderHistoryService {
-  Future<List<BaseOrder>> getOrders() async {
+import '../../../domain/models/hotelModels/requestHotelBooking.dart';
+
+class UserOrderHistoryFirebaseService {
+  Future<List<BaseOrder>> getAllOrders() async {
     final querySnapshot = await FirebaseFirestore.instance
-        .collection("Orders").
-    where("userId", isEqualTo: "userID")
-        .where("status", isEqualTo: "Pending")
-        .withConverter<BaseOrder>(
-      fromFirestore: (snapshot, _) => BaseOrder.fromJson(snapshot.data()!),
-      toFirestore: (order, _) => order.toJson(),
-    )
+        .collection("Orders")
+        .where("userId", isEqualTo: "userID") // لاحقًا استبدلها بالـ user الحقيقي
         .get();
 
-    return querySnapshot.docs.map((doc) => doc.data()).toList();
+    return querySnapshot.docs.map((doc) {
+      final data = doc.data();
+      final service = data["service"];
+
+      switch (service) {
+        case "Hotel Booking":
+          return RequestHotelBooking.fromJson(data);
+
+        default:
+          return BaseOrder.fromJson(data);
+      }
+    }).toList();
+  }
+
+  Future<void> deleteOrder(String id) {
+    return FirebaseFirestore.instance.collection("Orders")
+        .doc(id).delete();
   }
 }

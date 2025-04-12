@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
+import 'package:manafea/config/appConstants.dart';
 
 
 class OrderStatusWidget extends StatelessWidget {
@@ -16,9 +17,12 @@ class OrderStatusWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
+      width: AppConstants.screenWidth*0.3,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding:   EdgeInsets.symmetric(
+          horizontal: AppConstants.screenWidth*0.05,
+          vertical: AppConstants.screenHeight*0.01),
       decoration: BoxDecoration(
         color: isSelected ? AppColors.primaryColor : Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -36,12 +40,15 @@ class OrderStatusWidget extends StatelessWidget {
         ]
             : [],
       ),
-      child: Text(
-        statusName,
-        style: TextStyle(
-          color: isSelected ? Colors.white : AppColors.primaryColor,
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
+      child: Center(
+        child: Text(
+          statusName,
+          style: TextStyle(
+            color: isSelected ?
+            Colors.white : AppColors.primaryColor,
+            fontWeight: FontWeight.bold,
+            fontSize: AppConstants.screenWidth*0.038,
+          ),
         ),
       ),
     );

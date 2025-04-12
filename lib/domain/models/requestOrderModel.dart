@@ -1,119 +1,58 @@
-class RequestOrderModel {
-  final String name;
-  final String phoneNumber;
-  final String orderStatus;
-  final String time;
-  final String date;
+import 'package:manafea/domain/models/baseOrderModel/baseOrderModel.dart';
+
+class RequestOrderModel extends BaseOrder{
+
+
   final String roomType;
-  final String? roomCount;
-  final String bookingType;
+  final String checkIn;
+  final String checkOut;
+  final int roomCount;
+  final String ? commonRoomTyp;
 
-  final String? price;
-
-  RequestOrderModel._({
-    required this.name,
+  RequestOrderModel({
+    required String id,
+      String? orderDate,
     required this.roomType,
-    required this.bookingType,
-    required this.phoneNumber,
-    required this.orderStatus,
-    required this.time,
-    required this.date,
-    this.roomCount,
-    this.price,
-  });
-
-  static RequestOrderModelBuilder builder() => RequestOrderModelBuilder();
-
-  Map<String, dynamic> toJson() {
-    return {
-      "name": name,
-      "phoneNumber": phoneNumber,
-      "bookingType": bookingType,
-      "orderStatus": orderStatus,
-      "time": time,
-      "roomType": roomType,
-      "date": date,
-      "roomCount": roomCount,
-      "price": price,
-    };
-  }
-
+    required this.checkIn,
+    required this.checkOut,
+    this.commonRoomTyp ,
+    required this.roomCount,
+    required String time, // تم تمرير الوقت هنا
+    required String name, // تم تمرير الوقت هنا
+    required String service, // تم تمرير الوقت هنا
+      String? userId, // تم تمرير الوقت هنا
+      String? status, // تم تمرير الوقت هنا
+    required double price, // تم تمرير السعر هنا
+    required String phoneNumber, // تم تمرير رقم الهاتف هنا
+  }) : super(
+    id: id,
+    name: name,
+    time: time,
+    service: service,
+    status: status??"",
+    userId: userId??"",
+    price: price,
+    phoneNumber: phoneNumber,
+    orderDate: orderDate??'',
+  ); // تمرير القيم للـ super
   factory RequestOrderModel.fromJson(Map<String, dynamic> json) {
-    return RequestOrderModel._(
-      name: json["name"] ?? '',
-      phoneNumber: json["phoneNumber"] ?? '',
-      bookingType: json["bookingType"] ?? '',
-      orderStatus: json["orderStatus"] ?? 'pending',
-      time: json["time"] ?? '',
-      date: json["date"] ?? '',
-      roomType: json["roomType"] ?? '',
-      roomCount: json["roomCount"],
-      price: json["price"],
+    return RequestOrderModel(
+      id: json['id'],
+      checkOut: json['checkOut'],
+      checkIn: json['checkIn'],
+      orderDate: json['orderDate'],
+      roomType: json['roomType'],
+      roomCount: json['roomCount'],
+      service: json['service'],
+      time: json['time'],
+      name: json['name'],
+      userId: json['userId'],
+      status: json['status'],
+      price: (json['price'] as num).toDouble(),
+
+      phoneNumber: json['phoneNumber'],
     );
   }
+
 }
 
-class RequestOrderModelBuilder {
-  String? _name;
-  String? _phoneNumber;
-  String _orderStatus = 'pending';
-  String? _time;
-  String? _date;
-  String? _bookingType;
-  String? _roomCount;
-  String? _roomType;
-  String? _price;
-
-  RequestOrderModelBuilder setName(String name) {
-    _name = name;
-    return this;
-  }
-
-  RequestOrderModelBuilder setOrderType(String bookingType) {
-    _bookingType = bookingType;
-    return this;
-  }
-  RequestOrderModelBuilder setRoomType(String roomType) {
-    _roomType = roomType;
-    return this;
-  }
-
-  RequestOrderModelBuilder setPhoneNumber(String phoneNumber) {
-    _phoneNumber = phoneNumber;
-    return this;
-  }
-
-  RequestOrderModelBuilder setTime(String time) {
-    _time = time;
-    return this;
-  }
-
-  RequestOrderModelBuilder setDate(String date) {
-    _date = date;
-    return this;
-  }
-
-  RequestOrderModelBuilder setRoomCount(String? roomCount) {
-    _roomCount = roomCount;
-    return this;
-  }
-
-  RequestOrderModelBuilder setPrice(String price) {
-    _price = price;
-    return this;
-  }
-
-  RequestOrderModel build() {
-    return RequestOrderModel._(
-      name: _name!,
-      bookingType: _bookingType!,
-      phoneNumber: _phoneNumber!,
-      orderStatus: _orderStatus,
-      time: _time!,
-      date: _date!,
-      roomType: _roomType!,
-      roomCount: _roomCount,
-      price: _price,
-    );
-  }
-}

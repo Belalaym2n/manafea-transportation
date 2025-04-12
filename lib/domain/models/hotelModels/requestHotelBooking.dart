@@ -2,6 +2,8 @@ import 'package:manafea/domain/models/baseOrderModel/baseOrderModel.dart';
 
 class RequestHotelBooking extends BaseOrder {
   final String roomType;
+  final String checkIn;
+  final String checkOut;
   final int roomCount;
   final String ? commonRoomTyp;
 
@@ -9,10 +11,13 @@ class RequestHotelBooking extends BaseOrder {
     required String id,
     required String orderDate,
     required this.roomType,
+    required this.checkIn,
+    required this.checkOut,
       this.commonRoomTyp ,
     required this.roomCount,
     required String time, // تم تمرير الوقت هنا
     required String name, // تم تمرير الوقت هنا
+    required String service, // تم تمرير الوقت هنا
     required String userId, // تم تمرير الوقت هنا
     required String status, // تم تمرير الوقت هنا
     required double price, // تم تمرير السعر هنا
@@ -21,6 +26,7 @@ class RequestHotelBooking extends BaseOrder {
           id: id,
           name: name,
           time: time,
+    service: service,
           status: status,
           userId: userId,
           price: price,
@@ -30,9 +36,12 @@ class RequestHotelBooking extends BaseOrder {
   factory RequestHotelBooking.fromJson(Map<String, dynamic> json) {
     return RequestHotelBooking._(
       id: json['id'],
+      checkOut: json['checkOut'],
+      checkIn: json['checkIn'],
       orderDate: json['orderDate'],
       roomType: json['roomType'],
       roomCount: json['roomCount'],
+      service: json['service'],
       time: json['time'],
       name: json['name'],
       userId: json['userId'],
@@ -48,25 +57,14 @@ class RequestHotelBooking extends BaseOrder {
     final json = super.toJson(); // Get the BaseOrder JSON first
     json['roomType'] = roomType;
     json['roomCount'] = roomCount;
+    json['checkIn'] = checkIn;
+    json['checkOut'] = checkOut;
     if (commonRoomTyp != null) {
       json['commonRoomTyp'] = commonRoomTyp;
     }
     return json;
   }
-  // RequestHotelBooking copyWith({String? id}) {
-  //   return RequestHotelBooking._(
-  //     id: id ?? this.id,
-  //     name: name,
-  //     userId: userId,
-  //     status: status,
-  //     orderDate: orderDate,
-  //     roomType: roomType,
-  //     roomCount: roomCount,
-  //     time: time,
-  //     price: price,
-  //     phoneNumber: phoneNumber,
-  //   );
-  // }
+
 }
 
 class RequestHotelBookingBuilder
@@ -74,9 +72,20 @@ class RequestHotelBookingBuilder
   String? roomType;
   int? roomCount;
   String? commonRoomTyp;
+  String? checkOut;
+  String? checkIn;
 
   RequestHotelBookingBuilder setRoomType(String roomType) {
     this.roomType = roomType;
+    return this;
+  }
+
+  RequestHotelBookingBuilder setCheckIn(String checkInDate) {
+    this.checkIn = checkInDate;
+    return this;
+  }
+  RequestHotelBookingBuilder setCheckOut(String checkOutDate) {
+    this.checkOut = checkOutDate;
     return this;
   }
 
@@ -93,7 +102,9 @@ class RequestHotelBookingBuilder
 
     return RequestHotelBooking._(
       id: id??'sd',
-
+      service:service??'',
+      checkOut:checkOut??'',
+      checkIn:checkIn??'',
       commonRoomTyp: commonRoomTyp,
       name: name ?? 'sd',
       userId: userId ?? 'user',
