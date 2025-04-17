@@ -24,32 +24,33 @@ class GetUserOrdersViewModel extends BaseViewModel<GetUserOrderConnector> {
 
   bool get deleteOrderLoading => _deleteOrderLoading;
 
-
-
   GetUserOrdersViewModel(this.userOrderHistoryRepo);
 
   Future<void> getOrders() async {
     try {
-       setLoading(true);
+      setLoading(true);
       errorMessage = null;
       notifyListeners();
       allOrders = await userOrderHistoryRepo.getAllOrders();
       filterOrdersByStatus(_selectedStatus);
-     } catch (e) {
+    } catch (e) {
       errorMessage = e.toString();
     } finally {
       setLoading(false);
     }
   }
+
   void filterOrdersByStatus(String status) {
     _selectedStatus = status;
     filterOrders = allOrders.where((order) => order.status == status).toList();
     notifyListeners();
   }
+
   void changeStatus(String status) {
     _selectedStatus = status;
     filterOrdersByStatus(status);
   }
+
   setLoading(bool loading) {
     _isLoading = loading;
     notifyListeners();
@@ -63,7 +64,6 @@ class GetUserOrdersViewModel extends BaseViewModel<GetUserOrderConnector> {
       filterOrders.removeWhere((order) => order.id == id);
       allOrders.removeWhere((order) => order.id == id);
 
-
       _deleteOrderLoading = false;
       notifyListeners();
     } catch (e) {
@@ -74,7 +74,7 @@ class GetUserOrdersViewModel extends BaseViewModel<GetUserOrderConnector> {
     }
   }
 
-  Widget showOrder() {
+  Widget showOrder(Animation<Offset> animation) {
     if (filterOrders.isEmpty) {
       return const Expanded(
         child: Center(child: Text("No Orders Found")),
@@ -82,20 +82,26 @@ class GetUserOrdersViewModel extends BaseViewModel<GetUserOrderConnector> {
     }
 
     return Expanded(
-      child: ListView.builder(
-        itemCount: filterOrders.length,
-        itemBuilder: (context, index) {
-          var order = filterOrders[index];
+      child: SlideTransition(
+        position: animation,
+        child: ListView.builder(
+          itemCount: filterOrders.length,
+          itemBuilder: (context, index) {
+            var order = filterOrders[index];
 
-          if (order is RequestHotelBooking) {
-            return OrderItem(
-              cancelOrder: deleteOrder,
-              order: order,
-              orderDetailedChanged: buildHotelBookingOrder(order: order),
-            ); // أو OrderHotelItem مثلا
-          }
-        },
+            if (order is RequestHotelBooking) {
+              return OrderItem(
+                cancelOrder: deleteOrder,
+                order: order,
+                orderDetailedChanged: buildHotelBookingOrder(order: order),
+              );
+            }
+
+            return SizedBox();
+          },
+        ),
       ),
     );
   }
+
 }

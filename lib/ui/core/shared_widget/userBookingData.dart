@@ -30,6 +30,7 @@ class UserBookingData extends StatelessWidget {
               if (value == null || value.isEmpty) {
                 return "Name can't be empty";
               }
+
               return null;
             },
           ),
@@ -44,8 +45,9 @@ class UserBookingData extends StatelessWidget {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Phone number is required";
-              } else if (value.length < 10) {
-                return "Enter a valid phone number";
+              }   final regex = RegExp(r'^05\d{8}$');
+              if (!regex.hasMatch(value)) {
+                return "Please enter a valid Saudi phone number like: 0501234567";
               }
               return null;
             },

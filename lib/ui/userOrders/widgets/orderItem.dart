@@ -253,7 +253,7 @@ class _OrderItemState extends State<OrderItem> {
                         // Action when user presses Yes
                         Navigator.pop(context, true);
                       },
-                      child: Text(
+                      child: const Text(
 
                         'Yes',
                         style: TextStyle(color: Colors.white),

@@ -22,15 +22,37 @@ class UserOrders extends StatefulWidget {
   State<UserOrders> createState() => _UserOrdersState();
 }
 
-class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
-    implements GetUserOrderConnector {
+class _UserOrdersState extends BaseView<GetUserOrdersViewModel,
+    UserOrders>with SingleTickerProviderStateMixin
+    implements GetUserOrderConnector  {
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     viewModel.connector = this;
-    viewModel.getOrders();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.2), // من تحت
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOut,
+      ),
+    );
+
+    viewModel.getOrders().then((_) {
+      _controller.forward();
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +75,7 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
                         ),
                         view.isLoading == true
                             ? showLoading()
-                            : view.showOrder(),
+                            : view.showOrder(_slideAnimation),
                       ],
                     ),
                     if (view.deleteOrderLoading == true)

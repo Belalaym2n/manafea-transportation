@@ -19,7 +19,8 @@ class _CarBookingScreenItemState extends State<CarBookingScreenItem> {
           children: [
             buildBookingImage(imagePath: "assets/images/car.jpg", imageName: "BMW X5")
           ,Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.05),
+      padding: EdgeInsets.symmetric(horizontal:
+      AppConstants.screenWidth * 0.05),
       child: buildBookingDescription(BookingTittle: "About the Car"),
           ) ],
 

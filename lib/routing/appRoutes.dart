@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/ui/activity/view/activityScreen.dart';
+import 'package:manafea/ui/addActivity/view/addActivity.dart';
 import 'package:manafea/ui/bottomNav/view/bottomNav.dart';
 import 'package:manafea/ui/carBooking/view/car_bookin_screen.dart';
 import 'package:manafea/ui/home/view/homeScreen.dart';
@@ -14,12 +15,13 @@ import '../ui/carBooking/view/cars_screen.dart';
 import '../ui/hotelBooking/view/hotelBookinScreen.dart';
 
 class AppRoutes {
-  static const String splash = "dsf/";
+  static const String splash = "sdff/";
+  static const String addActivity = "/";
   static const String onBoard = "/sfsdf";
   static const String login = "login/";
   static const String verifyScreen = "verify";
   static const String homeScreen = "home";
-  static const String bottomNav = "/";
+  static const String bottomNav = "5784/";
   static const String personDetailed = "err";
   static const String hotels = "hotel";
   static const String carsScreen = "carscreen";
@@ -33,6 +35,12 @@ class Routes {
       case AppRoutes.onBoard:
         return MaterialPageRoute(
           builder: (context) => const Onboardingscreen(),
+        );
+
+
+      case AppRoutes.addActivity:
+        return MaterialPageRoute(
+          builder: (context) => const AddActivity(),
         );
 
       case AppRoutes.carsScreen:
@@ -69,10 +77,7 @@ class Routes {
           builder: (context) => const LoginScreen(),
         );
 
-      case AppRoutes.homeScreen:
-        return MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        );
+
       case AppRoutes.bottomNav:
         return MaterialPageRoute(
           builder: (context) => const BottomNav(),

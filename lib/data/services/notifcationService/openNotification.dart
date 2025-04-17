@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manafea/ui/home/widgets/homeScreenItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../domain/models/notificationModel.dart';
@@ -20,7 +21,7 @@ class OpenNotification {
           title: notification.title.toString(),
           imageUrl: notification.bigPicture.toString());
       navigatorKey.currentState?.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) =>   HomeScreenItem()),
         (route) =>
             route.isFirst, // يحتفظ فقط بأول شاشة (الشاشة الأخيرة قبل الإشعار)
       );

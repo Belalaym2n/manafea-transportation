@@ -31,6 +31,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
         appBar: AppBar(
           elevation: 0,
           toolbarHeight: 0,
+
         ),
         body: SizedBox(
           width: AppConstants.screenWidth,

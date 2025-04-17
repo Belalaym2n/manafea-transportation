@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/ui/home/view/homeScreen.dart';
+import 'package:manafea/ui/home/widgets/homeScreenItem.dart';
 import 'package:manafea/ui/login/view/loginScreen.dart';
 import 'package:manafea/ui/notification/view/notifcationScreen.dart';
 
@@ -18,7 +19,7 @@ class BottomNavViewModel extends BaseViewModel {
   }
 
   List<Widget> pages = [
-    const HomeScreen(),
+    const HomeScreenItem(),
     const ActivityScreen(),
     const NotificationScreen(),
     const UserOrders(),

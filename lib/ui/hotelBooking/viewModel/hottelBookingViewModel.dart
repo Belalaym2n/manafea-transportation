@@ -22,9 +22,8 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   bool _isLoading = false;
   String checkInDateString =
   DateFormat('dd/MM/yyyy').format(DateTime.now());
-  String checkOutDateString =
-      DateFormat('dd/MM/yyyy').format(DateTime.now().add(Duration(days: 1)));
-  DateTime focusedDateCheckOut = DateTime.now().add(const Duration(days: 1));
+  String checkOutDateString ="Select Date";
+   DateTime focusedDateCheckOut = DateTime.now().add(const Duration(days: 1));
   DateTime focusedDateCheckIn = DateTime.now();
 
   bool get orderIsDone => _orderIsDone;
@@ -90,28 +89,16 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   }
 
   bool validDatesSelected(int stepIndex) {
-    if (index == stepIndex && checkInDateString == checkOutDateString) {
+    if(index ==stepIndex && checkOutDateString=='Select Date'){
+      return false;
+    }
+    if (index == stepIndex
+        && checkInDateString == checkOutDateString) {
       return false;
     }
     return true;
   }
 
-  Future<bool> validBookingData(
-      {String? phoneNumber, String? name, int? stepIndex}) async {
-    if (index == stepIndex) {
-      print("room $selectedRoomType");
-      if ((phoneNumber?.trim().isEmpty ?? true) ||
-          (name?.trim().isEmpty ?? true)) {
-        return false;
-      } else {
-        print(" nsf $_name");
-        await setUserDate(phoneNumber: phoneNumber ?? "", name: name ?? '');
-        print(" nsf $_name");
-        print(" nsf $_phoneNumber");
-      }
-    }
-    return true;
-  }
 
   onStepContinueForCommonRoom({
     String? phoneNumber,
@@ -204,6 +191,8 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   changeSelectCheckInDate(DateTime dateTime) {
     focusedDateCheckIn = dateTime;
     checkInDateString = DateFormat('dd/MM/yyyy').format(dateTime);
+    checkOutDateString ='Select Date';
+
     notifyListeners();
   }
 
@@ -214,6 +203,24 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   }
 
   // step five user booking data
+
+  // check validate booking data
+  Future<bool> validBookingData(
+      {String? phoneNumber, String? name, int? stepIndex}) async {
+    if (index == stepIndex) {
+      print("room $selectedRoomType");
+      if ((phoneNumber?.trim().isEmpty ?? true) ||
+          (name?.trim().isEmpty ?? true)) {
+        return false;
+      } else {
+        print(" nsf $_name");
+        await setUserDate(phoneNumber: phoneNumber ?? "", name: name ?? '');
+        print(" nsf $_name");
+        print(" nsf $_phoneNumber");
+      }
+    }
+    return true;
+  }
 
   requestOrder() async {
     try {

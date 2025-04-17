@@ -36,7 +36,8 @@ class _OnBoardItemState extends State<OnBoardItem> {
       });
     } else {
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+          MaterialPageRoute(builder: (context)
+          => const LoginScreen()));
     }
   }
 
@@ -94,7 +95,7 @@ class _OnBoardItemState extends State<OnBoardItem> {
 
     return SafeArea(
       child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding:   EdgeInsets.symmetric(horizontal:       AppConstants.screenWidth*0.057),
           child: SizedBox(
             width: AppConstants.screenWidth,
             height: AppConstants.screenHeight,
@@ -144,7 +145,8 @@ class _OnBoardItemState extends State<OnBoardItem> {
                 const Spacer(),
                 elevated_button(
                     onPressed: () {
-                      _currentStep == _totalSteps - 1 && languageIndex == -1
+                      _currentStep == _totalSteps - 1
+                          && languageIndex == -1
                           ? SizedBox()
                           : _nextStep();
                     },

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/carBooking/view/car_bookin_screen.dart';
 import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
@@ -12,23 +13,28 @@ class CarScreenItem extends StatefulWidget {
 }
 
 class _CarBookingScreenItemState extends State<CarScreenItem> {
+double aspectRatio=
+    (1.73*(AppConstants.screenWidth*0.1))/AppConstants.screenHeight*0.1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0,
+
         title: const Text("Available Cars",
             style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding:   EdgeInsets.all(AppConstants.screenWidth*0.036),
         child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, // سيارتين في كل صف
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 0.8, // التحكم في أبعاد الودجت
+            crossAxisSpacing: AppConstants.screenWidth*0.03,
+            mainAxisSpacing: AppConstants.screenHeight*0.017,
+            childAspectRatio:     0.8          , // التحكم في أبعاد الودجت
           ),
           itemCount: 12,
           itemBuilder: (context, index) {
@@ -43,7 +49,7 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppConstants.screenWidth*0.039),
         boxShadow: const [
           BoxShadow(color: Colors.black12, blurRadius: 8, spreadRadius: 2),
         ],
@@ -54,14 +60,17 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
             child: Image.asset("assets/images/car.jpg",
-                height: 110, fit: BoxFit.cover, width: double.infinity),
+                height: AppConstants.screenHeight*0.14,
+                fit: BoxFit.cover, width: double.infinity),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal:
+            AppConstants.screenWidth*0.02
+            ),
             child: Text("BMW X5",
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: AppConstants.screenWidth*0.038,
                     fontWeight: FontWeight.bold,
                     shadows: [
                       Shadow(
@@ -71,11 +80,12 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
                       )
                     ])),
           ),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppConstants.screenWidth*0.02),
               child: Text(
                 "\$110/day",
-                style: TextStyle(fontSize: 14, color: Colors.black54),
+                style: TextStyle(       fontSize: AppConstants.screenWidth*0.038,
+                    color: Colors.black54),
               )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -93,4 +103,6 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
       ),
     );
   }
+
+
 }
