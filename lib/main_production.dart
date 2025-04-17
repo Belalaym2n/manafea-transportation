@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'config/appConstants.dart';
 import 'data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
@@ -13,8 +14,7 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  print("object");
-  OneSignal.initialize("9158013e-362c-4f0b-ae4b-576b4f1f670c");
+   OneSignal.initialize("9158013e-362c-4f0b-ae4b-576b4f1f670c");
   OneSignal.Notifications.requestPermission(true);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -22,6 +22,7 @@ void main() async {
   FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: true);
 
   await SharedPreferencesHelper.init();
+
   runApp(const MyApp());
 
   // await SentryFlutter.init(

@@ -12,6 +12,7 @@ import 'package:manafea/ui/hotelBooking/viewModel/hottelBookingViewModel.dart';
 import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:developer' as developer;
 
 import 'config/appConstants.dart';
@@ -34,15 +35,19 @@ void main() async {
   FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: true);
 
   await SharedPreferencesHelper.init();
-  // runApp(const MyApp());
-  //
-  runApp(
-      DevicePreview(
-          enabled: true,
-          tools: const [
-            ...DevicePreview.defaultTools,
-          ],
-          builder: (context) => const MyApp()));
+  await Supabase.initialize(
+    url:"https://pjwaryjtumnzyjruiyzz.supabase.co",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBqd2FyeWp0dW1uenlqcnVpeXp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NDk4NjAsImV4cCI6MjA2MDMyNTg2MH0.kea1W9JUgeGhgIZI6FYGYiTlltQafjVA6TlD7khjzDk",
+  );
+  runApp(const MyApp());
+
+  // runApp(
+  //     DevicePreview(
+  //         enabled: true,
+  //         tools: const [
+  //           ...DevicePreview.defaultTools,
+  //         ],
+  //         builder: (context) => const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
