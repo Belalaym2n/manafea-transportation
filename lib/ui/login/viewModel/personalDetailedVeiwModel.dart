@@ -29,7 +29,7 @@ class PersonalDetailedViewModel
       await loginDataRepo.uploadUserToDatabase(user: user);
       connector!.navigateToHomeScreen();
     } catch (e) {
-      connector!.onError(e.toString());
+      connector!.onError("Something went wrong please try again");
     } finally {
       setLoading(false);
     }
@@ -47,7 +47,8 @@ class PersonalDetailedViewModel
   }
 
   loadPhoneNumber() async {
-    _phoneNumber = await SharedPreferencesHelper.getData('phoneNumber');
+    _phoneNumber = await
+    SharedPreferencesHelper.getData('phoneNumber');
     notifyListeners();
   }
 }

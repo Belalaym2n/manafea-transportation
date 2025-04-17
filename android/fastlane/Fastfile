@@ -18,7 +18,9 @@ default_platform(:android)
 platform :android do
   desc "lane for android app distribution"
   lane :test do
-  sh "flutter build apk --release"
+
+     sh "flutter clean"
+     sh "flutter build apk --release --flavor production -t lib/main_production.dart"
     firebase_app_distribution(
       app: "1:280333007538:android:62015bb72780fdc4eda7ab",
 

@@ -17,8 +17,7 @@ class NotificationViewModel extends BaseViewModel<NotificationConnector>{
   bool get isLoading => _isLoading;
 
   Future<void> fetchNotifications() async {
-    print('object');
-    setLoading (true);
+     setLoading (true);
     try {
       _notifications = await _repository.fetchNotifications();
     } catch (error) {

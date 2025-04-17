@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _animatedSlide(-1, _logo()),
-                const SizedBox(width: 8),
+                  SizedBox(width: AppConstants.screenWidth*0.022),
                 _animatedSlide(1, _logoText()),
               ],
             ),

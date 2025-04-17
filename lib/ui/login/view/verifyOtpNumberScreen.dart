@@ -32,7 +32,6 @@ class _VerifyOTPNumberScreenState
     viewModel.connector = this;
   }
 
-  bool _isDialogShowing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,8 @@ class _VerifyOTPNumberScreenState
                   child: Scaffold(
                     body: Stack(
                       children: [
-                        VerifyScreen(verifyNumber: viewModel.verifyNumber),
+                        VerifyScreen(verifyNumber:
+                        viewModel.verifyNumber),
                         if (view
                             .isLoading) // إذا كان في حالة تحميل، عرض الـ loading indicator
                           showLoading()

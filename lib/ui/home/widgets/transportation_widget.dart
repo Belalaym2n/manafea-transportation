@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/routing/appRoutes.dart';
+import 'package:manafea/ui/carBooking/view/cars_screen.dart';
 
 class TransportationWidget extends StatefulWidget {
   const TransportationWidget({super.key});
@@ -27,7 +28,8 @@ class _TransportationWidgetState extends State<TransportationWidget> {
             children: [
               _buildTransportWidget(
                   onTap: (){
-                    Navigator.pushNamed(context, AppRoutes.carBooking);
+                    Navigator.
+                    push(context,MaterialPageRoute(builder: (context) => CarsScreen(),));
                   },
                   icon: Icons.directions_car, iconName: "Car"),
               _buildTransportWidget(icon: Icons.directions_bus, iconName: "Bus"),
@@ -48,15 +50,26 @@ class _TransportationWidgetState extends State<TransportationWidget> {
     required String iconName,
   Function? onTap
   }) {
-    bool isSelected = selectedIcon == icon;
+    bool isSelected =
+        selectedIcon == icon;
 
     return GestureDetector(
       onTap: () {
         setState(() {
+          // عكس الحالة: إذا كانت الأيقونة محددة، قم بإلغاء تحديدها (تعيين null)، وإذا لم تكن محددة، حددها.
           selectedIcon = isSelected ? null : icon;
         });
-        Future.delayed(Duration(milliseconds: 700), () {
+
+        // تأخير لفترة بسيطة قبل تنفيذ الدالة onTap
+        Future.delayed(Duration(milliseconds: 300), () {
           onTap!();
+        });
+
+        // نضيف setState ثاني لتغيير الـ selectedIcon لو عايز ترجعه لحالته الأصلية بعد التأخير
+        Future.delayed(Duration(milliseconds: 300), () {
+          setState(() {
+            selectedIcon = isSelected ? icon : null;
+          });
         });
 
       },

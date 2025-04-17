@@ -14,10 +14,8 @@ class VerifyViewModel extends BaseViewModel<VerifyConnector> {
 
   Future<void> verifyNumber(String smsCode) async {
     setLoading(true);
-
     try {
-      print("object");
-      await Future.delayed(const Duration(seconds: 1));
+       await Future.delayed(const Duration(seconds: 1));
 
       await _otpRepo.verifyNumber(smsCode: smsCode);
       await setLoading(false);

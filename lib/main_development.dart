@@ -34,15 +34,15 @@ void main() async {
   FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: true);
 
   await SharedPreferencesHelper.init();
-  runApp(const MyApp());
+  // runApp(const MyApp());
   //
-  // runApp(
-  //     DevicePreview(
-  //         enabled: true,
-  //         tools: const [
-  //           ...DevicePreview.defaultTools,
-  //         ],
-  //         builder: (context) => const MyApp()));
+  runApp(
+      DevicePreview(
+          enabled: true,
+          tools: const [
+            ...DevicePreview.defaultTools,
+          ],
+          builder: (context) => const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -71,7 +71,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
             (route) =>
-        route.isFirst, // يحتفظ فقط بأول شاشة (الشاشة الأخيرة قبل الإشعار)
+        route.isFirst,
+        // يحتفظ فقط بأول شاشة (الشاشة الأخيرة قبل الإشعار)
       );
     });
     return MaterialApp(

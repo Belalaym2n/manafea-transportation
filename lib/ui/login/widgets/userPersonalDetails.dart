@@ -70,12 +70,14 @@ class _UserPersonalDetailsItemState extends State<UserPersonalDetailsItem> {
               _buildTextFormField(
                 controller: widget.firstNameController,
                 hint: 'First Name',
+                errorValidator: 'Please Enter First Name',
                 screenWidth: screenWidth,
               ),
               SizedBox(height: screenHeight * 0.01),
               _buildTextFormField(
                 controller: widget.lastNameController,
                 hint: 'Last Name',
+                errorValidator: 'Please Enter Last Name',
                 screenWidth: screenWidth,
               ),
               const Spacer(),
@@ -104,9 +106,17 @@ class _UserPersonalDetailsItemState extends State<UserPersonalDetailsItem> {
     required String hint,
     required TextEditingController controller,
     required double screenWidth,
+    required String errorValidator  ,
   }) {
     return TextFormField(
       controller: controller,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return errorValidator;
+        }
+        return null;
+      },
       style: TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: screenWidth * 0.05,

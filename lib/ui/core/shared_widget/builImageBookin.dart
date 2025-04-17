@@ -12,9 +12,8 @@ Widget buildBookingImage({
     height: AppConstants.screenHeight * 0.25,
     width: AppConstants.screenWidth,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.only(
-        bottomRight: Radius.circular(24),
-        bottomLeft: Radius.circular(24),
+      borderRadius: const BorderRadius.only(
+
       ),
       boxShadow: [
         BoxShadow(
@@ -25,9 +24,9 @@ Widget buildBookingImage({
       ],
     ),
     child: ClipRRect(
-      borderRadius: BorderRadius.only(
-        bottomRight: Radius.circular(24),
-        bottomLeft: Radius.circular(24),
+      borderRadius:   BorderRadius.only(
+        bottomRight: Radius.circular(AppConstants.screenWidth*0.062),
+        bottomLeft: Radius.circular(AppConstants.screenWidth*0.062),
       ),
       child: Stack(
         children: [
@@ -35,16 +34,16 @@ Widget buildBookingImage({
           Image.asset(
             imagePath,
             fit: BoxFit.cover,
+            height: AppConstants.screenHeight*0.25,
             width: AppConstants.screenWidth,
           ),
 
-          /// تأثير شفاف فوق الصورة
-          Container(
+           Container(
             color: Colors.black.withOpacity(0.2),
           ),
 
-          /// أيقونة الرجوع
-          Positioned(top: 12, left: 12, child: _buildIconBack()),
+           Positioned(top: AppConstants.screenHeight*0.016,
+               left: 12, child: _buildIconBack()),
 
           /// اسم الفندق في المنتصف
           Positioned(

@@ -1,16 +1,15 @@
+ import 'dart:math';
+
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
-import '../../../config/appColors.dart';
+ import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
-import '../../../config/appImages.dart';
-import '../../../routing/appRoutes.dart';
-import '../../core/shared_widget/elevatedButton.dart';
-import '../../core/shared_widget/textFormField.dart';
+  import '../../core/shared_widget/elevatedButton.dart';
 
 class LoginItem extends StatefulWidget {
   LoginItem({super.key, required this.controller, required this.sendOTP});
+
   TextEditingController controller;
   Function sendOTP;
 
@@ -27,7 +26,8 @@ class _LoginItemState extends State<LoginItem> {
     super.initState();
     widget.controller.addListener(() {
       setState(() {
-        isValid = widget.controller.text.isNotEmpty; // التحقق من أن النص ليس فارغًا
+        isValid =
+            widget.controller.text.isNotEmpty; // التحقق من أن النص ليس فارغًا
       });
     });
   }
@@ -47,7 +47,8 @@ class _LoginItemState extends State<LoginItem> {
             textFormField(),
             Spacer(),
             Padding(
-              padding: EdgeInsets.all(AppConstants.screenWidth * 0.04), // تغيير padding
+              padding: EdgeInsets.all(AppConstants.screenWidth * 0.04),
+              // تغيير padding
               child: elevated_button(
                 valid: isValid,
                 onPressed: () {
@@ -65,26 +66,57 @@ class _LoginItemState extends State<LoginItem> {
     );
   }
 
+  checkValidator(String value) {
+    (value) {
+      if (value == null || value.isEmpty) {
+        return "Name can't be empty";
+      } else {
+        final regex = RegExp(r'^05\d{8}$');
+
+        if (!regex.hasMatch(value)) {
+          return 'enter valid number';
+        }
+
+        return null;
+      }
+    };
+  }
+
   textFormField() {
     return Center(
       child: SizedBox(
-        width: AppConstants.screenWidth * 0.7, // تعديل العرض ليكون أكثر مرونة
+        width: AppConstants.screenWidth * 0.7,
         child: TextFormField(
           controller: widget.controller,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return "Phone number can't be empty";
+            }
+
+            final regex = RegExp(r'^05\d{8}$');
+            if (!regex.hasMatch(value)) {
+              return "Please enter a valid Saudi phone number like: 0501234567";
+            }
+
+            return null;
+          },
           style: TextStyle(
             fontWeight: FontWeight.w700,
-            fontSize: AppConstants.screenWidth * 0.08, // التعديل ليكون مرن
+            fontSize: AppConstants.screenWidth * 0.08,
           ),
           keyboardType: TextInputType.phone,
           textAlign: TextAlign.center,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
-            hintText: "0598765432",
+            hintText: "0501234567", // تعديل هنا فقط
             hintStyle: TextStyle(
               color: Colors.grey.shade500,
               fontWeight: FontWeight.w700,
-              fontSize: AppConstants.screenWidth * 0.08, // التعديل ليكون مرن
+              fontSize: AppConstants.screenWidth * 0.08,
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: AppConstants.screenHeight * 0.015), // تغيير padding
+            contentPadding: EdgeInsets.symmetric(
+              vertical: AppConstants.screenHeight * 0.015,
+            ),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.grey.shade400,
@@ -101,6 +133,7 @@ class _LoginItemState extends State<LoginItem> {
         ),
       ),
     );
+
   }
 
   _buildEnterNumberText() {
@@ -132,15 +165,18 @@ class _LoginItemState extends State<LoginItem> {
           SizedBox(width: AppConstants.screenWidth * 0.03), // تعديل المسافة
           CountryFlag.fromCountryCode(
             'SA',
-            width: AppConstants.screenWidth * 0.1, // تعديل العرض ليكون مرن
-            height: AppConstants.screenHeight * 0.025, // تعديل الارتفاع ليكون مرن
+            width: AppConstants.screenWidth * 0.1,
+            // تعديل العرض ليكون مرن
+            height: AppConstants.screenHeight * 0.025,
+            // تعديل الارتفاع ليكون مرن
             shape: Rectangle(),
           ),
           SizedBox(width: AppConstants.screenWidth * 0.02), // تعديل المسافة
           Text(
             "+966",
             style: TextStyle(
-              fontSize: AppConstants.screenWidth * 0.04, // تعديل الحجم ليكون مرن
+              fontSize: AppConstants.screenWidth * 0.04,
+              // تعديل الحجم ليكون مرن
               fontWeight: FontWeight.bold,
               color: Colors.black87,
             ),

@@ -26,15 +26,34 @@ class CheckInCheckOut extends StatefulWidget {
 }
 
 class _CheckInCheckOutState extends State<CheckInCheckOut> {
-  String calculateStayDuration(
-      DateTime checkIn, DateTime checkOut) {
-    final duration = checkOut.difference(checkIn);
-     int days = duration.inDays;
-    if(days==0) {
-      days=days+1;
+  String calculateStayDuration(DateTime checkIn, DateTime checkOut) {
+     print(widget.checkOutDateString);
+    print(widget.checkInDateString);
+
+    // تجاهل الوقت
+    final normalizedCheckIn = DateTime(checkIn.year, checkIn.month, checkIn.day);
+    final normalizedCheckOut = DateTime(checkOut.year, checkOut.month, checkOut.day);
+
+    final duration = normalizedCheckOut.difference(normalizedCheckIn);
+    int days = duration.inDays;
+
+    print(duration);
+    print(days);
+
+    if (widget.checkOutDateString=='Select Date' ){
+      days=0;
+      setState(() {
+
+      });
     }
+
     return '$days ${days == 1 ? 'day' : 'days'}';
   }
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +115,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
           ),
             SizedBox(height: AppConstants.screenHeight*0.008),
           Text(
-            todayDate,
+            todayDate== DateFormat('dd/MM/yyyy').format(DateTime.now())?'Selected date':todayDate,
             style:   TextStyle(
               fontSize: AppConstants.screenWidth*0.04,
               color: Colors.black87,
@@ -226,7 +245,8 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
                           subtract(const Duration(days: 1)));
                         } else {
                           return !day.isBefore(
-                              widget.focusedDateCheckInDate.add(const Duration(days: 1)));
+                              widget.focusedDateCheckInDate
+                                  .add(const Duration(days: 1 )));
                         }
                       }
                   );

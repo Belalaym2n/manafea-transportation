@@ -12,8 +12,8 @@ class GetNotificationService {
   static String appId = AppConstants.oneSignalAppId;
   static String restApiKey = AppConstants.oneSignalApiKey;
 
-  /// Fetch notifications from OneSignal API
-  Future<List<NotificationModel>> fetchNotifications() async {
+
+   Future<List<NotificationModel>> fetchNotifications() async {
     try {
       final response = await http.get(
         Uri.parse('$_apiUrl?app_id=$appId'),

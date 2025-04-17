@@ -9,11 +9,8 @@ import 'package:manafea/ui/login/connector/loginConnector.dart';
 import 'package:manafea/ui/login/view/verifyOtpNumberScreen.dart';
 import 'package:manafea/ui/login/viewModel/loginViewModel.dart';
 import 'package:manafea/ui/login/widgets/loadingWidget.dart';
-import 'package:manafea/ui/login/widgets/userPersonalDetails.dart';
-import 'package:manafea/ui/login/widgets/verifyScreen.dart';
-import 'package:provider/provider.dart';
-import '../../../routing/appRoutes.dart';
-import '../widgets/loginItem.dart';
+ import 'package:provider/provider.dart';
+ import '../widgets/loginItem.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
