@@ -2,18 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
-import 'package:manafea/ui/login/connector/loginConnector.dart';
-import 'package:manafea/ui/login/connector/verifyConnector.dart';
+ import 'package:manafea/ui/login/connector/verifyConnector.dart';
 import 'package:manafea/ui/login/view/personalDetailedView.dart';
-import 'package:manafea/ui/login/viewModel/loginViewModel.dart';
-import 'package:manafea/ui/login/widgets/verifyScreen.dart';
+ import 'package:manafea/ui/login/widgets/verifyScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/repositories/authRepo/otpRepo.dart';
 import '../../../data/services/OTPServie/otpService.dart';
 import '../viewModel/verifyViewModel.dart';
 import '../widgets/loadingWidget.dart';
-import '../widgets/userPersonalDetails.dart';
 
 class VerifyOTPNumberScreen extends StatefulWidget {
   const VerifyOTPNumberScreen({super.key});

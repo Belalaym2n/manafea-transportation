@@ -24,6 +24,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   DateFormat('dd/MM/yyyy').format(DateTime.now());
   String checkOutDateString ="Select Date";
    DateTime focusedDateCheckOut = DateTime.now().add(const Duration(days: 1));
+
   DateTime focusedDateCheckIn = DateTime.now();
 
   bool get orderIsDone => _orderIsDone;

@@ -53,7 +53,7 @@ class ElevatedButtonStepper extends StatelessWidget {
           ),
           onPressed: () => onStepCancel(),
           child: Text(
-            "Cancel",
+            "Back",
             style: TextStyle(
                 color: Colors.white,
                 fontSize: AppConstants.screenWidth * 0.03),

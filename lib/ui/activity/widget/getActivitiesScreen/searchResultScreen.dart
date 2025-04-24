@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:manafea/ui/activity/widget/activityScreenBookingItem.dart';
+import 'package:manafea/domain/models/activityModel/activityModel.dart';
 
-import '../../carBooking/view/car_bookin_screen.dart';
-import '../../core/shared_widget/elevatedButton.dart';
-import '../view/activityScreenBooking.dart';
+import '../../../core/shared_widget/elevatedButton.dart';
+import '../../view/activityScreenBooking.dart';
 
 class SearchResultScreen extends StatefulWidget {
-  const SearchResultScreen({super.key});
-
+    SearchResultScreen({super.key,required this.activityModel});
+ActivityModel activityModel;
   @override
   State<SearchResultScreen> createState() => _SearchResultScreenState();
 }
@@ -16,21 +15,12 @@ class SearchResultScreen extends StatefulWidget {
 class _SearchResultScreenState extends State<SearchResultScreen> {
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // سيارتين في كل صف
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 0.8, // التحكم في أبعاد الودجت
-      ),
-      itemCount: 12,
-      itemBuilder: (context, index) {
-        return _buildTravelCard();
-      },
-    );
+
+        return _buildActivityCard();
+
   }
 
-  _buildTravelCard(){
+  _buildActivityCard(){
 
       return Container(
 
@@ -46,7 +36,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           children: [
             _buildImage(),
             _buildTravelName(),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             _buildTravelLocation(),
@@ -65,7 +55,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) =>
-              const ActivityScreenBooking()),
+                ActivityScreenBooking(
+                  activityModel: widget.activityModel,
+                )),
             );
           },
           buttonName: "Book Now"),
@@ -73,7 +65,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   }
 
   _buildTravelLocation() {
-    return const Padding(
+    return     Padding(
       padding: EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         children: [
@@ -81,7 +73,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           SizedBox(width: 4), // مسافة صغيرة بين الأيقونة والنص
           Expanded( // يمنع تجاوز النص خارج الحدود
             child: Text(
-              "Riyadh, Kingdom of Saudi Arabia",
+              widget.activityModel.address  ,
               style: TextStyle(fontSize: 10, color: Colors.black54),
               overflow: TextOverflow.ellipsis, // يضيف "..." إذا كان النص طويلًا
             ),
@@ -94,7 +86,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   _buildTravelName(){
     return   Padding(
       padding: EdgeInsets.symmetric(horizontal: 8),
-      child: Text("Madain Salih",
+      child: Text(widget.activityModel.name,
           style: TextStyle(
               color: Colors.black,
               fontSize: 12,
@@ -111,7 +103,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   _buildImage(){
     return        ClipRRect(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      child: Image.asset( "assets/images/v2.jpg",
+      child: Image.network( widget.activityModel.imageUrl,
           height: 110, fit: BoxFit.cover, width: double.infinity),
     );
   }

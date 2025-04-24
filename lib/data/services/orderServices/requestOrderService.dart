@@ -1,21 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:manafea/domain/models/baseOrderModel/baseOrderModel.dart';
 import 'package:manafea/domain/models/hotelModels/requestHotelBooking.dart';
-import 'package:manafea/domain/models/requestOrderModel.dart';
 
-import '../../../domain/models/baseOrderModel/baseOrderModel.dart';
 
 class RequestOrderService {
   final ordersCollection = FirebaseFirestore.instance
       .collection('Orders')
-      .withConverter<RequestHotelBooking>(
+      .withConverter<BaseOrder>(
         fromFirestore: (snapshot, _) {
           final data = snapshot.data()!;
-          return RequestHotelBooking.fromJson(data);
+          return BaseOrder.fromJson(data);
         },
         toFirestore: (order, _) => order.toJson(),
       );
 
-  Future<void> uploadOrder({required RequestHotelBooking model}) async {
+  Future<void> uploadOrder({required BaseOrder model}) async {
     try {
       var docRef = ordersCollection.doc();
       model.id=docRef.id;

@@ -6,7 +6,7 @@ Widget animationDo(
     int delay,
     Widget child,
     ) {
-  if (index == 1) {
+  if (index == 1 || index==3 ) {
     return FadeInDown(
       delay: Duration(milliseconds: delay),
       child: child,

@@ -27,13 +27,8 @@ class CheckInCheckOut extends StatefulWidget {
 
 class _CheckInCheckOutState extends State<CheckInCheckOut> {
   String calculateStayDuration(DateTime checkIn, DateTime checkOut) {
-     print(widget.checkOutDateString);
-    print(widget.checkInDateString);
-
-    // تجاهل الوقت
-    final normalizedCheckIn = DateTime(checkIn.year, checkIn.month, checkIn.day);
+      final normalizedCheckIn = DateTime(checkIn.year, checkIn.month, checkIn.day);
     final normalizedCheckOut = DateTime(checkOut.year, checkOut.month, checkOut.day);
-
     final duration = normalizedCheckOut.difference(normalizedCheckIn);
     int days = duration.inDays;
 
@@ -76,7 +71,8 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildCheckInWidget(widget.checkInDateString!, widget.focusedDateCheckInDate),
+              _buildCheckInWidget(widget.checkInDateString!,
+                  widget.focusedDateCheckInDate),
               _buildCheckoutWidget(widget.checkOutDateString!
                   , widget.focusedDateCheckOutDate),
             ],
@@ -96,7 +92,8 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
     );
   }
 
-  Widget _buildCheckoutWidget(String todayDate, DateTime focusedDate) {
+  Widget _buildCheckoutWidget(String todayDate, DateTime focusedDate)
+  {
     return GestureDetector(
       onTap: () => _showCalendarDialog(
         onSelectDate: widget.onSelectCheckOutDate,

@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 
 class OTPService {
-   static OTPService? _instance;
-   OTPService._internal();
-   factory OTPService() {
-     _instance ??= OTPService._internal();
-     return _instance!;
-   }
+  static OTPService? _instance;
+
+  OTPService._internal();
+
+  factory OTPService() {
+    _instance ??= OTPService._internal();
+    return _instance!;
+  }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   String? verificationId; // Store verification ID for manual OTP verification
@@ -34,6 +37,13 @@ class OTPService {
       await auth.signInWithCredential(
         credential,
       );
+      final user = FirebaseAuth.instance.currentUser;
+       if (user != null) {
+        final uid = user.uid;
+        await SharedPreferencesHelper.saveData(
+            key: SharedSharedPreferencesKeys.userId,
+            value: uid);
+      }
       print("✅ Auto verification successful!");
     } catch (e) {
       print("❌ Auto verification failed: $e");

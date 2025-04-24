@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../config/appConstants.dart';
-import '../../core/shared_widget/builImageBookin.dart';
-import '../../core/shared_widget/buildBookingDescription.dart';
+import '../../../../config/appConstants.dart';
+import '../../../core/shared_widget/builImageBookin.dart';
+import '../../../core/shared_widget/buildBookingDescription.dart';
 
 class ActivityScreenBookingItem extends StatefulWidget {
   const ActivityScreenBookingItem({super.key});

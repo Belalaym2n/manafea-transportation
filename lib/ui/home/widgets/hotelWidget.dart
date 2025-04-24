@@ -108,8 +108,9 @@ class _HotelWidgetState extends State<HotelWidget> {
                         AppConstants.screenWidth * 0.02), // 3% من العرض
                       child: smallElevatedButton(
                           buttonName: "Book Now", onTap: (){
-                        Navigator.pushNamed(context, AppRoutes.hotels);
-                      }),
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          Navigator.pushNamed(context, AppRoutes.hotels);
+                        });                       }),
                     ),
                   ],
                 )

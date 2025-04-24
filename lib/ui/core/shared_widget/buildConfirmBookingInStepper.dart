@@ -7,11 +7,13 @@ import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
 class ConfirmBookingInStepper extends StatefulWidget {
   final VoidCallback onStepCancel;
   final VoidCallback onStepContinue;
+    String totalPrice;
 
-  const ConfirmBookingInStepper({
+    ConfirmBookingInStepper({
     Key? key,
     required this.onStepCancel,
     required this.onStepContinue,
+    required this.totalPrice,
   }) : super(key: key);
 
   @override
@@ -70,7 +72,7 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
         ),
         SizedBox(height: 4),
         Text(
-          "25 thousand ",
+          "${widget.totalPrice}",
           style: TextStyle(
             fontSize: AppConstants.screenWidth*0.044,
             fontWeight: FontWeight.w700,

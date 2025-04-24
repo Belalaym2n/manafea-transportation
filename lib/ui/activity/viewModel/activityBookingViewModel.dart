@@ -1,49 +1,183 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/domain/models/activityModel/activityModel.dart';
+import 'package:manafea/domain/models/activityModel/requestActivityOrderModel.dart';
 import 'package:manafea/ui/activity/connector/activityConnector.dart';
 
+import '../../../data/repositories/activity/getActivitySupabseRepo.dart';
+import '../../../data/repositories/orderRepo/requestOrderRepo.dart';
 import '../../core/shared_widget/stepper_widget.dart';
 
 class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
   int index = 0;
   int _peopleCount = 1;
   bool _orderIsDone = false;
+  bool _isLoading = false;
+  String _name = '';
+  String _phoneNumber = '';
+
+  String get name => _name;
+
+  String get phoneNumber => _phoneNumber;
+
+  bool get isLoading => _isLoading;
 
   bool get orderIsDone => _orderIsDone;
+  int? totalPrice;
+  ActivityModel activityModel;
 
   int get peopleCount => _peopleCount;
+  String dateString = "Click to Select";
+  DateTime focusedDateCheckOut = DateTime.now();
+  RequestOrderRepo requestOrderRepo;
 
-  void increaseRoomCount() {
-    _peopleCount++;
-    notifyListeners();
+  ActivityBookingViewModel(this.activityModel, this.requestOrderRepo);
+
+  //stepper
+  onStepContinue({
+    String? phoneNumber,
+    String? name,
+  }) async {
+    bool isDataValid = checkDateValidation();
+    if (!isDataValid) {
+      return connector!.onError("Please Choose Data");
+    }
+    bool isValidDataBooking = await validBookingData(
+      stepIndex: 2,
+      name: name,
+      phoneNumber: phoneNumber,
+    );
+
+    if (!isValidDataBooking) {
+      return connector!.onError("Please enter your phone and your name ");
+    }
+    if (index == 3) {
+      try {
+        await requestOrder();
+        return;
+      } catch (e) {
+        print(e.toString());
+        return connector?.onError(e.toString());
+      }
+    }
+    _moveToNextStep();
   }
-
-  void minusRoomCount() {
-    if (_peopleCount > 1) _peopleCount--;
-    notifyListeners();
-  }
-
   void onStepCancel() {
     if (index > 0) {
       index -= 1;
       notifyListeners();
     }
   }
-
-  void _moveToNextStep() {
-    index += 1;
+  //stepOneLogic
+  changeSelectDate(DateTime dateTime) {
+    focusedDateCheckOut = dateTime;
+    dateString = DateFormat('dd/MM/yyyy').format(dateTime);
     notifyListeners();
   }
 
-  void onStepContinue() {
-    if (index >= steps.length - 1) {
+  bool checkDateValidation() {
+    if (dateString == "Click to Select") {
+      return false;
+    }
+    return true;
+  }
+  // step TwoLogic
+
+  void increasePeopleCount() {
+    print(activityModel.name);
+    _peopleCount++;
+    calculatePrice();
+    print(totalPrice);
+    print(peopleCount);
+    notifyListeners();
+  }
+
+  void calculatePrice() {
+    totalPrice = activityModel.pricing * _peopleCount; // حساب السعر الإجمالي
+    notifyListeners();
+  }
+
+  void minusPeopleCount() {
+    if (_peopleCount > 1) _peopleCount--;
+    calculatePrice();
+    print(totalPrice);
+    notifyListeners();
+  }
+
+  // step two
+  Future<bool> validBookingData(
+      {String? phoneNumber, String? name, int? stepIndex}) async {
+    if (index == stepIndex) {
+      if ((phoneNumber?.trim().isEmpty ?? true) ||
+          (name?.trim().isEmpty ?? true)) {
+        return false;
+      } else {
+        await setUserDate(phoneNumber: phoneNumber ?? "", name: name ?? '');
+        print(" nsf $_name");
+        print(" nsf $_phoneNumber");
+      }
+    }
+    return true;
+  }
+  setUserDate({
+    required String phoneNumber,
+    required String name,
+  }) async {
+    _phoneNumber = phoneNumber;
+    _name = name;
+    notifyListeners();
+  }
+
+  // step Three
+
+  requestOrder() async {
+    try {
+      final DateFormat formatter = DateFormat('h:mm a');
+      setLoading(true);
+      final order = RequestActivityOrderBuilder()
+          .setName(_name)
+          .setActivityName(activityModel.name)
+          .setPeopleCount(12)
+          .setService("Activity")
+          .setPhoneNumber(_phoneNumber)
+          .setOrderDate(dateString)
+          .setPrice(totalPrice?.toDouble() ?? activityModel.pricing.toDouble())
+          .setUserId("userID")
+          .setStatus("Pending")
+          .setTime(formatter.format(DateTime.now()))
+          .build();
+
+      await requestOrderRepo.requestOrder(requestOrder: order);
+      await setLoading(false);
       _orderIsDone = true;
       notifyListeners();
-      return;
+      print("after");
+    } catch (e) {
+      setLoading(false);
+      print(e.toString());
+      return connector!.onError(e.toString());
     }
-    print(index);
-    _moveToNextStep();
   }
+
+
+  // common function in steps
+  setLoading(bool isLoading) {
+    _isLoading = isLoading;
+    notifyListeners();
+  }
+
+  void _moveToNextStep() {
+    if (index < 3) {
+      index += 1;
+    }
+    notifyListeners();
+  }
+
+
+
+
+
 
   List<Step> get steps {
     return [
@@ -70,8 +204,8 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
         tittle: 'Confirm Booking information ',
       ),
       buildStep(
-        colorIndex: index > 4,
-        isActive: index > 4,
+        colorIndex: index > 3,
+        isActive: index > 3,
         content: connector!.buildStepFourContentBooking(),
         isCurrentStep: index == 4,
         tittle: 'Confirm Booking',

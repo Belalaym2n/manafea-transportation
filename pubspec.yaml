@@ -50,6 +50,8 @@ dependencies:
   dio_cache_interceptor: ^3.4.2
 #add supabase for database
   supabase_flutter: ^2.8.4
+# add to upload images to server
+  image_picker: ^1.1.2
 
   smooth_page_indicator: ^1.2.1
   animate_do: ^4.2.0

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/domain/models/hotelModels/requestHotelBooking.dart';
-import '../../../config/appConstants.dart';
+import '../../../../config/appConstants.dart';
 
 Widget buildHotelBookingOrder({
   required RequestHotelBooking order

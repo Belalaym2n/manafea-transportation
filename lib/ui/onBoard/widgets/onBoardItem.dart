@@ -108,12 +108,12 @@ class _OnBoardItemState extends State<OnBoardItem> {
                   height: AppConstants.screenHeight*0.023,
                 ),
                 _buildHeadLineText(),
-                _currentStep < _totalSteps - 1
+                _currentStep !=0
                     ? const SizedBox()
                     :   SizedBox(
                         height: AppConstants.screenHeight*0.23,
                       ),
-                _currentStep < _totalSteps - 1
+                _currentStep !=0
                     ? _buildImage()
                     : Center(
                         child: _buildChooseLanguage(
@@ -124,18 +124,16 @@ class _OnBoardItemState extends State<OnBoardItem> {
                             },
                             isSelected: languageIndex == 1,
                             text: 'English')),
-                _currentStep < _totalSteps - 1
+                _currentStep!=0
                     ? const SizedBox()
                     :   SizedBox(
                         height: AppConstants.screenHeight*0.04,
                       ),
-                _currentStep < _totalSteps - 1
+                _currentStep!=0
                     ? _buildDescriptionText()
                     : Center(
                         child: _buildChooseLanguage(
                             onTap: () {
-                              print("screen hight${AppConstants.screenHeight}");
-                              print("screen widht ${AppConstants.screenWidth}");
                               setState(() {
                                 languageIndex = 2;
                               });
@@ -151,11 +149,14 @@ class _OnBoardItemState extends State<OnBoardItem> {
                           : _nextStep();
                     },
                     buttonName: "Next",
-                    valid: _currentStep < _totalSteps - 1
+                    valid: _currentStep==0&& languageIndex != -1
+                    ?true:
+
+                    _currentStep <= _totalSteps - 1
+                        && languageIndex != -1
                         ? true
-                        : _currentStep == _totalSteps - 1 && languageIndex != -1
-                            ? true
-                            : false),
+                        :
+                            false),
                   SizedBox(
                   height: AppConstants.screenHeight*0.03,
                 ),
