@@ -4,6 +4,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:hardwareAccelerated="true">
+        android:requestLegacyExternalStorage="true"
 
 
         <activity

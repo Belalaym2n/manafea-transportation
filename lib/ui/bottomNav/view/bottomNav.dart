@@ -92,7 +92,7 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
           ),
         )
             ,
-        body: viewModel.pages[viewModel.selectedIndex],
+        body: viewModel.userPages[viewModel.selectedIndex],
       )),
     );
   }

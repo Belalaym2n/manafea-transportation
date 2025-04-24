@@ -9,7 +9,7 @@ class RequestOrderRepo {
 
   RequestOrderRepo(this.requestOrderService);
 
-  Future<void> requestOrder({required RequestHotelBooking requestOrder}) async {
+  Future<void> requestOrder({required BaseOrder requestOrder}) async {
     try {
       await requestOrderService.uploadOrder(
            model : requestOrder);

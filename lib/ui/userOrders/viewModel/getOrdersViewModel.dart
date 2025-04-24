@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/domain/models/activityModel/requestActivityOrderModel.dart';
 import 'package:manafea/domain/models/requestOrderModel.dart';
 import 'package:manafea/ui/userOrders/widgets/orderItem.dart';
 import '../../../data/repositories/userOrdersHistoryRepo/userOrdersHistoryRepo.dart';
 import '../../../domain/models/hotelModels/requestHotelBooking.dart';
 import '../connector/getUserOrderConnector.dart';
-import '../widgets/buildHotelBookingOrderDetailec.dart';
+import '../widgets/widgetsChangedInOrderItem/buildActivityWidget.dart';
+import '../widgets/widgetsChangedInOrderItem/buildHotelBookingOrderDetailec.dart';
 import '../widgets/userOrdersScreenItem.dart';
 import '../../../domain/models/baseOrderModel/baseOrderModel.dart';
 
@@ -33,6 +35,7 @@ class GetUserOrdersViewModel extends BaseViewModel<GetUserOrderConnector> {
       notifyListeners();
       allOrders = await userOrderHistoryRepo.getAllOrders();
       filterOrdersByStatus(_selectedStatus);
+
     } catch (e) {
       errorMessage = e.toString();
     } finally {
@@ -91,9 +94,24 @@ class GetUserOrdersViewModel extends BaseViewModel<GetUserOrderConnector> {
 
             if (order is RequestHotelBooking) {
               return OrderItem(
+                orderType: 'Hotel Name',
+                orderName: 'hote',
                 cancelOrder: deleteOrder,
                 order: order,
-                orderDetailedChanged: buildHotelBookingOrder(order: order),
+                orderDetailedChanged:
+                buildHotelBookingOrder(order: order),
+              );
+            }
+            if (order is RequestActivityOrderModel) {
+              return OrderItem(
+                orderName: order.activityName.toString(),
+                orderType: "Activity name",
+                cancelOrder: deleteOrder,
+                order: order,
+                orderDetailedChanged:
+                orderActivityWidget(
+                  order: order
+                ),
               );
             }
 

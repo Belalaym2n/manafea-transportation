@@ -10,12 +10,15 @@ class OrderItem extends StatefulWidget {
     required this.order,
     required this.orderDetailedChanged,
     required this.cancelOrder,
+    required this.orderType,
+    required this.orderName,
   });
 
   BaseOrder order;
   Widget orderDetailedChanged;
+  String orderType;
+  String orderName;
   Function(String) cancelOrder;
-
   @override
   State<OrderItem> createState() => _OrderItemState();
 }
@@ -125,7 +128,7 @@ class _OrderItemState extends State<OrderItem> {
         shadowColor: Colors.black.withOpacity(0.1),
         borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.036 ),
         child: Container(
-          height: AppConstants.screenHeight * 0.3,
+          height: AppConstants.screenHeight * 0.35,
           width: AppConstants.screenWidth * 0.85,
           // Adjusted width to fit better
           decoration: BoxDecoration(
@@ -141,6 +144,7 @@ class _OrderItemState extends State<OrderItem> {
                 infoDataWidget('Phone', widget.order.phoneNumber),
                 infoDataWidget('Time', widget.order.time),
                 infoDataWidget('Payment Method', 'Cash'),
+                infoDataWidget(widget.orderType, widget.orderName),
                   SizedBox(height: AppConstants.screenHeight * 0.02 ),
                 // Close the dialog
                 elevated_button(

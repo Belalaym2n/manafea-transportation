@@ -47,7 +47,6 @@ class RequestHotelBooking extends BaseOrder {
       userId: json['userId'],
       status: json['status'],
       price: (json['price'] as num).toDouble(),
-      // التأكد من التحويل إلى double
       phoneNumber: json['phoneNumber'],
     );
   }

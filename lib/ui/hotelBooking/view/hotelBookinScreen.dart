@@ -48,10 +48,10 @@ class _HotelBookingScreenState
         builder: (context, viewModel, child) => SafeArea(
           child: AbsorbPointer(
             absorbing: viewModel.isLoading,
-            child: Scaffold(
+            child: viewModel.orderIsDone == true
+                ?  Scaffold(
               backgroundColor: Colors.grey.shade100,
-              body: viewModel.orderIsDone == false
-                  ? Stack(
+              body:Stack(
                 children: [
                   SingleChildScrollView( // لفّ الـ Column بالـ SingleChildScrollView
                     child: Column(
@@ -97,8 +97,8 @@ class _HotelBookingScreenState
                     showLoading(),
                 ],
               )
-                  : done_order_widget(context),
-            ),
+
+            ): SuccessOrder( ),
           ),
         ),
       ),
@@ -148,7 +148,7 @@ class _HotelBookingScreenState
             increaseCount: viewModel.increaseRoomCount,
             minusCount: viewModel.minusRoomCount,
             count: viewModel.roomCount,
-            totalPrice: viewModel.totalPrice));
+            totalPrice: viewModel.totalPrice.toInt()));
   }
 
   @override
@@ -175,6 +175,7 @@ class _HotelBookingScreenState
     // TODO: implement stepFiveContentInStepperBookingButton
 
     return ConfirmBookingInStepper(
+       totalPrice: viewModel.totalPrice.toString(),
         onStepContinue:
         viewModel.selectedRoomType
             =='Special'?

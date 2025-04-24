@@ -115,6 +115,8 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel,
           itemCount: 3,
           itemBuilder: (context, index) {
             return OrderItem(
+              orderName: 'bella',
+                orderType: "fbas;fkd",
                 cancelOrder: (String id) {},
                 orderDetailedChanged: Container(),
                 order: BaseOrder(

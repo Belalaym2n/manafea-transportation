@@ -1,123 +1,159 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/data/repositories/orderRepo/requestOrderRepo.dart';
+import 'package:manafea/data/services/orderServices/requestOrderService.dart';
+import 'package:manafea/domain/models/activityModel/activityModel.dart';
 import 'package:manafea/ui/activity/connector/activityConnector.dart';
 import 'package:manafea/ui/activity/viewModel/activityBookingViewModel.dart';
-import 'package:manafea/ui/activity/widget/activityScreenBookingItem.dart';
-import 'package:manafea/ui/core/shared_widget/buildConfirmBookingInStepper.dart';
+import 'package:manafea/ui/activity/widget/bookingActivity/activityScreenBookingItem.dart';
+import 'package:manafea/ui/core/shared_widget/error_widget.dart';
+import 'package:manafea/ui/login/widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../config/appConstants.dart';
+import '../../core/shared_widget/buildConfirmBookingInStepper.dart';
 import '../../core/shared_widget/buildStepCounterInStepper.dart';
 import '../../core/shared_widget/build_check_in_check_out_widget_in_stepper.dart';
 import '../../core/shared_widget/succes_widget.dart';
 import '../../core/shared_widget/userBookingData.dart';
 import '../../hotelBooking/widgets/elevatedButtonStepper.dart';
+import '../widget/bookingActivity/stepperButton.dart';
 import '../widget/buildStepOneContentChooseBookingDay.dart';
 
 class ActivityScreenBooking extends StatefulWidget {
-  const ActivityScreenBooking({super.key});
 
+  ActivityScreenBooking({super.key,required this.activityModel});
+
+  ActivityModel activityModel;
   @override
   State<ActivityScreenBooking> createState() => _ActivityScreenBookingState();
 }
 
-class _ActivityScreenBookingState extends BaseView
-<ActivityBookingViewModel,ActivityScreenBooking> implements ActivityConnector
-{
+class _ActivityScreenBookingState
+    extends BaseView<ActivityBookingViewModel, ActivityScreenBooking>
+    implements ActivityConnector {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.connector=this;
+    viewModel.connector = this;
   }
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return  ChangeNotifierProvider(
-      create: (context) => viewModel,
+    return ChangeNotifierProvider.value(
+      value: viewModel,
       child: Consumer<ActivityBookingViewModel>(
           builder: (context, viewModel, child) => SafeArea(
-            child: Scaffold(
-                body:  viewModel.orderIsDone==false?
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ActivityScreenBookingItem(),
-                      // SizedBox(
-                      //     height: AppConstants.screenHeight / 1.6,
-                      //     // ✅ Wrap Stepper with Material
-                      //     child: Stepper(
-                      //       controlsBuilder: (context, details) =>
-                      //       viewModel.index != 3
-                      //           ? ElevatedButtonStepper(
-                      //         onStepCancel: viewModel.onStepCancel,
-                      //         onStepContinue:
-                      //         viewModel.onStepContinue(
-                      //
-                      //         ),
-                      //       )
-                      //           : SizedBox(),
-                      //       margin: const EdgeInsets.all(0),
-                      //       steps: viewModel.steps,
-                      //       currentStep: viewModel.index,
-                      //     ))
-                    ],
-                  ),
-                ):done_order_widget(
-                    context
-                )), 
-          )),
-    );
+                child: AbsorbPointer(
+                  absorbing: viewModel.isLoading,
+                  child: Scaffold(
+                    body: viewModel.orderIsDone == false
+                        ? Stack(
+                          children: [
+                            SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    const ActivityScreenBookingItem(),
+                                    SizedBox(
+                                        height: AppConstants.screenHeight / 1.6,
+                                        // ✅ Wrap Stepper with Material
+                                        child: Stepper(
+                                          controlsBuilder: (context, details) =>
+                                              viewModel.index != 3
+                                                  ? ElevatedButtonStepperActivityBooking(
+                                                      onStepCancel:
+                                                          viewModel.onStepCancel,
+                                                      onStepContinue:  () =>viewModel
+                                                          .onStepContinue(
+                                                        name: nameController.text,
+                                                        phoneNumber: phoneController.text
+                                                      ))
+                                                  : SizedBox(),
+                                          margin: const EdgeInsets.all(0),
+                                          steps: viewModel.steps,
+                                          currentStep: viewModel.index,
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            if(viewModel.isLoading)
+                            showLoading()
+                          ],
+                        )
+                        : SuccessOrder( )),
+              )),
+    ));
   }
 
   @override
   buildStepTwoContentPeopleCount() {
     // TODO: implement buildStepOneContentPeopleCount
-    return UserBookingData();
+    return      Consumer<ActivityBookingViewModel>(
+        builder: (context, viewModel, child) => buildStepCounterInStepper(
+            totalPrice: viewModel.totalPrice??viewModel.activityModel.pricing,
+            title: "People Count",
+            increaseCount: viewModel.increasePeopleCount,
+            minusCount: viewModel.minusPeopleCount,
+            count: viewModel.peopleCount));
   }
 
   @override
   buildStepOneContentChooseDayBooking() {
     // TODO: implement buildStepThreeContentBooking
-    return ChooseDayBooking();
+    return ChooseDayBooking(
+      focusedDate: viewModel.focusedDateCheckOut,
+      dateString: viewModel.dateString,
+      onSelectDate: viewModel.changeSelectDate,
+    );
   }
 
   @override
   buildStepThreeContentConfirmData() {
     // TODO: implement buildStepTwoContentConfirmData
     return
-      Consumer<ActivityBookingViewModel>(
-          builder: (context, viewModel, child) =>
-              buildStepCounterInStepper(
-                  totalPrice: 22,
-                  title: "People Count",
-                  increaseCount:
-                  viewModel.increaseRoomCount, minusCount: viewModel.minusRoomCount
-                  , count: viewModel.peopleCount));
-  }
+      UserBookingData(
+        nameController: nameController,
+        phoneController: phoneController,
+      );
 
+
+  }
 
   @override
   buildStepFourContentBooking() {
     // TODO: implement buildStepTwoContentConfirmData
-    // return ConfirmBookingInStepper(onStepCancel: viewModel.onStepCancel,
-    //     onStepContinue: viewModel.onStepContinue);
+    return ConfirmBookingInStepper(
+        totalPrice: viewModel.totalPrice!=null?
+        viewModel.totalPrice.toString():widget.activityModel.pricing.toString(),
+        onStepCancel: viewModel.onStepCancel,
+        onStepContinue: viewModel.onStepContinue);
   }
+
   @override
   ActivityBookingViewModel init_my_view_model() {
+    RequestOrderService requestOrderService
+    =RequestOrderService();
+
+    RequestOrderRepo requestOrderRepo
+    =RequestOrderRepo(requestOrderService);
     // TODO: implement init_my_view_model
-    return ActivityBookingViewModel();
+    return ActivityBookingViewModel (widget.activityModel,requestOrderRepo);
   }
 
   @override
   onError(String message) {
     // TODO: implement onError
-    throw UnimplementedError();
+    return error_widget(context: context, message: message);
   }
 
   @override
   showLoading() {
     // TODO: implement showLoading
-    throw UnimplementedError();
+    return LoadingWidget();
   }
 }

@@ -36,3 +36,10 @@ class SharedPreferencesHelper {
     return await _preferences!.clear();
   }
 }
+
+class SharedSharedPreferencesKeys{
+  static const String  phoneNumberKey='phoneNumber';
+  static const String  userId='userId';
+  static const String  firsName='firstName';
+  static const String  lastName='lastName';
+}

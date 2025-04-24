@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen>
       _controller.forward();
     });
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.onBoard, (route) => false
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.autoLogin, (route) => false
         ,);
     });
   }

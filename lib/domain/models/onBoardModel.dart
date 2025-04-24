@@ -16,6 +16,11 @@ class OnBoardModel {
   static List<OnBoardModel> items = [
     OnBoardModel(
         imageUrl: AppImages.onBoardImageOne,
+        headline: 'Please choose your language\nFor better For better ',
+        description: 'Seamless and efficient booking process  Wide range of vehicle choices'
+    ),
+    OnBoardModel(
+        imageUrl: AppImages.onBoardImageOne,
         headline: 'Seamless, efficient process\nWide vehicle selection available',
 description: 'Seamless and efficient booking process  Wide range of vehicle choices'
     ),
@@ -31,10 +36,6 @@ description: 'Seamless and efficient booking process  Wide range of vehicle choi
         headline: 'Seamless Hotel Booking \nSecure, flexible reservations',
 description: ' Simplify travel with easy bookings\n Secure stays with flexible options'
     ),
-    OnBoardModel(
-        imageUrl: AppImages.onBoardImageOne,
-        headline: 'Please choose your language\nFor better For better ',
-        description: 'Seamless and efficient booking process  Wide range of vehicle choices'
-    ),
+
   ];
 }

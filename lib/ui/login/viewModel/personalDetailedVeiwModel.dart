@@ -19,7 +19,7 @@ class PersonalDetailedViewModel
 
   uploadUserToDatabase({required UserModel user}) async {
     setLoading(true);
-    loadPhoneNumber();
+    await loadPhoneNumber();
     bool notNull = isNullable(user);
     if (!notNull) {
       setLoading(false);
@@ -27,12 +27,23 @@ class PersonalDetailedViewModel
     }
     try {
       await loginDataRepo.uploadUserToDatabase(user: user);
+    await  saveData(user);
       connector!.navigateToHomeScreen();
     } catch (e) {
       connector!.onError("Something went wrong please try again");
     } finally {
       setLoading(false);
     }
+  }
+
+  saveData(UserModel user) async {
+    print("USER ${user.lastName}");
+    print("USER ${user.firstName}");
+    await SharedPreferencesHelper.saveData(
+        key: SharedSharedPreferencesKeys.firsName, value: user.firstName);
+
+    await SharedPreferencesHelper.saveData(
+        key: SharedSharedPreferencesKeys.lastName, value: user.lastName);
   }
 
   bool isNullable(UserModel user) {
@@ -47,8 +58,8 @@ class PersonalDetailedViewModel
   }
 
   loadPhoneNumber() async {
-    _phoneNumber = await
-    SharedPreferencesHelper.getData('phoneNumber');
+    _phoneNumber = await SharedPreferencesHelper.getData(
+        SharedSharedPreferencesKeys.phoneNumberKey);
     notifyListeners();
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:manafea/config/base_class.dart';
-import 'package:manafea/ui/home/view/homeScreen.dart';
-import 'package:manafea/ui/home/widgets/homeScreenItem.dart';
-import 'package:manafea/ui/login/view/loginScreen.dart';
-import 'package:manafea/ui/notification/view/notifcationScreen.dart';
+import 'package:manafea/ui/addActivity/view/addActivity.dart';
+ import 'package:manafea/ui/home/widgets/homeScreenItem.dart';
+ import 'package:manafea/ui/notification/view/notifcationScreen.dart';
 
 import '../../activity/view/activityScreen.dart';
 import '../../userOrders/view/userOrders.dart';
@@ -18,10 +17,17 @@ class BottomNavViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  List<Widget> pages = [
+  List<Widget> userPages = [
     const HomeScreenItem(),
     const ActivityScreen(),
     const NotificationScreen(),
     const UserOrders(),
+  ];
+
+  List<Widget> adminPages=[
+    AddActivity(),
+    const ActivityScreen(),
+    const HomeScreenItem(),
+
   ];
 }
