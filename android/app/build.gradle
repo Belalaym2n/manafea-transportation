@@ -10,6 +10,11 @@ plugins {
 }
 
 android {
+
+    lintOptions {
+        disable 'Impeller'  // لتعطيل أي تحذيرات تخص Impeller
+    }
+
     namespace = "com.manafea.transportation"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion

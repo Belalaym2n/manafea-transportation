@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/ui/onBoard/widgets/onBoardItem.dart';
 
-import '../../../domain/models/onBoardModel.dart';
+import '../../../domain/models/onBoardModel/onBoardModel.dart';
 
 class Onboardingscreen extends StatefulWidget {
   const Onboardingscreen({super.key});

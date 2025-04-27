@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../domain/models/userModel.dart';
+import '../../../domain/models/userModel/userModel.dart';
 
 class LoginDataService {
   FirebaseFirestore fireStore;

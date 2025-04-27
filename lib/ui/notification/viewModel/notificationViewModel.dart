@@ -1,7 +1,7 @@
 import 'package:manafea/config/base_class.dart';
 
 import '../../../data/repositories/notifcationRepo/notificationRepo.dart';
-import '../../../domain/models/notificationModel.dart';
+import '../../../domain/models/notificationModel/notificationModel.dart';
 import '../connector/notificationConnector.dart';
 
 class NotificationViewModel extends BaseViewModel<NotificationConnector>{

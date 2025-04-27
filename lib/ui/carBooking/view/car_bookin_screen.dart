@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/domain/models/carModels/addCarModel.dart';
 import 'package:manafea/ui/carBooking/connector/carBookingConnector.dart';
 import 'package:manafea/ui/carBooking/viewModel/CarBookingViewModel.dart';
 import 'package:manafea/ui/carBooking/widgets/car_booking_screen_item.dart';
@@ -15,7 +16,9 @@ import '../../hotelBooking/widgets/elevatedButtonStepper.dart';
 import '../widgets/stepper_widgets/stepOneContentInStepperChooseLocation.dart';
 
 class CarBookingScreen extends StatefulWidget {
-  const CarBookingScreen({super.key});
+    CarBookingScreen({super.key,required this.carModel});
+
+    AddCarModel carModel;
 
   @override
   State<CarBookingScreen> createState() => _CarBookingScreenState();
@@ -43,7 +46,9 @@ class _CarBookingScreenState
                         ==false?SingleChildScrollView(
                   child: Column(
                     children: [
-                      const CarBookingScreenItem(),
+                        CarBookingScreenItem(
+                          carModel: widget.carModel,
+                        ),
                       SizedBox(
                           height: AppConstants.screenHeight / 1.6,
                           // ✅ Wrap Stepper with Material

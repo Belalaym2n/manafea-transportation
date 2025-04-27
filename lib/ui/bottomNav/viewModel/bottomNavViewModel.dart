@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/ui/addActivity/view/addActivity.dart';
- import 'package:manafea/ui/home/widgets/homeScreenItem.dart';
+ import 'package:manafea/ui/home/view/homeScreenItem.dart';
  import 'package:manafea/ui/notification/view/notifcationScreen.dart';
 
 import '../../activity/view/activityScreen.dart';
+import '../../addCar/view/addCarScreen.dart';
+import '../../addHotel/view/addHotel.dart';
 import '../../userOrders/view/userOrders.dart';
 
 class BottomNavViewModel extends BaseViewModel {
@@ -19,15 +21,13 @@ class BottomNavViewModel extends BaseViewModel {
 
   List<Widget> userPages = [
     const HomeScreenItem(),
-    const ActivityScreen(),
-    const NotificationScreen(),
+     const NotificationScreen(),
     const UserOrders(),
   ];
 
   List<Widget> adminPages=[
-    AddActivity(),
-    const ActivityScreen(),
-    const HomeScreenItem(),
-
+    const AddActivity(),
+    const AddCarScreen(),
+    const AddHotel(),
   ];
 }

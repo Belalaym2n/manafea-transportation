@@ -60,20 +60,22 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
             ),
             tabs: [
               GButton(
-                margin: EdgeInsets.symmetric(vertical:
+                margin: EdgeInsets.symmetric(
+                    horizontal: AppConstants.screenWidth * 0.02,
+
+                    vertical:
                 AppConstants.screenHeight * 0.02),
                 icon: Icons.home_outlined, // Home icon
                 text: 'Home',
                 iconColor: Colors.white, // Icon color to match the theme
               ),
+
               GButton(
-                margin: EdgeInsets.symmetric(vertical: AppConstants.screenHeight * 0.02),
-                icon: Icons.local_activity_outlined, // Notification icon
-                text: 'Travels',
-                iconColor: Colors.white, // Cool tone for notifications
-              ),
-              GButton(
-                margin: EdgeInsets.symmetric(vertical: AppConstants.screenHeight * 0.02),
+                margin: EdgeInsets.symmetric(
+                    horizontal: AppConstants.screenWidth * 0.04,
+
+                    vertical:
+                AppConstants.screenHeight * 0.02),
                 icon: Icons.notifications, // Notification icon
                 text: 'Notification',
                 iconColor: Colors.white, // Cool tone for notifications
@@ -81,7 +83,7 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
 
               GButton(
                 margin: EdgeInsets.symmetric(
-                  horizontal: AppConstants.screenWidth * 0.03,
+                  horizontal: AppConstants.screenWidth * 0.04,
                   vertical: AppConstants.screenHeight * 0.02,
                 ),
                 icon: Icons.shopping_cart_rounded, // Order icon

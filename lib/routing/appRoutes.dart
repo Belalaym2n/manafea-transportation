@@ -17,7 +17,7 @@ import '../ui/carBooking/view/cars_screen.dart';
 import '../ui/hotelBooking/view/hotelBookinScreen.dart';
 
 class AppRoutes {
-  static const String splash = "sdf/";
+  static const String splash = "/";
   static const String addActivity = "xcv/";
   static const String onBoard = "/sfsdf";
   static const String login = "login/";
@@ -25,7 +25,7 @@ class AppRoutes {
   static const String verifyScreen = "verify";
   static const String homeScreen = "home";
   static const String bottomNav = "5784/";
-  static const String bottomNavAdmin = "/";
+  static const String bottomNavAdmin = "sfsf/";
   static const String personDetailed = "err";
   static const String hotels = "hotel";
   static const String carsScreen = "carscreen";
@@ -68,10 +68,7 @@ class Routes {
 
 
 
-      case AppRoutes.carBooking:
-        return MaterialPageRoute(
-          builder: (context) => const CarBookingScreen(),
-        );
+
       case AppRoutes.hotels:
         return MaterialPageRoute(
           builder: (context) => const HotelBookingScreen(),

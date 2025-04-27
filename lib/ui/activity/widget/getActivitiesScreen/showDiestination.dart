@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../config/appColors.dart';
 import '../../../../config/appConstants.dart';
 
-void showDestinationPicker({
+void showLocationsPicker({
   required BuildContext context,
   required Function(String) changeDestination,
-  required String? destination,
-  required List<String> destinations,
+  required String? location,
+  required List<String> locations,
 }) {
   showModalBottomSheet(
     context: context,
@@ -40,9 +40,9 @@ void showDestinationPicker({
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
-                  itemCount: destinations.length,
+                  itemCount: locations.length,
                   itemBuilder: (context, index) {
-                    bool isSelected = destination == destinations[index];
+                    bool isSelected = location == locations[index];
 
                     return AnimatedContainer(
                       duration: Duration(milliseconds: 300),
@@ -59,7 +59,7 @@ void showDestinationPicker({
                         leading: Icon(Icons.location_on,
                             color: isSelected ? Colors.white : Colors.red),
                         title: Text(
-                          destinations[index],
+                          locations[index],
                           style: TextStyle(
                             fontSize: AppConstants.screenWidth * 0.04,
                             // 4% من العرض
@@ -70,7 +70,7 @@ void showDestinationPicker({
                           ),
                         ),
                         onTap: () {
-                          changeDestination(destinations[index]);
+                          changeDestination(locations[index]);
 
                           Future.delayed(Duration(seconds: 1), () {
                             Navigator.pop(context);

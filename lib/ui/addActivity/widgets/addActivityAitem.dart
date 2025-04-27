@@ -8,6 +8,8 @@ import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../config/appConstants.dart';
+import '../../core/shared_widget/addImageWidget.dart';
+import '../../core/shared_widget/textFormFieldForAdmin.dart';
 
 class AddActivityItem extends StatefulWidget {
   AddActivityItem({super.key,
@@ -79,48 +81,52 @@ class _AddActivityItemState extends State<AddActivityItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            buildChooseImage(),
+            buildChooseImage(
+              image: widget.image,
+              openImage:   widget.openImage
+            ),
             SizedBox(height: AppConstants.screenHeight * 0.03),
 
-            // الوجهة
-            _buildTextField("الوجهة", controller: destinationController),
+             buildTextField("الوجهة", controller: destinationController),
 
-            // اسم الرحلة
-            _buildTextField("اسم الرحلة", controller: activityNameController),
+             buildTextField("اسم الرحلة", controller: activityNameController),
 
-            // السعر
-            _buildTextField("السعر", keyboardType: TextInputType.number,
+             buildTextField("السعر", keyboardType: TextInputType.number,
                 controller: pricingController),
 
-            // أبرز الأحداث
-            _buildTextField("أبرز الأحداث",
+             buildTextField("أبرز الأحداث",
                 controller: descriptionController,
                 maxLines: 3),
 
-            // عنوان التحرك
-            _buildTextField("عنوان التحرك",
+             buildTextField("عنوان التحرك",
                 controller: addressController),
 
             SizedBox(height: AppConstants.screenHeight * 0.04),
 
 
-            // زر الحفظ
-            elevated_button(onPressed: areFieldsValid ? () async {
-              ActivityModel activity =
-              ActivityModel(
-                  name: activityNameController.text,
-                  description: descriptionController.text,
-                  imageUrl: widget.publicUrl,
-                  pricing: int.parse(pricingController.text),
-                  destination: destinationController.text,
-                  address: addressController.text);
-              print("url ${widget.publicUrl}");
-              await   widget.addActivity(activity);
-              activityNameController.clear();
-              destinationController.clear();
-              pricingController.clear();
-              descriptionController.clear();
-              addressController.clear();
+             elevated_button(onPressed: areFieldsValid ? () async {
+               try{
+                 final activity =
+                 ActivityModelBuilder().
+                 setName(activityNameController.text)
+                     .setAddress(addressController.text)
+                     .setDescription( descriptionController.text)
+                     .setImageUrl(widget.publicUrl)
+                     .setDestination("fff")
+                     .setPricing(int.parse(pricingController.text))
+                     .setDescription(destinationController.text)
+                     .build();
+                 print("url ${widget.publicUrl}");
+                 await   widget.addActivity(activity);
+                 activityNameController.clear();
+                 destinationController.clear();
+                 pricingController.clear();
+                 descriptionController.clear();
+                 addressController.clear();
+               }catch(e){
+                 print(e.toString());
+               }
+
             } : () {
               print("null");
             },
@@ -135,60 +141,5 @@ class _AddActivityItemState extends State<AddActivityItem> {
         ));
   }
 
-  Widget buildChooseImage() {
-    return GestureDetector(
-      onTap: () async {
-        await widget.openImage();
-      },
-      child: Container(
-        height: AppConstants.screenHeight * 0.25,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: const Color(0xFFB2D9DB).withOpacity(0.2),
-          borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.03),
-          border: Border.all(color: Colors.grey.shade300),
-        ),
-        child: widget.image == null ? Icon(
-          Icons.add_a_photo,
-          size: AppConstants.screenHeight * 0.06,
-          color: Colors.grey,
-        ) : Image.file(widget.image!,
-          width: double.infinity,
-          fit: BoxFit.fill,
-          height: AppConstants.screenHeight * 0.24,
-        ),
-      ),
-    );
-  }
 
-  Widget _buildTextField(String label,
-      {
-        required TextEditingController controller,
-        TextInputType keyboardType =
-            TextInputType.text, int maxLines = 1}) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: AppConstants.screenHeight * 0.025),
-      child: TextFormField(
-        keyboardType: keyboardType,
-        maxLines: maxLines,
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(
-            fontSize: AppConstants.screenHeight * 0.02,
-            color: Colors.grey[700],
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-                AppConstants.screenWidth * 0.02),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xFFE3652F), width: 1.5),
-            borderRadius: BorderRadius.circular(
-                AppConstants.screenWidth * 0.02),
-          ),
-        ),
-      ),
-    );
-  }
 }

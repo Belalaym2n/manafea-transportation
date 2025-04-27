@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:manafea/domain/models/carModels/addCarModel.dart';
 import 'package:manafea/ui/core/shared_widget/builImageBookin.dart';
 
 import '../../../config/appConstants.dart';
 import '../../core/shared_widget/buildBookingDescription.dart';
 
 class CarBookingScreenItem extends StatefulWidget {
-  const CarBookingScreenItem({super.key});
-
+    CarBookingScreenItem({super.key,required this.carModel});
+AddCarModel carModel;
   @override
   State<CarBookingScreenItem> createState() => _CarBookingScreenItemState();
 }
@@ -17,7 +18,9 @@ class _CarBookingScreenItemState extends State<CarBookingScreenItem> {
   Widget build(BuildContext context) {
     return   Column(
           children: [
-            buildBookingImage(imagePath: "assets/images/car.jpg", imageName: "BMW X5")
+            buildBookingImage(imagePath: widget.carModel.itemImageUrl
+                , imageName:  widget.carModel.itemName
+            )
           ,Padding(
       padding: EdgeInsets.symmetric(horizontal:
       AppConstants.screenWidth * 0.05),

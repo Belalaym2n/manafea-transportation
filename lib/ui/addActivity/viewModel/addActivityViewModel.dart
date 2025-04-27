@@ -9,14 +9,14 @@ import '../../../data/repositories/addActivityRepo/imagePickerRepo.dart';
 
 class AddActivityViewModel extends BaseViewModel<AddActivityConnector> {
   File? _image;
-  bool _isLoading = false;
   String? imageUrl;
+  bool _isLoading = false;
 
   bool get isLoading => _isLoading;
 
   File? get image1 => _image;
   ImagePickerRepo imagePickerRepo;
-  AddActivityToSupabseRepo addActivityToSupabseRepo;
+  AddItemInServiceTableToSupabseRepo addActivityToSupabseRepo;
 
   AddActivityViewModel(this.imagePickerRepo, this.addActivityToSupabseRepo);
 
@@ -38,8 +38,7 @@ class AddActivityViewModel extends BaseViewModel<AddActivityConnector> {
       print("Upload error: ${e.toString()}");
       print("Stacktrace: $stacktrace"); // 👈 مهم جداً
       return connector?.onError(e.toString());
-      return null;
-    }
+     }
   }
 
   Future addActivity(ActivityModel activity) async {
@@ -49,7 +48,7 @@ class AddActivityViewModel extends BaseViewModel<AddActivityConnector> {
       notifyListeners();
        print(_image);
       print(imageUrl);
-      await addActivityToSupabseRepo.addActivity(activity);
+      await addActivityToSupabseRepo.addItemInService(activity,'activities');
       setLoading(false);
       print("Activity added successfully");
        _image = null;

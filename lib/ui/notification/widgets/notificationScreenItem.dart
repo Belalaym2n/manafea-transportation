@@ -4,7 +4,7 @@ import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 
 import '../../../config/appColors.dart';
-import '../../../domain/models/notificationModel.dart';
+import '../../../domain/models/notificationModel/notificationModel.dart';
 
 class NotificationScreenItem extends StatefulWidget {
    NotificationScreenItem({super.key ,

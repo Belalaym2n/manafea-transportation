@@ -85,8 +85,7 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
   // step TwoLogic
 
   void increasePeopleCount() {
-    print(activityModel.name);
-    _peopleCount++;
+     _peopleCount++;
     calculatePrice();
     print(totalPrice);
     print(peopleCount);
@@ -94,7 +93,7 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
   }
 
   void calculatePrice() {
-    totalPrice = activityModel.pricing * _peopleCount; // حساب السعر الإجمالي
+    totalPrice = activityModel.itemPricing * _peopleCount; // حساب السعر الإجمالي
     notifyListeners();
   }
 
@@ -137,12 +136,12 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
       setLoading(true);
       final order = RequestActivityOrderBuilder()
           .setName(_name)
-          .setActivityName(activityModel.name)
+          .setActivityName(activityModel.itemName)
           .setPeopleCount(12)
           .setService("Activity")
           .setPhoneNumber(_phoneNumber)
           .setOrderDate(dateString)
-          .setPrice(totalPrice?.toDouble() ?? activityModel.pricing.toDouble())
+          .setPrice(totalPrice?.toDouble() ?? activityModel.itemPricing.toDouble())
           .setUserId("userID")
           .setStatus("Pending")
           .setTime(formatter.format(DateTime.now()))

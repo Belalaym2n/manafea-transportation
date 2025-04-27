@@ -5,7 +5,7 @@ import 'package:manafea/ui/login/view/loginScreen.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
-import '../../../domain/models/onBoardModel.dart';
+import '../../../domain/models/onBoardModel/onBoardModel.dart';
 import 'animationDo.dart';
 
 class OnBoardItem extends StatefulWidget {

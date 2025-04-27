@@ -2,7 +2,7 @@ import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/loginDataRepo/loginDataRepo.dart';
 
 import '../../../data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
-import '../../../domain/models/userModel.dart';
+import '../../../domain/models/userModel/userModel.dart';
 import '../connector/personalDetailedConnector.dart';
 
 class PersonalDetailedViewModel

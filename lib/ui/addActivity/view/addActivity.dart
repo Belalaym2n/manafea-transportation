@@ -72,10 +72,10 @@ class _AddActivityState extends BaseView<AddActivityViewModel,
   AddActivityViewModel init_my_view_model() {
     ImagePickerService imagePickerService = ImagePickerService();
     ImagePickerRepo imagePickerRepo = ImagePickerRepo(imagePickerService);
-    AddActivityToSupabaseService addActivityToSupabaseService=AddActivityToSupabaseService();
+    AddItemInServiceTableToSupabase addActivityToSupabaseService=AddItemInServiceTableToSupabase();
 
-  AddActivityToSupabseRepo addActivityToSupabseRepo
-  =AddActivityToSupabseRepo(addActivityToSupabaseService);
+  AddItemInServiceTableToSupabseRepo addActivityToSupabseRepo
+  =AddItemInServiceTableToSupabseRepo(addActivityToSupabaseService);
 
     // TODO: implement init_my_view_model
     return AddActivityViewModel(imagePickerRepo,addActivityToSupabseRepo);

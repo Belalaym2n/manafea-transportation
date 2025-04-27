@@ -52,6 +52,7 @@ class _ActivityScreenBookingState
                 child: AbsorbPointer(
                   absorbing: viewModel.isLoading,
                   child: Scaffold(
+
                     body: viewModel.orderIsDone == false
                         ? Stack(
                           children: [
@@ -95,7 +96,7 @@ class _ActivityScreenBookingState
     // TODO: implement buildStepOneContentPeopleCount
     return      Consumer<ActivityBookingViewModel>(
         builder: (context, viewModel, child) => buildStepCounterInStepper(
-            totalPrice: viewModel.totalPrice??viewModel.activityModel.pricing,
+            totalPrice: viewModel.totalPrice??viewModel.activityModel.itemPricing,
             title: "People Count",
             increaseCount: viewModel.increasePeopleCount,
             minusCount: viewModel.minusPeopleCount,
@@ -129,7 +130,7 @@ class _ActivityScreenBookingState
     // TODO: implement buildStepTwoContentConfirmData
     return ConfirmBookingInStepper(
         totalPrice: viewModel.totalPrice!=null?
-        viewModel.totalPrice.toString():widget.activityModel.pricing.toString(),
+        viewModel.totalPrice.toString():widget.activityModel.itemPricing.toString(),
         onStepCancel: viewModel.onStepCancel,
         onStepContinue: viewModel.onStepContinue);
   }
