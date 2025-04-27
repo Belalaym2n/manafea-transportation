@@ -5,7 +5,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 
 import '../../../config/appColors.dart';
-import '../../../domain/models/notificationModel.dart';
+import '../../../domain/models/notificationModel/notificationModel.dart';
 
 class NotificationDetailedItem extends StatefulWidget {
   final NotificationModel notificationModel;

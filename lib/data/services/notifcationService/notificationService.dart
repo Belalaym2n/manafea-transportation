@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:manafea/config/appConstants.dart';
 
-import '../../../domain/models/notificationModel.dart';
+import '../../../domain/models/notificationModel/notificationModel.dart';
 
 class GetNotificationService {
   // app id 9158013e-362c-4f0b-ae4b-576b4f1f670c

@@ -31,7 +31,7 @@ Widget buildBookingImage({
       child: Stack(
         children: [
           /// صورة الفندق
-          Image.asset(
+          Image.network(
             imagePath,
             fit: BoxFit.cover,
             height: AppConstants.screenHeight*0.25,

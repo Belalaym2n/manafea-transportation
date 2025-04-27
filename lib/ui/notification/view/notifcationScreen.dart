@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/notifcationRepo/notificationRepo.dart';
 import 'package:manafea/data/services/notifcationService/notificationService.dart';
-import 'package:manafea/domain/models/notificationModel.dart';
+import 'package:manafea/domain/models/notificationModel/notificationModel.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/notification/connector/notificationConnector.dart';
 import 'package:manafea/ui/notification/viewModel/notificationViewModel.dart';

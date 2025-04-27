@@ -10,7 +10,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'config/appConstants.dart';
 import 'data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
-import 'domain/models/notificationModel.dart';
+import 'domain/models/notificationModel/notificationModel.dart';
 import 'firebase_options.dart';
 
 

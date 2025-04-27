@@ -76,7 +76,6 @@ dependencies:
 
   #  table_calendar: ^3.2.0
   # for success order
-  lottie: ^3.2.0
 
 flutter_launcher_icons:
 

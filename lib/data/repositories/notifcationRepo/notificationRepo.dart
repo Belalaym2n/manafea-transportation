@@ -1,4 +1,4 @@
-import '../../../domain/models/notificationModel.dart';
+import '../../../domain/models/notificationModel/notificationModel.dart';
 import '../../services/notifcationService/notificationService.dart';
 
 class NotificationRepository {

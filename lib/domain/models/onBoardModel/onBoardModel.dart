@@ -1,5 +1,5 @@
 
-import '../../config/appImages.dart';
+import '../../../config/appImages.dart';
 
 class OnBoardModel {
   String imageUrl;

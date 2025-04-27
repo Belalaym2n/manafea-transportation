@@ -31,10 +31,7 @@ class GetActivitiesScreenViewModel
   getActivities() async {
     try {
       activities = await getActivitySupabaseRepo.getActivities();
-      print(activities[0].pricing);
-      print(activities[0].name);
-      print(activities[0].description);
-      print(activities[0].imageUrl);
+
     } catch (e) {
       print("Error ${e.toString()}");
       connector!.onError(e.toString());

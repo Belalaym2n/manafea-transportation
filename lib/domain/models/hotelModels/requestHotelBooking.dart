@@ -67,7 +67,8 @@ class RequestHotelBooking extends BaseOrder {
 }
 
 class RequestHotelBookingBuilder
-    extends BaseOrderBuilder<RequestHotelBooking, RequestHotelBookingBuilder> {
+    extends BaseOrderBuilder<RequestHotelBooking,
+        RequestHotelBookingBuilder> {
   String? roomType;
   int? roomCount;
   String? commonRoomTyp;

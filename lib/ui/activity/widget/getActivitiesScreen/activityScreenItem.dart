@@ -8,11 +8,12 @@ import 'package:manafea/ui/activity/widget/getActivitiesScreen/searchResultScree
 class ActivityScreenItem extends StatefulWidget {
   ActivityScreenItem({
     super.key,
-    required this.selectedDestination,
-    required this.changeDestination,
+
     required this.isSearchPressed,
     required this.getActivities,
     required this.changeSearchBool,
+    required this.selectedDestination,
+    required this.changeDestination,
   });
 
   String? selectedDestination;
@@ -45,69 +46,75 @@ class _ActivityScreenItemState extends State<ActivityScreenItem> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(AppConstants.screenWidth * 0.04),
-          // 4% من العرض
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildQuestionText(),
-              SizedBox(height: AppConstants.screenHeight * 0.02),
-              // 2% من الارتفاع
-              Row(
-                children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: () => showDestinationPicker(
-                          context: context,
-                          changeDestination: widget.changeDestination,
-                          destination: widget.selectedDestination,
-                          destinations: destinations),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: AppConstants.screenHeight * 0.015,
-                            // 1.5% من الارتفاع
-                            horizontal: AppConstants.screenWidth * 0.04),
-                        // 4% من العرض
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: AppColors.primaryColor, width: 1.5),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              widget.selectedDestination ?? "Select a location",
-                              style: TextStyle(
-                                  fontSize: AppConstants.screenWidth * 0.04,
-                                  // 4% من العرض
-                                  color: Colors.black54),
-                            ),
-                            Icon(Icons.arrow_drop_down_circle)
-                          ],
-                        ),
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 10,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+      ),
+      backgroundColor: Colors.white,
+
+      body: Padding(
+        padding: EdgeInsets.all(AppConstants.screenWidth * 0.04),
+        // 4% من العرض
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildQuestionText(),
+            SizedBox(height: AppConstants.screenHeight * 0.02),
+            // 2% من الارتفاع
+            Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () => showLocationsPicker(
+                        context: context,
+                        changeDestination: widget.changeDestination,
+                        location: widget.selectedDestination,
+                        locations: destinations),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: AppConstants.screenHeight * 0.015,
+                          // 1.5% من الارتفاع
+                          horizontal: AppConstants.screenWidth * 0.04),
+                      // 4% من العرض
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: AppColors.primaryColor, width: 1.5),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            widget.selectedDestination ?? "Select a location",
+                            style: TextStyle(
+                                fontSize: AppConstants.screenWidth * 0.04,
+                                // 4% من العرض
+                                color: Colors.black54),
+                          ),
+                          Icon(Icons.arrow_drop_down_circle)
+                        ],
                       ),
                     ),
                   ),
-                  SizedBox(width: AppConstants.screenWidth * 0.04),
-                  _buildElevatedButton(),
-                ],
-              ),
-              SizedBox(height: AppConstants.screenHeight * 0.03),
+                ),
+                SizedBox(width: AppConstants.screenWidth * 0.04),
+                _buildElevatedButton(),
+              ],
+            ),
+            SizedBox(height: AppConstants.screenHeight * 0.03),
 
-              widget.isSearchPressed == false?
-                Expanded(
-                   child: Center(
-                    child: _buildDefaultImage(), // Show image by default
-                  ),
-                ) : widget.getActivities(),
+            widget.isSearchPressed == false?
+              Expanded(
+                 child: Center(
+                  child: _buildDefaultImage(), // Show image by default
+                ),
+              ) : widget.getActivities(),
 
 
-            ],
-          ),
+          ],
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:manafea/domain/models/userModel.dart';
+import 'package:manafea/domain/models/userModel/userModel.dart';
 import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
 
 import '../../../config/appColors.dart';

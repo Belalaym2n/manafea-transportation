@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:manafea/ui/home/widgets/homeScreenItem.dart';
+import 'package:manafea/ui/home/view/homeScreenItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-import '../../../domain/models/notificationModel.dart';
+import '../../../domain/models/notificationModel/notificationModel.dart';
 import '../../../ui/home/view/homeScreen.dart';
 
 class OpenNotification {

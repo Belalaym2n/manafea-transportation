@@ -7,8 +7,8 @@ import 'package:manafea/ui/home/widgets/welcomUser.dart';
 import '../../../config/appConstants.dart';
 import '../../profile_screen/view/profileScreen.dart';
 import '../../profile_screen/widgets/profileScreenItem.dart';
-import 'carsuoImage.dart';
-import 'hotelWidget.dart';
+import '../widgets/carsuoImage.dart';
+import '../widgets/hotelWidget.dart';
 
 class HomeScreenItem extends StatefulWidget {
   const HomeScreenItem({super.key});
@@ -36,7 +36,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                 height: AppConstants.screenHeight * 0.25,
                 child: const CasualImage(),
               ),               const SizedBox(height: 10),
-              const TransportationWidget(),
+              const ServicesWidget(),
                 SizedBox(height: AppConstants.screenHeight * 0.013 ),
               const HotelWidget(),
                 SizedBox(height: AppConstants.screenHeight*0.03    ),

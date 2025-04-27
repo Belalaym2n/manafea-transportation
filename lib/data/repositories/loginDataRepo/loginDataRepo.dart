@@ -1,5 +1,5 @@
 import 'package:manafea/data/services/loginDataServie/loginDataService.dart';
-import 'package:manafea/domain/models/userModel.dart';
+import 'package:manafea/domain/models/userModel/userModel.dart';
 
 class LoginDataRepo {
   LoginDataService loginDataService;

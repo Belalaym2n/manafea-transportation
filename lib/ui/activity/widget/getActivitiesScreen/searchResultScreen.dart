@@ -73,7 +73,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           SizedBox(width: 4), // مسافة صغيرة بين الأيقونة والنص
           Expanded( // يمنع تجاوز النص خارج الحدود
             child: Text(
-              widget.activityModel.address  ,
+              widget.activityModel.itemAddress  ,
               style: TextStyle(fontSize: 10, color: Colors.black54),
               overflow: TextOverflow.ellipsis, // يضيف "..." إذا كان النص طويلًا
             ),
@@ -86,7 +86,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   _buildTravelName(){
     return   Padding(
       padding: EdgeInsets.symmetric(horizontal: 8),
-      child: Text(widget.activityModel.name,
+      child: Text(widget.activityModel.itemName,
           style: TextStyle(
               color: Colors.black,
               fontSize: 12,
@@ -103,7 +103,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   _buildImage(){
     return        ClipRRect(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      child: Image.network( widget.activityModel.imageUrl,
+      child: Image.network( widget.activityModel.itemImageUrl,
           height: 110, fit: BoxFit.cover, width: double.infinity),
     );
   }

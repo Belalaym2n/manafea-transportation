@@ -4,14 +4,14 @@ import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/carBooking/view/cars_screen.dart';
 
-class TransportationWidget extends StatefulWidget {
-  const TransportationWidget({super.key});
+class ServicesWidget extends StatefulWidget {
+  const ServicesWidget({super.key});
 
   @override
-  State<TransportationWidget> createState() => _TransportationWidgetState();
+  State<ServicesWidget> createState() => _ServicesWidgetState();
 }
 
-class _TransportationWidgetState extends State<TransportationWidget> {
+class _ServicesWidgetState extends State<ServicesWidget> {
   IconData? selectedIcon;
 
   @override
@@ -26,15 +26,22 @@ class _TransportationWidgetState extends State<TransportationWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildTransportWidget(
+              _buildServicesWidget(
                   onTap: (){
                     Navigator.
                     push(context,MaterialPageRoute(builder: (context) => CarsScreen(),));
+
                   },
                   icon: Icons.directions_car, iconName: "Car"),
-              _buildTransportWidget(icon: Icons.directions_bus, iconName: "Bus"),
-              _buildTransportWidget(icon: Icons.local_taxi, iconName: "Taxi"),
-              _buildTransportWidget(icon: Icons.motorcycle, iconName: "Bike"),
+              _buildServicesWidget(
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoutes.activityBooking);
+                  },
+                  icon: Icons.local_activity
+                  , iconName: "Activity"),
+              _buildServicesWidget(icon:
+              Icons.hotel, iconName: "Hotels"),
+              _buildServicesWidget(icon: Icons.motorcycle, iconName: "Bike"),
             ],
           ),
         ),
@@ -46,7 +53,7 @@ class _TransportationWidgetState extends State<TransportationWidget> {
 
 
 
-  Widget _buildTransportWidget({required IconData icon,
+  Widget _buildServicesWidget({required IconData icon,
     required String iconName,
   Function? onTap
   }) {
@@ -116,7 +123,7 @@ class _TransportationWidgetState extends State<TransportationWidget> {
     return Padding(
       padding: EdgeInsets.only(left: 0.042 * AppConstants.screenWidth), // Adjust padding based on screen width
       child: Text(
-        '#ChooseYourTransportation',
+        '#ChooseYourService',
         style: TextStyle(
           fontWeight: FontWeight.w900,
           color: AppColors.primaryColor,

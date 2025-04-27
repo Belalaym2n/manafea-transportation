@@ -31,8 +31,10 @@ class _ActivityScreenState
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
         value: viewModel,
-        builder: (context, child) => Consumer<GetActivitiesScreenViewModel>(
-            builder: (context, value, child) => ActivityScreenItem(
+        builder: (context, child) => Consumer
+        <GetActivitiesScreenViewModel>(
+            builder: (context, value, child) =>
+                ActivityScreenItem(
               changeSearchBool: value.changeSearchBool,
               getActivities: value.showActivity,
               isSearchPressed: value.isSearchPressed,

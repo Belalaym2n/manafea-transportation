@@ -6,7 +6,7 @@ class GetActivitySupebaseService{
   final supabase=Supabase.instance.client;
 
 
-  Future<List<ActivityModel>> getActivities() async {
+  Future<List<ActivityModel>> getAgectivities() async {
     final activities = await supabase
         .from("activities")
         .select()

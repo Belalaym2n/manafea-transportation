@@ -9,7 +9,7 @@ class GetActivitySupabaseRepo {
 
   Future<List<ActivityModel>> getActivities() async {
     try {
-      return await getActivitySupebaseService.getActivities();
+      return await getActivitySupebaseService.getAgectivities();
     } catch (e) {
       print("error $e");
       throw Exception(e.toString());
