@@ -17,8 +17,7 @@ import '../../core/shared_widget/buildStepCounterInStepper.dart';
 import '../../core/shared_widget/build_check_in_check_out_widget_in_stepper.dart';
 import '../../core/shared_widget/succes_widget.dart';
 import '../../core/shared_widget/userBookingData.dart';
-import '../../hotelBooking/widgets/elevatedButtonStepper.dart';
-import '../widget/bookingActivity/stepperButton.dart';
+ import '../widget/bookingActivity/stepperButton.dart';
 import '../widget/buildStepOneContentChooseBookingDay.dart';
 
 class ActivityScreenBooking extends StatefulWidget {
@@ -59,14 +58,16 @@ class _ActivityScreenBookingState
                             SingleChildScrollView(
                                 child: Column(
                                   children: [
-                                    const ActivityScreenBookingItem(),
+                                      ActivityScreenBookingItem(
+                                        activity: widget.activityModel  ,
+                                      ),
                                     SizedBox(
                                         height: AppConstants.screenHeight / 1.6,
                                         // ✅ Wrap Stepper with Material
                                         child: Stepper(
                                           controlsBuilder: (context, details) =>
                                               viewModel.index != 3
-                                                  ? ElevatedButtonStepperActivityBooking(
+                                                  ? ElevatedButtonStepperBooking(
                                                       onStepCancel:
                                                           viewModel.onStepCancel,
                                                       onStepContinue:  () =>viewModel

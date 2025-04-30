@@ -22,13 +22,6 @@ Widget serviceName({
 
             color: AppColors.primaryColor),
       ),
-      // Text(
-      //   textAlign: TextAlign.start,
-      //   'view all',
-      //   style: TextStyle(
-      //       fontWeight: FontWeight.w500,
-      //       fontSize:AppConstants.screenWidth * 0.038,
-      //       color: AppColors.primaryColor),
-      // ),
+
     ],
   ));}

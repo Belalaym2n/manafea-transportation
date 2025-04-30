@@ -9,13 +9,19 @@ class CheckInCheckOut extends StatefulWidget {
   String? checkOutDateString;
   Function(DateTime) onSelectCheckInDate;
   Function(DateTime) onSelectCheckOutDate;
+  Function calculatePrice;
   DateTime focusedDateCheckOutDate;
   DateTime focusedDateCheckInDate;
 
+  String headlineOne;
+  String headlineTwo;
   CheckInCheckOut({
     required this.checkInDateString,
+    required this.calculatePrice,
     required this.onSelectCheckOutDate,
     required this.onSelectCheckInDate,
+    required this.headlineTwo,
+    required this.headlineOne,
     required this.focusedDateCheckInDate,
     required this.checkOutDateString,
     required this.focusedDateCheckOutDate,
@@ -26,9 +32,12 @@ class CheckInCheckOut extends StatefulWidget {
 }
 
 class _CheckInCheckOutState extends State<CheckInCheckOut> {
-  String calculateStayDuration(DateTime checkIn, DateTime checkOut) {
-      final normalizedCheckIn = DateTime(checkIn.year, checkIn.month, checkIn.day);
-    final normalizedCheckOut = DateTime(checkOut.year, checkOut.month, checkOut.day);
+  String calculateStayDuration(
+      DateTime checkIn, DateTime checkOut) {
+      final normalizedCheckIn =
+      DateTime(checkIn.year, checkIn.month, checkIn.day);
+    final normalizedCheckOut =
+    DateTime(checkOut.year, checkOut.month, checkOut.day);
     final duration = normalizedCheckOut.difference(normalizedCheckIn);
     int days = duration.inDays;
 
@@ -80,13 +89,11 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
         ),
           SizedBox(height: AppConstants.screenHeight*0.024),
         // Display the duration of the stay (difference between check-in and check-out)
-        if (widget.checkInDateString != null
-            && widget.checkOutDateString != null)
-          Text(
-            'Stay Duration: ${calculateStayDuration(widget.focusedDateCheckInDate, widget.focusedDateCheckOutDate)}',
-            style: TextStyle(fontSize: AppConstants.screenWidth*0.044, fontWeight: FontWeight.bold),
-          ),
-        SizedBox(height: AppConstants.screenHeight*0.024),
+        // Text(
+        //   'Stay Duration: ${calculateStayDuration(widget.focusedDateCheckInDate, widget.focusedDateCheckOutDate)}',
+        //   style: TextStyle(fontSize: AppConstants.screenWidth*0.044, fontWeight: FontWeight.bold),
+        // ),
+
 
       ],
     );
@@ -103,7 +110,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            "Check-out",
+            widget.headlineTwo,
             style: TextStyle(
               fontSize: AppConstants.screenWidth*0.044,
               fontWeight: FontWeight.bold,
@@ -134,7 +141,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Check-in",
+            widget.headlineOne,
             style: TextStyle(
               fontSize: AppConstants.screenWidth*0.044,
               fontWeight: FontWeight.bold,
@@ -192,7 +199,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
                           selectedDate = selectedDay;
                         });
                         onSelectDate(selectedDate);
-
+                       widget.calculatePrice();
                         Future.delayed(
                           Duration(milliseconds: 700),
                               () {
@@ -237,13 +244,13 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
                             color: Colors.grey), // Change the color of disabled days
                       ),
                       enabledDayPredicate: (day) {
+                        print(widget.focusedDateCheckInDate);
                         if (checkIn) {
-                          return !day.isBefore(DateTime.now().
-                          subtract(const Duration(days: 1)));
+                          return !day.isBefore(DateTime.now().subtract(const Duration(days: 1)));
+
                         } else {
-                          return !day.isBefore(
-                              widget.focusedDateCheckInDate
-                                  .add(const Duration(days: 1 )));
+                          return !day.isBefore(widget.focusedDateCheckInDate.add(const Duration(days: 1)));
+
                         }
                       }
                   );

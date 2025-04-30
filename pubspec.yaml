@@ -74,6 +74,9 @@ dependencies:
   # for booking check-In and check-out
   table_calendar: ^3.0.8
 
+  #for localization er and ar
+  easy_localization: ^3.0.7+1
+
   #  table_calendar: ^3.2.0
   # for success order
 

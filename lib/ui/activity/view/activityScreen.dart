@@ -7,6 +7,8 @@ import 'package:manafea/ui/activity/viewModel/getActivitesScreenViewModel.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../../config/appConstants.dart';
+import '../../core/commonScreen/buildHeaderForChooseSpecificaLocation.dart';
 import '../widget/getActivitiesScreen/activityScreenItem.dart';
 
 class ActivityScreen extends StatefulWidget {
@@ -34,12 +36,21 @@ class _ActivityScreenState
         builder: (context, child) => Consumer
         <GetActivitiesScreenViewModel>(
             builder: (context, value, child) =>
-                ActivityScreenItem(
+                BuildHeaderForChooseSpecificLocation(
+
+                  questionText:
+                   Text(
+                      "Where do you want to move from?",
+                      style: TextStyle(
+                          fontSize: AppConstants.screenWidth * 0.045,
+                          fontWeight: FontWeight.bold), // حجم الخط بناءً على العرض
+                    )
+                   ,
               changeSearchBool: value.changeSearchBool,
-              getActivities: value.showActivity,
+              getServiceItems: value.showActivity,
               isSearchPressed: value.isSearchPressed,
-                  changeDestination: value.changeDestination,
-                  selectedDestination: value.destination,
+                  changeLocation: value.changeDestination,
+                  location: value.destination,
                 ))) ;
   }
 

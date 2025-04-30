@@ -52,10 +52,13 @@ Widget buildBookingImage({
             bottom: AppConstants.screenHeight * 0.02,
             child: Center(
               child: Text(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 imageName,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
+
                   fontSize: AppConstants.screenWidth * 0.05,
                   fontWeight: FontWeight.bold,
                   shadows: [

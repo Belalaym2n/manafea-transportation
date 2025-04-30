@@ -39,7 +39,11 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                   },
                   icon: Icons.local_activity
                   , iconName: "Activity"),
-              _buildServicesWidget(icon:
+              _buildServicesWidget(
+                  onTap: (){
+                    Navigator.pushNamed(context, AppRoutes.filterHotels);
+                  },
+                  icon:
               Icons.hotel, iconName: "Hotels"),
               _buildServicesWidget(icon: Icons.motorcycle, iconName: "Bike"),
             ],

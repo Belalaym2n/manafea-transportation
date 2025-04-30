@@ -7,8 +7,10 @@ import '../../../config/appConstants.dart';
 import '../../core/shared_widget/buildBookingDescription.dart';
 
 class CarBookingScreenItem extends StatefulWidget {
-    CarBookingScreenItem({super.key,required this.carModel});
-AddCarModel carModel;
+  CarBookingScreenItem({super.key, required this.carModel});
+
+  AddCarModel carModel;
+
   @override
   State<CarBookingScreenItem> createState() => _CarBookingScreenItemState();
 }
@@ -16,17 +18,18 @@ AddCarModel carModel;
 class _CarBookingScreenItemState extends State<CarBookingScreenItem> {
   @override
   Widget build(BuildContext context) {
-    return   Column(
-          children: [
-            buildBookingImage(imagePath: widget.carModel.itemImageUrl
-                , imageName:  widget.carModel.itemName
-            )
-          ,Padding(
-      padding: EdgeInsets.symmetric(horizontal:
-      AppConstants.screenWidth * 0.05),
-      child: buildBookingDescription(BookingTittle: "About the Car"),
-          ) ],
-
+    return Column(
+      children: [
+        buildBookingImage(
+            imagePath: widget.carModel.itemImageUrl,
+            imageName: widget.carModel.itemName),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.05),
+          child: buildBookingDescription(BookingTittle: "About the Car",
+          description: widget.carModel.itemDescription),
+        )
+      ],
     );
   }
 }

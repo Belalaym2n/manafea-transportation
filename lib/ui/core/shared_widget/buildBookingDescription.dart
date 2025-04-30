@@ -5,7 +5,8 @@ import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
 
 Widget buildBookingDescription({
-  required String BookingTittle
+  required String BookingTittle,
+  required String description,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -15,6 +16,7 @@ Widget buildBookingDescription({
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
+
             BookingTittle,
             style: TextStyle(
               fontSize: AppConstants.screenWidth * 0.05,
@@ -35,14 +37,19 @@ Widget buildBookingDescription({
       ),
 
       /// وصف الفندق
-      Text(
-        "This luxurious hotel offers breathtaking views, elegant interiors, and world-class services to make your stay unforgettable.",
-        style: TextStyle(
-          fontSize: AppConstants.screenWidth * 0.04,
-          color: AppColors.lightBlack,
-          height: 1.5, // تحسين المسافة بين الأسطر
+      SizedBox(
+         child: Text(
+          description,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 3, // عدد السطور اللي تسمح بيها قبل ظهور ...
+          style: TextStyle(
+            fontSize: AppConstants.screenWidth * 0.04,
+            color: AppColors.lightBlack,
+            height: 1.5,
+          ),
         ),
       ),
+
     ],
   );
 }

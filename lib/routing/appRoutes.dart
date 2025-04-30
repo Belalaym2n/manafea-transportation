@@ -5,6 +5,7 @@ import 'package:manafea/ui/addActivity/view/addActivity.dart';
 import 'package:manafea/ui/bottomNav/view/bottomNav.dart';
 import 'package:manafea/ui/carBooking/view/car_bookin_screen.dart';
 import 'package:manafea/ui/home/view/homeScreen.dart';
+import 'package:manafea/ui/hotels/hotels/widgets/filterHotelsItem/filterHotelsItem.dart';
 import 'package:manafea/ui/login/view/autoLogin.dart';
 import 'package:manafea/ui/login/view/loginScreen.dart';
 import 'package:manafea/ui/login/widgets/userPersonalDetails.dart';
@@ -14,7 +15,7 @@ import 'package:manafea/ui/splashScreen/view/splashScreen%5D.dart';
 
 import '../ui/bottomNav/view/bottomNavAdmin.dart';
 import '../ui/carBooking/view/cars_screen.dart';
-import '../ui/hotelBooking/view/hotelBookinScreen.dart';
+import '../ui/hotels/hotels/view/filterHotels.dart';
 
 class AppRoutes {
   static const String splash = "/";
@@ -31,6 +32,7 @@ class AppRoutes {
   static const String carsScreen = "carscreen";
   static const String carBooking = "carbookin";
   static const String activityBooking = "acrivity";
+  static const String filterHotels = "hotels";
 }
 
 class Routes {
@@ -39,6 +41,11 @@ class Routes {
       case AppRoutes.onBoard:
         return MaterialPageRoute(
           builder: (context) => const Onboardingscreen(),
+        );
+
+      case AppRoutes.filterHotels:
+        return MaterialPageRoute(
+          builder: (context) => const FilterHotels(),
         );
       case AppRoutes.autoLogin:
         return MaterialPageRoute(
@@ -68,11 +75,6 @@ class Routes {
 
 
 
-
-      case AppRoutes.hotels:
-        return MaterialPageRoute(
-          builder: (context) => const HotelBookingScreen(),
-        );
 
 
 
