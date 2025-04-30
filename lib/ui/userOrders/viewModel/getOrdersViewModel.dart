@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/domain/models/activityModel/requestActivityOrderModel.dart';
+import 'package:manafea/domain/models/carModels/requestCarBookingOrder.dart';
 import 'package:manafea/domain/models/requestOrderModel.dart';
 import 'package:manafea/ui/userOrders/widgets/orderItem.dart';
 import '../../../data/repositories/userOrdersHistoryRepo/userOrdersHistoryRepo.dart';
@@ -99,7 +100,7 @@ class GetUserOrdersViewModel extends BaseViewModel<GetUserOrderConnector> {
                 cancelOrder: deleteOrder,
                 order: order,
                 orderDetailedChanged:
-                buildHotelBookingOrder(order: order),
+                buildHotelWidget(hotel: order),
               );
             }
             if (order is RequestActivityOrderModel) {
@@ -111,6 +112,18 @@ class GetUserOrdersViewModel extends BaseViewModel<GetUserOrderConnector> {
                 orderDetailedChanged:
                 orderActivityWidget(
                   order: order
+                ),
+              );
+            }
+            if (order is RequestCarBookingOrderModel) {
+              return OrderItem(
+                orderName: order.carName.toString(),
+                orderType: "Car",
+                cancelOrder: deleteOrder,
+                order: order,
+                orderDetailedChanged:
+                buildCarOrderWidget(
+                    car: order
                 ),
               );
             }

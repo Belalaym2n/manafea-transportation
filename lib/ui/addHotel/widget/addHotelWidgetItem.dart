@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/domain/models/hotelModels/addHotel.dart';
-import 'package:manafea/ui/home/widgets/hotelWidget.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
 import '../../activity/widget/getActivitiesScreen/showDiestination.dart';
+import '../../core/commonScreen/chooseLocationPicker.dart';
 import '../../core/shared_widget/addImageWidget.dart';
 import '../../core/shared_widget/elevatedButton.dart';
 import '../../core/shared_widget/textFormFieldForAdmin.dart';
@@ -62,8 +62,7 @@ class _AddHotelItemState extends State<AddHotelItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Listen to changes
-    hotelAddress.addListener(_updateState);
+     hotelAddress.addListener(_updateState);
     hotelName.addListener(_updateState);
      hotelCommonRoomPricing.addListener(_updateState);
     hotelSpecialRoomPricing.addListener(_updateState);
@@ -113,12 +112,14 @@ class _AddHotelItemState extends State<AddHotelItem> {
                   ? () async {
                 try{
                       final hotel = AddHotelBuilder()
-                          .setDescription(hotelDescription.text)
-                          .setCommonRoomPricing(hotelCommonRoomPricing.text)
-                          .setName(hotelName.text)
-                          .setImageUrl(widget.publicUrl)
-                          .setSpecialRoomPricing(hotelSpecialRoomPricing.text)
-                          .setAddress(hotelAddress.text)
+                           .setItemDescription(hotelDescription.text)
+                          .setCommonRoomPricing(int.parse(hotelCommonRoomPricing.text))
+                          .setItemName(hotelName.text)
+                          .setItemImageUrl(widget.publicUrl)
+                          .setSpecialRoomPricing(int.parse(
+                          hotelSpecialRoomPricing.text))
+                          .setItemAddress(hotelAddress.text)
+
                           .setCountry(widget.selectedLocation.toString())
                           .build();
 
@@ -148,7 +149,7 @@ class _AddHotelItemState extends State<AddHotelItem> {
   return  InkWell(
       onTap: () => showLocationsPicker(
       context: context,
-      changeDestination: widget.changeLocation,
+      changeLocation: widget.changeLocation,
       location: widget.selectedLocation,
       locations: locations),child:Container(
     padding: EdgeInsets.symmetric(

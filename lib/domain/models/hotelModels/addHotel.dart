@@ -1,9 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:manafea/domain/models/baseItemInServiceModel/baseItemInServiceModel.dart';
 
 class AddHotelModel  extends BaseItemInServiceModel {
 
-  String commonRoomPricing;
-  String specialRoomPricing;
+  int commonRoomPricing;
+  int specialRoomPricing;
   String country;
 
   AddHotelModel._({
@@ -47,16 +48,11 @@ class AddHotelModel  extends BaseItemInServiceModel {
 }
   class AddHotelBuilder  extends BaseItemBuilder
 <AddHotelModel,AddHotelBuilder> {
-  String? name;
-  String? description;
-  String? imageUrl;
-  int? pricing;
-  String? address;
-  String? country;
-  String ?commonRoomPricing;
-  String ?specialRoomPricing;
+       String? country;
+  int ?commonRoomPricing;
+  int ?specialRoomPricing;
 
-  AddHotelBuilder setCommonRoomPricing(String commonPricing) {
+  AddHotelBuilder setCommonRoomPricing(int commonPricing) {
     this.commonRoomPricing = commonPricing;
     return this  ;
   }
@@ -65,47 +61,27 @@ class AddHotelModel  extends BaseItemInServiceModel {
     return this  ;
   }
 
-  AddHotelBuilder setSpecialRoomPricing(String specialPricing) {
+  AddHotelBuilder setSpecialRoomPricing(int specialPricing) {
     this.specialRoomPricing = specialPricing;
     return this  ;
   }
-  AddHotelBuilder setName(String name) {
-    this.name = name;
-    return this  ;
-  }
 
-  AddHotelBuilder setDescription(String description) {
-    this.description = description;
-    return this ;
-  }
 
-  AddHotelBuilder setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
-    return this ;
-  }
 
-  AddHotelBuilder setPricing(int pricing) {
-    this.pricing = pricing;
-    return this ;
-  }
 
-  AddHotelBuilder setAddress(String address) {
-    this.address = address;
-    return this ;
-  }
 
 
   @override
   AddHotelModel build() {
     return AddHotelModel._(
-      commonRoomPricing: commonRoomPricing??'',
-      specialRoomPricing: commonRoomPricing??'',
-      name: name ?? '',
+      commonRoomPricing: commonRoomPricing??0,
+      specialRoomPricing: commonRoomPricing??0,
+      name: itemName ?? '',
       country: country ?? '',
-      description: description ?? '',
-      imageUrl: imageUrl ?? '',
-      pricing: pricing ?? 0,
-      address: address ?? '',
+      description: itemDescription ?? '',
+      imageUrl: itemImageUrl ?? '',
+      pricing: itemPricing ?? 0,
+      address: itemAddress ?? '',
      );
   }
 }

@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:manafea/ui/addActivity/view/addActivity.dart';
 
 import '../../../../config/appConstants.dart';
+import '../../../../domain/models/activityModel/activityModel.dart';
 import '../../../core/shared_widget/builImageBookin.dart';
 import '../../../core/shared_widget/buildBookingDescription.dart';
 
 class ActivityScreenBookingItem extends StatefulWidget {
-  const ActivityScreenBookingItem({super.key});
-
+    ActivityScreenBookingItem({super.key,
+    required this.activity
+    });
+    ActivityModel activity;
   @override
   State<ActivityScreenBookingItem> createState() => _ActivityScreenBookingItemState();
 }
@@ -16,11 +20,14 @@ class _ActivityScreenBookingItemState extends State<ActivityScreenBookingItem> {
   Widget build(BuildContext context) {
     return  Column(
       children: [
-        buildBookingImage(imagePath: "assets/images/v2.jpg",
-            imageName: "Madain Salih")
+        buildBookingImage(imagePath: widget.activity.itemImageUrl,
+            imageName: widget.activity.itemName)
         ,Padding(
           padding: EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.05),
-          child: buildBookingDescription(BookingTittle: "About Madain Salih "),
+          child: buildBookingDescription(
+              description:      widget.activity.itemDescription ,
+
+                BookingTittle: "About ${ widget.activity.itemName}"),
         ) ],
 
     );

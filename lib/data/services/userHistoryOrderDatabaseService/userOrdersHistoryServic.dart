@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:manafea/domain/models/activityModel/requestActivityOrderModel.dart';
 import 'package:manafea/domain/models/baseOrderModel/baseOrderModel.dart';
+import 'package:manafea/domain/models/carModels/requestCarBookingOrder.dart';
 
 import '../../../domain/models/hotelModels/requestHotelBooking.dart';
 
@@ -22,6 +23,8 @@ class UserOrderHistoryFirebaseService {
           return RequestHotelBooking.fromJson(data);
         case "Activity": 
           return RequestActivityOrderModel.fromJson(data);
+        case "Car":
+          return RequestCarBookingOrderModel.fromJson(data);
         default:
           return BaseOrder.fromJson(data);
       }

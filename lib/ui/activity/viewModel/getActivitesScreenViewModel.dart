@@ -1,10 +1,12 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
 
 import '../../../data/repositories/activity/getActivitySupabseRepo.dart';
 import '../../../domain/models/activityModel/activityModel.dart';
 import '../connector/getActivitesConnector.dart';
+import '../view/activityScreenBooking.dart';
 import '../widget/getActivitiesScreen/searchResultScreen.dart';
 
 class GetActivitiesScreenViewModel
@@ -70,8 +72,19 @@ class GetActivitiesScreenViewModel
               var activity = filterActivity[index];
 
               return SearchResultScreen(
-                activityModel: activity,
-              );
+                bookingNav: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>
+                      ActivityScreenBooking(
+                        activityModel: activity,
+                      )),
+                  );
+                },
+                imageUrl: activity.itemImageUrl,
+                itemName: activity.itemName,
+                location: activity.itemAddress,
+               );
             }));
   }
 }

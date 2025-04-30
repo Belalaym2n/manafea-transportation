@@ -2,13 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/domain/models/activityModel/activityModel.dart';
 
+import '../../../../config/appConstants.dart';
 import '../../../core/shared_widget/elevatedButton.dart';
 import '../../view/activityScreenBooking.dart';
 
 class SearchResultScreen extends StatefulWidget {
-    SearchResultScreen({super.key,required this.activityModel});
-ActivityModel activityModel;
-  @override
+    SearchResultScreen({super.key,required this.itemName,
+
+    required this.location,
+    required this.bookingNav,
+    required this.imageUrl,
+    });
+String  itemName;
+String  imageUrl;
+String  location;
+Function  bookingNav;
+   @override
   State<SearchResultScreen> createState() => _SearchResultScreenState();
 }
 
@@ -52,13 +61,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: smallElevatedButton(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                ActivityScreenBooking(
-                  activityModel: widget.activityModel,
-                )),
-            );
+            widget.bookingNav();
+
           },
           buttonName: "Book Now"),
     );
@@ -73,7 +77,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           SizedBox(width: 4), // مسافة صغيرة بين الأيقونة والنص
           Expanded( // يمنع تجاوز النص خارج الحدود
             child: Text(
-              widget.activityModel.itemAddress  ,
+              maxLines: 1,
+
+              widget.location  ,
               style: TextStyle(fontSize: 10, color: Colors.black54),
               overflow: TextOverflow.ellipsis, // يضيف "..." إذا كان النص طويلًا
             ),
@@ -86,7 +92,12 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   _buildTravelName(){
     return   Padding(
       padding: EdgeInsets.symmetric(horizontal: 8),
-      child: Text(widget.activityModel.itemName,
+      child: Text(
+
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+
+          widget.itemName,
           style: TextStyle(
               color: Colors.black,
               fontSize: 12,
@@ -103,7 +114,17 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   _buildImage(){
     return        ClipRRect(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      child: Image.network( widget.activityModel.itemImageUrl,
+      child: Image.network(
+
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              width: AppConstants.screenWidth * 0.75,
+              height: AppConstants.screenHeight * 0.14,
+              color: Colors.grey,
+              child: Icon(Icons.error),// لون بديل في حال الخطأ
+            );
+          },
+          widget.imageUrl,
           height: 110, fit: BoxFit.cover, width: double.infinity),
     );
   }

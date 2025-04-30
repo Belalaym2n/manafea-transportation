@@ -8,7 +8,7 @@ Widget buildStepCounterInStepper({
   required String title,
   required int count,
   required int totalPrice,
-  String currency = "USD",
+
 }) {
   return Padding(
     padding: const EdgeInsets.symmetric(
@@ -30,12 +30,17 @@ Widget buildStepCounterInStepper({
             SizedBox(
               height: AppConstants.screenHeight * (5 / 776),
             ),
-            Text(
-              "$totalPrice $currency",
-              style: TextStyle(
-                fontSize: AppConstants.screenWidth * (16 / 360),
-                fontWeight: FontWeight.w600,
-                color: Colors.green.shade700,
+            SizedBox(
+              width: AppConstants.screenWidth*0.4 ,
+              child: Text(
+                "Per Day:$totalPrice",
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+
+                  fontSize: AppConstants.screenWidth * (16 / 360),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.green.shade700,
+                ),
               ),
             ),
           ],

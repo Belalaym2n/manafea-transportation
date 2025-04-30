@@ -1,4 +1,3 @@
-import 'dart:developer' as developer;
 
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,8 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/home/view/homeScreen.dart';
-import 'package:manafea/ui/hotelBooking/viewModel/hottelBookingViewModel.dart';
-import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
+ import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
