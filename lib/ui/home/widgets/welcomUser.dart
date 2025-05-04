@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../../config/appConstants.dart';
 
 class WelcomeUserWidget extends StatefulWidget {
-  const WelcomeUserWidget({super.key});
-
+    WelcomeUserWidget({super.key,required this.name});
+String? name;
   @override
   State<WelcomeUserWidget> createState() => _WelcomeUserWidgetState();
 }
@@ -35,7 +38,7 @@ class _WelcomeUserWidgetState extends State<WelcomeUserWidget> {
         Row(
           children: [
             Text(
-              "Welcome,",
+           LocaleKeys.home_screen_welcome.tr(),
               style: TextStyle(
                 color: Colors.grey.shade600,
                 fontSize: AppConstants.screenWidth * 0.045,
@@ -51,8 +54,9 @@ class _WelcomeUserWidgetState extends State<WelcomeUserWidget> {
           ],
         ),
         SizedBox(height: AppConstants.screenHeight * 0.005),
+        widget. name==null?Skeletonizer(child: Text("Belal ayman")):
         Text(
-          "Belal Ayman",
+        widget. name!,
           style: TextStyle(
             color: AppColors.primaryColor,
             fontSize: AppConstants.screenWidth * 0.055,

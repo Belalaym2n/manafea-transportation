@@ -52,7 +52,6 @@ dependencies:
   supabase_flutter: ^2.8.4
 # add to upload images to server
   image_picker: ^1.1.2
-
   smooth_page_indicator: ^1.2.1
   animate_do: ^4.2.0
   curved_navigation_bar: ^1.0.6
@@ -60,8 +59,12 @@ dependencies:
   carousel_slider: ^5.0.0
   animated_text_kit: ^4.2.3
   google_nav_bar: ^5.0.7
+  firebase_app_check: ^0.3.2+5
 #  sentry_flutter: ^8.14.0
   country_flags: ^3.2.0
+#  for cash image
+  cached_network_image: ^3.4.1
+  flutter_cache_manager: ^3.4.1
   pin_code_fields: ^8.0.1
   flutter_launcher_icons: ^0.14.3
   # for profile animations
@@ -119,6 +122,10 @@ flutter:
   assets:
     - assets/images/
     - assets/jsonAnimations/
+    - assets/translations/
+scripts:
+  gen:locale: flutter pub run easy_localization:generate --source-dir ./assets/translations -f keys -o locale_keys.g.dart
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -5,11 +5,11 @@ class OTPRepo {
 
   OTPRepo(this.otpService);
 
-  sendOTP({required String phoneNumber}) {
+ Future<void> sendOTP({required String phoneNumber}) async {
     try {
-      otpService.sendOTP(phoneNumber: "+201114324251");
+       return  await otpService.sendOTP(phoneNumber: phoneNumber);
     } catch (e) {
-      Exception exception;
+      throw Exception("OTP Verification Failed: $e");
     }
   }
 
@@ -23,8 +23,5 @@ class OTPRepo {
       }
     }
 
- String? getVerificationId(){
-    return otpService.getVerificationId();
-  }
 
 }

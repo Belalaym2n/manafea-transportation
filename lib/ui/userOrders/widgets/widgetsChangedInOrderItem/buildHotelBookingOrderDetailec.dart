@@ -1,8 +1,37 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/domain/models/carModels/requestCarBookingOrder.dart';
 import 'package:manafea/domain/models/hotelModels/requestHotelBooking.dart';
 import '../../../../config/appConstants.dart';
+import '../../../../domain/models/baseOrderModel/baseOrderModel.dart';
+import '../../../../domain/models/baseOrderModel/baseOrderWidget.dart';
+import '../../../../generated/locale_keys.g.dart';
+import '../orderItem/orderItem.dart';
+
+class HotelOrderWidgetStrategy extends OrderWidgetStrategy {
+  static final _instance = HotelOrderWidgetStrategy._();
+
+  HotelOrderWidgetStrategy._() {
+    OrderWidgetStrategy.register(this);
+  }
+
+  factory HotelOrderWidgetStrategy() => _instance;
+
+  @override
+  bool canHandle(BaseOrder order) => order is RequestHotelBooking;
+
+  @override
+  Widget buildWidget(BaseOrder order, Function(String) cancelOrder) {
+    return OrderItem(
+      orderName: order.name,
+      orderType: LocaleKeys.orders_screen_hotel_nae.tr(),
+      cancelOrder: cancelOrder,
+      order: order,
+      orderDetailedChanged: buildHotelWidget(hotel: order as RequestHotelBooking),
+    );
+  }
+}
 
 Widget buildOrderWidget({required Widget widget}) {
   return Padding(
@@ -29,7 +58,7 @@ Widget buildHotelWidget({required RequestHotelBooking hotel}) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          hotel.service,
+          LocaleKeys.orders_screen_hotel_booking.tr(),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: AppConstants.screenWidth * 0.038,
@@ -41,9 +70,12 @@ Widget buildHotelWidget({required RequestHotelBooking hotel}) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             buildDateWidget(
-                dataValue: hotel.checkIn.toString(), dateName: 'Check-in'),
+                dataValue: hotel.checkIn.toString(),
+                dateName: LocaleKeys.orders_screen_check_in.tr()
+
+            ),
             buildDateWidget(
-                dateName: "Check-out", dataValue: hotel.checkOut.toString())
+                dateName:LocaleKeys.orders_screen_check_out.tr(), dataValue: hotel.checkOut.toString())
           ],
         ),
         SizedBox(height: AppConstants.screenHeight * 0.018),
@@ -52,35 +84,6 @@ Widget buildHotelWidget({required RequestHotelBooking hotel}) {
   );
 }
 
-Widget buildCarOrderWidget({required RequestCarBookingOrderModel car}) {
-  return buildOrderWidget(
-    widget: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          car.service,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: AppConstants.screenWidth * 0.038,
-            color: Colors.black87,
-          ),
-        ),
-        SizedBox(height: AppConstants.screenHeight * 0.012),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            buildDateWidget(
-                dataValue: car.deliveryDate.toString(),
-                dateName: 'Delivery date'),
-            buildDateWidget(
-                dateName: "Received-date", dataValue: car.receiptDate.toString())
-          ],
-        ),
-        SizedBox(height: AppConstants.screenHeight * 0.018),
-      ],
-    ),
-  );
-}
 
 buildDateWidget({required String dateName, required String dataValue,}) {
   return Column(

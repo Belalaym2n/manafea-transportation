@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+import '../../../generated/locale_keys.g.dart'; // Make sure to import easy_localization
 
 class ConfirmBookingInStepper extends StatefulWidget {
   final VoidCallback onStepCancel;
   final VoidCallback onStepContinue;
-    String totalPrice;
+  String totalPrice;
 
-    ConfirmBookingInStepper({
+  ConfirmBookingInStepper({
     Key? key,
     required this.onStepCancel,
     required this.onStepContinue,
@@ -32,7 +35,7 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
             borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.05),
           ),
           child: Padding(
-            padding:   EdgeInsets.all(AppConstants.screenWidth*0.023),
+            padding: EdgeInsets.all(AppConstants.screenWidth * 0.023),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -44,13 +47,12 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
             ),
           ),
         ),
-        SizedBox(height: AppConstants.screenHeight*0.013),
+        SizedBox(height: AppConstants.screenHeight * 0.013),
         elevated_button(
           bgColor: Colors.red,
-          buttonSize: Size(AppConstants.screenWidth,
-              AppConstants.screenHeight * 0.06),
+          buttonSize: Size(AppConstants.screenWidth, AppConstants.screenHeight * 0.06),
           onPressed: widget.onStepCancel,
-          buttonName: "Cancel",
+          buttonName: LocaleKeys.confirm_booking_screen_cancel.tr(), // Use LocaleKeys
           valid: true,
         ),
       ],
@@ -63,9 +65,9 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "All Booking",
+          LocaleKeys.confirm_booking_screen_all_booking.tr(), // Use LocaleKeys
           style: TextStyle(
-            fontSize: AppConstants.screenWidth*0.033,
+            fontSize: AppConstants.screenWidth * 0.033,
             fontWeight: FontWeight.w500,
             color: Colors.white,
           ),
@@ -74,7 +76,7 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
         Text(
           "${widget.totalPrice}",
           style: TextStyle(
-            fontSize: AppConstants.screenWidth*0.044,
+            fontSize: AppConstants.screenWidth * 0.044,
             fontWeight: FontWeight.w700,
             color: Colors.white,
           ),
@@ -93,9 +95,9 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
       ),
       onPressed: onStepContinue,
       child: Text(
-        "Booking",
+         LocaleKeys.confirm_booking_screen_booking.tr(), // Use LocaleKeys
         style: TextStyle(
-          fontSize: AppConstants.screenWidth*0.05,
+          fontSize: AppConstants.screenWidth * 0.05,
           fontWeight: FontWeight.bold,
           color: AppColors.primaryColor,
         ),

@@ -1,8 +1,10 @@
  import 'dart:math';
 
 import 'package:country_flags/country_flags.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
  import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
   import '../../core/shared_widget/elevatedButton.dart';
@@ -54,7 +56,7 @@ class _LoginItemState extends State<LoginItem> {
                 onPressed: () {
                   if (isValid) widget.sendOTP();
                 },
-                buttonName: "Next",
+                buttonName: LocaleKeys.buttons_name_next.tr(),
               ),
             ),
             SizedBox(
@@ -90,12 +92,12 @@ class _LoginItemState extends State<LoginItem> {
           controller: widget.controller,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return "Phone number can't be empty";
+              return LocaleKeys.errors_please_enter_your_number.tr();
             }
 
             final regex = RegExp(r'^05\d{8}$');
             if (!regex.hasMatch(value)) {
-              return "Please enter a valid Saudi phone number like: 0501234567";
+              return LocaleKeys.errors_please_enter_a_valid_saudi_phone_number_.tr();
             }
 
             return null;
@@ -141,7 +143,7 @@ class _LoginItemState extends State<LoginItem> {
       children: [
         SizedBox(height: AppConstants.screenHeight * 0.05), // تعديل المسافة
         Text(
-          'Enter Mobile Number',
+          LocaleKeys.auth_enter_mobile_number.tr(),
           style: TextStyle(
             fontWeight: FontWeight.w900,
             fontSize: AppConstants.screenWidth * 0.07, // تعديل الحجم ليتناسب

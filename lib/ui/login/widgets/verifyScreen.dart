@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/login/widgets/loadingWidget.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -53,7 +55,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
           widget.verifyNumber(otpCode ?? '');
         },
         child: Text(
-          'Verify',
+          LocaleKeys.buttons_name_verify.tr(),
           style: TextStyle(
             color: Colors.white,
             fontSize: screenWidth * 0.044, // 16
@@ -112,7 +114,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Verify your phone number',
+          LocaleKeys.auth_enter_mobile_number.tr(),
           style: TextStyle(
             color: Colors.black,
             fontSize: screenWidth * 0.066, // 24
@@ -124,7 +126,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
           margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.0055), // 2
           child: RichText(
             text: TextSpan(
-              text: 'Enter your 6 digit code numbers sent to ',
+              text: LocaleKeys.auth_enter_your_6_digit.tr() ,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: screenWidth * 0.05, // 18

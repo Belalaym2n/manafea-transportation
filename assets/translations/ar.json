@@ -1,0 +1,209 @@
+{
+  "onboard": {
+    "1": {
+      "headline": "يرجى اختيار لغتك\nلتحسين التجربة",
+      "description": "عملية حجز سهلة وفعالة ستجعل تجربتك في اختيار المركبة أكثر سلاسة. لدينا مجموعة واسعة من السيارات التي تناسب جميع احتياجاتك، سواء كنت تبحث عن سيارة اقتصادية أو فاخرة. نوفر لك خيارات متعددة لتختار منها بأفضل الأسعار."
+    },
+    "2": {
+      "headline": "عملية سلسة وفعالة\nتشكيلة سيارات واسعة متوفرة",
+      "description": "عملية الحجز لدينا تتميز بالسهولة والسرعة. نحن نقدم لك تشكيلة متنوعة من السيارات لتناسب مختلف الأذواق والمتطلبات. من السيارات الصغيرة إلى السيارات العائلية الكبيرة، ستجد دائماً ما يناسبك بأفضل الأسعار وأعلى جودة."
+    },
+    "3": {
+      "headline": "عروض سفر حصرية\nخصومات وعروض مخصصة",
+      "description": "ابقَ على اطلاع دائم بأحدث العروض والخصومات الخاصة. نحن نقدم لك عروضاً مخصصة لحجوزات السفر لتناسب احتياجاتك. يمكنك الاستفادة من الخصومات المميزة على رحلاتك القادمة وكذلك العروض الخاصة التي تناسب جميع الميزانيات."
+    },
+    "4": {
+      "headline": "حجز فنادق سلس\nحجوزات آمنة ومرنة",
+      "description": "نحن نضمن لك تجربة حجز فنادق سهلة وآمنة. يوفر لك تطبيقنا خيارات حجز مرنة، بحيث يمكنك تعديل أو إلغاء حجوزاتك في أي وقت. تأكد من أنك ستجد الإقامة المثالية بأفضل الأسعار مع تأكيد فوري للحجز، مما يوفر لك راحة البال."
+    }}
+,
+
+  "failed_to_fetch_orders___e": "فشل في جلب الطلبات:  ",
+  "screensName": {
+    "notification": "الإشعارات",
+    "activities": "الأنشطة",
+    "hotels": "الفنادق",
+    "orders": "الطلبات",
+    "home": "الرئيسيه",
+    "car": "السيارة",
+    "hotel_booking": "حجز الفندق"
+  },
+  "errors": {
+    "error_message": "خطأ",
+    "something_went_wrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقًا.",
+
+    "please_enter_your_number": "يرجى إدخال رقمك",
+    "please_enter_firstname_and_lastname": "يرجى إدخال الاسم الأول والاسم الأخير",
+    "something_went_wrong_please_try_again": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
+    "phone_number_can_t_be_empty": "رقم الهاتف لا يمكن أن يكون فارغًا",
+    "route_not_found": "الطريق غير موجود",
+    "please_choose_date": "يرجى اختيار التاريخ",
+    "please_enter_your_phone_and_your_name": "يرجى إدخال رقم هاتفك واسمك",
+    "please_choose_location_you_want_ro_recei": "يرجى اختيار المكان الذي تريد استلام السيارة منه",
+    "booking_at_least_one_day": "يرجى حجز يوم على الأقل",
+    "name_and_number_must_not_be_empty": "الاسم ورقم الهاتف لا يجب أن يكونا فارغين",
+    "please_choose_your_location": "يرجى اختيار موقعك",
+    "name_can_t_be_empty": "الاسم لا يمكن أن يكون فارغًا",
+    "phone_number_is_required": "رقم الهاتف مطلوب",
+    "please_choose_common_room_type": "يرجى اختيار نوع الغرفة المشتركة",
+    "please_enter_a_valid_saudi_phone_number_": "يرجى إدخال رقم هاتف سعودي صالح مثل: 0501234567",
+    "error__no_verification_id_found__please_": "❌ خطأ: لم يتم العثور على معرف التحقق. يرجى طلب OTP مرة أخرى.",
+    "no_image_selected": "لم يتم اختيار صورة",
+    "invalid_value_type": "نوع القيمة غير صالح",
+    "auto_verification_failed___e": "❌ فشل التحقق التلقائي: يرجى المحاولة مرة أخرى"
+  },
+  "loading": "تحميل",
+  "auth": {
+    "first_name": "الاسم الأول",
+    "last_name": "اسم العائلة",
+    "enter_your_first_name": "أدخل اسمك الأول",
+    "enter_your_phone_number": "أدخل رقم هاتفك",
+    "personal_detail": "التفاصيل الشخصية",
+
+    "enter_mobile_number": "أدخل رقم الهاتف المحمول",
+    "enter_your_6_digit":"أدخل أرقام الرموز المكونة من 6 أرقام المرسلة إلى"
+
+  },
+  "activity_screen": {
+    "select_date": "اختر التاريخ",
+    "people_count": "عدد الأشخاص",
+    "click_to_select": "انقر للاختيار",
+    "where_do_you_want_to_move_from": "من أين تريد الانتقال؟"
+  },
+  "buttons_name": {
+    "continue": "متابعة",
+    "verify": "تحقق ",
+    "back": "رجوع",
+    "ok": "حسناً",
+    "cancel_order": "إلغاء الطلب",
+    "yes": "نعم",
+    "no": "لا",
+    "book_now": "احجز الآن",
+    "next": "التالي "
+  },
+  "location": {
+    "riyadh___nakheel": "الرياض - النخيل",
+    "riyadh___malaz": "الرياض - الملز",
+    "riyadh___suwaidi": "الرياض - السويدي"
+  },
+  "hotelsScreen": {
+    "about_the_hotel": "عن الفندق",
+    "special": "خاص",
+    "female": "أنثى",
+    "male": "ذكر",
+    "where_do_you_want_to_hotel_booking_from": "من أين تريد حجز الفندق؟",
+    "select_a_country": "اختر دولة",
+    "common": "مشترك",
+    "room_count": "عدد الغرف",
+    "check_out": "تسجيل المغادرة",
+    "please_choose_your_room_type": "يرجى اختيار نوع الغرفة؟",
+    "hotel_common_room_pricing": "أسعار الغرف المشتركة للفندق",
+    "hotel_special_room_pricing": "أسعار الغرف الخاصة بالفندق"
+  },
+  "success_screen": {
+    "order_successfully_placed_message": "تم تقديم طلبك بنجاح.\n سوف نقوم بتوصيل طلبك قريباً.",
+    "order_successfully_placed": "تم تقديم الطلب بنجاح"
+  },
+  "car_screen": {
+    "receipt": "الإيصال",
+    "please_choose_your_location": "يرجى اختيار الموقع",
+    "all_price": "كل الأسعار",
+    "delivery": "التوصيل",
+    "select_location_prompt": "اضغط للاختيار",
+    "no_cars_available": "لا توجد سيارات متاحة",
+
+    "cars": "السيارات",
+    "about_the_car": "ماذا عن السيارة",
+    "available_cars": "السيارات المتاحة",
+    "choose_location": "اختر موقعك",
+    "receipt_delivery": "الاستلام / التسليم",
+    "confirm_booking_info": "تأكيد معلومات الحجز",
+    "confirm_booking": "تأكيد الحجز"
+  },
+  "form": {
+    "name_hint": "أدخل اسمك الأول",
+    "name_empty": "الاسم لا يمكن أن يكون فارغًا",
+    "phone_hint": "أدخل رقم هاتفك",
+    "phone_empty": "رقم الهاتف مطلوب",
+    "phone_invalid": "يرجى إدخال رقم هاتف سعودي صالح مثل: 0501234567"
+  },
+  "confirm_booking_screen":
+  {
+    "all_booking": "جميع الحجوزات",
+    "booking": "حجز",
+    "cancel": "إلغاء"
+  },
+  "locations": {
+    "riyadh": "الرياض",
+    "jeddah": "جدة",
+    "makkah": "مكة",
+    "madinah": "المدينة المنورة",
+    "dammam": "الدمام",
+    "khobar": "الخبر",
+    "taif": "الطائف",
+    "buraidah": "بريدة",
+    "abha": "أبها",
+    "hail": "حائل",
+    "tabuk": "تبوك",
+    "yanbu": "ينبع",
+    "qassim": "القصيم",
+    "jazan": "جازان",
+    "najran": "نجران",
+    "al_bahah": "الباحة"
+  },
+  "success_widget": {
+    "your_order_has_been_successfully_placed_": "تم تقديم طلبك بنجاح.\\nسوف نرسل طلبك قريبًا.",
+    "order_successfully_nplaced": "تم تقديم الطلب بنجاح ",
+    "back_to_home": "الرجوع إلى الرئيسية",
+    "go_to_orders": "انتقل إلى الطلبات"
+  },
+  "user_orders": {
+    "cancel": "إلغاء",
+    "all_booking": "جميع الحجوزات",
+    "booking": "الحجز"
+  },
+  "notification_screen": {
+    "view_detailed": "عرض التفاصيل",
+    "notification_details": "تفاصيل الإشعار"
+  },
+  "home_screen": {
+    "welcome": "مرحبًا،",
+    "choose_your_service": "#اختر_الخدمة_الخاصة_بك",
+    "recommended_hotels": "#فنادق_موصى_بها"
+  },
+  "select_a_location": "اختيار الموقع",
+  "drawer": {
+    "setting": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "delete_account": "حذف الحساب",
+    "close": "إغلاق"
+  },
+  "splash_screen": {
+    "manafea": "منافعة",
+    "easy_transportation": "وسائل النقل السهلة"
+  },
+  "orders_screen": {
+    "pending": "قيد الانتظار",
+    "success": "ناجح",
+    "failed": "فشل",
+    "hotel_nae": "اسم الفندق",
+    "cancel_order_confirmation": "هل أنت متأكد أنك تريد إلغاء\nالطلب؟",
+
+    "total_price": "السعر الإجمالي",
+    "booking_day": "يوم الحجز",
+    "people_count": "عدد الأشخاص",
+    "name": "الاسم",
+    "phone": "رقم الهاتف",
+    "payment_method": "طريقة الدفع",
+    "activity_name": "اسم النشاط",
+    "check_out": "تسجيل الخروج",
+    "check_in": "تسجيل الدخول",
+    "hotel_booking": "حجز فندق",
+    "activity": "نشاط",
+    "received_date": "تاريخ الاستلام",
+    "delivery_date": "تاريخ التسليم",
+    "car": "سيارة"
+  }
+
+}
+

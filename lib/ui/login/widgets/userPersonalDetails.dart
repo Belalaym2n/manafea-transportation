@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/domain/models/userModel/userModel.dart';
 import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
 
 import '../../../config/appColors.dart';
+import '../../../generated/locale_keys.g.dart';
 
 class UserPersonalDetailsItem extends StatefulWidget {
   UserPersonalDetailsItem({
@@ -66,18 +68,19 @@ class _UserPersonalDetailsItemState extends State<UserPersonalDetailsItem> {
             children: [
               SizedBox(height: screenHeight * 0.06),
               _buildHeader(screenWidth),
-              SizedBox(height: screenHeight * 0.06),
+              SizedBox(height: screenHeight *  0.06),
               _buildTextFormField(
                 controller: widget.firstNameController,
-                hint: 'First Name',
-                errorValidator: 'Please Enter First Name',
+                hint: LocaleKeys.auth_first_name.tr(),
+                errorValidator: LocaleKeys.errors_please_enter_firstname_and_lastname.tr(),
+
                 screenWidth: screenWidth,
               ),
               SizedBox(height: screenHeight * 0.01),
               _buildTextFormField(
                 controller: widget.lastNameController,
-                hint: 'Last Name',
-                errorValidator: 'Please Enter Last Name',
+                hint: LocaleKeys.auth_last_name.tr(),
+                errorValidator: LocaleKeys.errors_please_enter_firstname_and_lastname.tr(),
                 screenWidth: screenWidth,
               ),
               const Spacer(),
@@ -92,7 +95,7 @@ class _UserPersonalDetailsItemState extends State<UserPersonalDetailsItem> {
                   if (isValid) widget.uploadUserDat(user: user);
                 },
                 valid: isValid,
-                buttonName: "Next",
+                buttonName: LocaleKeys.buttons_name_next.tr(),
               ),
               SizedBox(height: screenHeight * 0.06),
             ],
@@ -144,7 +147,7 @@ class _UserPersonalDetailsItemState extends State<UserPersonalDetailsItem> {
 
   Widget _buildHeader(double screenWidth) {
     return Text(
-      'Personal Detail',
+      LocaleKeys.auth_personal_detail.tr(),
       style: TextStyle(
         color: Colors.black,
         fontSize: screenWidth * 0.07,
@@ -153,3 +156,4 @@ class _UserPersonalDetailsItemState extends State<UserPersonalDetailsItem> {
     );
   }
 }
+

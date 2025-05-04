@@ -1,4 +1,5 @@
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/domain/models/baseOrderModel/baseOrderModel.dart';
 
 abstract class GetUserOrderConnector extends BaseConnector{
   @override
@@ -14,6 +15,8 @@ abstract class GetUserOrderConnector extends BaseConnector{
   }
 
   deleteOrderLoading();
+  emptyOrders();
+  showOrders(List<BaseOrder>order);
 
 
 }

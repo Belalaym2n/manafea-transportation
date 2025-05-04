@@ -1,15 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/notifcationRepo/notificationRepo.dart';
 import 'package:manafea/data/services/notifcationService/notificationService.dart';
 import 'package:manafea/domain/models/notificationModel/notificationModel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/notification/connector/notificationConnector.dart';
 import 'package:manafea/ui/notification/viewModel/notificationViewModel.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+ import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../config/appColors.dart';
 import '../widgets/notificationScreenItem.dart';
@@ -66,7 +67,7 @@ class _NotificationScreenState
 
   Widget _buildNotificationText() {
     return Text(
-      "Notification",
+      LocaleKeys.screensName_notification.tr(),
       style: TextStyle(
         color: Colors.white,
         overflow: TextOverflow.ellipsis,

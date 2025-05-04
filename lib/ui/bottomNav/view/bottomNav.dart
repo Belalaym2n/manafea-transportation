@@ -1,9 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/bottomNav/viewModel/bottomNavViewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +19,13 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    viewModel.getUserIfo();
+    viewModel.initObjects();
+  }
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -66,7 +75,7 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
                     vertical:
                 AppConstants.screenHeight * 0.02),
                 icon: Icons.home_outlined, // Home icon
-                text: 'Home',
+                text: LocaleKeys.screensName_home.tr(),
                 iconColor: Colors.white, // Icon color to match the theme
               ),
 
@@ -77,7 +86,7 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
                     vertical:
                 AppConstants.screenHeight * 0.02),
                 icon: Icons.notifications, // Notification icon
-                text: 'Notification',
+                text:  LocaleKeys.screensName_notification.tr(),
                 iconColor: Colors.white, // Cool tone for notifications
               ),
 
@@ -87,7 +96,7 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
                   vertical: AppConstants.screenHeight * 0.02,
                 ),
                 icon: Icons.shopping_cart_rounded, // Order icon
-                text: 'Order',
+                text:  LocaleKeys.screensName_orders.tr(),
                 iconColor: Colors.white, // Green for order-related features
               ),
             ],

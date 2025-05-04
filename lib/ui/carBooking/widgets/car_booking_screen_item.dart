@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/domain/models/carModels/addCarModel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/core/shared_widget/builImageBookin.dart';
 
 import '../../../config/appConstants.dart';
@@ -26,7 +28,8 @@ class _CarBookingScreenItemState extends State<CarBookingScreenItem> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.05),
-          child: buildBookingDescription(BookingTittle: "About the Car",
+          child: buildBookingDescription(BookingTittle:
+          LocaleKeys.car_screen_about_the_car.tr(),
           description: widget.carModel.itemDescription),
         )
       ],

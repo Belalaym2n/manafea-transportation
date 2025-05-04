@@ -1,5 +1,7 @@
 import 'package:manafea/config/base_class.dart';
 
+import '../../../domain/models/carModels/addCarModel.dart';
+
 abstract class GetCarsConnector extends BaseConnector{
   @override
   onError(String message) {
@@ -13,6 +15,8 @@ abstract class GetCarsConnector extends BaseConnector{
     throw UnimplementedError();
   }
 
+
+  gridViewData(List<AddCarModel> cars);
   emptyData();
 
 

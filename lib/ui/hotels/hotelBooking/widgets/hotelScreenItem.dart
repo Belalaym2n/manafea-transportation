@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/domain/models/hotelModels/addHotel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/core/shared_widget/builImageBookin.dart';
 import 'package:manafea/ui/core/shared_widget/buildBookingDescription.dart';
 
@@ -29,8 +31,7 @@ class _HotelScreenItemState extends State<HotelScreenItem> {
 
                 description:  widget.hotelModel.itemDescription
                 ,
-
-                  BookingTittle: "About the hotel"),
+                  BookingTittle: LocaleKeys.hotelsScreen_about_the_hotel.tr()),
             ),
           ],
 

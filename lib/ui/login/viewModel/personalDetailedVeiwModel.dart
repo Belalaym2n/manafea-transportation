@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/loginDataRepo/loginDataRepo.dart';
 
 import '../../../data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 import '../../../domain/models/userModel/userModel.dart';
+import '../../../generated/locale_keys.g.dart';
 import '../connector/personalDetailedConnector.dart';
 
 class PersonalDetailedViewModel
@@ -19,18 +21,21 @@ class PersonalDetailedViewModel
 
   uploadUserToDatabase({required UserModel user}) async {
     setLoading(true);
+    print("object");
     await loadPhoneNumber();
     bool notNull = isNullable(user);
     if (!notNull) {
       setLoading(false);
-      return connector!.onError("please enter firstName and lastName");
-    }
+      return connector!.onError(
+          LocaleKeys.errors_name_and_number_must_not_be_empty.tr());
+     }
     try {
       await loginDataRepo.uploadUserToDatabase(user: user);
     await  saveData(user);
       connector!.navigateToHomeScreen();
     } catch (e) {
-      connector!.onError("Something went wrong please try again");
+      connector!.onError(LocaleKeys.errors_something_went_wrong_please_try_again);
+
     } finally {
       setLoading(false);
     }

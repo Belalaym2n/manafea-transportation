@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 import 'package:manafea/domain/models/carModels/requestCarBookingOrder.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/carBooking/connector/carBookingConnector.dart';
 
 import '../../../data/repositories/orderRepo/requestOrderRepo.dart';
@@ -11,7 +14,7 @@ import '../../core/shared_widget/stepper_widget.dart';
 class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
   int index = 0;
   // for step one
-  String _selectedLocation = 'Click tp Select';
+  String _selectedLocation =LocaleKeys.car_screen_select_location_prompt.tr();
   String get selectedLocation => _selectedLocation;
 
 // paramterrs for step two
@@ -61,13 +64,14 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
 
     if (isLocationValid == false) {
       return connector!
-          .onError("Please Choose location you want ro receive car");
+          .onError(LocaleKeys.errors_please_choose_location_you_want_ro_recei.tr()
+           );
     }
     if (isDatsValid == false) {
-      return connector!.onError("booking at least one day");
+      return connector!.onError(LocaleKeys.errors_booking_at_least_one_day.tr());
     }
     if (isValidDataBooking == false) {
-      return connector?.onError("Name and Number must not be empty");
+      return connector?.onError(LocaleKeys.errors_name_and_number_must_not_be_empty.tr());
     }
 
     if (index == 3) {
@@ -85,7 +89,7 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
 
 // step one logic
   bool stepOneValidLocation() {
-    if (index == 0 && _selectedLocation == 'Click tp Select') {
+    if (index == 0 && _selectedLocation == LocaleKeys.car_screen_select_location_prompt.tr()) {
       return false;
     }
     return true;
@@ -152,21 +156,26 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
     try {
       print("after");
 
-      final DateFormat formatter = DateFormat('h:mm a');
+      String id =await SharedPreferencesHelper.getData(SharedSharedPreferencesKeys.userId);
+
+
+      final DateFormat formatterTime = DateFormat('h:mm a');
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('dd/MM/yyyy').format(now);
       setLoading(true);
       final order = RequestCarBookingOrderBuilder()
           .setName(_name)
           .setCarName(car.itemName)
            .setService("Car")
           .setPhoneNumber(_phoneNumber)
-          .setOrderDate(formatter.toString())
+          .setOrderDate(formattedDate.toString())
           .setPrice( allPrice.toDouble())
           .setDeliveryDate(deliveryDateString)
            .setReceiptDate(receiptDateString)
-      .setDeliveryLocation(selectedLocation)
-           .setUserId("userID")
+           .setDeliveryLocation(selectedLocation)
+           .setUserId(id)
           .setStatus("Pending")
-          .setTime(formatter.format(DateTime.now()))
+          .setTime(formatterTime.format(DateTime.now()))
           .build();
 
       await requestOrderRepo.requestOrder(requestOrder: order);
@@ -229,28 +238,29 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
         content:
             connector?.stepOneContentInStepperChooseLocation() ?? Container(),
         isCurrentStep: index == 0,
-        tittle: 'Choose Your Location',
+
+        tittle: LocaleKeys.car_screen_choose_location.tr(),
       ),
       buildStep(
         colorIndex: index > 1,
         isActive: index > 1,
         content: connector!.stepTwoContentInStepperChooseCheckInAndCheckOut(),
         isCurrentStep: index == 1,
-        tittle: 'Receipt / Delivery',
+        tittle:LocaleKeys.car_screen_receipt_delivery.tr(),
       ),
       buildStep(
         colorIndex: index > 2,
         isActive: index > 2,
         content: connector!.stepThreeContentInStepperConfirmUserData(),
         isCurrentStep: index == 3,
-        tittle: 'Confirm Booking information ',
+        tittle: LocaleKeys.car_screen_confirm_booking_info.tr(),
       ),
       buildStep(
         colorIndex: index > 4,
         isActive: index > 4,
         content: connector!.stepFourContentInStepperBookingButton(),
         isCurrentStep: index == 4,
-        tittle: 'Confirm Booking',
+        tittle:LocaleKeys.car_screen_confirm_booking.tr(),
       ),
     ];
   }

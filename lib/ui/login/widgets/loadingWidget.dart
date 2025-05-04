@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import '../../../config/appColors.dart';
 
 class LoadingWidget extends StatelessWidget {
@@ -33,7 +35,7 @@ class LoadingWidget extends StatelessWidget {
             ),
               SizedBox(height: AppConstants.screenWidth*0.02),
             Text(
-              "Loading...",
+              LocaleKeys.loading.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,

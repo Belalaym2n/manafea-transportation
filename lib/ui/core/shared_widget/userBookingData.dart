@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
-
 import '../../../config/appConstants.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:manafea/generated/locale_keys.g.dart';  // Make sure you import this
 
 class UserBookingData extends StatelessWidget {
   UserBookingData({
@@ -12,49 +13,57 @@ class UserBookingData extends StatelessWidget {
 
   final TextEditingController? nameController;
   final TextEditingController? phoneController;
-
+  final FocusNode nameFocusNode = FocusNode();
+  final FocusNode phoneFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 🟢 الحقل الأول - اسم المستخدم
-          customTextFormField(
-            controller: nameController ?? TextEditingController(),
-            textInputType: TextInputType.text,
-            hintText: "Enter your first name",
-            icon: Icons.person,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Name can't be empty";
-              }
-
-              return null;
-            },
+    return AnimatedPadding(
+      padding: MediaQuery.of(context).viewInsets, // لتعديل المسافة بين الحواف عند ظهور الكيبورد
+      duration: const Duration(milliseconds: 150), // يمكن تعديل المدة لتصبح أسرع أو أبطأ
+      curve: Curves.easeInOut, // يمكن استخدام انحناء سلس
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.055, vertical: AppConstants.screenHeight * 0.012),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              customTextFormField(
+                controller: nameController ?? TextEditingController(),
+                textInputType: TextInputType.text,
+                hintText: LocaleKeys.form_name_hint.tr(),
+                icon: Icons.person,
+                focusNode: nameFocusNode,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return LocaleKeys.form_name_empty.tr();
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: AppConstants.screenHeight * 0.025),
+              customTextFormField(
+                controller: phoneController ?? TextEditingController(),
+                textInputType: TextInputType.phone,
+                hintText: LocaleKeys.form_phone_hint.tr(),
+                focusNode: phoneFocusNode,
+                icon: Icons.phone,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return LocaleKeys.form_phone_empty.tr();
+                  }
+                  final regex = RegExp(r'^05\d{8}$');
+                  if (!regex.hasMatch(value)) {
+                    return LocaleKeys.form_phone_invalid.tr();
+                  }
+                  return null;
+                },
+              ),
+            ],
           ),
-          SizedBox(height: AppConstants.screenHeight*0.025),
-
-          // 🔵 الحقل الثاني - رقم الهاتف
-          customTextFormField(
-            controller: phoneController ?? TextEditingController(),
-            textInputType: TextInputType.phone,
-            hintText: "Enter your phone number",
-            icon: Icons.phone,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Phone number is required";
-              }   final regex = RegExp(r'^05\d{8}$');
-              if (!regex.hasMatch(value)) {
-                return "Please enter a valid Saudi phone number like: 0501234567";
-              }
-              return null;
-            },
-          ),
-        ],
+        ),
       ),
     );
+
   }
 }
 
@@ -64,62 +73,58 @@ Widget customTextFormField({
   required String hintText,
   required IconData icon,
   String? Function(String?)? validator,
+  FocusNode? focusNode,
 }) {
   return Center(
     child: SizedBox(
-      width: double.infinity, // استخدام العرض الكامل
+      width: double.infinity,
       child: TextFormField(
         controller: controller,
+        focusNode: focusNode,
         keyboardType: textInputType,
-        textAlign: TextAlign.start, // محاذاة النص لليسار بشكل أكثر احترافية
+        textAlign: TextAlign.start,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         style: TextStyle(
           fontWeight: FontWeight.w600,
-          fontSize:            AppConstants.screenWidth*0.044,
-
+          fontSize: AppConstants.screenWidth * 0.044,
           color: Colors.black87,
         ),
         decoration: InputDecoration(
           prefixIcon: Container(
-            padding:   EdgeInsets.all( AppConstants.screenWidth*0.034),
-            // decoration: BoxDecoration(
-            //   color: AppColors.primaryColor.withOpacity(0.1),
-            //   shape: BoxShape.circle,
-            // ),
+            padding: EdgeInsets.all(AppConstants.screenWidth * 0.034),
             child: Icon(icon, color: AppColors.primaryColor),
           ),
           hintText: hintText,
           hintStyle: TextStyle(
             color: Colors.grey.shade500,
             fontWeight: FontWeight.w500,
-            fontSize:  AppConstants.screenWidth*0.038,
+            fontSize: AppConstants.screenWidth * 0.038,
           ),
           filled: true,
-          fillColor: Colors.grey.shade100, // لون الخلفية الفاتح
-          contentPadding:  EdgeInsets.symmetric(vertical:  AppConstants.screenHeight*0.022
-              , horizontal:  AppConstants.screenWidth*0.05),
+          fillColor: Colors.grey.shade100,
+          contentPadding: EdgeInsets.symmetric(
+            vertical: AppConstants.screenHeight * 0.022,
+            horizontal: AppConstants.screenWidth * 0.05,
+          ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade300, width: 1.5),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.03),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.03),
           ),
           errorBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red, width: 1.5),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.03),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red, width: 2),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.03),
           ),
         ),
       ),
     ),
   );
 }
-
-
-

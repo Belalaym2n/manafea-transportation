@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -166,11 +167,13 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
         required DateTime focusedDate,
         bool checkIn = false}) {
     showDialog(
+
       context: context,
       builder: (context) {
         DateTime selectedDate = focusedDate;
 
         return AlertDialog(
+
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title:   Center(
             child: Text(
@@ -189,6 +192,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
 
                 builder: (context, setState) {
                   return TableCalendar(
+                      locale: context.locale.languageCode,  // هذا يجعل الواجهة تتغير حسب اللغة
 
                       firstDay: DateTime.utc(2020, 1, 1),
                       lastDay: DateTime.utc(2040, 12, 31),

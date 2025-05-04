@@ -1,18 +1,21 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 
 import '../../../../config/appConstants.dart';
+import '../../../../generated/locale_keys.g.dart';
 
 class BuildStepOneContentInStepperChooseLocation extends StatefulWidget {
-    BuildStepOneContentInStepperChooseLocation({super.key,
+  final String selectedLocation;
+  final Function(String) changeLocation;
 
+  BuildStepOneContentInStepperChooseLocation({
+    Key? key,
     required this.selectedLocation,
     required this.changeLocation,
+  }) : super(key: key);
 
-    });
-String selectedLocation;
-Function(String) changeLocation;
   @override
   State<BuildStepOneContentInStepperChooseLocation> createState() =>
       _BuildStepOneContentInStepperChooseLocationState();
@@ -21,35 +24,51 @@ Function(String) changeLocation;
 class _BuildStepOneContentInStepperChooseLocationState
     extends State<BuildStepOneContentInStepperChooseLocation> {
   bool isExpanded = false;
-   List<String> locations = [
-    "الرياض", "جدة", "مكة", "المدينة المنورة",
-    "الدمام", "الخبر", "الطائف", "بريدة",
-    "أبها", "حائل", "تبوك", "ينبع",
-    "القصيم", "جازان", "نجران", "الباحة"
+
+  final List<String> locations = [
+    LocaleKeys.locations_riyadh,
+    LocaleKeys.locations_jeddah,
+    LocaleKeys.locations_makkah,
+    LocaleKeys.locations_madinah,
+    LocaleKeys.locations_dammam,
+    LocaleKeys.locations_khobar,
+    LocaleKeys.locations_taif,
+    LocaleKeys.locations_buraidah,
+    LocaleKeys.locations_abha,
+    LocaleKeys.locations_hail,
+    LocaleKeys.locations_tabuk,
+    LocaleKeys.locations_yanbu,
+    LocaleKeys.locations_qassim,
+    LocaleKeys.locations_jazan,
+    LocaleKeys.locations_najran,
+    LocaleKeys.locations_al_bahah,
   ];
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = AppConstants.screenWidth;
+    final screenHeight = AppConstants.screenHeight;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(
-          "Please Choose Your Location",
+        Text(
+          LocaleKeys.car_screen_please_choose_your_location.tr(),
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+            fontSize: screenWidth * 0.05,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
-        SizedBox(height: AppConstants.screenHeight * 0.02),
-
-        // Container الرئيسي
-        showSelectedLocation(),
-        selectedLocationWidget(),
-        // القائمة المنسدلة
-        SizedBox(height: AppConstants.screenHeight * 0.02),
+        SizedBox(height: screenHeight * 0.02),
+        buildLocationToggle(),
+        buildSelectedLocationList(),
+        SizedBox(height: screenHeight * 0.02),
       ],
     );
   }
 
- Widget showSelectedLocation(){
+  Widget buildLocationToggle() {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -59,14 +78,11 @@ class _BuildStepOneContentInStepperChooseLocationState
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
-          borderRadius: isExpanded == true
+          borderRadius: isExpanded
               ? const BorderRadius.only(
-              topLeft: Radius.circular(
-                10,
-              ),
-              topRight: Radius.circular(
-                10,
-              ))
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          )
               : BorderRadius.circular(10),
           color: AppColors.primaryColor,
           boxShadow: [
@@ -78,25 +94,29 @@ class _BuildStepOneContentInStepperChooseLocationState
             ),
           ],
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        width: 300,
+        margin: EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.024),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppConstants.screenWidth * 0.048,
+          vertical: AppConstants.screenHeight * 0.014,
+        ),
+        width: AppConstants.screenWidth * 0.87,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               widget.selectedLocation,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: AppConstants.screenWidth * 0.045,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             Icon(
               isExpanded
                   ? Icons.arrow_drop_up_rounded
                   : Icons.arrow_drop_down_circle,
               color: Colors.white,
-              size: 28,
+              size: AppConstants.screenWidth * 0.09,
             ),
           ],
         ),
@@ -104,28 +124,24 @@ class _BuildStepOneContentInStepperChooseLocationState
     );
   }
 
-  Widget selectedLocationWidget() {
+  Widget buildSelectedLocationList() {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       height: isExpanded ? locations.length * 50.0 : 0,
       margin: const EdgeInsets.symmetric(horizontal: 8),
       curve: Curves.easeInOut,
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(0),
-          bottomLeft: Radius.circular(0),
-        ),
         child: ListView.builder(
           padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: locations.length,
           itemBuilder: (context, index) {
-            bool isSelected = locations[index] == widget.selectedLocation;
+            bool isSelected = locations[index].tr() == widget.selectedLocation;
             return GestureDetector(
               onTap: () {
-                widget.changeLocation(locations[index]);
+                widget.changeLocation(locations[index].tr());
 
-                Future.delayed(Duration(milliseconds: 300), () {
+                Future.delayed(const Duration(milliseconds: 300), () {
                   setState(() {
                     isExpanded = false;
                   });
@@ -134,7 +150,10 @@ class _BuildStepOneContentInStepperChooseLocationState
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppConstants.screenWidth * 0.048,
+                  vertical: AppConstants.screenHeight * 0.014,
+                ),
                 decoration: BoxDecoration(
                   color: isSelected ? AppColors.primaryColor : Colors.white,
                   borderRadius: BorderRadius.circular(0),
@@ -156,11 +175,11 @@ class _BuildStepOneContentInStepperChooseLocationState
                 ),
                 child: AnimatedScale(
                   duration: const Duration(milliseconds: 200),
-                  scale: isSelected ? 1.05 : 1.0, // Animation for click effect
+                  scale: isSelected ? 1.05 : 1.0,
                   child: Text(
-                    locations[index],
+                    locations[index].tr(),
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: AppConstants.screenWidth * 0.045,
                       fontWeight: FontWeight.w600,
                       color: isSelected ? Colors.white : Colors.black87,
                     ),
@@ -173,4 +192,4 @@ class _BuildStepOneContentInStepperChooseLocationState
       ),
     );
   }
- }
+}

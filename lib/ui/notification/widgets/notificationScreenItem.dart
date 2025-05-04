@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 
 import '../../../config/appColors.dart';
@@ -138,7 +140,7 @@ Widget _notificationCard() {
                 ));
           },
           child: Text(
-            "View Detailed",
+            LocaleKeys.notification_screen_view_detailed.tr(),
             style: TextStyle(
               fontSize: AppConstants.screenWidth * 0.04,
               fontWeight: FontWeight.w500,

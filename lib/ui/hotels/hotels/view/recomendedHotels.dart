@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/hotels/getALLHotelsRepo.dart';
 import 'package:manafea/data/services/hotels/getAllHotelsSupabaseService.dart';
 import 'package:manafea/domain/models/hotelModels/addHotel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/hotels/hotels/viewModel/getALLHotelsViewModel.dart';
 import 'package:manafea/ui/hotels/hotels/widgets/recomendedHotelsItem/recommendedHotelItem.dart';
@@ -38,7 +40,7 @@ class _RecommendedHotelsState extends BaseView<GetAllHotelViewModel
         builder: (context, value, child) =>   Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            serviceName(name: '#RecommendedHotels'),
+            serviceName(name: LocaleKeys.home_screen_recommended_hotels.tr()),
         SizedBox(height: AppConstants.screenHeight * 0.01),
 
             viewModel.showRecommendedHotel()

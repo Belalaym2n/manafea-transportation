@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
@@ -9,11 +10,13 @@ import 'package:manafea/ui/userOrders/connector/getUserOrderConnector.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../config/appConstants.dart';
 import '../../../domain/models/baseOrderModel/baseOrderModel.dart';
+import '../../../domain/models/baseOrderModel/baseOrderWidget.dart';
+import '../../../generated/locale_keys.g.dart';
 import '../viewModel/getOrdersViewModel.dart';
-import '../widgets/orderItem.dart';
-import '../widgets/tabController.dart';
-import '../widgets/userOrdersScreenItem.dart';
+import '../widgets/orderItem/orderItem.dart';
+import '../widgets/tab/tabController.dart';
 
 class UserOrders extends StatefulWidget {
   const UserOrders({super.key});
@@ -22,9 +25,9 @@ class UserOrders extends StatefulWidget {
   State<UserOrders> createState() => _UserOrdersState();
 }
 
-class _UserOrdersState extends BaseView<GetUserOrdersViewModel,
-    UserOrders>with SingleTickerProviderStateMixin
-    implements GetUserOrderConnector  {
+class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
+    with SingleTickerProviderStateMixin
+    implements GetUserOrderConnector {
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
 
@@ -53,7 +56,6 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel,
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -71,7 +73,7 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel,
                         TabControllerItem(
                           selectStatus: (status) {
                             view.changeStatus(status);
-                           },
+                          },
                         ),
                         view.isLoading == true
                             ? showLoading()
@@ -89,7 +91,26 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel,
       ),
     );
   }
+  Widget buildScreenName() {
+    return Text(
+      LocaleKeys.screensName_orders.tr(),
 
+      style: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: AppConstants.screenWidth * 0.055,
+        letterSpacing: 1.2,
+        color: Colors.black87,
+        overflow: TextOverflow.ellipsis,
+        shadows: [
+          Shadow(
+            color: Colors.black.withOpacity(0.2),
+            offset: const Offset(1, 1),
+            blurRadius: 2,
+          ),
+        ],
+      ),
+    );
+  }
   @override
   GetUserOrdersViewModel init_my_view_model() {
     UserOrderHistoryFirebaseService _userOrderHistoryService =
@@ -115,7 +136,7 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel,
           itemCount: 3,
           itemBuilder: (context, index) {
             return OrderItem(
-              orderName: 'bella',
+                orderName: 'bella',
                 orderType: "fbas;fkd",
                 cancelOrder: (String id) {},
                 orderDetailedChanged: Container(),
@@ -138,6 +159,38 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel,
   @override
   deleteOrderLoading() {
     // TODO: implement deleteOrderLoading
-    return LoadingWidget();
+    return const LoadingWidget();
   }
+
+  @override
+  emptyOrders() {
+    // TODO: implement emptyOrders
+    return const Text("NO ORDERS");
+  }
+
+  @override
+  showOrders(List<BaseOrder> order) {
+    // TODO: implement showOrders
+  return  ListView.builder(
+      itemCount: order.length,
+      itemBuilder: (context, index) {
+        var orderData = order[index];
+        final strategy = OrderWidgetStrategy.getStrategy(orderData);
+
+        if (strategy != null) {
+          return strategy.buildWidget(orderData,
+
+                  (String orderId) {
+                // هنا يتم استدعاء الدالة بشكل غير متزامن داخل الـ callback
+                viewModel.deleteOrder(orderId);
+              });
+        }
+        print("sdf");
+
+        return const SizedBox();
+      },
+    );
+  }
+
+
 }
