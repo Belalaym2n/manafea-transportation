@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:manafea/config/error_handling/errorHandling.dart';
 import 'package:manafea/data/services/userHistoryOrderDatabaseService/userOrdersHistoryServic.dart';
 import '../../../domain/models/baseOrderModel/baseOrderModel.dart';
 
@@ -7,12 +8,10 @@ class UserOrderHistoryFirebaseRepo {
   final UserOrderHistoryFirebaseService _userOrderHistoryService;
   UserOrderHistoryFirebaseRepo(this._userOrderHistoryService);
 
-  Future<List<BaseOrder>> getAllOrders() async {
-    try {
+  Future<Result<List<BaseOrder>>> getAllOrders() async {
+
       return await _userOrderHistoryService.getAllOrders();
-    } catch (e) {
-      throw Exception("Failed to fetch orders: $e");
-    }
+
   }
 
   Future<void> deleteOrder(String id) async {

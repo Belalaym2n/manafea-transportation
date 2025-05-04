@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/domain/models/hotelModels/addHotel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 
 import '../../../../core/shared_widget/elevatedButton.dart';
 import '../../../hotelBooking/view/hotelBookinScreen.dart';
@@ -100,7 +102,7 @@ class _RecommendedHotelItemState extends State<RecommendedHotelItem> {
                           horizontal:
                               AppConstants.screenWidth * 0.02), // 3% من العرض
                       child: smallElevatedButton(
-                          buttonName: "Book Now",
+                          buttonName: LocaleKeys.buttons_name_book_now.tr(),
                           onTap: () {
                            Navigator.push(context, MaterialPageRoute(builder:
                                (context) => HotelBookingScreen(

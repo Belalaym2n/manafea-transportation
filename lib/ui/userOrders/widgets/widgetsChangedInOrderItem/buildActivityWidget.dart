@@ -1,9 +1,42 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/domain/models/activityModel/requestActivityOrderModel.dart';
 
 import '../../../../config/appConstants.dart';
+import '../../../../domain/models/baseOrderModel/baseOrderModel.dart';
+import '../../../../domain/models/baseOrderModel/baseOrderWidget.dart';
+import '../../../../generated/locale_keys.g.dart';
+import '../orderItem/orderItem.dart';
+
+class ActivityOrderWidgetStrategy extends OrderWidgetStrategy {
+  static final _instance = ActivityOrderWidgetStrategy._();
+
+  ActivityOrderWidgetStrategy._() {
+    OrderWidgetStrategy.register(this);
+  }
+
+  factory ActivityOrderWidgetStrategy() => _instance;
+
+  @override
+  bool canHandle(BaseOrder order) => order is RequestActivityOrderModel;
+
+  @override
+  Widget buildWidget(BaseOrder order, Function(String) cancelOrder) {
+    final activityOrder = order as RequestActivityOrderModel;
+
+    return OrderItem(
+      orderName: activityOrder.activityName ?? "Activity",
+      orderType:LocaleKeys.orders_screen_activity.tr(),
+
+      cancelOrder: cancelOrder,
+      order: activityOrder,
+      orderDetailedChanged: orderActivityWidget(order: activityOrder),
+    );
+  }
+}
+
 
 Widget   orderActivityWidget({
  required RequestActivityOrderModel order
@@ -25,7 +58,7 @@ Widget   orderActivityWidget({
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        'Activity',
+        LocaleKeys.orders_screen_activity.tr(),
         style:TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: AppConstants.screenWidth * 0.038,
@@ -36,7 +69,7 @@ Widget   orderActivityWidget({
       Row(
         children: [
           Text(
-            'Booking Day: ',
+            LocaleKeys.orders_screen_booking_day.tr(),
             style: TextStyle(
               fontSize: AppConstants.screenWidth * 0.032,
               fontWeight: FontWeight.w600,
@@ -55,7 +88,7 @@ Widget   orderActivityWidget({
       Row(
         children: [
           Text(
-            'People Count: ', // تأكد أن ده موجود في BaseOrder
+          LocaleKeys.orders_screen_people_count.tr(), // تأكد أن ده موجود في BaseOrder
             style: TextStyle(
               fontSize: AppConstants.screenWidth * 0.032,
               fontWeight: FontWeight.w600,

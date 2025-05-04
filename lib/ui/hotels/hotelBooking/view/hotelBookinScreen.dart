@@ -4,6 +4,7 @@ import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/orderRepo/requestOrderRepo.dart';
 import 'package:manafea/data/services/orderServices/requestOrderService.dart';
 import 'package:manafea/domain/models/hotelModels/addHotel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/core/shared_widget/userBookingData.dart';
 

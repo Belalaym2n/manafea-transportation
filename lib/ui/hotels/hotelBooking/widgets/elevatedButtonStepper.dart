@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 
 import '../../../../config/appColors.dart';
 
@@ -35,7 +37,7 @@ class ElevatedButtonStepper extends StatelessWidget {
           ),
           onPressed: () => onStepContinue(null, null),
            child: Text(
-            "Continue",
+            LocaleKeys.buttons_name_continue.tr(),
             style: TextStyle(
                 color: Colors.white,
                 fontSize: AppConstants.screenWidth * 0.04),
@@ -54,7 +56,7 @@ class ElevatedButtonStepper extends StatelessWidget {
           ),
           onPressed: () => onStepCancel(),
           child: Text(
-            "Back",
+            LocaleKeys.buttons_name_back.tr(),
             style: TextStyle(
                 color: Colors.white,
                 fontSize: AppConstants.screenWidth * 0.03),

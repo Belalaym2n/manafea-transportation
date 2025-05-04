@@ -3,24 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:manafea/ui/activity/view/activityScreen.dart';
 import 'package:manafea/ui/addActivity/view/addActivity.dart';
 import 'package:manafea/ui/bottomNav/view/bottomNav.dart';
-import 'package:manafea/ui/carBooking/view/car_bookin_screen.dart';
-import 'package:manafea/ui/home/view/homeScreen.dart';
-import 'package:manafea/ui/hotels/hotels/widgets/filterHotelsItem/filterHotelsItem.dart';
-import 'package:manafea/ui/login/view/autoLogin.dart';
+ import 'package:manafea/ui/login/view/autoLogin.dart';
 import 'package:manafea/ui/login/view/loginScreen.dart';
-import 'package:manafea/ui/login/widgets/userPersonalDetails.dart';
-import 'package:manafea/ui/login/widgets/verifyScreen.dart';
-import 'package:manafea/ui/onBoard/view/onBoardingScreen.dart';
+  import 'package:manafea/ui/onBoard/view/onBoardingScreen.dart';
 import 'package:manafea/ui/splashScreen/view/splashScreen%5D.dart';
 
 import '../ui/bottomNav/view/bottomNavAdmin.dart';
 import '../ui/carBooking/view/cars_screen.dart';
 import '../ui/hotels/hotels/view/filterHotels.dart';
+import '../ui/userOrders/view/userOrders.dart';
 
 class AppRoutes {
   static const String splash = "/";
   static const String addActivity = "xcv/";
   static const String onBoard = "/sfsdf";
+  static const String orders = "/sfsdf";
   static const String login = "login/";
   static const String autoLogin = "login/";
   static const String verifyScreen = "verify";
@@ -42,11 +39,16 @@ class Routes {
         return MaterialPageRoute(
           builder: (context) => const Onboardingscreen(),
         );
-
+      case AppRoutes.orders:
+        return
+        MaterialPageRoute(
+          builder: (context) => const UserOrders(),
+        );
       case AppRoutes.filterHotels:
         return MaterialPageRoute(
           builder: (context) => const FilterHotels(),
         );
+
       case AppRoutes.autoLogin:
         return MaterialPageRoute(
           builder: (context) => const AutoLogin(),

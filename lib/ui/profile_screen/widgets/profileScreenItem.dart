@@ -2,13 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
+import 'package:manafea/routing/appRoutes.dart';
 
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../config/appColors.dart';
 
 class ProfileScreenItem extends StatefulWidget {
-  const ProfileScreenItem({super.key});
+    ProfileScreenItem({super.key,
+    required this.name,
+    required this.phoneNumber,
+    });
+  String? name;
+  String? phoneNumber;
 
   @override
   State<ProfileScreenItem> createState() => _ProfileScreenItemState();
@@ -17,10 +24,13 @@ class ProfileScreenItem extends StatefulWidget {
 class _ProfileScreenItemState extends State<ProfileScreenItem> {
   int index = -1;
 
+
+
+
   @override
   void initState() {
     super.initState();
-  }
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +48,7 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                 child: widget,
               ),
             ),
+
             children: [
               SizedBox(height: AppConstants.screenHeight * 0.04),
               _buildDrawerData(
@@ -46,7 +57,7 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                     index = 0;
                     setState(() {});
                   },
-                  name: "Belal Ayman",
+                  name: widget.name,
                   icon: Icons.people,
                   iconColor: AppColors.primaryColor),
               SizedBox(height: AppConstants.screenHeight * 0.04),
@@ -56,7 +67,7 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                     index = 1;
                     setState(() {});
                   },
-                  name: "+966 567 34 344",
+                  name:widget. phoneNumber,
                   icon: Icons.phone,
                   iconColor: AppColors.primaryColor),
               SizedBox(height: AppConstants.screenHeight * 0.04),
@@ -74,28 +85,24 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                   isSelected: index == 3,
                   onTap: () {
                     index = 3;
-                    setState(() {});
+                    setState(() {
+
+                    });
+
+             SharedPreferencesHelper.clearAll();
+             Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login,
+                   (route) => false,);
                   },
                   widgetIcon: icon_widget(
                       icon: Icons.login_outlined, isSelected: index == 3),
                   name: "Logout",
                   iconColor: Colors.red),
+
               SizedBox(height: AppConstants.screenHeight * 0.04),
               _buildDrawerData(
-                  isSelected: index == 4,
-                  widgetIcon: icon_widget(
-                      icon: Icons.login_outlined, isSelected: index == 4),
-                  name: "Delete Account",
-                  onTap: () {
-                    index = 4;
-                    setState(() {});
-                  },
-                  iconColor: Colors.red),
-              SizedBox(height: AppConstants.screenHeight * 0.04),
-              _buildDrawerData(
-                isSelected: index == 5,
+                isSelected: index == 4,
                 onTap: () {
-                  index = 5;
+                  index =4;
                   setState(() {
                     Future.delayed(
                         Duration(
@@ -138,7 +145,7 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
 
   Widget _buildDrawerData({
     IconData? icon,
-    required String name,
+    required String ?name,
     required bool isSelected,
     required Color iconColor,
     Widget? widgetIcon,
@@ -146,8 +153,7 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
   }) {
     return InkWell(
       onTap: () {
-        print("object");
-        onTap();
+         onTap();
       },
       child: Padding(
         padding: isSelected
@@ -176,6 +182,7 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                       : widgetIcon!,
                   SizedBox(width: AppConstants.screenWidth * 0.05),
                   (name.toString() ?? '').isEmpty
+                  || name==null
                       ? textLoading()
                       : Text(
                           name,

@@ -1,0 +1,214 @@
+
+{
+  "onboard": {
+    "1": {
+      "headline": "Please choose your language\nFor a better experience",
+      "description": "A seamless and efficient booking process\nWide range of vehicle choices"
+    },
+    "2": {
+      "headline": "Smooth, efficient process\nWide vehicle selection available",
+      "description": "Easy booking process\nVariety of vehicle options available"
+    },
+    "3": {
+      "headline": "Exclusive Travel Deals\nDiscounts, personalized offers",
+      "description": "Stay updated with special discounts\nPersonalized offers for travel bookings"
+    },
+    "4": {
+      "headline": "Seamless Hotel Booking\nSecure, flexible reservations",
+      "description": "Simplify your travel with easy bookings\nSafe stays with flexible options"
+    }
+  },
+  "failed_to_fetch_orders___e": "Failed to fetch orders:  ",
+  "screensName": {
+    "notification": "Notification",
+    "activities": "activities",
+    "hotels": "Hotels",
+    "orders": "Orders",
+    "home": "Home",
+    "car": "Car",
+    "hotel_booking": "Hotel Booking"
+  },
+  "errors": {
+    "error_message": "Error",
+
+    "please_enter_your_number": "Please enter your number",
+    "please_enter_firstname_and_lastname": "please enter firstName and lastName",
+    "something_went_wrong_please_try_again": "Something went wrong please try again",
+    "phone_number_can_t_be_empty": "Phone number can't be empty",
+    "route_not_found": "Route Not Found",
+    "please_choose_date": "Please Choose Date",
+    "please_enter_your_phone_and_your_name": "Please enter your phone and your name ",
+    "please_choose_location_you_want_ro_recei": "Please Choose location you want ro receive car",
+    "booking_at_least_one_day": "booking at least one day",
+    "name_and_number_must_not_be_empty": "Name and Number must not be empty",
+    "please_choose_your_location": "Please Choose Your Location",
+    "name_can_t_be_empty": "Name can't be empty",
+    "phone_number_is_required": "Phone number is required",
+    "please_choose_common_room_type": "Please Choose Common Room type ?",
+    "please_enter_a_valid_saudi_phone_number_": "Please enter a valid Saudi phone number like: 0501234567 ",
+    "error__no_verification_id_found__please_": "❌ Error: No verification ID found. Please request OTP again.",
+    "no_image_selected": "No image selected",
+    "something_went_wrong": "Something went wrong. Please try again later.",
+
+    "invalid_value_type": "Invalid value type",
+    "auto_verification_failed___e": "❌ Auto verification failed: Please try again"
+  },
+  "auth": {
+    "enter_your_first_name": "Enter your first name",
+    "enter_your_phone_number": "Enter your phone number",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "personal_detail": "Personal Detail",
+    "enter_mobile_number": "Enter Mobile Number",
+    "enter_your_6_digit":"Enter your 6 digit code numbers sent to "
+  },
+  "loading":"Loading",
+  "activity_screen": {
+    "select_date": "Select Date",
+    "people_count": "People Count",
+    "click_to_select": "Click to Select",
+    "where_do_you_want_to_move_from": "Where do you want to move from?"
+  },
+  "buttons_name": {
+    "continue": "Continue",
+    "back": "Back",
+    "next": "Next",
+    "verify": "Verify",
+    "ok": "Ok",
+    "cancel_order": "Cancel Order",
+    "yes": "Yes",
+    "no": "No",
+    "book_now": "Book Now"
+  },
+  "location": {
+    "riyadh___nakheel": "Riyadh - Nakheel",
+    "riyadh___malaz": "Riyadh - Malaz",
+    "riyadh___suwaidi": "Riyadh - Suwaidi"
+  },
+  "hotelsScreen": {
+    "about_the_hotel": "About the hotel",
+    "people_number": "People Number",
+    "room_number": "Room Count",
+    "special": "Special",
+    "female": "Female",
+    "male": "Male",
+    "where_do_you_want_to_hotel_booking_from": "Where do you want to hotel booking from?",
+    "select_a_country": "Select a country",
+    "common": "Common",
+    "room_count": "Room Count",
+    "check_out": "Check-out",
+    "check_in": "Check-in",
+    "please_choose_your_room_type": "Please Choose your Room type ?",
+    "hotel_common_room_pricing": "Hotel Common Room Pricing",
+    "hotel_special_room_pricing": "Hotel Special Room Pricing"
+  },
+  "date_screen": {
+    "check-in": "Check-in",
+    "check-out": "check-out"
+  },
+  "car_screen": {
+    "all_price": "All Price",
+    "delivery": "Delivery",
+    "select_location_prompt": "Click to Select",
+"no_cars_available": "No cars available",
+
+    "receipt": " Receipt",
+    "please_choose_your_location": "Please Choose Your Location",
+    "cars": "Cars",
+    "about_the_car": "About the Car",
+    "available_cars": " Available Cars",
+    "choose_location": "Choose Your Location",
+    "receipt_delivery": "Receipt / Delivery",
+    "confirm_booking_info": "Confirm Booking information",
+    "confirm_booking": "Confirm Booking"
+  },
+  "confirm_booking_screen": {
+    "all_booking": "All Booking",
+    "booking": "Booking",
+    "cancel": "Cancel"
+  },
+  "success_screen": {
+    "order_successfully_placed": "Order Successfully\nPlaced",
+    "order_successfully_placed_message": "Your order has been successfully placed.\nWe will deliver your order soon."
+
+  },
+  "form": {
+    "name_hint": "Enter your name",
+    "name_empty": "Name can't be empty",
+    "phone_hint": "Enter your phone number",
+    "phone_empty": "Phone number is required",
+    "phone_invalid": "Please enter a valid Saudi phone number like: 0501234567"
+  },
+  "locations": {
+    "riyadh": "Riyadh",
+    "jeddah": "Jeddah",
+    "makkah": "Makkah",
+    "madinah": "Madinah",
+    "dammam": "Dammam",
+    "khobar": "Khobar",
+    "taif": "Taif",
+    "buraidah": "Buraidah",
+    "abha": "Abha",
+    "hail": "Hail",
+    "tabuk": "Tabuk",
+    "yanbu": "Yanbu",
+    "qassim": "Qassim",
+    "jazan": "Jazan",
+    "najran": "Najran",
+    "al_bahah": "Al Bahah"
+  },
+  "success_widget": {
+    "your_order_has_been_successfully_placed_": "Your order has been successfully placed.\\nWe will deliver your order soon.",
+    "order_successfully_nplaced": "Order Successfully\\nPlaced",
+    "back_to_home": "Back to Home",
+    "go_to_orders": "Go to Orders"
+  },
+  "user_orders": {
+    "cancel": "Cancel",
+    "all_booking": "All Booking",
+    "booking": "Booking"
+  },
+  "notification_screen": {
+    "view_detailed": "View Detailed",
+    "notification_details": "Notification Details"
+  },
+  "home_screen": {
+    "welcome": "Welcome,",
+    "choose_your_service": "#ChooseYourService",
+    "recommended_hotels": "#ecommendedHotels"
+  },
+  "select_a_location": "Select a Location",
+  "drawer": {
+    "setting": "Setting",
+    "logout": "Logout",
+    "delete_account": "Delete Account",
+    "close": "Close"
+  },
+
+  "orders_screen": {
+    "pending":"Pending",
+    "success":"Success",
+    "cancel_order_confirmation": "Are you sure you want to cancel \norder?",
+
+    "failed":"Failed",
+    "total_price":"Total price",
+    "booking_day":"Booking day",
+    "people_count":"People Count",
+    "name": "Name",
+    "phone": "phone",
+    "payment_method": "Payment method",
+    "activity_name": "Activity name",
+    "hotel_nae": "Hotel name",
+    "check_out": "Check-out",
+    "check_in": "Check-in",
+    "hotel_booking": "Hotel Booking",
+    "activity": "Activity",
+    "received_date": "Received date",
+    "delivery_date": "Delivery date",
+    "car": "Car"
+  },
+  "splash_screen": {
+    "manafea": "Manafea",
+    "easy_transportation": "Easy Transportation"
+  }
+}

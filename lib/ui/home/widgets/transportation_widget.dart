@@ -1,8 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/carBooking/view/cars_screen.dart';
+import 'package:manafea/ui/home/widgets/serviceName.dart';
 
 class ServicesWidget extends StatefulWidget {
   const ServicesWidget({super.key});
@@ -19,7 +22,10 @@ class _ServicesWidgetState extends State<ServicesWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTransportationText(),
+        serviceName(name:         LocaleKeys.home_screen_choose_your_service.tr(),
+
+
+        ),
           SizedBox(height: 0.01 * AppConstants.screenHeight), // Adjust space based on screen height
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 0.04 * AppConstants.screenWidth), // Adjust padding based on screen width
@@ -29,22 +35,24 @@ class _ServicesWidgetState extends State<ServicesWidget> {
               _buildServicesWidget(
                   onTap: (){
                     Navigator.
-                    push(context,MaterialPageRoute(builder: (context) => CarsScreen(),));
+                    push(context,MaterialPageRoute(builder:
+                        (context) => CarsScreen(),));
 
                   },
-                  icon: Icons.directions_car, iconName: "Car"),
+                  icon: Icons.directions_car,
+                  iconName: LocaleKeys.screensName_car.tr()),
               _buildServicesWidget(
                   onTap: (){
                     Navigator.pushNamed(context, AppRoutes.activityBooking);
                   },
                   icon: Icons.local_activity
-                  , iconName: "Activity"),
+                  , iconName:  LocaleKeys.screensName_activities.tr()),
               _buildServicesWidget(
                   onTap: (){
                     Navigator.pushNamed(context, AppRoutes.filterHotels);
                   },
                   icon:
-              Icons.hotel, iconName: "Hotels"),
+              Icons.hotel, iconName:  LocaleKeys.screensName_hotels.tr()),
               _buildServicesWidget(icon: Icons.motorcycle, iconName: "Bike"),
             ],
           ),
@@ -123,17 +131,5 @@ class _ServicesWidgetState extends State<ServicesWidget> {
     );
   }
 
-  Widget _buildTransportationText() {
-    return Padding(
-      padding: EdgeInsets.only(left: 0.042 * AppConstants.screenWidth), // Adjust padding based on screen width
-      child: Text(
-        '#ChooseYourService',
-        style: TextStyle(
-          fontWeight: FontWeight.w900,
-          color: AppColors.primaryColor,
-          fontSize: AppConstants.screenWidth * 0.056,
-        ),
-      ),
-    );
-  }
+
 }

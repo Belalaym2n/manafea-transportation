@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
+
+import '../helpers/sharedPerferance/sharedPerferanceHelper.dart';
 
 class OTPService {
   static OTPService? _instance;
@@ -14,31 +17,40 @@ class OTPService {
   final FirebaseAuth auth = FirebaseAuth.instance;
   String? verificationId; // Store verification ID for manual OTP verification
 
-  Future<void> sendOTP({required String phoneNumber}) async {
-    await auth.verifyPhoneNumber(
-      phoneNumber: "+201116427908",
-      verificationCompleted: verificationCompleted,
-      verificationFailed: verificationFailed,
-      codeSent: codeSent,
-      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-      timeout: const Duration(seconds: 120),
-      forceResendingToken: null,
-      // 🔹 اختياري: تعطيل إعادة الإرسال الإجباري
-      multiFactorSession: null, // 🔹 تعطيل التحقق الثنائي
-    );
-  }
 
-  String? getVerificationId() {
-    return verificationId;
+
+  Future<void> sendOTP({required String phoneNumber}) async {
+    final completer = Completer<void>();
+
+    try {
+      await auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: (FirebaseAuthException e) {
+          print("❌ OTP Error: ${e.code} - ${e.message}");
+          completer.completeError(Exception("OTP Verification Failed: ${e.message}"));
+        },
+        codeSent: (String verificationID, int? resendToken) {
+          print("📩 OTP has been sent.");
+          verificationId = verificationID;
+          completer.complete(); // ✅ نجاح
+        },
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+        timeout: const Duration(seconds: 118),
+      );
+
+      return completer.future;
+    } catch (e) {
+      print("❌ General Error: ${e.toString()}");
+      throw Exception("Error during OTP sending: ${e.toString()}");
+    }
   }
 
   void verificationCompleted(PhoneAuthCredential credential) async {
     try {
-      await auth.signInWithCredential(
-        credential,
-      );
+      await auth.signInWithCredential(credential);
       final user = FirebaseAuth.instance.currentUser;
-       if (user != null) {
+      if (user != null) {
         final uid = user.uid;
         await SharedPreferencesHelper.saveData(
             key: SharedSharedPreferencesKeys.userId,
@@ -51,7 +63,9 @@ class OTPService {
   }
 
   verificationFailed(FirebaseAuthException e) {
+    // طباعة الخطأ ورفعه للـ UI
     print("❌ OTP Error: ${e.code} - ${e.message}");
+    throw Exception("OTP Verification Failed: ${e.message}"); // رفع الاستثناء
   }
 
   void codeSent(String verificationID, int? resendToken) {
@@ -84,7 +98,7 @@ class OTPService {
       print("✅ OTP Verified! User signed in.");
     } catch (e) {
       print("❌ OTP Verification Failed: ${e.toString()}");
-      throw Exception();
+      throw Exception(e.toString());
     }
   }
 }

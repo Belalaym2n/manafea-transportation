@@ -10,8 +10,11 @@ import '../../profile_screen/widgets/profileScreenItem.dart';
 import '../widgets/carsuoImage.dart';
 
 class HomeScreenItem extends StatefulWidget {
-  const HomeScreenItem({super.key});
-
+    HomeScreenItem({super.key,required this.name    ,
+      required this.phoneNumber,
+    });
+    String? phoneNumber;
+String? name;
   @override
   State<HomeScreenItem> createState() => _HomeScreenItemState();
 }
@@ -22,14 +25,19 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
     return   SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        drawer: const Drawer(child: ProfileScreen()),
+        drawer:   Drawer(child: ProfileScreen(
+          phoneNumber: widget.phoneNumber,
+          name: widget.name,
+        )),
 
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const WelcomeUserWidget(),
+                WelcomeUserWidget(
+                  name: widget.name,
+                ),
 
               SizedBox(
                 height: AppConstants.screenHeight * 0.25,

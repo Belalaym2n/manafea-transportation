@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/domain/models/carModels/addCarModel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/carBooking/connector/carBookingConnector.dart';
 import 'package:manafea/ui/carBooking/viewModel/CarBookingViewModel.dart';
 import 'package:manafea/ui/carBooking/widgets/car_booking_screen_item.dart';
@@ -157,14 +159,14 @@ class _CarBookingScreenState
         Padding(
           padding:   EdgeInsets.symmetric(
               horizontal: 4.0),
-          child: Text("All Price ${viewModel.allPrice}",          style: TextStyle(fontSize: AppConstants.screenWidth*0.044, fontWeight: FontWeight.bold),
+          child: Text("${LocaleKeys.car_screen_all_price.tr()} ${viewModel.allPrice}",          style: TextStyle(fontSize: AppConstants.screenWidth*0.044, fontWeight: FontWeight.bold),
 
           ),
         ),
         CheckInCheckOut(
           calculatePrice: viewModel.calculateAllPrice,
-          headlineOne: 'Delivery',
-          headlineTwo: " Receipt",
+          headlineOne: LocaleKeys.car_screen_delivery.tr(),
+          headlineTwo: LocaleKeys.car_screen_receipt.tr(),
           onSelectCheckInDate: viewModel.changeSelectCheckInDate,
           onSelectCheckOutDate: viewModel.changeSelectCheckOutDate,
           focusedDateCheckInDate: viewModel.focusedDateDelivery,

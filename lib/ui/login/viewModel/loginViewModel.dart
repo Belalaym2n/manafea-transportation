@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/login/connector/loginConnector.dart';
 
 import '../../../data/repositories/authRepo/otpRepo.dart';
@@ -19,23 +21,23 @@ class LoginViewModel extends BaseViewModel<LoginConnector> {
 
   Future<void> sendVerification({required String number}) async {
     try {
-      final validNumber = validateSaudiNumber(number: number);
-      if (validNumber == null) {
-        return;
-      }
+      // final validNumber = validateSaudiNumber(number: number);
+      // if (validNumber == null) {
+      //   return;
+      // }
 
+      print("belal");
       setLoading(true);
-      await Future.delayed(const Duration(seconds: 1));
-      await _otpRepo.sendOTP(phoneNumber: validNumber);
+      await _otpRepo.sendOTP(phoneNumber: number);  // إرسال الرقم بتنسيق E.164
       await SharedPreferencesHelper.saveData(
-          key: SharedSharedPreferencesKeys.phoneNumberKey
-          , value: validNumber);
+          key: SharedSharedPreferencesKeys.phoneNumberKey,
+          value: number);
       setLoading(false);
       connector!.navigateToVerify();
     } catch (e) {
       setLoading(false);
-      connector
-          ?.onError("❌ Failed to send OTP Please Try Again: ${e.toString()}");
+      print("❌ Failed to send OTP: ${e.toString()}");  // طباعة الخطأ في الـ console
+      return connector?.onError("❌ Failed to send OTP: ${e.toString()}"); // عرض الخطأ في واجهة المستخدم
     } finally {
       setLoading(false);
     }
@@ -53,8 +55,10 @@ class LoginViewModel extends BaseViewModel<LoginConnector> {
     if (regex.hasMatch(number)) {
       return '+966${number.substring(1)}';
     } else {
-      connector!.onError(
-          "Please enter a valid Saudi phone number like: 0501234567 "); // الرقم غير صحيح
+      connector!.onError('${
+        LocaleKeys.errors_please_enter_a_valid_saudi_phone_number_.tr()
+      }'
+      ); // الرقم غير صحيح
       return null;
     }
   }

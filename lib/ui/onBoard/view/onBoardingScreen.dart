@@ -16,7 +16,6 @@ class Onboardingscreen extends StatefulWidget {
 class _OnboardingscreenState extends State<Onboardingscreen> {
   PageController pageController = PageController(initialPage: 0);
   int currentIndex = 0;
-  List<OnBoardModel> items = OnBoardModel.items;
 
   @override
   void dispose() {
@@ -26,6 +25,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

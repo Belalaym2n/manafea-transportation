@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/domain/models/carModels/addCarModel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/activity/connector/getActivitesConnector.dart';
 import 'package:manafea/ui/carBooking/connector/getCarsConnector.dart';
 import 'package:manafea/ui/carBooking/viewModel/getCarViewModel.dart';
@@ -45,8 +47,8 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel
           elevation: 0,
           scrolledUnderElevation: 0,
 
-          title: const Text(" Available Cars",
-          style: TextStyle(fontWeight: FontWeight.bold)),
+          title:   Text(LocaleKeys.car_screen_available_cars.tr(),
+          style: const TextStyle(fontWeight: FontWeight.bold)),
       centerTitle: true,
       ),
       body: Stack(
@@ -61,6 +63,9 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel
       ) ),
     )));
   }
+
+
+
 
   @override
   GetAllCarsViewModel init_my_view_model() {
@@ -103,7 +108,34 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel
   @override
   emptyData() {
     // TODO: implement emptyData
-    
-    return Text("NO Data");
+
+    return Text(
+      LocaleKeys.car_screen_no_cars_available.tr(),
+      style: TextStyle(
+        fontSize: 16,
+        color: Colors.grey[600],
+        fontWeight: FontWeight.w500,
+      ),
+    );
+  }
+
+  @override
+  gridViewData(List<AddCarModel> cars) {
+    // TODO: implement gridViewData
+    return Padding(
+        padding: EdgeInsets.all(AppConstants.screenWidth * 0.036),
+        child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: AppConstants.screenWidth * 0.03,
+              mainAxisSpacing: AppConstants.screenHeight * 0.017,
+              childAspectRatio: 0.8,
+            ),
+            itemCount: cars.length,
+            itemBuilder: (context, index) {
+              var carModel = cars[index];
+              return
+                CarScreenItem(carModel: carModel);
+            }));;
   }
 }

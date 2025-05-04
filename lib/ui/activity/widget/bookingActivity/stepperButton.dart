@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 
 import '../../../../config/appColors.dart';
 
@@ -22,15 +24,15 @@ class ElevatedButtonStepperBooking extends StatelessWidget {
       children: [
         buildElevatedButton(
             bgColor: AppColors.primaryColor,
-            name: 'Continue',
+            name: LocaleKeys.buttons_name_continue.tr(),
             onPressed:  onStepContinue
         ),
         SizedBox(width: AppConstants.screenWidth * 0.02),
         buildElevatedButton(
           bgColor: Colors.red,
-          name: 'Cancel',
+          name: LocaleKeys.buttons_name_back.tr(),
           onPressed:  onStepCancel
-        )
+        ) 
       ],
     );
   }
