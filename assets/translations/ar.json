@@ -15,9 +15,8 @@
     "4": {
       "headline": "حجز فنادق سلس\nحجوزات آمنة ومرنة",
       "description": "نحن نضمن لك تجربة حجز فنادق سهلة وآمنة. يوفر لك تطبيقنا خيارات حجز مرنة، بحيث يمكنك تعديل أو إلغاء حجوزاتك في أي وقت. تأكد من أنك ستجد الإقامة المثالية بأفضل الأسعار مع تأكيد فوري للحجز، مما يوفر لك راحة البال."
-    }}
-,
-
+    }
+  },
   "failed_to_fetch_orders___e": "فشل في جلب الطلبات:  ",
   "screensName": {
     "notification": "الإشعارات",
@@ -31,7 +30,6 @@
   "errors": {
     "error_message": "خطأ",
     "something_went_wrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقًا.",
-
     "please_enter_your_number": "يرجى إدخال رقمك",
     "please_enter_firstname_and_lastname": "يرجى إدخال الاسم الأول والاسم الأخير",
     "something_went_wrong_please_try_again": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
@@ -59,18 +57,23 @@
     "enter_your_first_name": "أدخل اسمك الأول",
     "enter_your_phone_number": "أدخل رقم هاتفك",
     "personal_detail": "التفاصيل الشخصية",
-
     "enter_mobile_number": "أدخل رقم الهاتف المحمول",
-    "enter_your_6_digit":"أدخل أرقام الرموز المكونة من 6 أرقام المرسلة إلى"
-
+    "enter_your_6_digit": "أدخل أرقام الرموز المكونة من 6 أرقام المرسلة إلى"
   },
   "activity_screen": {
+    "no_activity_found": "لا توجد أنشطة",
+    "about_activity": "عن هذا النشاط",
+    "step_choose_booking_day": "اختر يوم الحجز",
+    "step_confirm_booking_data": "تأكيد بيانات الحجز",
+    "step_confirm_booking_info": "تأكيد معلومات الحجز",
+    "step_confirm_booking": "تأكيد الحجز",
     "select_date": "اختر التاريخ",
     "people_count": "عدد الأشخاص",
     "click_to_select": "انقر للاختيار",
     "where_do_you_want_to_move_from": "من أين تريد الانتقال؟"
   },
   "buttons_name": {
+    "search": "بحث",
     "continue": "متابعة",
     "verify": "تحقق ",
     "back": "رجوع",
@@ -81,16 +84,28 @@
     "book_now": "احجز الآن",
     "next": "التالي "
   },
+  "select_location": "اختر الموقع",
   "location": {
     "riyadh___nakheel": "الرياض - النخيل",
     "riyadh___malaz": "الرياض - الملز",
     "riyadh___suwaidi": "الرياض - السويدي"
   },
+  "fedsmale": "أنثى",
+  "masdfle": "ذكر",
+
   "hotelsScreen": {
+    "hotel_booking_question": "من أين تريد حجز الفندق؟",
+    "noHotelsFound": "لم يتم العثور على فنادق.",
+    "choose_common_room_type": "اختر نوع الغرفة الشائعة",
+    "per_day": "لكل يوم",
+    "select_Date": "اختر التاريخ",
+    "people_number": "عدد الأشخاص",
     "about_the_hotel": "عن الفندق",
+    "check_in_out": "تسجيل الوصول / تسجيل المغادرة",
+    "confirm_details": "تأكيد التفاصيل",
+    "confirm_booking": "تأكيد الحجز",
     "special": "خاص",
-    "female": "أنثى",
-    "male": "ذكر",
+
     "where_do_you_want_to_hotel_booking_from": "من أين تريد حجز الفندق؟",
     "select_a_country": "اختر دولة",
     "common": "مشترك",
@@ -111,7 +126,6 @@
     "delivery": "التوصيل",
     "select_location_prompt": "اضغط للاختيار",
     "no_cars_available": "لا توجد سيارات متاحة",
-
     "cars": "السيارات",
     "about_the_car": "ماذا عن السيارة",
     "available_cars": "السيارات المتاحة",
@@ -127,8 +141,7 @@
     "phone_empty": "رقم الهاتف مطلوب",
     "phone_invalid": "يرجى إدخال رقم هاتف سعودي صالح مثل: 0501234567"
   },
-  "confirm_booking_screen":
-  {
+  "confirm_booking_screen": {
     "all_booking": "جميع الحجوزات",
     "booking": "حجز",
     "cancel": "إلغاء"
@@ -188,7 +201,6 @@
     "failed": "فشل",
     "hotel_nae": "اسم الفندق",
     "cancel_order_confirmation": "هل أنت متأكد أنك تريد إلغاء\nالطلب؟",
-
     "total_price": "السعر الإجمالي",
     "booking_day": "يوم الحجز",
     "people_count": "عدد الأشخاص",
@@ -204,6 +216,5 @@
     "delivery_date": "تاريخ التسليم",
     "car": "سيارة"
   }
-
 }
 

@@ -15,13 +15,17 @@ Widget buildBookingDescription({
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-
-            BookingTittle,
-            style: TextStyle(
-              fontSize: AppConstants.screenWidth * 0.05,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor,
+          SizedBox(
+            width: AppConstants.screenWidth*0.7,
+            child: Text(
+            overflow: TextOverflow.ellipsis,
+              BookingTittle,
+              style: TextStyle(
+                overflow: TextOverflow.ellipsis ,
+                fontSize: AppConstants.screenWidth * 0.05,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primaryColor,
+              ),
             ),
           ),
           IconButton(

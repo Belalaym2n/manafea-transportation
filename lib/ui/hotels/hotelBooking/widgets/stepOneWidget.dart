@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../config/appColors.dart';
@@ -12,7 +14,8 @@ Widget buildStepOneContentInStepperChooseRoomType({
   return Column(
     children: [
       Text(
-        "Please Choose your Room type ?",
+        LocaleKeys.hotelsScreen_please_choose_your_room_type.tr(),
+
         style: TextStyle(
           fontSize: AppConstants.screenWidth * (18 / 360), // 18 -> 0.05 تقريبًا
           fontWeight: FontWeight.w900,
@@ -25,14 +28,14 @@ Widget buildStepOneContentInStepperChooseRoomType({
       buildChooseRoom(
         onTap: () => onSelectRoom("Special"),
         isSelected: selectedRoomType == "Special",
-        text: "Special",
+        text: LocaleKeys.hotelsScreen_special.tr(),
       ),
       SizedBox(
         height: AppConstants.screenHeight * (15 / 776), // كان 0.02
       ),
       buildChooseRoom(
         isSelected: selectedRoomType == "Common",
-        text: "Common",
+        text: LocaleKeys.hotelsScreen_common.tr(),
         onTap: () => onSelectRoom("Common"),
       ),
       SizedBox(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:manafea/data/repositories/orderRepo/requestOrderRepo.dart';
@@ -5,6 +6,7 @@ import 'package:manafea/domain/models/hotelModels/addHotel.dart';
 
 import '../../../../config/base_class.dart';
 import '../../../../domain/models/hotelModels/requestHotelBooking.dart';
+import '../../../../generated/locale_keys.g.dart';
 import '../../../core/shared_widget/stepper_widget.dart';
 import '../connector/hotelConnector.dart';
 
@@ -19,10 +21,12 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   String _selectedCommonRoomType = "";
   String _selectedType = "";
   bool _orderIsDone = false;
-  bool _isLoading = false;
+   bool _isLoading = false;
   String checkInDateString =
-  "Select Date";
-  String checkOutDateString = "Select Date";
+  LocaleKeys.hotelsScreen_select_Date.tr();
+  String checkOutDateString =     LocaleKeys.hotelsScreen_select_Date.tr();
+
+
   DateTime focusedDateCheckOut = DateTime.now().add(const Duration(days: 1));
 
   DateTime focusedDateCheckIn = DateTime.now();
@@ -62,16 +66,18 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     bool isValidDataBooking = await validBookingData(
         name: name, phoneNumber: phoneNumber, stepIndex: 3);
     if (isRoomTypeNullable == true) {
-      return connector?.onError("Please choose your Room type ");
+      return connector!
+    .onError(LocaleKeys.hotelsScreen_please_choose_your_room_type.tr());
     }
 
     if (isDatsValid == false) {
-      return connector!.onError("booking at least one day");
+      return connector!.onError(LocaleKeys.errors_booking_at_least_one_day.tr());
     }
 
     if (isValidDataBooking == false) {
-      return connector?.onError("Name and Number must not be empty");
+      return connector?.onError(LocaleKeys.errors_name_and_number_must_not_be_empty.tr());
     }
+
 
     if (index == 4) {
       print("Sending request...");
@@ -89,8 +95,11 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   }
 
   bool validDatesSelected(int stepIndex) {
-    if (index == stepIndex && checkOutDateString == 'Select Date'||
-    index==stepIndex&&checkInDateString == 'Select Date'
+    if (index == stepIndex && checkOutDateString
+        ==  LocaleKeys.hotelsScreen_select_Date.tr()
+    ||
+    index==stepIndex&&checkInDateString ==   LocaleKeys.hotelsScreen_select_Date.tr()
+
     ) {
       return false;
     }
@@ -107,8 +116,9 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     print("index $index");
 
     if (index == 1 && _selectedCommonRoomType == '') {
-      return connector!.onError("Please Choose Common Room Type");
+      return connector!.onError(LocaleKeys.errors_please_choose_common_room_type.tr());
     }
+
     bool isDatsValid = validDatesSelected(3);
     bool isValidDataBooking = await validBookingData(
         name: name, phoneNumber: phoneNumber, stepIndex: 4);
@@ -154,7 +164,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   // step one in stepper
   void changeRoomSelected(String roomType) {
     _selectedRoomType = roomType;
-    checkOutDateString='Select Date';
+    checkOutDateString=LocaleKeys.hotelsScreen_select_Date.tr();
     index = 0; // إعادة تعيين الخطوة
     notifyListeners();
   }
@@ -186,7 +196,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     print(duration);
     print(days);
 
-    if (checkOutDateString == 'Select Date') {
+    if (checkOutDateString ==   LocaleKeys.hotelsScreen_select_Date.tr()) {
       days = 0;
       notifyListeners();
     }
@@ -214,7 +224,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   changeSelectCheckInDate(DateTime dateTime) {
     focusedDateCheckIn = dateTime;
     checkInDateString = DateFormat('dd/MM/yyyy').format(dateTime);
-    checkOutDateString = 'Select Date';
+    checkOutDateString =  LocaleKeys.hotelsScreen_select_Date.tr();
 
     notifyListeners();
   }
@@ -308,7 +318,8 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
         isActive: index > 0,
         content: connector?.stepOneContentInStepper() ?? Container(),
         isCurrentStep: index == 0,
-        tittle: 'Choose Room Type',
+        tittle:  LocaleKeys.hotelsScreen_please_choose_your_room_type.tr(
+        ),
       ),
       if (selectedRoomType == "Common")
         buildStep(
@@ -317,35 +328,35 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
           content: connector!.stepTwoContentInStepperForCommonRoomType(),
           isCurrentStep: index == 1,
           // ✅ ضبط الفهرس ليكون 1 بدلاً من 2
-          tittle: 'Choose Common Room Type',
+          tittle: LocaleKeys.hotelsScreen_choose_common_room_type.tr(),
         ),
       buildStep(
         colorIndex: selectedRoomType == "Common" ? index > 2 : index > 1,
         isActive: index > 2,
         content: connector!.stepTwoContentInStepper(),
         isCurrentStep: index == 2,
-        tittle: 'Room Count',
+        tittle: LocaleKeys.hotelsScreen_room_count.tr(),
       ),
       buildStep(
         colorIndex: selectedRoomType == "Common" ? index > 3 : index > 2,
         isActive: index > 3,
         content: connector!.stepThreeContentInStepper(),
         isCurrentStep: index == 3,
-        tittle: 'Check-in / Check-out',
+        tittle: LocaleKeys.hotelsScreen_check_in_out.tr(),
       ),
       buildStep(
         colorIndex: selectedRoomType == "Common" ? index > 4 : index > 3,
         isActive: index > 4,
         content: connector!.stepFourContentInStepperUserBookingInfo(),
         isCurrentStep: index == 4,
-        tittle: 'Confirm Details',
+        tittle:LocaleKeys.hotelsScreen_confirm_details.tr(),
       ),
       buildStep(
         colorIndex: selectedRoomType == "Common" ? index > 5 : index > 4,
         isActive: index > 5,
         content: connector!.stepFiveContentInStepperBookingButton(),
         isCurrentStep: index == 5,
-        tittle: 'Confirm Booking',
+        tittle:LocaleKeys.hotelsScreen_confirm_booking.tr(),
       ),
     ];
   }

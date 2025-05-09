@@ -86,6 +86,14 @@ class _RecommendedHotelsState extends BaseView<GetAllHotelViewModel
   @override
   emptyDataWidget() {
     // TODO: implement emptyDataWidget
-    return Text("empty");
+    return const Text("empty");
+  }
+
+  @override
+  showDataWidget(List<AddHotelModel> hotels) {
+    // TODO: implement showDataWidget
+ return   RecommendedHotelItem(
+      hotels: hotels,
+    );
   }
 }

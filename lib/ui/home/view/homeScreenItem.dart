@@ -36,7 +36,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
                 WelcomeUserWidget(
-                  name: widget.name,
+                  name:"Belal Ayman",
                 ),
 
               SizedBox(

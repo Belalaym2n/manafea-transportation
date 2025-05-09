@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/orderRepo/requestOrderRepo.dart';
 import 'package:manafea/data/services/orderServices/requestOrderService.dart';
 import 'package:manafea/domain/models/activityModel/activityModel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/activity/connector/activityConnector.dart';
 import 'package:manafea/ui/activity/viewModel/activityBookingViewModel.dart';
 import 'package:manafea/ui/activity/widget/bookingActivity/activityScreenBookingItem.dart';
@@ -98,7 +100,7 @@ class _ActivityScreenBookingState
     return      Consumer<ActivityBookingViewModel>(
         builder: (context, viewModel, child) => buildStepCounterInStepper(
             totalPrice: viewModel.totalPrice??viewModel.activityModel.itemPricing,
-            title: "People Count",
+            title: LocaleKeys.orders_screen_people_count.tr(),
             increaseCount: viewModel.increasePeopleCount,
             minusCount: viewModel.minusPeopleCount,
             count: viewModel.peopleCount));

@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appColors.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 
 Widget buildStepCounterInStepper({
   required Function increaseCount,
@@ -33,7 +35,7 @@ Widget buildStepCounterInStepper({
             SizedBox(
               width: AppConstants.screenWidth*0.4 ,
               child: Text(
-                "Per Day:$totalPrice",
+                "${LocaleKeys.hotelsScreen_per_day.tr()}:$totalPrice",
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
 

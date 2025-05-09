@@ -24,7 +24,7 @@ class AddHotelItem extends StatefulWidget {
       });
 
   String? selectedLocation;
-  Function(String) changeLocation;
+  Function(String,String) changeLocation;
   final Future<dynamic> Function() openImage;
   File? image;
   String publicUrl;

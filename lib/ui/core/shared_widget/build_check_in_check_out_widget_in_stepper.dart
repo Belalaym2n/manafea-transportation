@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:manafea/config/appConstants.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CheckInCheckOut extends StatefulWidget {
@@ -45,7 +46,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
     print(duration);
     print(days);
 
-    if (widget.checkOutDateString=='Select Date' ){
+    if (widget.checkOutDateString==LocaleKeys.hotelsScreen_select_Date.tr()){
       days=0;
       setState(() {
 
@@ -64,6 +65,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+
         Container(
           padding:   EdgeInsets.all(AppConstants.screenWidth*0.044),
           decoration: BoxDecoration(
@@ -111,7 +113,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            widget.headlineTwo,
+            widget.headlineOne,
             style: TextStyle(
               fontSize: AppConstants.screenWidth*0.044,
               fontWeight: FontWeight.bold,
@@ -120,7 +122,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
           ),
             SizedBox(height: AppConstants.screenHeight*0.008),
           Text(
-            todayDate== DateFormat('dd/MM/yyyy').format(DateTime.now())?'Selected date':todayDate,
+        todayDate,
             style:   TextStyle(
               fontSize: AppConstants.screenWidth*0.04,
               color: Colors.black87,
@@ -142,7 +144,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.headlineOne,
+            widget.headlineTwo,
             style: TextStyle(
               fontSize: AppConstants.screenWidth*0.044,
               fontWeight: FontWeight.bold,
@@ -235,7 +237,7 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
                           color: Colors.blueAccent.withOpacity(0.5),
                           shape: BoxShape.circle,
                         ),
-                        selectedDecoration: BoxDecoration(
+                        selectedDecoration: const BoxDecoration(
                           color: Colors.deepOrange,
                           shape: BoxShape.circle,
                         ),

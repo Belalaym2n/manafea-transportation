@@ -1,5 +1,7 @@
 import 'package:manafea/config/base_class.dart';
 
+import '../../../../domain/models/hotelModels/addHotel.dart';
+
 abstract class GetHotelsConnector extends BaseConnector{
   @override
   onError(String message) {
@@ -13,7 +15,9 @@ abstract class GetHotelsConnector extends BaseConnector{
     throw UnimplementedError();
   }
 
+
   emptyDataWidget();
+  showDataWidget(List<AddHotelModel> hotels);
 
 
 }

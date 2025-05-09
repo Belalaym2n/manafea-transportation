@@ -1,6 +1,9 @@
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/ui/addActivity/view/addActivity.dart';
 
-class GetActivitiesConnector extends BaseConnector{
+import '../../../domain/models/activityModel/activityModel.dart';
+
+abstract class GetActivitiesConnector extends BaseConnector{
   @override
   onError(String message) {
     // TODO: implement onError
@@ -13,4 +16,7 @@ class GetActivitiesConnector extends BaseConnector{
     throw UnimplementedError();
   }
 
+
+  gridViewData(List<ActivityModel> activity);
+  emptyData();
 }

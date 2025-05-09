@@ -21,9 +21,8 @@ class AddHotelViewModel extends BaseViewModel<AddHotelConnector> {
 
   String? get location => _location;
   String? _location;
-  changeLocation(String locationName) {
+  changeLocation(String locationName,String d) {
     _location = locationName;
-
     notifyListeners();
   }
 

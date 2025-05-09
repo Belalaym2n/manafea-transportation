@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/config/appImages.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/routing/appRoutes.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -83,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Widget _logoText() {
     return Text(
-      "Manafea",
+      LocaleKeys.splash_screen_manafea.tr(),
       style: TextStyle(
         color: Colors.white,
         fontSize: AppConstants.screenWidth * 0.1,
@@ -95,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Widget _animatedText() {
     return Text(
-      "Easy Transportation",
+      LocaleKeys.splash_screen_easy_transportation.tr(),
       style: TextStyle(
         fontSize: AppConstants.screenWidth * 0.05,
         fontWeight: FontWeight.w600,

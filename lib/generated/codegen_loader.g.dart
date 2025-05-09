@@ -77,12 +77,19 @@ class CodegenLoader extends AssetLoader{
     "enter_your_6_digit": "أدخل أرقام الرموز المكونة من 6 أرقام المرسلة إلى"
   },
   "activity_screen": {
+    "no_activity_found": "لا توجد أنشطة",
+    "about_activity": "عن هذا النشاط",
+    "step_choose_booking_day": "اختر يوم الحجز",
+    "step_confirm_booking_data": "تأكيد بيانات الحجز",
+    "step_confirm_booking_info": "تأكيد معلومات الحجز",
+    "step_confirm_booking": "تأكيد الحجز",
     "select_date": "اختر التاريخ",
     "people_count": "عدد الأشخاص",
     "click_to_select": "انقر للاختيار",
     "where_do_you_want_to_move_from": "من أين تريد الانتقال؟"
   },
   "buttons_name": {
+    "search": "بحث",
     "continue": "متابعة",
     "verify": "تحقق ",
     "back": "رجوع",
@@ -93,16 +100,26 @@ class CodegenLoader extends AssetLoader{
     "book_now": "احجز الآن",
     "next": "التالي "
   },
+  "select_location": "اختر الموقع",
   "location": {
     "riyadh___nakheel": "الرياض - النخيل",
     "riyadh___malaz": "الرياض - الملز",
     "riyadh___suwaidi": "الرياض - السويدي"
   },
+  "fedsmale": "أنثى",
+  "masdfle": "ذكر",
   "hotelsScreen": {
+    "hotel_booking_question": "من أين تريد حجز الفندق؟",
+    "noHotelsFound": "لم يتم العثور على فنادق.",
+    "choose_common_room_type": "اختر نوع الغرفة الشائعة",
+    "per_day": "لكل يوم",
+    "select_Date": "اختر التاريخ",
+    "people_number": "عدد الأشخاص",
     "about_the_hotel": "عن الفندق",
+    "check_in_out": "تسجيل الوصول / تسجيل المغادرة",
+    "confirm_details": "تأكيد التفاصيل",
+    "confirm_booking": "تأكيد الحجز",
     "special": "خاص",
-    "female": "أنثى",
-    "male": "ذكر",
     "where_do_you_want_to_hotel_booking_from": "من أين تريد حجز الفندق؟",
     "select_a_country": "اختر دولة",
     "common": "مشترك",
@@ -277,12 +294,19 @@ static const Map<String,dynamic> _en = {
   },
   "loading": "Loading",
   "activity_screen": {
+    "no_activity_found": "No Activity Found",
+    "about_activity": "About this activity",
+    "step_choose_booking_day": "Choose Your Booking Day",
+    "step_confirm_booking_data": "Confirm Booking Data",
+    "step_confirm_booking_info": "Confirm Booking Information",
+    "step_confirm_booking": "Confirm Booking",
     "select_date": "Select Date",
     "people_count": "People Count",
     "click_to_select": "Click to Select",
     "where_do_you_want_to_move_from": "Where do you want to move from?"
   },
   "buttons_name": {
+    "search": "Search",
     "continue": "Continue",
     "back": "Back",
     "next": "Next",
@@ -298,19 +322,27 @@ static const Map<String,dynamic> _en = {
     "riyadh___malaz": "Riyadh - Malaz",
     "riyadh___suwaidi": "Riyadh - Suwaidi"
   },
+  "fedsmale": "Female",
+  "masdfle": "Male",
   "hotelsScreen": {
+    "noHotelsFound": "No hotels found.",
+    "per_day": "Per Day",
+    "hotel_booking_question": "Where do you want to book the hotel from?",
     "about_the_hotel": "About the hotel",
     "people_number": "People Number",
     "room_number": "Room Count",
+    "select_Date": "Select Date",
     "special": "Special",
-    "female": "Female",
-    "male": "Male",
+    "confirm_details": "Confirm Details",
+    "confirm_booking": "Confirm Booking",
     "where_do_you_want_to_hotel_booking_from": "Where do you want to hotel booking from?",
     "select_a_country": "Select a country",
     "common": "Common",
     "room_count": "Room Count",
     "check_out": "Check-out",
     "check_in": "Check-in",
+    "choose_common_room_type": "Choose Common Room Type",
+    "check_in_out": "Check-in / Check-out",
     "please_choose_your_room_type": "Please Choose your Room type ?",
     "hotel_common_room_pricing": "Hotel Common Room Pricing",
     "hotel_special_room_pricing": "Hotel Special Room Pricing"
@@ -395,6 +427,7 @@ static const Map<String,dynamic> _en = {
     "delete_account": "Delete Account",
     "close": "Close"
   },
+  "select_location": "Select a Location",
   "orders_screen": {
     "pending": "Pending",
     "success": "Success",
