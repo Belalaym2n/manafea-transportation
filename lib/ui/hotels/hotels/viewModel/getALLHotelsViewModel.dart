@@ -24,10 +24,16 @@ class GetAllHotelViewModel extends BaseViewModel<GetHotelsConnector> {
 
   bool get isLoading => _isLoading;
 
-  changeLocation(String destinationName) {
-    _country = destinationName;
-    filterOrdersByStatus(_country!);
-    print(_country);
+  String? _countryLanguage;
+
+  String? get countryLanguage => _countryLanguage;
+
+  changeCountry(String countryName, String countryNameWithLanguage) {
+    _country = countryName;
+    _countryLanguage = countryNameWithLanguage;
+
+    filterHotelsByCountry(_country!);
+
     notifyListeners();
   }
 
@@ -48,7 +54,7 @@ class GetAllHotelViewModel extends BaseViewModel<GetHotelsConnector> {
     }
   }
 
-  void filterOrdersByStatus(String country) {
+  void filterHotelsByCountry(String country) {
     filterHotels = hotels.where((hotel) => hotel.country == country).toList();
     notifyListeners();
   }
@@ -63,31 +69,7 @@ class GetAllHotelViewModel extends BaseViewModel<GetHotelsConnector> {
       return connector!.emptyDataWidget();
     }
 
-    return Expanded(
-        child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // سيارتين في كل صف
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.8, // التحكم في أبعاد الودجت
-            ),
-            itemCount: hotels.length,
-            itemBuilder: (context, index) {
-              var hotel = hotels[index];
-
-              return SearchResultScreen(
-                bookingNav: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>
-                        HotelBookingScreen(hotelModel: hotel)
-                  ));
-                },
-                imageUrl: hotel.itemImageUrl,
-                itemName: hotel.itemName,
-                location: hotel.itemAddress,
-              );
-            }));
+    return connector!.showDataWidget(filterHotels);
   }
 
   Widget showRecommendedHotel() {
@@ -97,9 +79,7 @@ class GetAllHotelViewModel extends BaseViewModel<GetHotelsConnector> {
     if (hotels.isEmpty) {
       return connector!.emptyDataWidget();
     } else {
-      return RecommendedHotelItem(
-        hotels: hotels,
-      );
+      return connector!.showDataWidget(hotels);
     }
   }
 

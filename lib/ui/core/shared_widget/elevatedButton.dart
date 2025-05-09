@@ -36,7 +36,7 @@ Widget elevated_button({
           buttonName,
           style: TextStyle(
             color: Colors.white,
-            fontSize: AppConstants.screenWidth / 18,
+            fontSize: AppConstants.screenWidth / 20,
             fontFamily: 'Nexa Bold 650',
           ),
         ),

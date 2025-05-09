@@ -21,10 +21,10 @@ class LoginViewModel extends BaseViewModel<LoginConnector> {
 
   Future<void> sendVerification({required String number}) async {
     try {
-      // final validNumber = validateSaudiNumber(number: number);
-      // if (validNumber == null) {
-      //   return;
-      // }
+      final validNumber = validateSaudiNumber(number: number);
+      if (validNumber == null) {
+        return;
+      }
 
       print("belal");
       setLoading(true);

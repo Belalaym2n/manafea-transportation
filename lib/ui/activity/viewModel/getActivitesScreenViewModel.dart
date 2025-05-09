@@ -13,14 +13,18 @@ class GetActivitiesScreenViewModel
     extends BaseViewModel<GetActivitiesConnector> {
   List<ActivityModel> activities = [];
   List<ActivityModel> filterActivity = [];
-  String? _destination;
+
 
   bool isSearchPressed = false;
-
+  String? _destination;
+  String? _destinationLanguage;
   String? get destination => _destination;
+  String? get destinationLanguage => _destinationLanguage;
 
-  changeDestination(String destinationName) {
+  changeDestination(String destinationName,String destinationWithLanguage) {
     _destination = destinationName;
+    _destinationLanguage = destinationName;
+
     filterOrdersByStatus(_destination!);
      print(_destination);
     notifyListeners();
@@ -31,12 +35,11 @@ class GetActivitiesScreenViewModel
   GetActivitiesScreenViewModel(this.getActivitySupabaseRepo);
 
   getActivities() async {
-    try {
-      activities = await getActivitySupabaseRepo.getActivities();
-
-    } catch (e) {
-      print("Error ${e.toString()}");
-      connector!.onError(e.toString());
+    final result = await getActivitySupabaseRepo.getActivities();
+    if (result.isSuccess) {
+      activities = result.data!;
+    } else {
+      connector!.onError(result.error!);
     }
   }
 
@@ -54,37 +57,9 @@ class GetActivitiesScreenViewModel
 
   Widget showActivity() {
     if (filterActivity.isEmpty) {
-      return const Expanded(
-        child: Center(child: Text("No Orders Found")),
-      );
+      return connector!.emptyData();
     }
 
-    return Expanded(
-        child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // سيارتين في كل صف
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.8, // التحكم في أبعاد الودجت
-            ),
-            itemCount: filterActivity.length,
-            itemBuilder: (context, index) {
-              var activity = filterActivity[index];
-
-              return SearchResultScreen(
-                bookingNav: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>
-                      ActivityScreenBooking(
-                        activityModel: activity,
-                      )),
-                  );
-                },
-                imageUrl: activity.itemImageUrl,
-                itemName: activity.itemName,
-                location: activity.itemAddress,
-               );
-            }));
+    return connector!.gridViewData(filterActivity);
   }
 }

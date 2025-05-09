@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
@@ -52,10 +53,10 @@ class _HotelBookingScreenState
         builder: (context, viewModel, child) => SafeArea(
           child: AbsorbPointer(
             absorbing: viewModel.isLoading,
-            child: viewModel.orderIsDone == false
-                ?  Scaffold(
+            child:  Scaffold(
               backgroundColor: Colors.grey.shade100,
-              body:Stack(
+              body:viewModel.orderIsDone == false
+                  ? Stack(
                 children: [
                   SingleChildScrollView( // لفّ الـ Column بالـ SingleChildScrollView
                     child: Column(
@@ -102,9 +103,9 @@ class _HotelBookingScreenState
                   if (viewModel.isLoading) // عرض الـ loading indicator
                     showLoading(),
                 ],
-              )
+              ): const SuccessOrder( ),
 
-            ): SuccessOrder( ),
+            )
           ),
         ),
       ),
@@ -149,8 +150,8 @@ class _HotelBookingScreenState
         builder: (context, viewModel, child) =>
             buildStepCounterInStepper(
             title: viewModel.selectedRoomType == "Common"
-                ? 'People Number'
-                : "Room Count",
+                ? LocaleKeys.hotelsScreen_people_number.tr()
+                :LocaleKeys.hotelsScreen_room_count.tr(),
             increaseCount: viewModel.increaseRoomCount,
             minusCount: viewModel.minusRoomCount,
             count: viewModel.roomCount,
@@ -164,8 +165,8 @@ class _HotelBookingScreenState
   stepThreeContentInStepper() {
     return CheckInCheckOut(
       calculatePrice: viewModel.calculateAllPrice,
-      headlineTwo: 'Check-in',
-      headlineOne: "check-out",
+      headlineTwo: LocaleKeys.orders_screen_check_in.tr(),
+      headlineOne:LocaleKeys.orders_screen_check_out.tr(),
       onSelectCheckInDate: viewModel.changeSelectCheckInDate,
       onSelectCheckOutDate: viewModel.changeSelectCheckOutDate,
       focusedDateCheckInDate: viewModel.focusedDateCheckIn,

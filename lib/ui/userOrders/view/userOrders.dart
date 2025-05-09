@@ -63,29 +63,31 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
         value: viewModel,
         child: Consumer<GetUserOrdersViewModel>(
           builder: (context, view, child) {
-            return AbsorbPointer(
-                absorbing: view.deleteOrderLoading,
-                child: Stack(
-                  children: [
-                    Column(
-                      children: [
-                        buildScreenName(),
-                        TabControllerItem(
-                          selectStatus: (status) {
-                            view.changeStatus(status);
-                          },
-                        ),
-                        view.isLoading == true
-                            ? showLoading()
-                            : view.showOrder(_slideAnimation),
-                      ],
-                    ),
-                    if (view.deleteOrderLoading == true)
-                      Center(
-                        child: deleteOrderLoading(), // يظهر الـ loading هنا
+            return Scaffold(
+              body: AbsorbPointer(
+                  absorbing: view.deleteOrderLoading,
+                  child: Stack(
+                    children: [
+                      Column(
+                        children: [
+                          buildScreenName(),
+                          TabControllerItem(
+                            selectStatus: (status) {
+                              view.changeStatus(status);
+                            },
+                          ),
+                          view.isLoading == true
+                              ? showLoading()
+                              : view.showOrder(_slideAnimation),
+                        ],
                       ),
-                  ],
-                ));
+                      if (view.deleteOrderLoading == true)
+                        Center(
+                          child: deleteOrderLoading(), // يظهر الـ loading هنا
+                        ),
+                    ],
+                  )),
+            );
           },
         ),
       ),

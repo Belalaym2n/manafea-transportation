@@ -76,10 +76,10 @@ class _SuccessOrderState extends State<SuccessOrder>
                   customButton(
                     label: LocaleKeys.success_widget_back_to_home.tr(),
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
+                      Navigator.pushNamed(
                         context,
                         AppRoutes.bottomNav,
-                            (route) => false,
+
                       );
                     },
                   ),
@@ -88,10 +88,10 @@ class _SuccessOrderState extends State<SuccessOrder>
                     label: LocaleKeys.success_widget_go_to_orders.tr(),
                     bgColor: Colors.green,
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
+                      Navigator.pushNamed(
                         context,
                         AppRoutes.orders,
-                            (route) => false,
+
                       );
                     },
                   ),
@@ -145,7 +145,7 @@ class _SuccessOrderState extends State<SuccessOrder>
       bgColor: bgColor ?? AppColors.primaryColor,
       valid: true,
       buttonSize: Size(
-        AppConstants.screenWidth * 0.5,
+        AppConstants.screenWidth * 0.6,
         AppConstants.screenHeight * 0.045,
       ),
     );

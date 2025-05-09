@@ -17,7 +17,7 @@ class _CasualImageState extends State<CasualImage> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
-  final List<String> imageUrls = [
+    List<String> imageUrls = [
     AppImages.carsualImage2,
     AppImages.carsualImage1,
     AppImages.carsualImage2,
@@ -35,12 +35,12 @@ class _CasualImageState extends State<CasualImage> {
               alignment: Alignment.bottomCenter,
               children: [
                 _buildImages(),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: AppConstants.screenHeight * 0.015,
-                  ),
-                  child: smoothIndicator(),
-                ),
+                // Padding(
+                //   padding: EdgeInsets.only(
+                //     bottom: AppConstants.screenHeight * 0.015,
+                //   ),
+                //   child: smoothIndicator(),
+                // ),
               ],
             ),
           ],
@@ -48,27 +48,27 @@ class _CasualImageState extends State<CasualImage> {
       ),
     );
   }
-
-  Widget smoothIndicator() {
-    return AnimatedSmoothIndicator(
-      activeIndex: _currentIndex,
-      count: imageUrls.length,
-      effect: ExpandingDotsEffect(
-        spacing: AppConstants.screenWidth * 0.016,
-        radius: AppConstants.screenWidth * 0.02,
-        dotWidth: AppConstants.screenWidth * 0.022,
-        dotHeight: AppConstants.screenWidth * 0.022,
-        expansionFactor: 1.5,
-        dotColor: Colors.grey.shade400,
-        activeDotColor: AppColors.primaryColor,
-      ),
-      onDotClicked: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-    );
-  }
+  //
+  // Widget smoothIndicator() {
+  //   return AnimatedSmoothIndicator(
+  //     activeIndex: _currentIndex,
+  //     count: imageUrls.length,
+  //     effect: ExpandingDotsEffect(
+  //       spacing: AppConstants.screenWidth * 0.016,
+  //       radius: AppConstants.screenWidth * 0.02,
+  //       dotWidth: AppConstants.screenWidth * 0.022,
+  //       dotHeight: AppConstants.screenWidth * 0.022,
+  //       expansionFactor: 1.5,
+  //       dotColor: Colors.w,
+  //       activeDotColor: AppColors.primaryColor,
+  //     ),
+  //     onDotClicked: (index) {
+  //       setState(() {
+  //         _currentIndex = index;
+  //       });
+  //     },
+  //   );
+  // }
 
   Widget _buildImages() {
     return CarouselSlider.builder(

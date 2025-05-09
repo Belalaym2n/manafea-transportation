@@ -28,14 +28,14 @@ required String selectedCommonRoomType,
         buildChooseRoom(
           onTap: () => chooseType("Female"),
           isSelected: selectedCommonRoomType == "Female",
-          text:"Female",
+          text:LocaleKeys.fedsmale.tr(),
         ),
         SizedBox(
           height: AppConstants.screenHeight * 0.02,
         ),
         buildChooseRoom(
           isSelected: selectedCommonRoomType == "Male",
-          text: "Male",
+          text: LocaleKeys.masdfle.tr(),
           onTap: () => chooseType("Male"),
         ),
         SizedBox(

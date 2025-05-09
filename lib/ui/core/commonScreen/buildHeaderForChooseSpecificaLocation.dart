@@ -1,11 +1,12 @@
- import 'package:flutter/cupertino.dart';
+ import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
 import '../../../config/appImages.dart';
-import '../../activity/widget/getActivitiesScreen/showDiestination.dart';
-import 'chooseLocationPicker.dart';
+import '../../../generated/locale_keys.g.dart';
+ import 'chooseLocationPicker.dart';
 
 class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
      BuildHeaderForChooseSpecificLocation({super.key  ,
@@ -18,7 +19,7 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
    });
 
    String? location;
-   Function(String) changeLocation;
+   Function(String,String) changeLocation;
    bool isSearchPressed;
      Widget questionText;
 
@@ -30,21 +31,23 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
 
  class _BuildHeaderForChooseSpecificLocationState extends State<BuildHeaderForChooseSpecificLocation> {
    final List<String> location = [
-     "ff",
-     "Riyadh - Nakheel",
-     "Riyadh - Malaz",
-     "Riyadh - Suwaidi"
+     LocaleKeys.locations_riyadh,
+     LocaleKeys.locations_jeddah,
+     LocaleKeys.locations_makkah,
+     LocaleKeys.locations_madinah,
+     LocaleKeys.locations_dammam,
+     LocaleKeys.locations_khobar,
+     LocaleKeys.locations_taif,
+     LocaleKeys.locations_buraidah,
+     LocaleKeys.locations_abha,
+     LocaleKeys.locations_hail,
+     LocaleKeys.locations_tabuk,
+     LocaleKeys.locations_yanbu,
+     LocaleKeys.locations_qassim,
+     LocaleKeys.locations_jazan,
+     LocaleKeys.locations_najran,
+     LocaleKeys.locations_al_bahah,
    ];
-
-   // _buildQuestionText() {
-   //   return Text(
-   //     "Where do you want to move from?",
-   //     style: TextStyle(
-   //         fontSize: AppConstants.screenWidth * 0.045,
-   //         fontWeight: FontWeight.bold), // حجم الخط بناءً على العرض
-   //   );
-   // }
-
    @override
    Widget build(BuildContext context) {
      return Scaffold(
@@ -89,7 +92,7 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                          children: [
                            Text(
-                             widget.location ?? "Select a location",
+                             widget.location ?? LocaleKeys.select_a_location.tr(),
                              style: TextStyle(
                                  fontSize: AppConstants.screenWidth * 0.04,
                                  // 4% من العرض
@@ -124,16 +127,20 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
    _buildElevatedButton() {
      return ElevatedButton(
        onPressed: () {
-         widget.changeSearchBool();
+         widget.location!=null?
+         widget.changeSearchBool():null;
        },
        style: ElevatedButton.styleFrom(
-         backgroundColor: AppColors.primaryColor,
+         backgroundColor:
+
+         widget.location!=null?
+         AppColors.primaryColor:Colors.grey,
          padding: EdgeInsets.symmetric(
              horizontal: AppConstants.screenWidth * 0.1, // 10% من العرض
              vertical: AppConstants.screenHeight * 0.02), // 2% من الارتفاع
          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
        ),
-       child: Text("Search",
+       child: Text(LocaleKeys.buttons_name_search.tr(),
            style: TextStyle(
                color: Colors.white,
                fontSize: AppConstants.screenWidth * 0.04)), // 4% من العرض
@@ -148,7 +155,4 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
        fit: BoxFit.fill,
      );
    }
-
-
-
  }

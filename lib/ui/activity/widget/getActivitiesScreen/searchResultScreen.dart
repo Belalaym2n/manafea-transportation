@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/domain/models/activityModel/activityModel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 
 import '../../../../config/appConstants.dart';
 import '../../../core/shared_widget/elevatedButton.dart';
@@ -64,7 +66,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
             widget.bookingNav();
 
           },
-          buttonName: "Book Now"),
+          buttonName:LocaleKeys.buttons_name_book_now.tr()),
     );
   }
 

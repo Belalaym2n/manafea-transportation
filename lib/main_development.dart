@@ -34,9 +34,7 @@ void main() async {
 
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseAppCheck.instance.activate(
-
-      androidProvider: AndroidProvider.playIntegrity,
+  await FirebaseAppCheck.instance.activate(      androidProvider: AndroidProvider.playIntegrity,
       appleProvider: AppleProvider.debug
   );
 

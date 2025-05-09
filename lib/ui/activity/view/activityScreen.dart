@@ -1,7 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/activity/getActivitySupabseRepo.dart';
 import 'package:manafea/data/services/activity/getActivity.dart';
+import 'package:manafea/domain/models/activityModel/activityModel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/activity/connector/getActivitesConnector.dart';
 import 'package:manafea/ui/activity/viewModel/getActivitesScreenViewModel.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
@@ -9,7 +13,8 @@ import 'package:provider/provider.dart';
 
 import '../../../config/appConstants.dart';
 import '../../core/commonScreen/buildHeaderForChooseSpecificaLocation.dart';
-import '../widget/getActivitiesScreen/activityScreenItem.dart';
+ import '../widget/getActivitiesScreen/searchResultScreen.dart';
+import 'activityScreenBooking.dart';
 
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({super.key});
@@ -40,7 +45,7 @@ class _ActivityScreenState
 
                   questionText:
                    Text(
-                      "Where do you want to move from?",
+                     LocaleKeys.activity_screen_where_do_you_want_to_move_from.tr(),
                       style: TextStyle(
                           fontSize: AppConstants.screenWidth * 0.045,
                           fontWeight: FontWeight.bold), // حجم الخط بناءً على العرض
@@ -50,7 +55,7 @@ class _ActivityScreenState
               getServiceItems: value.showActivity,
               isSearchPressed: value.isSearchPressed,
                   changeLocation: value.changeDestination,
-                  location: value.destination,
+                  location: value.destinationLanguage,
                 ))) ;
   }
 
@@ -74,5 +79,49 @@ class _ActivityScreenState
   showLoading() {
     // TODO: implement showLoading
     throw UnimplementedError();
+  }
+
+  @override
+  Widget emptyData() {
+    return   Expanded(
+      child: Center(
+        child: Text(
+          LocaleKeys.activity_screen_no_activity_found.tr(), // مفتاح الترجمة
+          style: const TextStyle(fontSize: 16, color: Colors.grey),
+        ),
+      ),
+    );
+  }
+
+  @override
+  gridViewData(List<ActivityModel> activity) {
+    // TODO: implement gridViewData
+  return  Expanded(
+        child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // سيارتين في كل صف
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 0.8, // التحكم في أبعاد الودجت
+            ),
+            itemCount: activity.length,
+            itemBuilder: (context, index) {
+              var activityData = activity[index];
+
+              return SearchResultScreen(
+                bookingNav: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>
+                        ActivityScreenBooking(
+                          activityModel: activityData,
+                        )),
+                  );
+                },
+                imageUrl: activityData.itemImageUrl,
+                itemName: activityData.itemName,
+                location: activityData.itemAddress,
+              );
+            }));
   }
 }

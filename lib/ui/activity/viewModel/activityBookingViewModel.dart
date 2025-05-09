@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/domain/models/activityModel/activityModel.dart';
 import 'package:manafea/domain/models/activityModel/requestActivityOrderModel.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/activity/connector/activityConnector.dart';
 
 import '../../../data/repositories/activity/getActivitySupabseRepo.dart';
@@ -28,7 +30,7 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
   ActivityModel activityModel;
 
   int get peopleCount => _peopleCount;
-  String dateString = "Click to Select";
+  String dateString = LocaleKeys.activity_screen_click_to_select.tr();
   DateTime focusedDateCheckOut = DateTime.now();
   RequestOrderRepo requestOrderRepo;
 
@@ -41,7 +43,7 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
   }) async {
     bool isDataValid = checkDateValidation();
     if (!isDataValid) {
-      return connector!.onError("Please Choose Data");
+      return connector!.onError(LocaleKeys.errors_please_choose_date.tr());
     }
     bool isValidDataBooking = await validBookingData(
       stepIndex: 2,
@@ -50,10 +52,13 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
     );
 
     if (!isValidDataBooking) {
-      return connector!.onError("Please enter your phone and your name ");
-    }
+      return connector!.onError
+        (LocaleKeys.errors_name_and_number_must_not_be_empty.tr())
+
+;    }
     if (index == 3) {
       try {
+
         await requestOrder();
         return;
       } catch (e) {
@@ -77,7 +82,7 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
   }
 
   bool checkDateValidation() {
-    if (dateString == "Click to Select") {
+    if (dateString == LocaleKeys.activity_screen_click_to_select.tr()) {
       return false;
     }
     return true;
@@ -186,28 +191,28 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
         content:
             connector?.buildStepOneContentChooseDayBooking() ?? Container(),
         isCurrentStep: index == 0,
-        tittle: 'Choose Your Booking Day',
+        tittle: LocaleKeys.activity_screen_step_choose_booking_day.tr(),
       ),
       buildStep(
         colorIndex: index > 1,
         isActive: index > 1,
         content: connector!.buildStepTwoContentPeopleCount(),
         isCurrentStep: index == 1,
-        tittle: ' Confirm Booking Data',
+        tittle:LocaleKeys.activity_screen_people_count.tr(),
       ),
       buildStep(
         colorIndex: index > 2,
         isActive: index > 2,
         content: connector!.buildStepThreeContentConfirmData(),
         isCurrentStep: index == 3,
-        tittle: 'Confirm Booking information ',
+        tittle: LocaleKeys.car_screen_confirm_booking_info.tr(),
       ),
       buildStep(
         colorIndex: index > 3,
         isActive: index > 3,
         content: connector!.buildStepFourContentBooking(),
         isCurrentStep: index == 4,
-        tittle: 'Confirm Booking',
+        tittle: LocaleKeys.car_screen_confirm_booking.tr(),
       ),
     ];
   }

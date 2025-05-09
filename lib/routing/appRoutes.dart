@@ -17,7 +17,7 @@ class AppRoutes {
   static const String splash = "/";
   static const String addActivity = "xcv/";
   static const String onBoard = "/sfsdf";
-  static const String orders = "/sfsdf";
+  static const String orders = "sfsdf";
   static const String login = "login/";
   static const String autoLogin = "login/";
   static const String verifyScreen = "verify";
