@@ -35,17 +35,17 @@ class RequestCarBookingOrderModel extends BaseOrder {
   // تمرير القيم للـ super
   factory RequestCarBookingOrderModel.fromJson(Map<String, dynamic> json) {
     return RequestCarBookingOrderModel._(
-      id: json['id'],
-      carName: json['carName'],
-      deliveryLocation: json['deliveryLocation'],
-      deliveryDate: json['deliveryDate'],
-      receiptDate: json['receiptDate'],
-      orderDate: json['orderDate'],
-      service: json['service'],
-      time: json['time'],
-      name: json['name'],
-      userId: json['userId'],
-      status: json['status'],
+      id: json['id']??'',
+      carName: json['carName']??'',
+      deliveryLocation: json['deliveryLocation']??'',
+      deliveryDate: json['deliveryDate']??'',
+      receiptDate: json['receiptDate']??'',
+      orderDate: json['orderDate']??'',
+      service: json['service']??'',
+      time: json['time']??'',
+      name: json['name']??'',
+      userId: json['userId']??'',
+      status: json['status']??'',
       price: (json['price'] as num).toDouble(),
       // التأكد من التحويل إلى double
       phoneNumber: json['phoneNumber'],

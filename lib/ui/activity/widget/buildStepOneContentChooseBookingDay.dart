@@ -1,8 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:manafea/config/appColors.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../../config/appConstants.dart';
 
 class ChooseDayBooking extends StatefulWidget {
   ChooseDayBooking({
@@ -25,7 +29,8 @@ class _ChooseDayBookingState extends State<ChooseDayBooking> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding:   EdgeInsets.symmetric(horizontal: AppConstants.screenWidth*0.053
+              , vertical: AppConstants.screenHeight*0.02),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
@@ -62,9 +67,9 @@ class _ChooseDayBookingState extends State<ChooseDayBooking> {
         return AlertDialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: const Center(
+          title:   Center(
             child: Text(
-              "Select Date",
+              LocaleKeys.activity_screen_step_choose_booking_day.tr(),
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -114,7 +119,7 @@ class _ChooseDayBookingState extends State<ChooseDayBooking> {
                         color: Colors.blueAccent.withOpacity(0.5),
                         shape: BoxShape.circle,
                       ),
-                      selectedDecoration: BoxDecoration(
+                      selectedDecoration: const BoxDecoration(
                         color: Colors.deepOrange,
                         shape: BoxShape.circle,
                       ),
@@ -128,7 +133,7 @@ class _ChooseDayBookingState extends State<ChooseDayBooking> {
                     enabledDayPredicate: (day) {
                       return
                       day.isAfter(
-                          DateTime.now());
+                          DateTime.now().add(Duration(days: 1)));
                     });
               },
             ),
@@ -142,10 +147,10 @@ class _ChooseDayBookingState extends State<ChooseDayBooking> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Choose Date",
+          Text(
+          LocaleKeys.activity_screen_step_choose_booking_day.tr(),
           style: TextStyle(
-            fontSize: 18,
+            fontSize: AppConstants.screenWidth*0.04,
             fontWeight: FontWeight.bold,
             color: AppColors.primaryColor,
           ),

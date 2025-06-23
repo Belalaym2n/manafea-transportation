@@ -3,7 +3,6 @@ import 'package:manafea/ui/home/view/homeScreenItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../domain/models/notificationModel/notificationModel.dart';
-import '../../../ui/home/view/homeScreen.dart';
 
 class OpenNotification {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -21,7 +20,7 @@ class OpenNotification {
           title: notification.title.toString(),
           imageUrl: notification.bigPicture.toString());
       navigatorKey.currentState?.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) =>   HomeScreenItem()),
+        MaterialPageRoute(builder: (context) =>   HomeScreenItem(name: 'ds', phoneNumber: '3223',)),
         (route) =>
             route.isFirst, // يحتفظ فقط بأول شاشة (الشاشة الأخيرة قبل الإشعار)
       );

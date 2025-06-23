@@ -8,20 +8,34 @@ import '../../../config/appConstants.dart';
 import '../../../data/repositories/GetServiceDataSupabaseRepo/GetServiceDataSupabaseRepo.dart';
 
 class GetAllCarsViewModel extends BaseViewModel<GetCarsConnector> {
+  static GetAllCarsViewModel? _instance;
   GetServiceDataSupabaseRepo getCars;
-  List<AddCarModel> cars = [];
+  List<CarModel> cars = [];
   bool _isLoading = false;
+  bool _isDataLoadedFirst = false;
   bool get isLoading => _isLoading;
+  bool get isDataLoadedFirst => _isDataLoadedFirst;
+  GetAllCarsViewModel._internal(this.getCars);
 
-  GetAllCarsViewModel(this.getCars);
+  static GetAllCarsViewModel getInstance(GetServiceDataSupabaseRepo getCar) {
+    _instance ??= GetAllCarsViewModel._internal(getCar)
+    ;
+    return _instance!;
+  }
 
   Future<void> getData() async {
+    if(isDataLoadedFirst){
+      return;
+    }
     setLoading(true);
+
     try {
       final result = await getCars.getSpecificService(
         service: "Cars",
-        fromJson: AddCarModel.fromJson,
+        fromJson: CarModel.fromJson,
       );
+      _isDataLoadedFirst=true;
+      notifyListeners();
       if (result.isSuccess) {
         cars = result.data!;  // إذا كانت النتيجة ناجحة، نحدث قائمة السيارات
       } else {

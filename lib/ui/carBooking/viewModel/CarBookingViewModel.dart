@@ -18,10 +18,12 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
   String get selectedLocation => _selectedLocation;
 
 // paramterrs for step two
-  String deliveryDateString = "Select Date";
-  String receiptDateString = "Select Date";
-  DateTime focusedDateReceipt = DateTime.now();
-  DateTime focusedDateDelivery = DateTime.now().subtract(Duration(days: 1));
+  String deliveryDateString = LocaleKeys.hotelsScreen_select_Date.tr();
+  String receiptDateString = LocaleKeys.hotelsScreen_select_Date.tr();
+  DateTime focusedDateReceipt = DateTime.now(
+
+  ).subtract(Duration(days: 2));
+  DateTime focusedDateDelivery = DateTime.now().subtract(Duration(days: 3));
 
 // parammetter for step three
   String get name => _name;
@@ -38,7 +40,7 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
   bool get orderIsDone => _orderIsDone;
 
   // for constructor
-  AddCarModel car;
+  CarModel car;
    RequestOrderRepo requestOrderRepo;
 
   CarBookingViewModel(this.car,this.requestOrderRepo);

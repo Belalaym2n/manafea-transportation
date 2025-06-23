@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -22,13 +22,13 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
   OneSignal.initialize("9158013e-362c-4f0b-ae4b-576b4f1f670c");
-  OneSignal.Notifications.requestPermission(true);
 
   await Firebase.initializeApp(
 
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseAppCheck.instance.activate(      androidProvider: AndroidProvider.playIntegrity,
+  await FirebaseAppCheck.instance.activate(
+      androidProvider: AndroidProvider.playIntegrity,
       appleProvider: AppleProvider.debug
   );
 
@@ -39,11 +39,14 @@ void main() async {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBqd2FyeWp0dW1uenlqcnVpeXp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NDk4NjAsImV4cCI6MjA2MDMyNTg2MH0.kea1W9JUgeGhgIZI6FYGYiTlltQafjVA6TlD7khjzDk",
   );
   final langCode = await SharedPreferencesHelper.getData('lang_code') ?? 'en';
-
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(
     EasyLocalization(
         assetLoader: CodegenLoader(),
-        supportedLocales: [Locale('en'), Locale('ar')],
+        supportedLocales: [Locale('en'),
+          Locale('ar'),         Locale('ur'),],
         path: 'assets/translations',
         // <-- change the path of the translation files
         fallbackLocale: const Locale('en'),

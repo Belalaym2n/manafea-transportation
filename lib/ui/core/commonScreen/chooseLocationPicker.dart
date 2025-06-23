@@ -8,9 +8,8 @@ import '../../../config/appConstants.dart';
 
 void showLocationsPicker({
   required BuildContext context,
-  required Function(String,String) changeLocation,
+  required Function(String, String) changeLocation,
   required String? location,
-  required List<String> locations,
 }) {
   showModalBottomSheet(
     context: context,
@@ -77,10 +76,9 @@ void showLocationsPicker({
                               ),
                             ),
                             onTap: () async {
-
-
-                              print(locations[index].tr() );
-                               changeLocation(locationsname[index],locations[index].tr() );
+                              print(locations[index].tr());
+                              changeLocation(
+                                  locationsName[index], locations[index].tr());
 
                               Future.delayed(Duration(seconds: 1), () {
                                 Navigator.pop(context);
@@ -100,16 +98,40 @@ void showLocationsPicker({
     },
   );
 }
-List<String>locationsname=
-[
-"Riyadh",
-"Jeddah",
-"Makkah",
-"Madinah",
-"Dammam",
-"Khobar",
-"Taif",
-"Buraidah",
-"Abha",
-"Hail",
-"Tabuk"];
+
+List<String> locationsName = [
+  "Riyadh",
+  "Jeddah",
+  "Makkah",
+  "Madinah",
+  "Dammam",
+  "Khobar",
+  "Taif",
+  "Buraidah",
+  "Abha",
+  "Hail",
+  "Tabuk",
+  "yanbu",
+  "qassim",
+  "jazan",
+  "najran",
+  "al_bahah"
+];
+final List<String> locations = [
+  LocaleKeys.locations_riyadh,
+  LocaleKeys.locations_jeddah,
+  LocaleKeys.locations_makkah,
+  LocaleKeys.locations_madinah,
+  LocaleKeys.locations_dammam,
+  LocaleKeys.locations_khobar,
+  LocaleKeys.locations_taif,
+  LocaleKeys.locations_buraidah,
+  LocaleKeys.locations_abha,
+  LocaleKeys.locations_hail,
+  LocaleKeys.locations_tabuk,
+  LocaleKeys.locations_yanbu,
+  LocaleKeys.locations_qassim,
+  LocaleKeys.locations_jazan,
+  LocaleKeys.locations_najran,
+  LocaleKeys.locations_al_bahah,
+];

@@ -91,9 +91,7 @@ class _RecommendedHotelItemState extends State<RecommendedHotelItem> {
                   ),
                 ),
                 SizedBox(height: AppConstants.screenHeight * 0.01),
-                // 2% من الارتفاع
 
-                // 1% من الارتفاع
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -136,7 +134,12 @@ Widget imageNetwork({required String image}) {
         return Container(
           width: AppConstants.screenWidth * 0.75,
           height: AppConstants.screenHeight * 0.14,
-          color: Colors.grey, // لون بديل في حال الخطأ
+          color: Colors.grey,
+          child:  const Icon(
+          Icons.image_not_supported_sharp,
+          size: 40,
+          color: Colors.white,
+        ),// لون بديل في حال الخطأ
          );
       },
     ),
@@ -149,7 +152,7 @@ Widget hotelLocation(String hotelLocation) {
     children: [
       const Icon(Icons.location_on, color: Colors.red, size: 14),
       SizedBox(width: AppConstants.screenWidth * 0.02), // 2% من العرض
-      Expanded(
+      Flexible(
         child: Text(
           maxLines: 1,
           hotelLocation,

@@ -35,19 +35,19 @@ class RequestHotelBooking extends BaseOrder {
         ); // تمرير القيم للـ super
   factory RequestHotelBooking.fromJson(Map<String, dynamic> json) {
     return RequestHotelBooking._(
-      id: json['id'],
-      checkOut: json['checkOut'],
-      checkIn: json['checkIn'],
-      orderDate: json['orderDate'],
-      roomType: json['roomType'],
-      roomCount: json['roomCount'],
-      service: json['service'],
-      time: json['time'],
-      name: json['name'],
-      userId: json['userId'],
-      status: json['status'],
+      id: json['id']??'',
+      checkOut: json['checkOut']??'',
+      checkIn: json['checkIn']??'',
+      orderDate: json['orderDate']??'',
+      roomType: json['roomType']??'',
+      roomCount: json['roomCount']??'',
+      service: json['service']??'',
+      time: json['time']??'',
+      name: json['name']??'',
+      userId: json['userId']??'',
+      status: json['status']??'',
       price: (json['price'] as num).toDouble(),
-      phoneNumber: json['phoneNumber'],
+      phoneNumber: json['phoneNumber']??'',
     );
   }
 

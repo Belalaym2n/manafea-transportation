@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../helpers/sharedPerferance/sharedPerferanceHelper.dart';
 
 class OTPService {
@@ -16,24 +18,39 @@ class OTPService {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   String? verificationId; // Store verification ID for manual OTP verification
+  String? validateSaudiNumber({required String number}) {
+    number =
+        number.trim().replaceAll(RegExp(r'\s+'), ''); // إزالة المسافات البيضاء
+    final regex = RegExp(r'^05\d{8}$');
 
-
+    if (regex.hasMatch(number)) {
+      return '+966${number.substring(1)}';
+    } else {
+      return null;
+    }
+  }
 
   Future<void> sendOTP({required String phoneNumber}) async {
     final completer = Completer<void>();
+    final formattedNumber = validateSaudiNumber(number: phoneNumber);
+    if (formattedNumber == null) {
+      throw Exception(
+          LocaleKeys.errors_please_enter_a_valid_saudi_phone_number_.tr());
+    }
 
     try {
       await auth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
+        phoneNumber: formattedNumber,
         verificationCompleted: verificationCompleted,
         verificationFailed: (FirebaseAuthException e) {
           print("❌ OTP Error: ${e.code} - ${e.message}");
-          completer.completeError(Exception("OTP Verification Failed: ${e.message}"));
+          completer.completeError(
+              Exception("OTP Verification Failed: ${e.message}"));
         },
         codeSent: (String verificationID, int? resendToken) {
           print("📩 OTP has been sent.");
           verificationId = verificationID;
-          completer.complete(); // ✅ نجاح
+          completer.complete();
         },
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
         timeout: const Duration(seconds: 118),
@@ -41,7 +58,6 @@ class OTPService {
 
       return completer.future;
     } catch (e) {
-      print("❌ General Error: ${e.toString()}");
       throw Exception("Error during OTP sending: ${e.toString()}");
     }
   }
@@ -53,8 +69,7 @@ class OTPService {
       if (user != null) {
         final uid = user.uid;
         await SharedPreferencesHelper.saveData(
-            key: SharedSharedPreferencesKeys.userId,
-            value: uid);
+            key: SharedSharedPreferencesKeys.userId, value: uid);
       }
       print("✅ Auto verification successful!");
     } catch (e) {
@@ -81,11 +96,7 @@ class OTPService {
 
   Future<void> verifyOTP(String smsCode) async {
     try {
-      print("📝 Verifying OTP...");
-      print("🔍 Current Verification ID: $verificationId");
-
       if (verificationId == null) {
-        print("❌ Error: No verification ID found. Please request OTP again.");
         return;
       }
 
@@ -95,10 +106,22 @@ class OTPService {
       );
 
       await auth.signInWithCredential(credential);
-      print("✅ OTP Verified! User signed in.");
+      await saveUserId();
     } catch (e) {
-      print("❌ OTP Verification Failed: ${e.toString()}");
-      throw Exception(e.toString());
+      throw Exception(LocaleKeys.errors_auto_verification_failed___e.tr());
     }
+  }
+
+  saveUserId() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final uid = user.uid;
+      print("🔑 UID: $uid");
+
+      await SharedPreferencesHelper.saveData(
+        key: SharedSharedPreferencesKeys.userId,
+        value: uid,
+      );
+    } else {}
   }
 }

@@ -17,17 +17,25 @@ class AddActivityViewModel extends BaseViewModel<AddActivityConnector> {
   File? get image1 => _image;
   ImagePickerRepo imagePickerRepo;
   AddItemInServiceTableToSupabseRepo addActivityToSupabseRepo;
+  String? _destination; // في الأول = null
+
+  String? get destination => _destination;
+  String? _destinationLanguage;
+
+  String? get destinationLanguage => _destinationLanguage;
 
   AddActivityViewModel(this.imagePickerRepo, this.addActivityToSupabseRepo);
 
+  changeDestination(String destinationName, String destinationWithLanguage) {
+    _destination = destinationName;
+    _destinationLanguage = destinationName;
+    print(_destination);
+    notifyListeners();
+  }
+
   Future<dynamic> pickImage() async {
-    try {
-      _image = await imagePickerRepo.pickImage();
-      notifyListeners();
-    } catch (e) {
-      connector!.onError(e.toString());
-      rethrow;
-    }
+    _image = await imagePickerRepo.pickImage();
+    notifyListeners();
   }
 
   Future<String?> uploadImage() async {
@@ -35,25 +43,31 @@ class AddActivityViewModel extends BaseViewModel<AddActivityConnector> {
       if (_image == null) throw Exception("No image selected");
       return await imagePickerRepo.uploadImage(_image!);
     } catch (e, stacktrace) {
-      print("Upload error: ${e.toString()}");
-      print("Stacktrace: $stacktrace"); // 👈 مهم جداً
       return connector?.onError(e.toString());
-     }
+    }
   }
 
-  Future addActivity(ActivityModel activity) async {
+  Future addActivity(ActivityModel activityModel) async {
     setLoading(true);
     try {
       imageUrl = await uploadImage(); // ← هنا بناخد رابط الصورة
-      notifyListeners();
-       print(_image);
-      print(imageUrl);
-      await addActivityToSupabseRepo.addItemInService(activity,'activities');
+
+      if (imageUrl == null) throw Exception("Image upload failed");
+
+      final activity = ActivityModelBuilder()
+          .setName(activityModel.itemName)
+          .setAddress(activityModel.itemAddress)
+          .setDescription(activityModel.itemDescription)
+          .setImageUrl(imageUrl.toString())
+          .setDestination(_destination.toString())
+          .setPricing(int.parse(activityModel.itemPricing.toString()))
+          .build();
+
+      await addActivityToSupabseRepo.addItemInService(activity, 'activities');
+
+      _destination = null;
       setLoading(false);
-      print("Activity added successfully");
-       _image = null;
-      print(_image);
-      print(imageUrl);
+      _image = null;
       return connector!.successWidget();
     } catch (e) {
       print("error ${e.toString()}");

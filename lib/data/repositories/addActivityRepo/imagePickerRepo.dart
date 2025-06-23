@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../../services/addActivityService/imagePickerService.dart';
+ import '../../services/addItemInService/imagePickerService.dart';
 
 class ImagePickerRepo {
   ImagePickerService imagePickerService;

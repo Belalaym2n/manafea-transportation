@@ -17,11 +17,7 @@ required String selectedCommonRoomType,
 }){
   return  Column(
       children: [
-        Text(
-          LocaleKeys.hotelsScreen_please_choose_your_room_type.tr(),
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w900, color: Colors.black),
-        ),
+
         SizedBox(
           height: AppConstants.screenHeight * 0.01,
         ),

@@ -7,6 +7,7 @@ import '../../../config/appConstants.dart';
 Widget buildBookingImage({
   required String imagePath,
   required String imageName,
+  required BuildContext context,
 }) {
   return Container(
     height: AppConstants.screenHeight * 0.25,
@@ -43,7 +44,7 @@ Widget buildBookingImage({
           ),
 
            Positioned(top: AppConstants.screenHeight*0.016,
-               left: 12, child: _buildIconBack()),
+               left: 12, child: _buildIconBack(context)),
 
           /// اسم الفندق في المنتصف
           Positioned(
@@ -74,7 +75,7 @@ Widget buildBookingImage({
   );
 }
 
-Widget _buildIconBack() {
+Widget _buildIconBack(BuildContext context) {
   return Container(
     width: AppConstants.screenWidth * 0.09,
     height: AppConstants.screenWidth * 0.09,
@@ -90,7 +91,9 @@ Widget _buildIconBack() {
       ],
     ),
     child: IconButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pop(context);
+      },
       icon: Icon(
         Icons.arrow_back_ios_new,
         size: AppConstants.screenWidth * 0.045,

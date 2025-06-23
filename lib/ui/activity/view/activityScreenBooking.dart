@@ -10,14 +10,13 @@ import 'package:manafea/ui/activity/connector/activityConnector.dart';
 import 'package:manafea/ui/activity/viewModel/activityBookingViewModel.dart';
 import 'package:manafea/ui/activity/widget/bookingActivity/activityScreenBookingItem.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
-import 'package:manafea/ui/login/widgets/loadingWidget.dart';
+import 'package:manafea/ui/auth/widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../config/appConstants.dart';
 import '../../core/shared_widget/buildConfirmBookingInStepper.dart';
 import '../../core/shared_widget/buildStepCounterInStepper.dart';
-import '../../core/shared_widget/build_check_in_check_out_widget_in_stepper.dart';
-import '../../core/shared_widget/succes_widget.dart';
+ import '../../core/shared_widget/succes_widget.dart';
 import '../../core/shared_widget/userBookingData.dart';
  import '../widget/bookingActivity/stepperButton.dart';
 import '../widget/buildStepOneContentChooseBookingDay.dart';

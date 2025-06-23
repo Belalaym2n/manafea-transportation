@@ -7,13 +7,14 @@ import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/hotels/hotels/connector/getHotelsConnector.dart';
 import 'package:manafea/ui/hotels/hotels/viewModel/getALLHotelsViewModel.dart';
-import 'package:manafea/ui/login/widgets/loadingWidget.dart';
-import 'package:provider/provider.dart';
+ import 'package:provider/provider.dart';
 
 import '../../../../config/appConstants.dart';
+import '../../../../config/localization/localization.dart';
 import '../../../../data/repositories/hotels/getALLHotelsRepo.dart';
 import '../../../../data/services/hotels/getAllHotelsSupabaseService.dart';
 import '../../../activity/widget/getActivitiesScreen/searchResultScreen.dart';
+import '../../../auth/widgets/loadingWidget.dart';
 import '../../../core/commonScreen/buildHeaderForChooseSpecificaLocation.dart';
 import '../../hotelBooking/view/hotelBookinScreen.dart';
 
@@ -30,6 +31,8 @@ class _FilterHotelsState extends BaseView<GetAllHotelViewModel, FilterHotels>
   void initState() {
     // TODO: implement initState
     super.initState();
+
+
     viewModel.getHotels();
     viewModel.connector = this;
   }
@@ -54,7 +57,7 @@ class _FilterHotelsState extends BaseView<GetAllHotelViewModel, FilterHotels>
                   getServiceItems: value.showSpecificHotels,
                   isSearchPressed: value.isSearchPressed,
                   changeLocation: value.changeCountry,
-                  location: value.country,
+                  location: value.countryLanguage,
                 )));
   }
 
@@ -81,7 +84,7 @@ class _FilterHotelsState extends BaseView<GetAllHotelViewModel, FilterHotels>
     GetAllHotelsRepo getAllHotelsRepo =
         GetAllHotelsRepo(getAllHotelsSupabaseService);
     // TODO: implement init_my_view_model
-    return GetAllHotelViewModel(getAllHotelsRepo);
+    return GetAllHotelViewModel.getInstance(getAllHotelsRepo);
   }
 
   @override

@@ -22,15 +22,15 @@ class CodegenLoader extends AssetLoader{
     },
     "2": {
       "headline": "عملية سلسة وفعالة\nتشكيلة سيارات واسعة متوفرة",
-      "description": "عملية الحجز لدينا تتميز بالسهولة والسرعة. نحن نقدم لك تشكيلة متنوعة من السيارات لتناسب مختلف الأذواق والمتطلبات. من السيارات الصغيرة إلى السيارات العائلية الكبيرة، ستجد دائماً ما يناسبك بأفضل الأسعار وأعلى جودة."
+      "description": "احجز بسهولة و بسرعة مع تشكيلة متنوعة من السيارات التي تناسب جميع الأذواق والميزانيات."
     },
     "3": {
       "headline": "عروض سفر حصرية\nخصومات وعروض مخصصة",
-      "description": "ابقَ على اطلاع دائم بأحدث العروض والخصومات الخاصة. نحن نقدم لك عروضاً مخصصة لحجوزات السفر لتناسب احتياجاتك. يمكنك الاستفادة من الخصومات المميزة على رحلاتك القادمة وكذلك العروض الخاصة التي تناسب جميع الميزانيات."
+      "description": "استفد من عروض وخصومات حصرية لحجوزات السفر تناسب احتياجاتك وميزانيتك."
     },
     "4": {
       "headline": "حجز فنادق سلس\nحجوزات آمنة ومرنة",
-      "description": "نحن نضمن لك تجربة حجز فنادق سهلة وآمنة. يوفر لك تطبيقنا خيارات حجز مرنة، بحيث يمكنك تعديل أو إلغاء حجوزاتك في أي وقت. تأكد من أنك ستجد الإقامة المثالية بأفضل الأسعار مع تأكيد فوري للحجز، مما يوفر لك راحة البال."
+      "description": "استمتع بحجز فنادق مرن وآمن مع خيارات تعديل وإلغاء بسهولة، وبأفضل الأسعار."
     }
   },
   "failed_to_fetch_orders___e": "فشل في جلب الطلبات:  ",
@@ -44,6 +44,13 @@ class CodegenLoader extends AssetLoader{
     "hotel_booking": "حجز الفندق"
   },
   "errors": {
+    "verify_email_error": "لم يتم التحقق من عنوان بريدك الإلكتروني. يرجى التحقق من صندوق الوارد وتأكيد بريدك الإلكتروني للمتابعة.",
+    "invalid_credentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة. حاول مرة أخرى.",
+    "email_already_in_use": "البريد الإلكتروني مستخدم مسبقًا.",
+    "invalid_email": "البريد الإلكتروني غير صالح.",
+    "weak_password": "كلمة المرور ضعيفة جدًا.",
+    "default_error": "حدث خطأ: ",
+    "failed_to_send_otp": "فشل في إرسال رمز التحقق: يرجى المحاولة مرة أخرى",
     "error_message": "خطأ",
     "something_went_wrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقًا.",
     "please_enter_your_number": "يرجى إدخال رقمك",
@@ -68,6 +75,26 @@ class CodegenLoader extends AssetLoader{
   },
   "loading": "تحميل",
   "auth": {
+    "auth_forgot_password": "هل نسيت كلمة المرور؟",
+    "auth_reset_password_email_sent": "تم إرسال رابط إعادة تعيين كلمة المرور بنجاح.",
+    "auth_forgot_password_title": "هل نسيت كلمة المرور؟",
+    "auth_forgot_password_description": "أدخل عنوان بريدك الإلكتروني لتصلك رسالة لإعادة تعيين كلمة المرور.",
+    "auth_reset_password_button": "إعادة تعيين كلمة المرور",
+    "auth_back_to_login": "العودة لتسجيل الدخول",
+    "no_account": "ليس لديك حساب؟",
+    "create_account": "أنشئ حسابًا",
+    "verification_sent_message": "تم إرسال رسالة تأكيد إلى بريدك الإلكتروني.\nيرجى الضغط على الرابط داخل الإيميل لتأكيد حسابك.",
+    "verified_button": "تحققت من الإيميل",
+    "resend_button": "إعادة إرسال رابط التحقق",
+    "auth_email_hint": "أدخل بريدك الإلكتروني",
+    "auth_password_hint": "أدخل كلمة المرور",
+    "auth_create_account_title": "أنشئ حسابك",
+    "auth_create_account_subtitle": "أدخل بياناتك للمتابعة",
+    "create_account_title": "أنشئ حسابك للبدء.",
+    "have_account_question": "هل لديك حساب بالفعل؟",
+    "sign_in": "تسجيل الدخول",
+    "no_saudi_number": "لا تمتلك رقم سعودي؟",
+    "register_with_email": "سجل باستخدام بريدك الإلكتروني",
     "first_name": "الاسم الأول",
     "last_name": "اسم العائلة",
     "enter_your_first_name": "أدخل اسمك الأول",
@@ -206,10 +233,11 @@ class CodegenLoader extends AssetLoader{
     "close": "إغلاق"
   },
   "splash_screen": {
-    "manafea": "منافعة",
+    "manafea": "منافع",
     "easy_transportation": "وسائل النقل السهلة"
   },
   "orders_screen": {
+    "time": "الوقت",
     "pending": "قيد الانتظار",
     "success": "ناجح",
     "failed": "فشل",
@@ -261,6 +289,13 @@ static const Map<String,dynamic> _en = {
     "hotel_booking": "Hotel Booking"
   },
   "errors": {
+    "verify_email_error": "Your email address is not verified. Please check your inbox and verify your email to continue.",
+    "invalid_credentials": "Email or password not correct. Please try again.",
+    "failed_to_send_otp": "Failed to send OTP: Please try again",
+    "email_already_in_use": "Email is already in use.",
+    "invalid_email": "Invalid email.",
+    "weak_password": "Password is too weak.",
+    "default_error": "An error occurred: ",
     "error_message": "Error",
     "please_enter_your_number": "Please enter your number",
     "please_enter_firstname_and_lastname": "please enter firstName and lastName",
@@ -284,6 +319,25 @@ static const Map<String,dynamic> _en = {
     "auto_verification_failed___e": "❌ Auto verification failed: Please try again"
   },
   "auth": {
+    "auth_forgot_password": "Forgot Password?",
+    "auth_reset_password_email_sent": "Password reset email sent successfully.",
+    "auth_forgot_password_title": "Forgot Password?",
+    "auth_forgot_password_description": "Enter your email address to receive a reset link.",
+    "auth_reset_password_button": "Reset password",
+    "auth_back_to_login": "Back to Login",
+    "no_account": "Don't have an account?",
+    "create_account": "Create an account",
+    "verification_sent_message": "A verification email has been sent to your inbox.\nPlease click the link inside the email to verify your account.",
+    "verified_button": "I've verified the email",
+    "resend_button": "Resend verification link",
+    "auth_email_hint": "Enter your email",
+    "auth_password_hint": "Enter your password",
+    "auth_create_account_title": "Create your account",
+    "auth_create_account_subtitle": "Enter your details to continue",
+    "have_account_question": "Already have an account?",
+    "sign_in": "Sign in",
+    "no_saudi_number": "Don't have a Saudi number?",
+    "register_with_email": "Register using your email",
     "enter_your_first_name": "Enter your first name",
     "enter_your_phone_number": "Enter your phone number",
     "first_name": "First Name",
@@ -418,7 +472,7 @@ static const Map<String,dynamic> _en = {
   "home_screen": {
     "welcome": "Welcome,",
     "choose_your_service": "#ChooseYourService",
-    "recommended_hotels": "#ecommendedHotels"
+    "recommended_hotels": "#RecommendedHotels"
   },
   "select_a_location": "Select a Location",
   "drawer": {
@@ -429,6 +483,7 @@ static const Map<String,dynamic> _en = {
   },
   "select_location": "Select a Location",
   "orders_screen": {
+    "time": "Time",
     "pending": "Pending",
     "success": "Success",
     "cancel_order_confirmation": "Are you sure you want to cancel \norder?",
@@ -454,5 +509,255 @@ static const Map<String,dynamic> _en = {
     "easy_transportation": "Easy Transportation"
   }
 };
-static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en};
+static const Map<String,dynamic> _ur = {
+  "onboard": {
+    "1": {
+      "headline": "براہ کرم اپنی زبان کا انتخاب کریں\nبہتر تجربے کے لیے",
+      "description": "ایک ہموار اور مؤثر بکنگ عمل\nگاڑیوں کی وسیع رینج"
+    },
+    "2": {
+      "headline": "ہموار، مؤثر عمل\nگاڑیوں کا وسیع انتخاب دستیاب",
+      "description": "آسان بکنگ عمل\nگاڑیوں کے مختلف اختیارات دستیاب"
+    },
+    "3": {
+      "headline": "خصوصی سفری سودے\nرعایتیں، ذاتی نوعیت کی پیشکشیں",
+      "description": "خصوصی رعایتوں سے باخبر رہیں\nسفری بکنگ کے لیے ذاتی نوعیت کی پیشکشیں"
+    },
+    "4": {
+      "headline": "آسان ہوٹل بکنگ\nمحفوظ، لچکدار ریزرویشن",
+      "description": "آسان بکنگ سے اپنے سفر کو آسان بنائیں\nمحفوظ قیام کے لیے لچکدار اختیارات"
+    }
+  },
+  "failed_to_fetch_orders___e": "آرڈرز حاصل کرنے میں ناکامی:  ",
+  "screensName": {
+    "notification": "اطلاع",
+    "activities": "سرگرمیاں",
+    "hotels": "ہوٹلز",
+    "orders": "آرڈرز",
+    "home": "ہوم",
+    "car": "گاڑی",
+    "hotel_booking": "ہوٹل بکنگ"
+  },
+  "errors": {
+    "verify_email_error": "آپ کا ای میل پتہ تصدیق شدہ نہیں ہے۔ براہ کرم اپنا ان باکس چیک کریں اور جاری رکھنے کے لیے ای میل کی تصدیق کریں۔",
+    "invalid_credentials": "ای میل یا پاس ورڈ درست نہیں ہے۔ دوبارہ کوشش کریں۔",
+    "failed_to_send_otp": "OTP بھیجنے میں ناکامی: براہ کرم دوبارہ کوشش کریں",
+    "email_already_in_use": "ای میل پہلے ہی استعمال ہو چکا ہے۔",
+    "invalid_email": "غلط ای میل۔",
+    "weak_password": "پاسورڈ بہت کمزور ہے۔",
+    "default_error": "ایک غلطی ہوئی ہے: {message}",
+    "error_message": "خرابی",
+    "please_enter_your_number": "براہ کرم اپنا نمبر درج کریں",
+    "please_enter_firstname_and_lastname": "براہ کرم اپنا پہلا اور آخری نام درج کریں",
+    "something_went_wrong_please_try_again": "کچھ غلط ہو گیا، دوبارہ کوشش کریں",
+    "phone_number_can_t_be_empty": "فون نمبر خالی نہیں ہو سکتا",
+    "route_not_found": "راستہ نہیں ملا",
+    "please_choose_date": "براہ کرم تاریخ منتخب کریں",
+    "please_enter_your_phone_and_your_name": "براہ کرم اپنا فون نمبر اور نام درج کریں",
+    "please_choose_location_you_want_ro_recei": "براہ کرم وہ مقام منتخب کریں جہاں آپ گاڑی وصول کرنا چاہتے ہیں",
+    "booking_at_least_one_day": "کم از کم ایک دن کی بکنگ",
+    "name_and_number_must_not_be_empty": "نام اور نمبر خالی نہیں ہو سکتے",
+    "please_choose_your_location": "براہ کرم اپنا مقام منتخب کریں",
+    "name_can_t_be_empty": "نام خالی نہیں ہو سکتا",
+    "phone_number_is_required": "فون نمبر ضروری ہے",
+    "please_choose_common_room_type": "براہ کرم عام کمرے کی قسم منتخب کریں؟",
+    "please_enter_a_valid_saudi_phone_number_": "براہ کرم ایک درست سعودی فون نمبر درج کریں جیسے: 0501234567",
+    "error__no_verification_id_found__please_": "❌ خرابی: کوئی توثیقی ID نہیں ملی۔ براہ کرم دوبارہ OTP کی درخواست کریں۔",
+    "no_image_selected": "کوئی تصویر منتخب نہیں کی گئی",
+    "something_went_wrong": "کچھ غلط ہو گیا۔ براہ کرم بعد میں دوبارہ کوشش کریں۔",
+    "invalid_value_type": "غلط ویلیو کی قسم",
+    "auto_verification_failed___e": "❌ خودکار توثیق ناکام ہوئی: براہ کرم دوبارہ کوشش کریں"
+  },
+  "auth": {
+    "auth_forgot_password_title": "پاسورڈ بھول گئے؟",
+    "auth_forgot_password_description": "ری سیٹ لنک حاصل کرنے کے لیے اپنا ای میل ایڈریس درج کریں۔",
+    "auth_reset_password_button": "پاسورڈ ری سیٹ کریں",
+    "auth_back_to_login": "لاگ ان پر واپس جائیں",
+    "auth_forgot_password": "پاس ورڈ بھول گئے؟",
+    "auth_reset_password_email_sent": "پاس ورڈ ری سیٹ کرنے والا ای میل کامیابی سے بھیج دیا گیا۔",
+    "no_account": "کیا آپ کا اکاؤنٹ نہیں ہے؟",
+    "create_account": "اکاؤنٹ بنائیں",
+    "verification_sent_message": "آپ کے ای میل پتے پر تصدیقی پیغام بھیج دیا گیا ہے۔\nبراہ کرم اکاؤنٹ کی تصدیق کے لیے ای میل میں موجود لنک پر کلک کریں۔",
+    "verified_button": "میں نے ای میل کی تصدیق کر دی ہے",
+    "resend_button": "تصدیقی لنک دوبارہ بھیجیں",
+    "auth_email_hint": "اپنا ای میل درج کریں",
+    "auth_password_hint": "اپنا پاس ورڈ درج کریں",
+    "have_account_question": "کیا آپ کا پہلے سے اکاؤنٹ ہے؟",
+    "sign_in": "سائن ان کریں",
+    "auth_create_account_title": "اپنا اکاؤنٹ بنائیں",
+    "auth_create_account_subtitle": "جاری رکھنے کے لیے اپنی تفصیلات درج کریں",
+    "no_saudi_number": "سعودی نمبر نہیں ہے؟",
+    "register_with_email": "اپنے ای میل سے رجسٹر کریں",
+    "enter_your_first_name": "اپنا پہلا نام درج کریں",
+    "enter_your_phone_number": "اپنا فون نمبر درج کریں",
+    "first_name": "پہلا نام",
+    "last_name": "آخری نام",
+    "personal_detail": "ذاتی تفصیل",
+    "enter_mobile_number": "موبائل نمبر درج کریں",
+    "enter_your_6_digit": "اپنا 6 ہندسوں والا کوڈ درج کریں جو بھیجا گیا ہے"
+  },
+  "loading": "لوڈ ہو رہا ہے",
+  "activity_screen": {
+    "no_activity_found": "کوئی سرگرمی نہیں ملی",
+    "about_activity": "اس سرگرمی کے بارے میں",
+    "step_choose_booking_day": "اپنے بکنگ دن کا انتخاب کریں",
+    "step_confirm_booking_data": "بکنگ کا ڈیٹا تصدیق کریں",
+    "step_confirm_booking_info": "بکنگ کی معلومات کی تصدیق کریں",
+    "step_confirm_booking": "بکنگ کی تصدیق کریں",
+    "select_date": "تاریخ منتخب کریں",
+    "people_count": "افراد کی تعداد",
+    "click_to_select": "منتخب کرنے کے لیے کلک کریں",
+    "where_do_you_want_to_move_from": "آپ کہاں سے جانا چاہتے ہیں؟"
+  },
+  "buttons_name": {
+    "search": "تلاش کریں",
+    "continue": "جاری رکھیں",
+    "back": "پیچھے",
+    "next": "اگلا",
+    "verify": "تصدیق کریں",
+    "ok": "ٹھیک ہے",
+    "cancel_order": "آرڈر منسوخ کریں",
+    "yes": "ہاں",
+    "no": "نہیں",
+    "book_now": "ابھی بک کریں"
+  },
+  "location": {
+    "riyadh___nakheel": "ریاض - نخیل",
+    "riyadh___malaz": "ریاض - ملز",
+    "riyadh___suwaidi": "ریاض - سویدی"
+  },
+  "fedsmale": "خاتون",
+  "masdfle": "مرد",
+  "hotelsScreen": {
+    "noHotelsFound": "کوئی ہوٹل نہیں ملا۔",
+    "per_day": "فی دن",
+    "hotel_booking_question": "آپ کہاں سے ہوٹل بک کرنا چاہتے ہیں؟",
+    "about_the_hotel": "ہوٹل کے بارے میں",
+    "people_number": "افراد کی تعداد",
+    "room_number": "کمروں کی تعداد",
+    "select_Date": "تاریخ منتخب کریں",
+    "special": "خصوصی",
+    "confirm_details": "تفصیلات کی تصدیق کریں",
+    "confirm_booking": "بکنگ کی تصدیق کریں",
+    "where_do_you_want_to_hotel_booking_from": "آپ ہوٹل کہاں سے بک کرنا چاہتے ہیں؟",
+    "select_a_country": "ملک منتخب کریں",
+    "common": "عام",
+    "room_count": "کمروں کی تعداد",
+    "check_out": "چیک آؤٹ",
+    "check_in": "چیک ان",
+    "choose_common_room_type": "عام کمرے کی قسم منتخب کریں",
+    "check_in_out": "چیک ان / چیک آؤٹ",
+    "please_choose_your_room_type": "براہ کرم اپنے کمرے کی قسم منتخب کریں؟",
+    "hotel_common_room_pricing": "عام کمرے کی قیمت",
+    "hotel_special_room_pricing": "خصوصی کمرے کی قیمت"
+  },
+  "date_screen": {
+    "check-in": "چیک ان",
+    "check-out": "چیک آؤٹ"
+  },
+  "car_screen": {
+    "all_price": "تمام قیمتیں",
+    "delivery": "ڈیلیوری",
+    "select_location_prompt": "منتخب کرنے کے لیے کلک کریں",
+    "no_cars_available": "کوئی گاڑیاں دستیاب نہیں",
+    "receipt": "رسید",
+    "please_choose_your_location": "براہ کرم اپنا مقام منتخب کریں",
+    "cars": "گاڑیاں",
+    "about_the_car": "گاڑی کے بارے میں",
+    "available_cars": "دستیاب گاڑیاں",
+    "choose_location": "مقام منتخب کریں",
+    "receipt_delivery": "رسید / ڈیلیوری",
+    "confirm_booking_info": "بکنگ کی معلومات کی تصدیق کریں",
+    "confirm_booking": "بکنگ کی تصدیق کریں"
+  },
+  "confirm_booking_screen": {
+    "all_booking": "تمام بکنگ",
+    "booking": "بکنگ",
+    "cancel": "منسوخ کریں"
+  },
+  "success_screen": {
+    "order_successfully_placed": "آرڈر کامیابی سے\nدے دیا گیا",
+    "order_successfully_placed_message": "آپ کا آرڈر کامیابی سے دے دیا گیا ہے۔\nہم جلد ہی آپ کا آرڈر پہنچائیں گے۔"
+  },
+  "form": {
+    "name_hint": "اپنا نام درج کریں",
+    "name_empty": "نام خالی نہیں ہو سکتا",
+    "phone_hint": "اپنا فون نمبر درج کریں",
+    "phone_empty": "فون نمبر درکار ہے",
+    "phone_invalid": "براہ کرم ایک درست سعودی فون نمبر درج کریں جیسے: 0501234567"
+  },
+  "locations": {
+    "riyadh": "ریاض",
+    "jeddah": "جدہ",
+    "makkah": "مکہ",
+    "madinah": "مدینہ",
+    "dammam": "دمام",
+    "khobar": "خبر",
+    "taif": "طائف",
+    "buraidah": "بریدہ",
+    "abha": "ابھا",
+    "hail": "حائل",
+    "tabuk": "تبوک",
+    "yanbu": "ینبع",
+    "qassim": "قصیم",
+    "jazan": "جازان",
+    "najran": "نجران",
+    "al_bahah": "الباحہ"
+  },
+  "success_widget": {
+    "your_order_has_been_successfully_placed_": "آپ کا آرڈر کامیابی سے دے دیا گیا ہے۔\\nہم جلد ہی آپ کا آرڈر پہنچائیں گے۔",
+    "order_successfully_nplaced": "آرڈر کامیابی سے\\nدے دیا گیا",
+    "back_to_home": "ہوم پر واپس جائیں",
+    "go_to_orders": "آرڈرز پر جائیں"
+  },
+  "user_orders": {
+    "cancel": "منسوخ کریں",
+    "all_booking": "تمام بکنگ",
+    "booking": "بکنگ"
+  },
+  "notification_screen": {
+    "view_detailed": "تفصیلات دیکھیں",
+    "notification_details": "اطلاع کی تفصیلات"
+  },
+  "home_screen": {
+    "welcome": "خوش آمدید،",
+    "choose_your_service": "#اپنی_سروس_منتخب_کریں",
+    "recommended_hotels": "#تجویز_کردہ_ہوٹلز"
+  },
+  "select_a_location": "مقام منتخب کریں",
+  "drawer": {
+    "setting": "ترتیبات",
+    "logout": "لاگ آؤٹ",
+    "delete_account": "اکاؤنٹ حذف کریں",
+    "close": "بند کریں"
+  },
+  "select_location": "مقام منتخب کریں",
+  "orders_screen": {
+    "time": "وقت",
+    "pending": "زیر التوا",
+    "success": "کامیاب",
+    "cancel_order_confirmation": "کیا آپ واقعی آرڈر منسوخ کرنا چاہتے ہیں؟",
+    "failed": "ناکام",
+    "total_price": "کل قیمت",
+    "booking_day": "بکنگ کا دن",
+    "people_count": "افراد کی تعداد",
+    "name": "نام",
+    "phone": "فون",
+    "payment_method": "ادائیگی کا طریقہ",
+    "activity_name": "سرگرمی کا نام",
+    "hotel_nae": "ہوٹل کا نام",
+    "check_out": "چیک آؤٹ",
+    "check_in": "چیک ان",
+    "hotel_booking": "ہوٹل بکنگ",
+    "activity": "سرگرمی",
+    "received_date": "وصولی کی تاریخ",
+    "delivery_date": "ڈیلیوری کی تاریخ",
+    "car": "گاڑی"
+  },
+  "splash_screen": {
+    "manafea": "منافع",
+    "easy_transportation": "آسان سفری سہولت"
+  }
+};
+static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en, "ur": _ur};
 }

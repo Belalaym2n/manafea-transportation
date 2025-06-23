@@ -1,27 +1,41 @@
 class UserModel {
   final String firstName;
   final String lastName;
-  final String phoneNumber;
+  final String? email;
+  final String? id;
+  final String? phoneNumber; // خلتها nullable
 
   UserModel({
-    required this.phoneNumber,
-    required this.lastName,
     required this.firstName,
+    required this.lastName,
+    required this.id,
+    this.email,
+    this.phoneNumber, // بقت مش مطلوبة
   });
 
   Map<String, dynamic> toJson() {
-    return {
+    final data = {
       'firstName': firstName,
       'lastName': lastName,
-      'phoneNumber': phoneNumber,
+      'id': id,
     };
+    if (email != null||email!='') {
+      data['email'] = email!;
+    }
+    if (phoneNumber != null||phoneNumber!='') {
+      data['phoneNumber'] = phoneNumber!;
+    }
+
+    return data;
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       firstName: json['firstName'] ?? '',
+      id: json['id'] ?? '',
+      email: json['email'] ?? '',
       lastName: json['lastName'] ?? '',
-      phoneNumber: json['phoneNumber'] ?? '',
+      phoneNumber: json['phoneNumber'] ?? 'not exist ',
     );
   }
 
@@ -32,12 +46,22 @@ class UserModelBuilder {
   String? _firstName;
   String? _lastName;
   String? _phoneNumber;
+  String? _email;
+  String? _id;
 
   UserModelBuilder setFirstName(String firstName) {
     _firstName = firstName;
     return this;
   }
 
+  UserModelBuilder setId(String id) {
+    _id = id;
+    return this;
+  }
+  UserModelBuilder setEmail(String email) {
+    _email = email;
+    return this;
+  }
   UserModelBuilder setLastName(String lastName) {
     _lastName = lastName;
     return this;
@@ -52,6 +76,8 @@ class UserModelBuilder {
     return UserModel(
       phoneNumber: _phoneNumber ?? '',
       lastName: _lastName ?? "",
+      id: _id ?? "",
+      email: _email ?? "",
       firstName: _firstName ?? '',
     );
   }

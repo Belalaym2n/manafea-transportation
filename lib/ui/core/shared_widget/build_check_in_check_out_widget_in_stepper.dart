@@ -6,6 +6,8 @@ import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import 'customShowCalender.dart';
+
 class CheckInCheckOut extends StatefulWidget {
   String? checkInDateString;
   String? checkOutDateString;
@@ -55,6 +57,8 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
 
     return '$days ${days == 1 ? 'day' : 'days'}';
   }
+
+
 @override
   void initState() {
     // TODO: implement initState
@@ -105,9 +109,13 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
   Widget _buildCheckoutWidget(String todayDate, DateTime focusedDate)
   {
     return GestureDetector(
-      onTap: () => _showCalendarDialog(
+      onTap: () =>  showCalendarDialog(
+        context: context,
+        focusedDateCheckInDate: widget.focusedDateCheckInDate,
+        calculatePrice: widget.calculatePrice,
         onSelectDate: widget.onSelectCheckOutDate,
         focusedDate: focusedDate,
+        checkIn: false
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -136,7 +144,10 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
   Widget _buildCheckInWidget(String todayDate, DateTime focusedDate) {
     return GestureDetector(
       onTap: () =>
-          _showCalendarDialog(
+         showCalendarDialog(
+             context: context,
+             focusedDateCheckInDate: widget.focusedDateCheckInDate,
+             calculatePrice: widget.calculatePrice,
               onSelectDate: widget.onSelectCheckInDate,
               focusedDate: focusedDate,
               checkIn: true),
@@ -164,108 +175,5 @@ class _CheckInCheckOutState extends State<CheckInCheckOut> {
     );
   }
 
-  void _showCalendarDialog(
-      {required Function(DateTime) onSelectDate,
-        required DateTime focusedDate,
-        bool checkIn = false}) {
-    showDialog(
 
-      context: context,
-      builder: (context) {
-        DateTime selectedDate = focusedDate;
-
-        return AlertDialog(
-
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title:   Center(
-            child: Text(
-              "Select Date",
-              style: TextStyle(
-                  fontSize: AppConstants.screenWidth*0.056,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87),
-            ),
-          ),
-          content: SingleChildScrollView(
-            child: SizedBox(
-              height: AppConstants.screenHeight*0.54  ,
-              width: double.maxFinite,
-              child: StatefulBuilder(
-
-                builder: (context, setState) {
-                  return TableCalendar(
-                      locale: context.locale.languageCode,  // هذا يجعل الواجهة تتغير حسب اللغة
-
-                      firstDay: DateTime.utc(2020, 1, 1),
-                      lastDay: DateTime.utc(2040, 12, 31),
-                      focusedDay: selectedDate,
-                      selectedDayPredicate: (day) => isSameDay(selectedDate, day),
-                      onDaySelected: (selectedDay, focusedDay) {
-                        setState(() {
-                          selectedDate = selectedDay;
-                        });
-                        onSelectDate(selectedDate);
-                       widget.calculatePrice();
-                        Future.delayed(
-                          Duration(milliseconds: 700),
-                              () {
-                            Navigator.pop(context);
-                          },
-                        );
-                      },
-                      headerStyle:   HeaderStyle(
-                        formatButtonVisible: false,
-                        titleCentered: true,
-                        titleTextStyle: TextStyle(
-                            fontSize: AppConstants.screenWidth*0.05,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87),
-                        leftChevronIcon:
-                        Icon(Icons.chevron_left, color:
-                        Colors.blueGrey, size: AppConstants.screenWidth*0.08),
-                        rightChevronIcon: Icon(Icons.chevron_right, color: Colors.blueGrey, size: 28),
-                      ),
-                      daysOfWeekStyle: const DaysOfWeekStyle(
-                        weekendStyle: TextStyle(
-                            color: Colors.redAccent, fontWeight: FontWeight.bold),
-                        weekdayStyle: TextStyle(
-                            color: Colors.black87, fontWeight: FontWeight.bold),
-                      ),
-                      calendarStyle: CalendarStyle(
-                        isTodayHighlighted: true,
-                        todayDecoration: BoxDecoration(
-                          color: Colors.blueAccent.withOpacity(0.5),
-                          shape: BoxShape.circle,
-                        ),
-                        selectedDecoration: const BoxDecoration(
-                          color: Colors.deepOrange,
-                          shape: BoxShape.circle,
-                        ),
-                        weekendTextStyle: const TextStyle(color: Colors.red),
-                        defaultTextStyle:   TextStyle(
-                            color: Colors.black87, fontSize:
-                        AppConstants.screenWidth*0.044, fontWeight: FontWeight.w500),
-                        outsideDaysVisible: false,
-                        disabledTextStyle: TextStyle(
-                            color: Colors.grey), // Change the color of disabled days
-                      ),
-                      enabledDayPredicate: (day) {
-                        print(widget.focusedDateCheckInDate);
-                        if (checkIn) {
-                          return !day.isBefore(DateTime.now().subtract(const Duration(days: 1)));
-
-                        } else {
-                          return !day.isBefore(widget.focusedDateCheckInDate.add(const Duration(days: 1)));
-
-                        }
-                      }
-                  );
-                },
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
 }

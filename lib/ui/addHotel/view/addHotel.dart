@@ -1,18 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
-import 'package:manafea/data/services/addActivityService/imagePickerService.dart';
 import 'package:manafea/ui/addHotel/connector/addHotelConnector.dart';
 import 'package:manafea/ui/addHotel/viewModel/addHotelViewModel.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
-import 'package:manafea/ui/login/widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../config/appColors.dart';
 import '../../../data/repositories/addActivityRepo/addActivityToSubabaseRepo.dart';
 import '../../../data/repositories/addActivityRepo/imagePickerRepo.dart';
-import '../../../data/services/addActivityService/addActivitySupebaseService.dart';
+import '../../../data/services/addItemInService/addItemInService.dart';
+import '../../../data/services/addItemInService/imagePickerService.dart';
+import '../../../data/services/addItemInService/addItemInService.dart';
+import '../../../data/services/addItemInService/imagePickerService.dart';
 import '../widget/addHotelWidgetItem.dart';
+
+import 'package:manafea/ui/auth/widgets/loadingWidget.dart';
 
 class AddHotel extends StatefulWidget {
   const AddHotel({super.key});
@@ -24,6 +27,12 @@ class AddHotel extends StatefulWidget {
 class _AddHotelState extends BaseView<AddHotelViewModel, AddHotel>
     implements AddHotelConnector {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    viewModel.connector=this;
+  }
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
         value: viewModel,
@@ -33,7 +42,7 @@ class _AddHotelState extends BaseView<AddHotelViewModel, AddHotel>
                 backgroundColor: Colors.white,
                 appBar: AppBar(
                   title: const Text(
-                    ' Add Hotel',
+                    'إضافة فندق',
                     style: TextStyle(color: AppColors.primaryColor),
                   ),
                   backgroundColor: Colors.white,
@@ -46,15 +55,13 @@ class _AddHotelState extends BaseView<AddHotelViewModel, AddHotel>
                               child: Column(
                                 children: [
                                   AddHotelItem(
-
-                                      publicUrl: value.imageUrl.toString(),
-                                      image: value.image1,
-                                      openImage: value.pickImage,
-                                      addHotel: value.addHotelToSupabase,
+                                    publicUrl: value.imageUrl.toString(),
+                                    image: value.image1,
+                                    openImage: value.pickImage,
+                                    addHotel: value.addHotelToSupabase,
                                     selectedLocation: value.location,
-                                  changeLocation: value.changeLocation,
+                                    changeLocation: value.changeLocation,
                                   ),
-
                                 ],
                               ),
                             ),
@@ -93,6 +100,13 @@ class _AddHotelState extends BaseView<AddHotelViewModel, AddHotel>
   @override
   successWidget() {
     // TODO: implement successWidget
-    throw UnimplementedError();
+    return ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        duration: Duration(seconds: 2),
+        content: Text("تمت الإضافة بنجاح"),
+        backgroundColor: Colors.green,
+      ),
+    );
   }
 }
+

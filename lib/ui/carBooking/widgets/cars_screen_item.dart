@@ -11,7 +11,7 @@ import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
 class CarScreenItem extends StatefulWidget {
   CarScreenItem({super.key, this.carModel});
 
-  AddCarModel? carModel;
+  CarModel? carModel;
 
   @override
   State<CarScreenItem> createState() => _CarBookingScreenItemState();
@@ -84,6 +84,18 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
       child: widget.carModel?.itemImageUrl != null &&
               widget.carModel!.itemImageUrl.isNotEmpty
           ? Image.network(
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            height: AppConstants.screenHeight * 0.14,
+            width: double.infinity,
+            color: Colors.grey.shade300,
+            child: Icon(
+              Icons.broken_image,
+              color: Colors.grey.shade700,
+              size: 40,
+            ),
+          );
+        },
               widget.carModel!.itemImageUrl,
               height: AppConstants.screenHeight * 0.14,
               fit: BoxFit.cover,
@@ -108,6 +120,7 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
           EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.02),
       child: Text(widget.carModel?.itemName ?? 'BM',
           style: TextStyle(
+            overflow: TextOverflow.ellipsis,
               color: Colors.black,
               fontSize: AppConstants.screenWidth * 0.038,
               fontWeight: FontWeight.bold,

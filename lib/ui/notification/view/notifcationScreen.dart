@@ -10,7 +10,7 @@ import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/notification/connector/notificationConnector.dart';
 import 'package:manafea/ui/notification/viewModel/notificationViewModel.dart';
 import 'package:provider/provider.dart';
- import 'package:skeletonizer/skeletonizer.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../config/appColors.dart';
 import '../widgets/notificationScreenItem.dart';
@@ -36,8 +36,8 @@ class _NotificationScreenState
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => viewModel,
+    return ChangeNotifierProvider.value(
+        value: viewModel,
         builder: (context, child) => Consumer<NotificationViewModel>(
             builder: (context, viewModel, child) => Scaffold(
                 appBar: AppBar(
@@ -48,21 +48,7 @@ class _NotificationScreenState
                   leading:
                       Icon(Icons.notifications_active, color: Colors.white),
                 ),
-                body: viewModel.isLoading
-                    ?  showLoading()
-                    : ListView.separated(
-                        itemCount: viewModel.notifications.length,
-                        separatorBuilder: (context, index) => Divider(
-                          thickness: 1.5,
-                          color: Colors.grey.withOpacity(0.5),
-                        ),
-                        itemBuilder: (context, index) {
-                          final notification = viewModel.notifications[index];
-                          return NotificationScreenItem(
-                            notificationModel: notification,
-                          );
-                        },
-                      ))));
+                body: viewModel.showData()))) ;
   }
 
   Widget _buildNotificationText() {
@@ -75,7 +61,7 @@ class _NotificationScreenState
           Shadow(
             color: Colors.black.withOpacity(0.2),
             offset: const Offset(1, 1),
-            blurRadius: 2,
+            blurRadius: 2, 
           ),
         ],
       ),
@@ -88,7 +74,7 @@ class _NotificationScreenState
     NotificationRepository notificationRepository =
         NotificationRepository(_service);
     // TODO: implement init_my_view_model
-    return NotificationViewModel(notificationRepository);
+    return NotificationViewModel.getInstance(notificationRepository);
   }
 
   @override
@@ -98,7 +84,7 @@ class _NotificationScreenState
   }
 
   @override
- Widget showLoading() {
+  Widget showLoading() {
     print("showLoading() is called");
     NotificationModel notificationViewModel = NotificationModel(
         id: "id",
@@ -115,10 +101,33 @@ class _NotificationScreenState
               color: Colors.grey.withOpacity(0.5),
             ),
         itemBuilder: (context, index) {
-          return   Skeletonizer(
+          return Skeletonizer(
               child: NotificationScreenItem(
                   notificationModel: notificationViewModel));
-
         });
+  }
+
+  @override
+  emptyData() {
+    // TODO: implement emptyData
+    return const Text("No notification exist");
+  }
+
+  @override
+  showNotification(List<NotificationModel> notification) {
+    // TODO: implement showNotification
+    return ListView.separated(
+      itemCount: viewModel.notifications.length,
+      separatorBuilder: (context, index) => Divider(
+        thickness: 1.5,
+        color: Colors.grey.withOpacity(0.5),
+      ),
+      itemBuilder: (context, index) {
+        final notification = viewModel.notifications[index];
+        return NotificationScreenItem(
+          notificationModel: notification,
+        );
+      },
+    );
   }
 }

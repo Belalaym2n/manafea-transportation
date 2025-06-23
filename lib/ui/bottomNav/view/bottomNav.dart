@@ -25,6 +25,7 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
     super.initState();
     viewModel.getUserIfo();
     viewModel.initObjects();
+    viewModel.requestNotificationPermission();
   }
   @override
   Widget build(BuildContext context) {

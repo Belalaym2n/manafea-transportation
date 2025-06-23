@@ -42,15 +42,15 @@ class BaseOrder {
 
   factory BaseOrder.fromJson(Map<String, dynamic> json) {
     return BaseOrder(
-        status: json['status'],
-        userId: json['userId'],
-        name: json['name'],
-        id: json['id'],
-        service: json['service'],
-        time: json['time'],
-        price: json['price'],
-        phoneNumber: json['phoneNumber'],
-        orderDate: json['orderDate'] // Convert ISO 8601 string back to DateTime
+        status: json['status']??'',
+        userId: json['userId']??'',
+        name: json['name']??'',
+        id: json['id']??'',
+        service: json['service']??'',
+        time: json['time']??'',
+        price: json['price']??'',
+        phoneNumber: json['phoneNumber']??'',
+        orderDate: json['orderDate']??'', // Convert ISO 8601 string back to DateTime
         );
   }
 }

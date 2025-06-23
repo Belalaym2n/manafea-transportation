@@ -9,79 +9,77 @@ import '../../../core/shared_widget/elevatedButton.dart';
 import '../../view/activityScreenBooking.dart';
 
 class SearchResultScreen extends StatefulWidget {
-    SearchResultScreen({super.key,required this.itemName,
-
+  SearchResultScreen({
+    super.key,
+    required this.itemName,
     required this.location,
     required this.bookingNav,
     required this.imageUrl,
-    });
-String  itemName;
-String  imageUrl;
-String  location;
-Function  bookingNav;
-   @override
+  });
+
+  String itemName;
+  String imageUrl;
+  String location;
+  Function bookingNav;
+
+  @override
   State<SearchResultScreen> createState() => _SearchResultScreenState();
 }
 
 class _SearchResultScreenState extends State<SearchResultScreen> {
   @override
   Widget build(BuildContext context) {
-
-        return _buildActivityCard();
-
+    return _buildActivityCard();
   }
 
-  _buildActivityCard(){
-
-      return Container(
-
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: const [
-            BoxShadow(color: Colors.black12, blurRadius: 8, spreadRadius: 2),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildImage(),
-            _buildTravelName(),
-            const SizedBox(
-              height: 4,
-            ),
-            _buildTravelLocation(),
-            _buildSmallBookingButton()     ,
-          ],
-        ),
-      );
-
+  _buildActivityCard() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 8, spreadRadius: 2),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildImage(),
+          _buildTravelName(),
+          const SizedBox(
+            height: 4,
+          ),
+          _buildTravelLocation(),
+          _buildSmallBookingButton(),
+        ],
+      ),
+    );
   }
 
-  _buildSmallBookingButton(){
-    return   Padding(
+  _buildSmallBookingButton() {
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: smallElevatedButton(
           onTap: () {
             widget.bookingNav();
-
           },
-          buttonName:LocaleKeys.buttons_name_book_now.tr()),
+          buttonName: LocaleKeys.buttons_name_book_now.tr()),
     );
   }
 
   _buildTravelLocation() {
-    return     Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         children: [
           Icon(Icons.location_on, color: Colors.red, size: 12),
           SizedBox(width: 4), // مسافة صغيرة بين الأيقونة والنص
-          Expanded( // يمنع تجاوز النص خارج الحدود
+          Expanded(
+            // يمنع تجاوز النص خارج الحدود
             child: Text(
               maxLines: 1,
 
-              widget.location  ,
+              widget.location,
               style: TextStyle(fontSize: 10, color: Colors.black54),
               overflow: TextOverflow.ellipsis, // يضيف "..." إذا كان النص طويلًا
             ),
@@ -91,14 +89,12 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
     );
   }
 
-  _buildTravelName(){
-    return   Padding(
+  _buildTravelName() {
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8),
       child: Text(
-
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-
           widget.itemName,
           style: TextStyle(
               color: Colors.black,
@@ -113,20 +109,18 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
               ])),
     );
   }
-  _buildImage(){
-    return        ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      child: Image.network(
 
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              width: AppConstants.screenWidth * 0.75,
-              height: AppConstants.screenHeight * 0.14,
-              color: Colors.grey,
-              child: Icon(Icons.error),// لون بديل في حال الخطأ
-            );
-          },
-          widget.imageUrl,
+  _buildImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      child: Image.network(errorBuilder: (context, error, stackTrace) {
+        return Container(
+          width: AppConstants.screenWidth * 0.75,
+          height: AppConstants.screenHeight * 0.14,
+          color: Colors.grey,
+          child: Icon(Icons.error), // لون بديل في حال الخطأ
+        );
+      }, widget.imageUrl,
           height: 110, fit: BoxFit.cover, width: double.infinity),
     );
   }

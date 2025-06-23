@@ -1,19 +1,27 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
-import 'package:manafea/domain/models/hotelModels/requestHotelBooking.dart';
-import 'package:manafea/ui/hotels/hotelBooking/view/hotelBookinScreen.dart';
-import 'package:manafea/ui/hotels/hotels/view/recomendedHotels.dart';
-import 'package:manafea/ui/hotels/hotels/widgets/recomendedHotelsItem/recommendedHotelItem.dart';
+ import 'package:manafea/generated/locale_keys.g.dart';
 
-import '../../../../data/repositories/activity/getActivitySupabseRepo.dart';
-import '../../../../data/repositories/hotels/getALLHotelsRepo.dart';
+ import '../../../../data/repositories/hotels/getALLHotelsRepo.dart';
 import '../../../../domain/models/hotelModels/addHotel.dart';
-import '../../../activity/widget/getActivitiesScreen/searchResultScreen.dart';
-import '../connector/getHotelsConnector.dart';
+ import '../connector/getHotelsConnector.dart';
 
 class GetAllHotelViewModel extends BaseViewModel<GetHotelsConnector> {
-  List<AddHotelModel> hotels = [];
+  static GetAllHotelViewModel? _instance;
+
+  static GetAllHotelViewModel getInstance(GetAllHotelsRepo getAllHotelsRepo) {
+    _instance ??= GetAllHotelViewModel._internal(getAllHotelsRepo);
+    return _instance!;
+  }
+
+  GetAllHotelViewModel._internal(this.getAllHotelsRepo);
+  bool _isDataLoadedFirst = false;
+
+  bool get isDataLoadedFirst => _isDataLoadedFirst;
+
+   List<AddHotelModel> hotels = [];
   List<AddHotelModel> filterHotels = [];
   String? _country;
 
@@ -39,18 +47,21 @@ class GetAllHotelViewModel extends BaseViewModel<GetHotelsConnector> {
 
   GetAllHotelsRepo getAllHotelsRepo;
 
-  GetAllHotelViewModel(this.getAllHotelsRepo);
-
   getHotels() async {
+    if(_isDataLoadedFirst){
+      return;
+    }
     setLoading(true);
     try {
       hotels = await getAllHotelsRepo.getHotels();
+      _isDataLoadedFirst=true;
+      notifyListeners();
       setLoading(false);
     } catch (e) {
       setLoading(false);
 
       print("Error ${e.toString()}");
-      connector!.onError(e.toString());
+      connector!.onError(LocaleKeys.errors_something_went_wrong.tr());
     }
   }
 

@@ -20,8 +20,7 @@ class _CasualImageState extends State<CasualImage> {
     List<String> imageUrls = [
     AppImages.carsualImage2,
     AppImages.carsualImage1,
-    AppImages.carsualImage2,
-  ];
+   ];
 
   @override
   Widget build(BuildContext context) {

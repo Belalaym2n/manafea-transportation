@@ -1,6 +1,6 @@
 import 'package:manafea/config/base_class.dart';
 
-class AddCarConnector extends BaseConnector{
+abstract class AddCarConnector extends BaseConnector{
   @override
   onError(String message) {
     // TODO: implement onError
@@ -12,5 +12,7 @@ class AddCarConnector extends BaseConnector{
     // TODO: implement showLoading
     throw UnimplementedError();
   }
+
+  success();
 
 }

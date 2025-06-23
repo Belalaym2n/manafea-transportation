@@ -4,8 +4,7 @@ import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/core/shared_widget/elevatedButton.dart';
-import 'package:manafea/ui/userOrders/view/userOrders.dart';
-import '../../../config/appColors.dart';
+ import '../../../config/appColors.dart';
 
 class SuccessOrder extends StatefulWidget {
   const SuccessOrder({super.key});

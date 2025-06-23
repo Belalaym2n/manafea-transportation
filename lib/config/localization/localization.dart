@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageProvider extends ChangeNotifier {
   Locale _locale = const Locale('en');

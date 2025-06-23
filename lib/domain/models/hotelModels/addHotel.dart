@@ -21,7 +21,7 @@ class AddHotelModel  extends BaseItemInServiceModel {
     itemDescription: description,
     itemImageUrl: imageUrl,
     itemName: name,
-    itemPricing: pricing,
+    itemPricing : pricing,
   );
 
   @override

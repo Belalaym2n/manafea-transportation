@@ -52,15 +52,8 @@ class _BuildStepOneContentInStepperChooseLocationState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          LocaleKeys.car_screen_please_choose_your_location.tr(),
-          style: TextStyle(
-            fontSize: screenWidth * 0.05,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        SizedBox(height: screenHeight * 0.02),
+
+        SizedBox(height: screenHeight * 0.01),
         buildLocationToggle(),
         buildSelectedLocationList(),
         SizedBox(height: screenHeight * 0.02),

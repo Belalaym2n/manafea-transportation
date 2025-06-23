@@ -5,6 +5,7 @@ import 'package:manafea/data/repositories/orderRepo/requestOrderRepo.dart';
 import 'package:manafea/domain/models/hotelModels/addHotel.dart';
 
 import '../../../../config/base_class.dart';
+import '../../../../data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 import '../../../../domain/models/hotelModels/requestHotelBooking.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../core/shared_widget/stepper_widget.dart';
@@ -16,20 +17,26 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   int _totalPrice = 0;
 
   String _selectedRoomType = "";
+  String _selectedCommonRoomType = "";
+
+  // for data booking
   String _phoneNumber = '';
   String _name = '';
-  String _selectedCommonRoomType = "";
+
   String _selectedType = "";
   bool _orderIsDone = false;
    bool _isLoading = false;
   String checkInDateString =
   LocaleKeys.hotelsScreen_select_Date.tr();
-  String checkOutDateString =     LocaleKeys.hotelsScreen_select_Date.tr();
+  String checkOutDateString =
+  LocaleKeys.hotelsScreen_select_Date.tr();
 
 
-  DateTime focusedDateCheckOut = DateTime.now().add(const Duration(days: 1));
+  DateTime focusedDateCheckOut =
+  DateTime.now().subtract(const Duration(days: 2));
 
-  DateTime focusedDateCheckIn = DateTime.now();
+  DateTime focusedDateCheckIn =
+  DateTime.now().subtract(Duration(days: 2));
 
   bool get orderIsDone => _orderIsDone;
 
@@ -62,7 +69,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     String? name,
   }) async {
     bool isRoomTypeNullable = roomTypeNullable();
-    bool isDatsValid = validDatesSelected(2);
+    bool isDatsValid = validDatesSelected(1);
     bool isValidDataBooking = await validBookingData(
         name: name, phoneNumber: phoneNumber, stepIndex: 3);
     if (isRoomTypeNullable == true) {
@@ -88,7 +95,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   }
 
   bool roomTypeNullable() {
-    if (index == 0 && selectedRoomType.isEmpty) {
+    if (index == 0 && selectedRoomType.trim().isEmpty) {
       return true;
     }
     return false;
@@ -113,13 +120,12 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
     String? phoneNumber,
     String? name,
   }) async {
-    print("index $index");
 
     if (index == 1 && _selectedCommonRoomType == '') {
       return connector!.onError(LocaleKeys.errors_please_choose_common_room_type.tr());
     }
 
-    bool isDatsValid = validDatesSelected(3);
+    bool isDatsValid = validDatesSelected(2);
     bool isValidDataBooking = await validBookingData(
         name: name, phoneNumber: phoneNumber, stepIndex: 4);
     if (isDatsValid == false) {
@@ -182,6 +188,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   // step two function in stepper
   void increaseRoomCount() {
     _roomCount++;
+      calculateAllPrice();
      notifyListeners();
   }
 
@@ -215,7 +222,11 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   }
 
   void minusRoomCount() {
-    if (_roomCount > 1) _roomCount--;
+    if (_roomCount > 1)
+      _roomCount--;
+    calculateAllPrice();
+
+    print("totoal price $totalPrice");
     notifyListeners();
   }
 
@@ -241,7 +252,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   Future<bool> validBookingData(
       {String? phoneNumber, String? name, int? stepIndex}) async {
     if (index == stepIndex) {
-      print("room $selectedRoomType");
+
       if ((phoneNumber?.trim().isEmpty ?? true) ||
           (name?.trim().isEmpty ?? true)) {
         return false;
@@ -258,14 +269,18 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   requestOrder() async {
     try {
       final DateFormat formatter = DateFormat('h:mm a');
+      String formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+
       setLoading(true);
+      String id =await SharedPreferencesHelper.getData(SharedSharedPreferencesKeys.userId);
+
       print("name $name");
       final orderBuilder = RequestHotelBookingBuilder()
           .setName(name)
           .setPhoneNumber(phoneNumber)
-          .setOrderDate(DateTime.now().toString())
+          .setOrderDate(formattedDate)
           .setPrice(_totalPrice.toDouble())
-          .setUserId("userID")
+          .setUserId(id)
           .setStatus("Pending")
           .setTime(formatter.format(DateTime.now()))
           .setCheckIn(checkInDateString)
@@ -284,6 +299,12 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
       final order = orderBuilder.build();
 
       await requestOrderRepo.requestOrder(requestOrder: order);
+
+      SharedPreferencesHelper.saveData(key: SharedSharedPreferencesKeys.
+      nameOrder, value: name);
+      SharedPreferencesHelper.saveData(key: SharedSharedPreferencesKeys.
+      phoneOrder, value: phoneNumber
+      );
       await setLoading(false);
       _orderIsDone = true;
       notifyListeners();
@@ -332,18 +353,19 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
         ),
       buildStep(
         colorIndex: selectedRoomType == "Common" ? index > 2 : index > 1,
-        isActive: index > 2,
-        content: connector!.stepTwoContentInStepper(),
-        isCurrentStep: index == 2,
-        tittle: LocaleKeys.hotelsScreen_room_count.tr(),
-      ),
-      buildStep(
-        colorIndex: selectedRoomType == "Common" ? index > 3 : index > 2,
         isActive: index > 3,
         content: connector!.stepThreeContentInStepper(),
         isCurrentStep: index == 3,
         tittle: LocaleKeys.hotelsScreen_check_in_out.tr(),
       ),
+      buildStep(
+        colorIndex: selectedRoomType == "Common" ? index > 3: index > 2,
+        isActive: index > 2,
+        content: connector!.stepTwoContentInStepper(),
+        isCurrentStep: index == 2,
+        tittle: LocaleKeys.hotelsScreen_room_count.tr(),
+      ),
+
       buildStep(
         colorIndex: selectedRoomType == "Common" ? index > 4 : index > 3,
         isActive: index > 4,

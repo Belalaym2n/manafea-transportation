@@ -66,7 +66,7 @@ class _ActivityScreenState
     GetActivitySupabaseRepo getActivitySupabaseRepo =
         GetActivitySupabaseRepo(getActivitySupebaseService);
     // TODO: implement init_my_view_model
-    return GetActivitiesScreenViewModel(getActivitySupabaseRepo);
+    return GetActivitiesScreenViewModel.getInstance(getActivitySupabaseRepo);
   }
 
   @override

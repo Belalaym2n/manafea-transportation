@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
 
 import '../../../config/appColors.dart';
+import '../../../generated/locale_keys.g.dart';
 
 error_widget({
   required BuildContext context,
@@ -25,7 +27,7 @@ error_widget({
               ),
               SizedBox(width: AppConstants.screenWidth * 0.02),
               Text(
-                "Error",
+                LocaleKeys.errors_error_message.tr(),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -74,7 +76,7 @@ error_widget({
                 Navigator.pop(context);
               },
               child: Text(
-                "OK",
+                LocaleKeys.buttons_name_ok.tr(),
                 style: TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,

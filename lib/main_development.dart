@@ -6,10 +6,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:manafea/routing/appRoutes.dart';
- import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
-import 'package:manafea/ui/userOrders/widgets/widgetsChangedInOrderItem/buildActivityWidget.dart';
-import 'package:manafea/ui/userOrders/widgets/widgetsChangedInOrderItem/buildHotelBookingOrderDetailec.dart';
+import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -27,16 +26,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-   OneSignal.initialize("9158013e-362c-4f0b-ae4b-576b4f1f670c");
-  OneSignal.Notifications.requestPermission(true);
+  OneSignal.initialize("9158013e-362c-4f0b-ae4b-576b4f1f670c");
+  await GetStorage.init();
 
   await Firebase.initializeApp(
-
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseAppCheck.instance.activate(      androidProvider: AndroidProvider.playIntegrity,
-      appleProvider: AppleProvider.debug
-  );
+  await FirebaseAppCheck.instance.activate(
+      androidProvider: AndroidProvider.playIntegrity,
+      appleProvider: AppleProvider.debug);
 
   await SharedPreferencesHelper.init();
   await Supabase.initialize(
@@ -46,24 +44,18 @@ void main() async {
   );
   final langCode = await SharedPreferencesHelper.getData('lang_code') ?? 'en';
 
-  runApp(
-    EasyLocalization(
-        assetLoader: CodegenLoader(),
-        supportedLocales: [Locale('en'), Locale('ar')],
-        path: 'assets/translations',
-        // <-- change the path of the translation files
-        fallbackLocale: const Locale('en'),
-        startLocale: Locale(langCode),
-        child: const MyApp()),
-  );
-
-  // runApp(
-  //     DevicePreview(
-  //         enabled: true,
-  //         tools: const [
-  //           ...DevicePreview.defaultTools,
-  //         ],
-  //         builder: (context) => const MyApp()));
+  runApp(EasyLocalization(
+      assetLoader: CodegenLoader(),
+      supportedLocales: [
+        Locale('en'),
+        Locale('ar'),
+        Locale('ur'),
+      ],
+      path: 'assets/translations',
+      // <-- change the path of the translation files
+      fallbackLocale: const Locale('en'),
+      startLocale: Locale(langCode),
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -92,7 +84,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
         (route) => route.isFirst,
-        // يحتفظ فقط بأول شاشة (الشاشة الأخيرة قبل الإشعار)
       );
     });
     return ChangeNotifierProvider(

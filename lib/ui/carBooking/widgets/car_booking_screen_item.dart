@@ -11,7 +11,7 @@ import '../../core/shared_widget/buildBookingDescription.dart';
 class CarBookingScreenItem extends StatefulWidget {
   CarBookingScreenItem({super.key, required this.carModel});
 
-  AddCarModel carModel;
+  CarModel carModel;
 
   @override
   State<CarBookingScreenItem> createState() => _CarBookingScreenItemState();
@@ -23,6 +23,7 @@ class _CarBookingScreenItemState extends State<CarBookingScreenItem> {
     return Column(
       children: [
         buildBookingImage(
+          context: context,
             imagePath: widget.carModel.itemImageUrl,
             imageName: widget.carModel.itemName),
         Padding(
