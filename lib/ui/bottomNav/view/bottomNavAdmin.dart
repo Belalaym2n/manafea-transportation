@@ -16,8 +16,18 @@ class BottomNavAdmin extends StatefulWidget {
 }
 
 class _BottomNavAdminState extends BaseView<BottomNavViewModel,BottomNavAdmin> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    viewModel.initObjects();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider(
       create: (context) => viewModel,
       child: Consumer<BottomNavViewModel>(
@@ -62,19 +72,19 @@ class _BottomNavAdminState extends BaseView<BottomNavViewModel,BottomNavAdmin> {
                     margin: EdgeInsets.symmetric(vertical:
                     AppConstants.screenHeight * 0.02),
                     icon: Icons.home_outlined, // Home icon
-                    text: 'AddActivity',
+                    text: 'إضافة رحلة',
                     iconColor: Colors.white, // Icon color to match the theme
                   ),
                   GButton(
                     margin: EdgeInsets.symmetric(vertical: AppConstants.screenHeight * 0.02),
                     icon: Icons.local_activity_outlined, // Notification icon
-                    text: 'Travels',
+                    text: 'إضافة فندق',
                     iconColor: Colors.white, // Cool tone for notifications
                   ),
                   GButton(
                     margin: EdgeInsets.symmetric(vertical: AppConstants.screenHeight * 0.02),
                     icon: Icons.notifications, // Notification icon
-                    text: 'Notification',
+                    text: 'إضافة سيارة',
                     iconColor: Colors.white, // Cool tone for notifications
                   ),
 
@@ -84,7 +94,7 @@ class _BottomNavAdminState extends BaseView<BottomNavViewModel,BottomNavAdmin> {
                       vertical: AppConstants.screenHeight * 0.02,
                     ),
                     icon: Icons.shopping_cart_rounded, // Order icon
-                    text: 'Order',
+                    text: 'طلبات',
                     iconColor: Colors.white, // Green for order-related features
                   ),
                 ],

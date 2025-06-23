@@ -9,8 +9,21 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 android {
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"]
+            keyPassword = keystoreProperties["keyPassword"]
+            storeFile = file(keystoreProperties["storeFile"])
+            storePassword = keystoreProperties["storePassword"]
 
+        }
+    }
     lintOptions {
         disable 'Impeller'  // لتعطيل أي تحذيرات تخص Impeller
     }
@@ -62,17 +75,20 @@ android {
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
-
-        versionName = flutter.versionName
+        versionCode 3         // رقم صحيح، ويجب تغييره مع كل تحديث (مثلاً 2 أو 3 أو 4...)
+        versionName "1.1.1"// <-- Increment this version code
+         versionName = flutter.versionName
         minSdkVersion 23
 
     }
 
     buildTypes {
         release {
+//            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+//            signingConfig = signingConfigs.debug
         }
     }
 }

@@ -51,10 +51,7 @@ class UserBookingData extends StatelessWidget {
                   if (value == null || value.isEmpty) {
                     return LocaleKeys.form_phone_empty.tr();
                   }
-                  final regex = RegExp(r'^05\d{8}$');
-                  if (!regex.hasMatch(value)) {
-                    return LocaleKeys.form_phone_invalid.tr();
-                  }
+                   
                   return null;
                 },
               ),

@@ -23,58 +23,52 @@ class CarsScreen extends StatefulWidget {
   State<CarsScreen> createState() => _CarBookingScreenState();
 }
 
-class _CarBookingScreenState extends BaseView<GetAllCarsViewModel
-,CarsScreen> implements GetCarsConnector {
+class _CarBookingScreenState extends BaseView<GetAllCarsViewModel, CarsScreen>
+    implements GetCarsConnector {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     viewModel.getData();
-    viewModel.connector=this;
+    viewModel.connector = this;
   }
+
   @override
   Widget build(BuildContext context) {
-    return   ChangeNotifierProvider.value(
-      value: viewModel,
-
-      child:Consumer<GetAllCarsViewModel>(
-        builder: (context, value, child) =>
-
-        AbsorbPointer(
-          absorbing: value.isLoading,
-          child: Scaffold(
-          appBar: AppBar(
-          elevation: 0,
-          scrolledUnderElevation: 0,
-
-          title:   Text(LocaleKeys.car_screen_available_cars.tr(),
-          style: const TextStyle(fontWeight: FontWeight.bold)),
-      centerTitle: true,
-      ),
-      body: Stack(
-        children: [
-          value.showCars(),
-
-              if (value.isLoading == true)
-          Center(
-            child: showLoading(), // يظهر الـ loading هنا
-          ),
-        ],
-      ) ),
-    )));
+    return ChangeNotifierProvider.value(
+        value: viewModel,
+        child: Consumer<GetAllCarsViewModel>(
+            builder: (context, value, child) => AbsorbPointer(
+                  absorbing: value.isLoading,
+                  child: Scaffold(
+                      appBar: AppBar(
+                        elevation: 0,
+                        scrolledUnderElevation: 0,
+                        title: Text(LocaleKeys.car_screen_available_cars.tr(),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                        centerTitle: true,
+                      ),
+                      body: Stack(
+                        children: [
+                          value.showCars(),
+                          if (value.isLoading == true)
+                            Center(
+                              child: showLoading(), // يظهر الـ loading هنا
+                            ),
+                        ],
+                      )),
+                )));
   }
-
-
-
 
   @override
   GetAllCarsViewModel init_my_view_model() {
-    GetServiceDataSupabaseService getServiceDataSupabaseService=
+    GetServiceDataSupabaseService getServiceDataSupabaseService =
         GetServiceDataSupabaseService();
-    GetServiceDataSupabaseRepo getCars=
+    GetServiceDataSupabaseRepo getCars =
         GetServiceDataSupabaseRepo(getServiceDataSupabaseService);
     // TODO: implement init_my_view_model
-    return GetAllCarsViewModel(getCars);
+    return GetAllCarsViewModel.getInstance(getCars);
   }
 
   @override
@@ -86,23 +80,30 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel
   @override
   showLoading() {
     // TODO: implement showLoading
-    return  Skeletonizer(child:
-    Padding(
-        padding: EdgeInsets.all(AppConstants.screenWidth * 0.036),
-        child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: AppConstants.screenWidth * 0.03,
-              mainAxisSpacing: AppConstants.screenHeight * 0.017,
-              childAspectRatio: 0.8,
-            ),
-            itemCount: 6,
-            itemBuilder: (context, index) {
-
-              return CarScreenItem
-                ();
-            })));
-
+    return Skeletonizer(
+        child: Padding(
+            padding: EdgeInsets.all(AppConstants.screenWidth * 0.036),
+            child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: AppConstants.screenWidth * 0.03,
+                  mainAxisSpacing: AppConstants.screenHeight * 0.017,
+                  childAspectRatio: 0.8,
+                ),
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  final car = CarBuilder()
+                      .setItemName("name")
+                      .setItemDescription("description")
+                      .setItemImageUrl(
+                          "https://firebasestorage.googleapis.com/v0/b/codiaadv-826b2.firebasestorage.app/o/blogs%2F470224519_122136015524381851_4220010285083589484_n.jpg?alt=media&token=6f7deb2e-dddc-48aa-9b94-0f2818aa329a") // ✅ بعد رفع الصورة
+                      .setItemPricing(
+                          12) // pricing تصحيح هنا برضو
+                      .build();
+                  return CarScreenItem(
+                    carModel: car,
+                  );
+                })));
   }
 
   @override
@@ -120,7 +121,7 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel
   }
 
   @override
-  gridViewData(List<AddCarModel> cars) {
+  gridViewData(List<CarModel> cars) {
     // TODO: implement gridViewData
     return Padding(
         padding: EdgeInsets.all(AppConstants.screenWidth * 0.036),
@@ -134,8 +135,8 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel
             itemCount: cars.length,
             itemBuilder: (context, index) {
               var carModel = cars[index];
-              return
-                CarScreenItem(carModel: carModel);
-            }));;
+              return CarScreenItem(carModel: carModel);
+            }));
+    ;
   }
 }

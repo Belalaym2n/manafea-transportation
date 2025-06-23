@@ -1,19 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
+import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/routing/appRoutes.dart';
 
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../config/appColors.dart';
+import '../../languagesScreen/languageScreen.dart';
 
 class ProfileScreenItem extends StatefulWidget {
-    ProfileScreenItem({super.key,
+  ProfileScreenItem({
+    super.key,
     required this.name,
     required this.phoneNumber,
-    });
+  });
+
   String? name;
   String? phoneNumber;
 
@@ -24,13 +29,26 @@ class ProfileScreenItem extends StatefulWidget {
 class _ProfileScreenItemState extends State<ProfileScreenItem> {
   int index = -1;
 
-
-
+  bool isLoginWithEmail = false;
 
   @override
   void initState() {
     super.initState();
-   }
+    checkLogin();
+  }
+
+  String? email;
+
+  checkLogin() async {
+    email = await SharedPreferencesHelper.getData(
+        SharedSharedPreferencesKeys.email);
+    if (email != null && email.toString().trim().isNotEmpty) {
+      setState(() {
+        print("email $email");
+        isLoginWithEmail = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +66,6 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                 child: widget,
               ),
             ),
-
             children: [
               SizedBox(height: AppConstants.screenHeight * 0.04),
               _buildDrawerData(
@@ -65,9 +82,14 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                   isSelected: index == 1,
                   onTap: () {
                     index = 1;
-                    setState(() {});
+                    print("object");
+
+                    setState(() {
+
+                    });
                   },
-                  name:widget. phoneNumber,
+                  name:
+                  isLoginWithEmail ==true? email : widget.phoneNumber,
                   icon: Icons.phone,
                   iconColor: AppColors.primaryColor),
               SizedBox(height: AppConstants.screenHeight * 0.04),
@@ -75,44 +97,47 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                   isSelected: index == 2,
                   onTap: () {
                     index = 2;
-                    setState(() {});
+                    setState(() {
+                      Navigator.push(context, MaterialPageRoute(builder:
+                      (context) => const LanguageScreen(),));
+                    });
                   },
-                  name: "Setting",
+                  name: LocaleKeys.drawer_setting.tr(),
                   icon: Icons.settings,
                   iconColor: Colors.black),
               SizedBox(height: AppConstants.screenHeight * 0.04),
               _buildDrawerData(
                   isSelected: index == 3,
-                  onTap: () {
+                  onTap: () async {
                     index = 3;
-                    setState(() {
+                    setState(() {});
 
-                    });
-
-             SharedPreferencesHelper.clearAll();
-             Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login,
-                   (route) => false,);
+                await     SharedPreferencesHelper.clearAll();
+                     Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoutes.login,
+                      (route) => false,
+                    );
                   },
                   widgetIcon: icon_widget(
                       icon: Icons.login_outlined, isSelected: index == 3),
-                  name: "Logout",
+                  name: LocaleKeys.drawer_logout.tr(),
                   iconColor: Colors.red),
-
               SizedBox(height: AppConstants.screenHeight * 0.04),
               _buildDrawerData(
                 isSelected: index == 4,
                 onTap: () {
-                  index =4;
+                  index = 4;
                   setState(() {
                     Future.delayed(
-                        Duration(
+                        const Duration(
                           milliseconds: 500,
                         ), () {
                       Scaffold.of(context).closeDrawer();
                     });
                   });
                 },
-                name: "Close",
+                name: LocaleKeys.drawer_close.tr(),
                 iconColor: Colors.red,
                 widgetIcon:
                     icon_widget(icon: Icons.close, isSelected: index == 5),
@@ -134,7 +159,6 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
           color: isSelected ? AppColors.primaryColor : Colors.red,
           shape: BoxShape.circle),
       child: Icon(
-        textDirection: TextDirection.ltr,
         weight: 23,
         icon,
         color: Colors.white,
@@ -145,7 +169,7 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
 
   Widget _buildDrawerData({
     IconData? icon,
-    required String ?name,
+    required String? name,
     required bool isSelected,
     required Color iconColor,
     Widget? widgetIcon,
@@ -153,7 +177,7 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
   }) {
     return InkWell(
       onTap: () {
-         onTap();
+        onTap();
       },
       child: Padding(
         padding: isSelected
@@ -181,8 +205,7 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                           color: isSelected ? Colors.white : iconColor)
                       : widgetIcon!,
                   SizedBox(width: AppConstants.screenWidth * 0.05),
-                  (name.toString() ?? '').isEmpty
-                  || name==null
+                  (name.toString() ?? '').isEmpty || name == null
                       ? textLoading()
                       : Text(
                           name,

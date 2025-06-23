@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 
 class Result<T> {
 final T?data;

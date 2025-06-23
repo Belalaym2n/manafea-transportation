@@ -20,6 +20,27 @@ abstract class OrderWidgetStrategy {
   }
 
   bool canHandle(BaseOrder order);
-  Widget buildWidget(BaseOrder order,  Function(String) cancelOrder
-      );
+
+  Widget buildWidget(BaseOrder order, Function(String) cancelOrder);
+}
+abstract class OrderWidgetAdminStrategy {
+  static final List<OrderWidgetAdminStrategy> _strategies = [];
+
+  static void register(OrderWidgetAdminStrategy strategy) {
+    _strategies.add(strategy);
+  }
+
+  static List<OrderWidgetAdminStrategy> get strategies => _strategies;
+
+  static OrderWidgetAdminStrategy? getStrategy(BaseOrder order) {
+    try {
+      return _strategies.firstWhere((s) => s.canHandle(order));
+    } catch (_) {
+      return null;
+    }
+  }
+
+  bool canHandle(BaseOrder order);
+
+  Widget buildWidget(BaseOrder order,Function(String id ,String status) updateStatus);
 }

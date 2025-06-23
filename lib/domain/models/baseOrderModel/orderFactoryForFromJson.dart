@@ -23,7 +23,6 @@ class OrderFactoryRegistry {
 class HotelOrderFactory extends OrderFactory {
   static final _instance = HotelOrderFactory._();
 
-  // استخدم ثابت للـ factory بدلاً من التسجيل اليدوي
   factory HotelOrderFactory() {
     OrderFactoryRegistry.register(_instance);
     return _instance;

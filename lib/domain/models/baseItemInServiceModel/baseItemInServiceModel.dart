@@ -26,6 +26,7 @@
   }
 
  }
+
 abstract class BaseItemBuilder<T extends BaseItemInServiceModel,
 B extends BaseItemBuilder<T, B>> {
   String? itemName;

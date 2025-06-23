@@ -20,7 +20,9 @@ class _ActivityScreenBookingItemState extends State<ActivityScreenBookingItem> {
   Widget build(BuildContext context) {
     return  Column(
       children: [
-        buildBookingImage(imagePath: widget.activity.itemImageUrl,
+        buildBookingImage(
+            context: context,
+            imagePath: widget.activity.itemImageUrl,
             imageName: widget.activity.itemName)
         ,Padding(
           padding: EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.05),

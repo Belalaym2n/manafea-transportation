@@ -1,12 +1,11 @@
 import 'package:manafea/domain/models/baseItemInServiceModel/baseItemInServiceModel.dart';
 
-class AddCarModel extends BaseItemInServiceModel{
-  AddCarModel._({
+class CarModel extends BaseItemInServiceModel{
+  CarModel._({
     required String name,
     required String description,
     required String imageUrl,
     required int pricing,
-
     required String address,
   }) : super(
     itemAddress: address,
@@ -21,8 +20,8 @@ class AddCarModel extends BaseItemInServiceModel{
     return json;
   }
 
-  factory AddCarModel.fromJson(Map<String, dynamic> json) {
-    return AddCarModel._(
+  factory CarModel.fromJson(Map<String, dynamic> json) {
+    return CarModel._(
       name: json['itemName'],
       description: json['itemDescription'],
       imageUrl: json['itemImageUrl'],
@@ -35,12 +34,12 @@ class AddCarModel extends BaseItemInServiceModel{
 
 
 class CarBuilder extends BaseItemBuilder<
-AddCarModel ,CarBuilder>{
+    CarModel ,CarBuilder>{
   @override
-  AddCarModel build() {
+  CarModel build() {
     // TODO: implement build
 
-    return AddCarModel._(
+    return CarModel._(
       name: itemName??"",
       description: itemDescription??"",
       address: itemAddress??'',

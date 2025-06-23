@@ -9,6 +9,7 @@ class LoginDataRepo {
   Future<void> uploadUserToDatabase({required UserModel user}) async {
     try {
       await loginDataService.uploadUserDataToDatabase(user: user);
+
     } catch (e) {
       throw Exception();
     }

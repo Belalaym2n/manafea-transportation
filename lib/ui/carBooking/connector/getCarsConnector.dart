@@ -16,7 +16,7 @@ abstract class GetCarsConnector extends BaseConnector{
   }
 
 
-  gridViewData(List<AddCarModel> cars);
+  gridViewData(List<CarModel> cars);
   emptyData();
 
 

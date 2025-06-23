@@ -9,6 +9,7 @@ import 'package:manafea/ui/activity/connector/activityConnector.dart';
 
 import '../../../data/repositories/activity/getActivitySupabseRepo.dart';
 import '../../../data/repositories/orderRepo/requestOrderRepo.dart';
+import '../../../data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 import '../../core/shared_widget/stepper_widget.dart';
 
 class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
@@ -31,7 +32,7 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
 
   int get peopleCount => _peopleCount;
   String dateString = LocaleKeys.activity_screen_click_to_select.tr();
-  DateTime focusedDateCheckOut = DateTime.now();
+  DateTime focusedDateCheckOut = DateTime.now().add(Duration(days: 1));
   RequestOrderRepo requestOrderRepo;
 
   ActivityBookingViewModel(this.activityModel, this.requestOrderRepo);
@@ -139,6 +140,8 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
     try {
       final DateFormat formatter = DateFormat('h:mm a');
       setLoading(true);
+      String id =await SharedPreferencesHelper.getData(SharedSharedPreferencesKeys.userId);
+
       final order = RequestActivityOrderBuilder()
           .setName(_name)
           .setActivityName(activityModel.itemName)
@@ -147,7 +150,7 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
           .setPhoneNumber(_phoneNumber)
           .setOrderDate(dateString)
           .setPrice(totalPrice?.toDouble() ?? activityModel.itemPricing.toDouble())
-          .setUserId("userID")
+          .setUserId(id)
           .setStatus("Pending")
           .setTime(formatter.format(DateTime.now()))
           .build();

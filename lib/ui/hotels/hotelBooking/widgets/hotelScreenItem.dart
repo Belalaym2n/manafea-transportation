@@ -20,7 +20,9 @@ class _HotelScreenItemState extends State<HotelScreenItem> {
     return  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBookingImage(imagePath:
+            buildBookingImage(
+                context: context,
+                imagePath:
             widget.hotelModel.itemImageUrl
                 , imageName: widget.hotelModel.itemName
             ),

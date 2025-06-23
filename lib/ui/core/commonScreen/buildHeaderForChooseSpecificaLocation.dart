@@ -1,10 +1,12 @@
  import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
 import '../../../config/appImages.dart';
+import '../../../config/localization/localization.dart';
 import '../../../generated/locale_keys.g.dart';
  import 'chooseLocationPicker.dart';
 
@@ -30,25 +32,7 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
  }
 
  class _BuildHeaderForChooseSpecificLocationState extends State<BuildHeaderForChooseSpecificLocation> {
-   final List<String> location = [
-     LocaleKeys.locations_riyadh,
-     LocaleKeys.locations_jeddah,
-     LocaleKeys.locations_makkah,
-     LocaleKeys.locations_madinah,
-     LocaleKeys.locations_dammam,
-     LocaleKeys.locations_khobar,
-     LocaleKeys.locations_taif,
-     LocaleKeys.locations_buraidah,
-     LocaleKeys.locations_abha,
-     LocaleKeys.locations_hail,
-     LocaleKeys.locations_tabuk,
-     LocaleKeys.locations_yanbu,
-     LocaleKeys.locations_qassim,
-     LocaleKeys.locations_jazan,
-     LocaleKeys.locations_najran,
-     LocaleKeys.locations_al_bahah,
-   ];
-   @override
+    @override
    Widget build(BuildContext context) {
      return Scaffold(
        appBar: AppBar(
@@ -67,8 +51,7 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
            children: [
              widget.questionText,
              SizedBox(height: AppConstants.screenHeight * 0.02),
-             // 2% من الارتفاع
-             Row(
+              Row(
                children: [
                  Expanded(
                    child: InkWell(
@@ -76,7 +59,7 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
                          context: context,
                          changeLocation: widget.changeLocation,
                          location: widget.location,
-                         locations: location),
+                     ),
                      child: Container(
                        padding: EdgeInsets.symmetric(
                            vertical: AppConstants.screenHeight * 0.015,
@@ -127,6 +110,7 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
    _buildElevatedButton() {
      return ElevatedButton(
        onPressed: () {
+
          widget.location!=null?
          widget.changeSearchBool():null;
        },

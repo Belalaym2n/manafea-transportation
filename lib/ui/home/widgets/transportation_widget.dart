@@ -28,7 +28,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
         ),
           SizedBox(height: 0.01 * AppConstants.screenHeight), // Adjust space based on screen height
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0.04 * AppConstants.screenWidth), // Adjust padding based on screen width
+          padding: EdgeInsets.symmetric(horizontal: 0.07 * AppConstants.screenWidth), // Adjust padding based on screen width
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -36,7 +36,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                   onTap: (){
                     Navigator.
                     push(context,MaterialPageRoute(builder:
-                        (context) => CarsScreen(),));
+                        (context) => const CarsScreen(),));
 
                   },
                   icon: Icons.directions_car,
@@ -53,8 +53,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                   },
                   icon:
               Icons.hotel, iconName:  LocaleKeys.screensName_hotels.tr()),
-              _buildServicesWidget(icon: Icons.motorcycle, iconName: "Bike"),
-            ],
+             ],
           ),
         ),
       ],
@@ -75,17 +74,14 @@ class _ServicesWidgetState extends State<ServicesWidget> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          // عكس الحالة: إذا كانت الأيقونة محددة، قم بإلغاء تحديدها (تعيين null)، وإذا لم تكن محددة، حددها.
-          selectedIcon = isSelected ? null : icon;
+           selectedIcon = isSelected ? null : icon;
         });
 
-        // تأخير لفترة بسيطة قبل تنفيذ الدالة onTap
-        Future.delayed(Duration(milliseconds: 300), () {
+         Future.delayed(Duration(milliseconds: 300), () {
           onTap!();
         });
 
-        // نضيف setState ثاني لتغيير الـ selectedIcon لو عايز ترجعه لحالته الأصلية بعد التأخير
-        Future.delayed(Duration(milliseconds: 300), () {
+         Future.delayed(Duration(milliseconds: 300), () {
           setState(() {
             selectedIcon = isSelected ? icon : null;
           });
@@ -97,7 +93,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
-            padding: EdgeInsets.all(0.034 * AppConstants.screenWidth), // Adjust padding based on screen width
+            padding: EdgeInsets.all(0.044 * AppConstants.screenWidth), // Adjust padding based on screen width
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isSelected ? AppColors.primaryColor : Colors.grey[300],

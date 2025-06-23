@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/config/appImages.dart';
+import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/routing/appRoutes.dart';
 
@@ -27,15 +28,19 @@ class _SplashScreenState extends State<SplashScreen>
     );
     _fadeIn = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _slideUp = Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
+        .animate(CurvedAnimation(parent: _controller, curve:
+    Curves.easeOutBack));
 
     Future.delayed(const Duration(milliseconds: 500), () {
-      _controller.forward();
+      _controller.forward() ;
     });
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.autoLogin, (route) => false
+    Future.delayed(const Duration(seconds: 3), () async {
+  // await SharedPreferencesHelper.clearAll();
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.autoLogin,
+            (route) => false
         ,);
     });
+
   }
 
   @override
@@ -44,8 +49,13 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
+  deleteCashe() async {
+   await SharedPreferencesHelper.clearAll();
+  }
   @override
   Widget build(BuildContext context) {
+    final isEnglish = context.locale.languageCode == 'en';
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
@@ -55,9 +65,9 @@ class _SplashScreenState extends State<SplashScreen>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _animatedSlide(-1, _logo()),
+                _animatedSlide(isEnglish ? -1 : 1, _logo()),
                   SizedBox(width: AppConstants.screenWidth*0.022),
-                _animatedSlide(1, _logoText()),
+                _animatedSlide(isEnglish ? 1 : -1, _logoText()),
               ],
             ),
             SizedBox(height: AppConstants.screenHeight * 0.02),

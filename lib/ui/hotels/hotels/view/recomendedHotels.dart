@@ -8,8 +8,7 @@ import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/hotels/hotels/viewModel/getALLHotelsViewModel.dart';
 import 'package:manafea/ui/hotels/hotels/widgets/recomendedHotelsItem/recommendedHotelItem.dart';
-import 'package:manafea/ui/login/widgets/loadingWidget.dart';
-import 'package:provider/provider.dart';
+ import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../config/appConstants.dart';
@@ -27,6 +26,7 @@ class _RecommendedHotelsState extends BaseView<GetAllHotelViewModel
 ,RecommendedHotels> implements GetHotelsConnector {
   @override
   void initState() {
+    print("h ${AppConstants.screenHeight}");
     // TODO: implement initState
     super.initState();
     viewModel.connector=this;
@@ -37,14 +37,18 @@ class _RecommendedHotelsState extends BaseView<GetAllHotelViewModel
     return ChangeNotifierProvider.value(
       value: viewModel,
       child: Consumer<GetAllHotelViewModel>(
-        builder: (context, value, child) =>   Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-            serviceName(name: LocaleKeys.home_screen_recommended_hotels.tr()),
-        SizedBox(height: AppConstants.screenHeight * 0.01),
-
-            viewModel.showRecommendedHotel()
-            ]),
+        builder: (context, value, child) =>   SingleChildScrollView(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              serviceName(name: LocaleKeys.home_screen_recommended_hotels.tr()),
+          SizedBox(height: AppConstants.screenHeight * 0.01),
+               SizedBox(
+                 height: AppConstants.screenHeight*0.29,
+                 child: 
+               viewModel.showRecommendedHotel())
+              ]),
+        ),
       ),
     )
      ;
@@ -55,11 +59,10 @@ class _RecommendedHotelsState extends BaseView<GetAllHotelViewModel
     GetAllHotelsSupabaseService getAllHotelsSupabaseService=
     GetAllHotelsSupabaseService()
     ;
-
     GetAllHotelsRepo getAllHotelsRepo=
         GetAllHotelsRepo(getAllHotelsSupabaseService);
     // TODO: implement init_my_view_model
-    return GetAllHotelViewModel(getAllHotelsRepo);
+    return GetAllHotelViewModel.getInstance(getAllHotelsRepo);
   }
 
   @override
@@ -73,11 +76,14 @@ class _RecommendedHotelsState extends BaseView<GetAllHotelViewModel
     final model=
         AddHotelBuilder().setItemAddress("address")
     .setItemName("name")
+        .setItemImageUrl("https://firebasestorage.googleapis.com/v0/b/codiaadv-826b2.firebasestorage.app/o/blogs%2F470224519_122136015524381851_4220010285083589484_n.jpg?alt=media&token=6f7deb2e-dddc-48aa-9b94-0f2818aa329a"// ✅ بعد رفع الصورة
+    )
     .build();
     // TODO: implement showLoading
     return
 
-      Skeletonizer(child: RecommendedHotelItem(hotels: [
+      Skeletonizer(child: RecommendedHotelItem(
+          hotels: [
       model,
       model,
     ]));

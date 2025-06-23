@@ -5,14 +5,14 @@ import 'package:manafea/ui/addCar/connector/addCarConnector.dart';
 import 'package:manafea/ui/addCar/viewModel/addCarViewModel.dart';
 import 'package:manafea/ui/addCar/widgets/addCarItem.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
-import 'package:manafea/ui/login/widgets/loadingWidget.dart';
+import 'package:manafea/ui/auth/widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../config/appColors.dart';
 import '../../../data/repositories/addActivityRepo/addActivityToSubabaseRepo.dart';
 import '../../../data/repositories/addActivityRepo/imagePickerRepo.dart';
-import '../../../data/services/addActivityService/addActivitySupebaseService.dart';
-import '../../../data/services/addActivityService/imagePickerService.dart';
+import '../../../data/services/addItemInService/addItemInService.dart';
+import '../../../data/services/addItemInService/imagePickerService.dart';
 
 class AddCarScreen extends StatefulWidget {
   const AddCarScreen({super.key});
@@ -40,7 +40,7 @@ class _AddCarScreenState extends BaseView<AddCarViewModel, AddCarScreen>
                 backgroundColor: Colors.white,
                 appBar: AppBar(
                   title: Text(
-                    ' Add Car',
+                    ' إضافة سيارة',
                     style: TextStyle(color: AppColors.primaryColor),
                   ),
                   backgroundColor: Colors.white,
@@ -89,6 +89,17 @@ class _AddCarScreenState extends BaseView<AddCarViewModel, AddCarScreen>
   @override
   showLoading() {
     // TODO: implement showLoading
-    return LoadingWidget();
+    return const LoadingWidget();
+  }
+  @override
+  success() {
+    // TODO: implement successWidget
+    return ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        duration: Duration(seconds: 2),
+        content: Text("تمت الإضافة بنجاح"),
+        backgroundColor: Colors.green,
+      ),
+    );
   }
 }

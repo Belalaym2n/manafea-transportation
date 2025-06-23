@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/domain/models/carModels/addCarModel.dart';
+import 'package:manafea/ui/addCar/connector/addCarConnector.dart';
 
 import '../../../data/repositories/addActivityRepo/addActivityToSubabaseRepo.dart';
 import '../../../data/repositories/addActivityRepo/imagePickerRepo.dart';
 
-class AddCarViewModel extends BaseViewModel{
+class AddCarViewModel extends BaseViewModel<AddCarConnector> {
   File? _image;
   bool _isLoading = false;
   String? imageUrl;
@@ -17,10 +18,12 @@ class AddCarViewModel extends BaseViewModel{
   ImagePickerRepo imagePickerRepo;
 
   AddItemInServiceTableToSupabseRepo addCar;
-  AddCarViewModel(this.imagePickerRepo,this.addCar);
+
+  AddCarViewModel(this.imagePickerRepo, this.addCar);
 
   String? get location => _location;
   String? _location;
+
   changeLocation(String locationName) {
     _location = locationName;
 
@@ -28,26 +31,23 @@ class AddCarViewModel extends BaseViewModel{
   }
 
   Future<dynamic> pickImage() async {
-    try {
+
       _image = await imagePickerRepo.pickImage();
       notifyListeners();
-    } catch (e) {
-      connector!.onError(e.toString());
-      rethrow;
-    }
+
   }
+
   Future<String?> uploadImage() async {
     try {
       if (_image == null) throw Exception("No image selected");
       return await imagePickerRepo.uploadImage(_image!);
-    } catch (e, stacktrace) {
-      print("Upload error: ${e.toString()}");
-      print("Stacktrace: $stacktrace"); // 👈 مهم جداً
-      return connector?.onError(e.toString());
+    } catch (e) {
+       return connector?.onError(e.toString());
     }
   }
-  Future addCarToSupabase(String name, String description,
-      String pricing) async {
+
+  Future addCarToSupabase(
+      String name, String description, String pricing) async {
     setLoading(true);
     try {
       imageUrl = await uploadImage(); // ← هنا بناخد رابط الصورة
@@ -63,14 +63,14 @@ class AddCarViewModel extends BaseViewModel{
           .build();
 
       await addCar.addItemInService(car, 'Cars');
-      setLoading(false);
 
       _image = null;
-      imageUrl = null; // كمان نصفر الurl بعد ما نخلص
-      notifyListeners();
-    } catch (e) {
-      print("error ${e.toString()}");
+      imageUrl = null; //
       setLoading(false);
+
+      connector!.success();
+    } catch (e) {
+       setLoading(false);
       return connector!.onError(e.toString());
     }
   }

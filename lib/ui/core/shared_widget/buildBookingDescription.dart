@@ -28,15 +28,7 @@ Widget buildBookingDescription({
               ),
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            splashRadius: AppConstants.screenWidth * 0.05,
-            icon: Icon(
-              Icons.more_horiz,
-              size: AppConstants.screenWidth * 0.06,
-              color: Colors.black54,
-            ),
-          ),
+
         ],
       ),
 

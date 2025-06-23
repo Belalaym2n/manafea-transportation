@@ -1,15 +1,14 @@
-import 'package:manafea/data/services/addActivityService/addActivitySupebaseService.dart';
-import 'package:manafea/domain/models/baseItemInServiceModel/baseItemInServiceModel.dart';
+  import '../../../data/services/addItemInService/addItemInService.dart';
+ import 'package:manafea/domain/models/baseItemInServiceModel/baseItemInServiceModel.dart';
 
-import '../../../domain/models/activityModel/activityModel.dart';
 
 class AddItemInServiceTableToSupabseRepo{
-  AddItemInServiceTableToSupabase addActivityToSupabase;
-  AddItemInServiceTableToSupabseRepo(this.addActivityToSupabase);
+  AddItemInServiceTableToSupabase addItemInServiceTableToSupabase;
+  AddItemInServiceTableToSupabseRepo(this.addItemInServiceTableToSupabase);
 
   addItemInService(BaseItemInServiceModel item,String serviceName) async {
     try{
-      await addActivityToSupabase.addItem(item,serviceName);
+      await addItemInServiceTableToSupabase.addItem(item,serviceName);
     }catch(E){
       throw Exception(E.toString());
     }

@@ -17,51 +17,53 @@ class AddHotelViewModel extends BaseViewModel<AddHotelConnector> {
   File? get image1 => _image;
   ImagePickerRepo imagePickerRepo;
   AddItemInServiceTableToSupabseRepo addHotel;
-  AddHotelViewModel(this.imagePickerRepo,this.addHotel);
+
+  AddHotelViewModel(this.imagePickerRepo, this.addHotel);
 
   String? get location => _location;
   String? _location;
-  changeLocation(String locationName,String d) {
+
+  changeLocation(String locationName, String d) {
     _location = locationName;
     notifyListeners();
   }
 
   Future<dynamic> pickImage() async {
-    try {
-      _image = await imagePickerRepo.pickImage();
-      notifyListeners();
-    } catch (e) {
-      connector!.onError(e.toString());
-      rethrow;
-    }
+    _image = await imagePickerRepo.pickImage();
+    notifyListeners();
   }
+
   Future<String?> uploadImage() async {
     try {
       if (_image == null) throw Exception("No image selected");
       return await imagePickerRepo.uploadImage(_image!);
-    } catch (e, stacktrace) {
-      print("Upload error: ${e.toString()}");
-      print("Stacktrace: $stacktrace"); // 👈 مهم جداً
+    } catch (e) {
       return connector?.onError(e.toString());
     }
   }
 
-  Future addHotelToSupabase(AddHotelModel hotel) async {
+  Future addHotelToSupabase(AddHotelModel hotelModel) async {
     setLoading(true);
     try {
       imageUrl = await uploadImage(); // ← هنا بناخد رابط الصورة
-      notifyListeners();
-      print(_image);
-      print(imageUrl);
-      await addHotel.addItemInService(hotel,'hotels');
-      setLoading(false);
-      print("Activity added successfully");
+      final hotel = AddHotelBuilder()
+          .setItemDescription(hotelModel.itemDescription)
+          .setCommonRoomPricing(
+              int.parse(hotelModel.commonRoomPricing.toString()))
+          .setItemName(hotelModel.itemName)
+          .setItemImageUrl(imageUrl.toString())
+          .setSpecialRoomPricing(
+              int.parse(hotelModel.specialRoomPricing.toString()))
+          .setItemAddress(hotelModel.itemAddress)
+          .setCountry(_location.toString())
+          .build();
+      await addHotel.addItemInService(hotel, 'hotels');
       _image = null;
-      print(_image);
-      print(imageUrl);
-      // return connector!.successWidget();
+      _location = null;
+      setLoading(false);
+      return connector?.successWidget();
     } catch (e) {
-      print("error ${e.toString()}");
+      print("error occur ${e.toString()}");
       setLoading(false);
       return connector!.onError(e.toString());
     }

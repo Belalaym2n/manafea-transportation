@@ -1,18 +1,17 @@
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/addActivityRepo/addActivityToSubabaseRepo.dart';
 import 'package:manafea/data/repositories/addActivityRepo/imagePickerRepo.dart';
-import 'package:manafea/data/services/addActivityService/addActivitySupebaseService.dart';
-import 'package:manafea/data/services/addActivityService/imagePickerService.dart';
-import 'package:manafea/ui/addActivity/connector/addActivityConnector.dart';
+  import 'package:manafea/ui/addActivity/connector/addActivityConnector.dart';
 import 'package:manafea/ui/addActivity/viewModel/addActivityViewModel.dart';
-import 'package:manafea/ui/addActivity/widgets/successWidget.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
-import 'package:manafea/ui/login/widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
+ import '../../../data/services/addItemInService/addItemInService.dart';
+import '../../../data/services/addItemInService/imagePickerService.dart';
 
 import '../../../config/appColors.dart';
+ import '../../auth/widgets/loadingWidget.dart';
 import '../widgets/addActivityAitem.dart';
 
 class AddActivity extends StatefulWidget {
@@ -22,63 +21,67 @@ class AddActivity extends StatefulWidget {
   State<AddActivity> createState() => _AddActivityState();
 }
 
-class _AddActivityState extends BaseView<AddActivityViewModel,
-    AddActivity>
+class _AddActivityState extends BaseView<AddActivityViewModel, AddActivity>
     implements AddActivityConnector {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.connector=this;
+    viewModel.connector = this;
   }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
         value: viewModel,
-        child:  AbsorbPointer(
-        absorbing: viewModel.isLoading,
-        child:Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('إضافة نشاط جديد',style: TextStyle(
-            color:AppColors.primaryColor
-        ),),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-      ),
-      body:Consumer<AddActivityViewModel>(
-          builder: (context, value, child) =>Stack(children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              AddActivityItem(
-                publicUrl: value.imageUrl.toString(),
-                image: value.image1 ,
-                addActivity:
-                    value.addActivity,
-                openImage: value.pickImage,
-              ),
-            ],
-          ),
-        ),
-
-        if (value.isLoading) // عرض الـ loading indicator
-          showLoading(),
-      ],)
-        ))));
+        child: AbsorbPointer(
+            absorbing: viewModel.isLoading,
+            child: Scaffold(
+                backgroundColor: Colors.white,
+                appBar: AppBar(
+                  title: const Text(
+                    'إضافة نشاط جديد',
+                    style: TextStyle(color: AppColors.primaryColor),
+                  ),
+                  backgroundColor: Colors.white,
+                  centerTitle: true,
+                ),
+                body: Consumer<AddActivityViewModel>(
+                    builder: (context, value, child) => Stack(
+                          children: [
+                            SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  AddActivityItem(
+                                    publicUrl: value.imageUrl.toString(),
+                                    image: value.image1,
+                                    addActivity: value.addActivity,
+                                    openImage: value.pickImage,
+                                    onChangedDestination:
+                                        value.changeDestination,
+                                    selectedDestination: value.destination,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            if (value.isLoading) // عرض الـ loading indicator
+                              showLoading(),
+                          ],
+                        )))));
   }
 
   @override
   AddActivityViewModel init_my_view_model() {
     ImagePickerService imagePickerService = ImagePickerService();
     ImagePickerRepo imagePickerRepo = ImagePickerRepo(imagePickerService);
-    AddItemInServiceTableToSupabase addActivityToSupabaseService=AddItemInServiceTableToSupabase();
+    AddItemInServiceTableToSupabase addActivityToSupabaseService =
+        AddItemInServiceTableToSupabase();
 
-  AddItemInServiceTableToSupabseRepo addActivityToSupabseRepo
-  =AddItemInServiceTableToSupabseRepo(addActivityToSupabaseService);
+    AddItemInServiceTableToSupabseRepo addActivityToSupabseRepo =
+        AddItemInServiceTableToSupabseRepo(addActivityToSupabaseService);
 
     // TODO: implement init_my_view_model
-    return AddActivityViewModel(imagePickerRepo,addActivityToSupabseRepo);
+    return AddActivityViewModel(imagePickerRepo, addActivityToSupabseRepo);
   }
 
   @override
@@ -98,9 +101,7 @@ class _AddActivityState extends BaseView<AddActivityViewModel,
     // TODO: implement successWidget
     return ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        duration: Duration(
-          seconds: 2
-        ),
+        duration: Duration(seconds: 2),
         content: Text("تمت الإضافة بنجاح"),
         backgroundColor: Colors.green,
       ),

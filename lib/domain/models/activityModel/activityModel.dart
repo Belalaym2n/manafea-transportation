@@ -27,12 +27,12 @@ class ActivityModel extends BaseItemInServiceModel {
 
   factory ActivityModel.fromJson(Map<String, dynamic> json) {
     return ActivityModel._(
-      name: json['itemName'],
-      description: json['itemDescription'],
-      imageUrl: json['itemImageUrl'],
-      address: json['itemAddress'],
-      pricing: json['itemPricing'],
-      destination: json['destination'],
+      name: json['itemName']??'',
+      description: json['itemDescription']??'',
+      imageUrl: json['itemImageUrl']??'',
+      address: json['itemAddress']??'',
+      pricing: json['itemPricing']??'',
+      destination: json['destination']??'',
     );
   }
 

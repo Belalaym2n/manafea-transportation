@@ -10,12 +10,12 @@ import 'package:manafea/ui/carBooking/viewModel/CarBookingViewModel.dart';
 import 'package:manafea/ui/carBooking/widgets/car_booking_screen_item.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/core/shared_widget/succes_widget.dart';
-import 'package:manafea/ui/login/widgets/loadingWidget.dart';
-import 'package:provider/provider.dart';
+ import 'package:provider/provider.dart';
 
 import '../../../data/repositories/orderRepo/requestOrderRepo.dart';
 import '../../../data/services/orderServices/requestOrderService.dart';
 import '../../activity/widget/bookingActivity/stepperButton.dart';
+import '../../auth/widgets/loadingWidget.dart';
 import '../../core/shared_widget/buildConfirmBookingInStepper.dart';
 import '../../core/shared_widget/build_check_in_check_out_widget_in_stepper.dart';
 import '../../core/shared_widget/userBookingData.dart';
@@ -24,7 +24,7 @@ import '../../core/shared_widget/userBookingData.dart';
 class CarBookingScreen extends StatefulWidget {
     CarBookingScreen({super.key,required this.carModel});
 
-    AddCarModel carModel;
+    CarModel carModel;
 
   @override
   State<CarBookingScreen> createState() => _CarBookingScreenState();
@@ -90,17 +90,11 @@ class _CarBookingScreenState
               )),
     );
   }
-
   @override
   CarBookingViewModel init_my_view_model() {
-    RequestOrderService requestOrderService
-    =RequestOrderService();
-
-    RequestOrderRepo requestOrderRepo
-    =RequestOrderRepo(requestOrderService);
-    // TODO: implement init_my_view_model
-    // TODO: implement init_my_view_model
-    return CarBookingViewModel(widget.carModel,requestOrderRepo);
+    RequestOrderService requestOrderService = RequestOrderService();
+    RequestOrderRepo requestOrderRepo = RequestOrderRepo(requestOrderService);
+    return CarBookingViewModel(widget.carModel, requestOrderRepo);
   }
 
   @override

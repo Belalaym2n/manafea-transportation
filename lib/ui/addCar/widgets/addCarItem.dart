@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -10,55 +9,55 @@ import '../../core/shared_widget/addImageWidget.dart';
 import '../../core/shared_widget/elevatedButton.dart';
 import '../../core/shared_widget/textFormFieldForAdmin.dart';
 
-class AddCarItem  extends StatefulWidget {
-    AddCarItem ({super.key   , required this.addCar,
-    required this.publicUrl,
-    required this.openImage, required this.image});
+class AddCarItem extends StatefulWidget {
+  AddCarItem(
+      {super.key,
+      required this.addCar,
+      required this.publicUrl,
+      required this.openImage,
+      required this.image});
 
   final Future<dynamic> Function() openImage;
-  File ? image;
-  String   publicUrl;
+  File? image;
+  String publicUrl;
 
-  Future Function(String, String ,
-      String ) addCar ;
+  Future Function(String, String, String) addCar;
 
   @override
-  State<AddCarItem > createState() => _AddCarItemState();
+  State<AddCarItem> createState() => _AddCarItemState();
 }
 
-class _AddCarItemState extends State<AddCarItem > {
-
+class _AddCarItemState extends State<AddCarItem> {
   TextEditingController nameController = TextEditingController();
 
   TextEditingController pricingController = TextEditingController();
 
   TextEditingController descriptionController = TextEditingController();
 
-
   bool get areFieldsValid =>
-           nameController.text.trim().isNotEmpty &&
-          pricingController.text.trim().isNotEmpty &&
-          descriptionController.text.trim().isNotEmpty &&
-          widget.image != null ;
+      nameController.text.trim().isNotEmpty &&
+      pricingController.text.trim().isNotEmpty &&
+      descriptionController.text.trim().isNotEmpty &&
+      widget.image != null;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // Listen to changes
-     nameController.addListener(_updateState);
+    nameController.addListener(_updateState);
     pricingController.addListener(_updateState);
     descriptionController.addListener(_updateState);
-   }
+  }
 
   void _updateState() => setState(() {});
 
   @override
   void dispose() {
-     pricingController.dispose();
+    pricingController.dispose();
     descriptionController.dispose();
     nameController.dispose();
-     super.dispose();
+    super.dispose();
   }
 
   @override
@@ -71,53 +70,37 @@ class _AddCarItemState extends State<AddCarItem > {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            buildChooseImage(
-                image: widget.image,
-                openImage:   widget.openImage
-            ),
+            buildChooseImage(image: widget.image, openImage: widget.openImage),
             SizedBox(height: AppConstants.screenHeight * 0.03),
-
-            buildTextField("Name", controller: nameController),
-
-            buildTextField("price", controller: pricingController),
-
-
-            buildTextField("description",
-                controller: descriptionController,
-                maxLines: 3),
-
-
-
+            buildTextField("اسم السيارة", controller: nameController),
+            buildTextField("سعر السيارة",
+                controller: pricingController,
+                keyboardType: TextInputType.number),
+            buildTextField("وصف السيارة",
+                controller: descriptionController, maxLines: 3),
             SizedBox(height: AppConstants.screenHeight * 0.04),
+            elevated_button(
+              onPressed: areFieldsValid
+                  ? () async {
+                      try {
+                        await widget.addCar(nameController.text,
+                            descriptionController.text, pricingController.text);
 
-
-            elevated_button(onPressed: areFieldsValid ? () async {
-              try{
-                await widget.addCar
-                  (
-
-                     nameController.text, descriptionController.text, pricingController.text);
-
-                nameController.clear();
-                descriptionController.clear();
-                pricingController.clear();
-                }catch(e){
-                print(e.toString());
-              }
-
-            } : () {
-              print("null");
-            },
-              valid:  areFieldsValid,
-              buttonName: "Save Activity",
-
+                        nameController.clear();
+                        descriptionController.clear();
+                        pricingController.clear();
+                      } catch (e) {
+                        print(e.toString());
+                      }
+                    }
+                  : () {
+                      print("null");
+                    },
+              valid: areFieldsValid,
+              buttonName: "إضافة سيارة",
             ),
             SizedBox(height: AppConstants.screenHeight * 0.04),
-
           ],
-
         ));
   }
-
 }

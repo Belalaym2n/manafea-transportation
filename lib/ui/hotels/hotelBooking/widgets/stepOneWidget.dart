@@ -13,15 +13,7 @@ Widget buildStepOneContentInStepperChooseRoomType({
 }) {
   return Column(
     children: [
-      Text(
-        LocaleKeys.hotelsScreen_please_choose_your_room_type.tr(),
 
-        style: TextStyle(
-          fontSize: AppConstants.screenWidth * (18 / 360), // 18 -> 0.05 تقريبًا
-          fontWeight: FontWeight.w900,
-          color: Colors.black,
-        ),
-      ),
       SizedBox(
         height: AppConstants.screenHeight * (8 / 776), // كان 0.01
       ),
