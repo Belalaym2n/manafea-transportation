@@ -52,7 +52,8 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+
+     return Container(
       color: const Color(0xFFF5F5F5), // خلفية فاتحة ومريحة للعين
       height: AppConstants.screenHeight,
       child: AnimationLimiter(
@@ -84,12 +85,9 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                     index = 1;
                     print("object");
 
-                    setState(() {
-
-                    });
+                    setState(() {});
                   },
-                  name:
-                  isLoginWithEmail ==true? email : widget.phoneNumber,
+                  name: isLoginWithEmail == true ? email : widget.phoneNumber,
                   icon: Icons.phone,
                   iconColor: AppColors.primaryColor),
               SizedBox(height: AppConstants.screenHeight * 0.04),
@@ -98,8 +96,11 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                   onTap: () {
                     index = 2;
                     setState(() {
-                      Navigator.push(context, MaterialPageRoute(builder:
-                      (context) => const LanguageScreen(),));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LanguageScreen(),
+                          ));
                     });
                   },
                   name: LocaleKeys.drawer_setting.tr(),
@@ -112,8 +113,8 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                     index = 3;
                     setState(() {});
 
-                await     SharedPreferencesHelper.clearAll();
-                     Navigator.pushNamedAndRemoveUntil(
+                    await SharedPreferencesHelper.clearAll();
+                    Navigator.pushNamedAndRemoveUntil(
                       context,
                       AppRoutes.login,
                       (route) => false,
@@ -133,6 +134,8 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                         const Duration(
                           milliseconds: 500,
                         ), () {
+                      setState(() {});
+
                       Scaffold.of(context).closeDrawer();
                     });
                   });
@@ -149,7 +152,6 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
     );
   }
 
-  Future<void> deleteAccount() async {}
 
   icon_widget({required IconData icon, required bool isSelected}) {
     return Container(

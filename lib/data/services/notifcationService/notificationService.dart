@@ -1,18 +1,45 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:manafea/config/appConstants.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../domain/models/notificationModel/notificationModel.dart';
+import '../../../ui/notification/widgets/notificationDetailedItem.dart';
 
 class GetNotificationService {
   // app id 9158013e-362c-4f0b-ae4b-576b4f1f670c
   static const String _apiUrl =
       'https://onesignal.com/api/v1/notifications';
-  static String appId = AppConstants.oneSignalAppId;
+  static String appId = AppConstants.oneSignalAPPID;
   static String restApiKey = AppConstants.oneSignalApiKey;
 
+  static final GlobalKey<NavigatorState> navigatorKey =
+  GlobalKey<NavigatorState>();
 
+  static openNotification(){
+  return  OneSignal.Notifications.addClickListener((event) {
+      final notification = event.notification;
+      NotificationModel notifications = NotificationModel(
+          date: DateTime.now().toString(),
+          time: DateTime.now().toString(),
+          description: notification.body.toString(),
+          id: notification.notificationId,
+          title: notification.title.toString(),
+          imageUrl: notification.bigPicture.toString());
+      navigatorKey.currentState?.pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => NotificationDetailedItem(
+            notificationModel: notifications,
+          ),
+        ),
+            (route) => route.isFirst,
+        // يحتفظ فقط بأول شاشة (الشاشة الأخيرة قبل الإشعار)
+      );
+    });
+
+  }
    Future<List<NotificationModel>> fetchNotifications() async {
     try {
       final response = await http.get(

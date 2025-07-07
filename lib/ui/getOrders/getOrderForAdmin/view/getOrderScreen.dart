@@ -34,6 +34,7 @@ class _GetOrdersScreenState
   @override
   void initState() {
 
+
     super.initState();
     print("h ${AppConstants.screenHeight}");
     print("h ${AppConstants.screenWidth}");
@@ -99,14 +100,14 @@ class _GetOrdersScreenState
         children: [
           Icon(
             Icons.inbox,
-            size: 72,
+            size: AppConstants.screenWidth*0.2,
             color: Colors.grey.withOpacity(0.5),
           ),
           const SizedBox(height: 16),
           Text(
             "No Orders Available",
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 0.05*AppConstants.screenWidth,
               fontWeight: FontWeight.w600,
               color: Colors.grey[600],
             ),
@@ -115,7 +116,7 @@ class _GetOrdersScreenState
           Text(
             "You're all caught up for today!",
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 0.022*AppConstants.screenWidth,
               color: Colors.grey[500],
             ),
           ),

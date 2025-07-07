@@ -7,8 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:manafea/data/services/notifcationService/notificationService.dart';
 import 'package:manafea/routing/appRoutes.dart';
-import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,8 +17,7 @@ import 'dart:developer' as developer;
 import 'config/appConstants.dart';
 import 'config/localization/localization.dart';
 import 'data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
-import 'domain/models/baseOrderModel/orderFactoryForFromJson.dart';
-import 'domain/models/notificationModel/notificationModel.dart';
+
 import 'firebase_options.dart';
 import 'generated/codegen_loader.g.dart';
 
@@ -26,7 +25,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  OneSignal.initialize("9158013e-362c-4f0b-ae4b-576b4f1f670c");
+  OneSignal.initialize(AppConstants.oneSignalAPPID);
   await GetStorage.init();
 
   await Firebase.initializeApp(
@@ -38,22 +37,20 @@ void main() async {
 
   await SharedPreferencesHelper.init();
   await Supabase.initialize(
-    url: "https://pjwaryjtumnzyjruiyzz.supabase.co",
-    anonKey:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBqd2FyeWp0dW1uenlqcnVpeXp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NDk4NjAsImV4cCI6MjA2MDMyNTg2MH0.kea1W9JUgeGhgIZI6FYGYiTlltQafjVA6TlD7khjzDk",
+    url:AppConstants.supabaseUrl,
+    anonKey:AppConstants.supabaseAnounKey
   );
   final langCode = await SharedPreferencesHelper.getData('lang_code') ?? 'en';
 
   runApp(EasyLocalization(
-      assetLoader: CodegenLoader(),
-      supportedLocales: [
+      assetLoader: const CodegenLoader(),
+      supportedLocales: const [
         Locale('en'),
         Locale('ar'),
         Locale('ur'),
       ],
       path: 'assets/translations',
-      // <-- change the path of the translation files
-      fallbackLocale: const Locale('en'),
+       fallbackLocale: const Locale('en'),
       startLocale: Locale(langCode),
       child: const MyApp()));
 }
@@ -68,24 +65,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     AppConstants.initSize(context);
 
-    OneSignal.Notifications.addClickListener((event) {
-      final notification = event.notification;
-      NotificationModel notifications = NotificationModel(
-          date: DateTime.now().toString(),
-          time: DateTime.now().toString(),
-          description: notification.body.toString(),
-          id: notification.notificationId,
-          title: notification.title.toString(),
-          imageUrl: notification.bigPicture.toString());
-      navigatorKey.currentState?.pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => NotificationDetailedItem(
-            notificationModel: notifications,
-          ),
-        ),
-        (route) => route.isFirst,
-      );
-    });
+    GetNotificationService.openNotification();
     return ChangeNotifierProvider(
         create: (_) => LanguageProvider()..loadSavedLanguage(),
         child: Consumer<LanguageProvider>(builder: (context, langProvider, _) {

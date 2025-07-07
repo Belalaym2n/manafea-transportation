@@ -59,6 +59,8 @@
     "auto_verification_failed___e": "❌ خودکار توثیق ناکام ہوئی: براہ کرم دوبارہ کوشش کریں"
   },
   "auth": {
+    "dont_have_account": "کیا آپ کا اکاؤنٹ نہیں ہے؟",
+
     "auth_forgot_password_title": "پاسورڈ بھول گئے؟",
     "auth_forgot_password_description": "ری سیٹ لنک حاصل کرنے کے لیے اپنا ای میل ایڈریس درج کریں۔",
     "auth_reset_password_button": "پاسورڈ ری سیٹ کریں",
@@ -150,7 +152,7 @@
     "delivery": "ڈیلیوری",
     "select_location_prompt": "منتخب کرنے کے لیے کلک کریں",
     "no_cars_available": "کوئی گاڑیاں دستیاب نہیں",
-    "receipt": "رسید",
+    "dispatch": "ترسیل ",
     "please_choose_your_location": "براہ کرم اپنا مقام منتخب کریں",
     "cars": "گاڑیاں",
     "about_the_car": "گاڑی کے بارے میں",
@@ -170,6 +172,8 @@
     "order_successfully_placed_message": "آپ کا آرڈر کامیابی سے دے دیا گیا ہے۔\nہم جلد ہی آپ کا آرڈر پہنچائیں گے۔"
   },
   "form": {
+    "add_specific_address": "مخصوص پتہ شامل کریں",
+
     "name_hint": "اپنا نام درج کریں",
     "name_empty": "نام خالی نہیں ہو سکتا",
     "phone_hint": "اپنا فون نمبر درج کریں",

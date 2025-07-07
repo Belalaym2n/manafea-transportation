@@ -28,7 +28,7 @@ Widget buildCarOrderWidget({required RequestCarBookingOrderModel car}) {
                 dataValue: car.deliveryDate.toString(),
                 dateName: LocaleKeys.car_screen_delivery.tr()),
             buildDateWidget(
-                dateName: LocaleKeys.car_screen_receipt.tr(), dataValue: car.receiptDate.toString())
+                dateName: LocaleKeys.car_screen_dispatch.tr(), dataValue: car.receiptDate.toString())
           ],
         ),
         SizedBox(height: AppConstants.screenHeight * 0.018),

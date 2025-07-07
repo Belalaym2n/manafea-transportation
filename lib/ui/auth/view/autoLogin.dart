@@ -14,12 +14,11 @@ class AutoLogin extends StatefulWidget {
 }
 
 class _AutoLoginState extends State<AutoLogin> {
-  bool isLogin = false;
-  bool isSignIn = false;
+  bool userID = false;
+  bool isLoginWithEmail = false;
   bool isCreatedAccount = false;
   bool isAddName = false;
-  bool isVerify = false;
-  bool isLoading = true;
+   bool isLoading = true;
 
   checkUserLogin() async {
     final userId = await SharedPreferencesHelper.getData(
@@ -35,8 +34,8 @@ class _AutoLoginState extends State<AutoLogin> {
     print("isCreatedAccount  id $isCreatedAcc");
     print("isCreatedAccount    $signIn");
     setState(() {
-      isLogin = userId != null;
-      isSignIn = signIn != null;
+      userID = userId != null;
+      isLoginWithEmail = signIn != null;
       isCreatedAccount = isCreatedAcc != null;
       isAddName = firstName != null;
       isLoading = false;
@@ -57,13 +56,14 @@ class _AutoLoginState extends State<AutoLogin> {
 
     return
  // create acc and verify
-      isCreatedAccount && isLogin && !isAddName ||
+      isCreatedAccount && userID && !isAddName ||
           // just verify phone number
-            !isCreatedAccount && isLogin && !isAddName &&isSignIn==false
+          // user id if login with phone
+            !isCreatedAccount && userID && !isAddName &&isLoginWithEmail==false
         ? const PersonalDetailedScreen()
 
       // verify number and set data || login  With email
-        : isLogin && isAddName ||isLogin && isSignIn
+        : userID && isAddName ||userID && isLoginWithEmail
             ? const BottomNav():
           // create acc and not verify
       isCreatedAccount?const VerifyEmailScreen()

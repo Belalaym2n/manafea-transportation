@@ -62,6 +62,8 @@
   },
   "loading": "تحميل",
   "auth": {
+    "dont_have_account": "ليس لديك حساب؟",
+
     "auth_forgot_password": "هل نسيت كلمة المرور؟",
     "auth_reset_password_email_sent": "تم إرسال رابط إعادة تعيين كلمة المرور بنجاح.",
     "auth_forgot_password_title": "هل نسيت كلمة المرور؟",
@@ -150,10 +152,10 @@
     "order_successfully_placed": "تم تقديم الطلب بنجاح"
   },
   "car_screen": {
-    "receipt": "الإيصال",
+    "dispatch": "التسليم ",
     "please_choose_your_location": "يرجى اختيار الموقع",
     "all_price": "كل الأسعار",
-    "delivery": "التوصيل",
+    "delivery": "الاستلام ",
     "select_location_prompt": "اضغط للاختيار",
     "no_cars_available": "لا توجد سيارات متاحة",
     "cars": "السيارات",
@@ -165,6 +167,8 @@
     "confirm_booking": "تأكيد الحجز"
   },
   "form": {
+    "add_specific_address": "أضف عنوانًا محددًا",
+
     "name_hint": "أدخل اسمك الأول",
     "name_empty": "الاسم لا يمكن أن يكون فارغًا",
     "phone_hint": "أدخل رقم هاتفك",

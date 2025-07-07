@@ -6,9 +6,7 @@ import 'package:manafea/domain/models/hotelModels/addHotel.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
-import '../../../generated/locale_keys.g.dart';
-import '../../activity/widget/getActivitiesScreen/showDiestination.dart';
-import '../../core/commonScreen/chooseLocationPicker.dart';
+  import '../../core/commonScreen/chooseLocationPicker.dart';
 import '../../core/shared_widget/addImageWidget.dart';
 import '../../core/shared_widget/elevatedButton.dart';
 import '../../core/shared_widget/textFormFieldForAdmin.dart';

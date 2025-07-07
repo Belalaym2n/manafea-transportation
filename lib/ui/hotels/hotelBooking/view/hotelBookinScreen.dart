@@ -45,7 +45,8 @@ class _HotelBookingScreenState
     // TODO: implement initState
     super.initState();
     SharedPreferencesHelper.loadUserDataForOrders(
-        nameController: nameController, phoneController: phoneController);
+        nameController: nameController,
+        phoneController: phoneController);
     viewModel.connector = this;
   }
 

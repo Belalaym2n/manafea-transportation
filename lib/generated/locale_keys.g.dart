@@ -55,6 +55,7 @@ abstract class  LocaleKeys {
   static const errors_auto_verification_failed___e = 'errors.auto_verification_failed___e';
   static const errors = 'errors';
   static const loading = 'loading';
+  static const auth_dont_have_account = 'auth.dont_have_account';
   static const auth_auth_forgot_password = 'auth.auth_forgot_password';
   static const auth_auth_reset_password_email_sent = 'auth.auth_reset_password_email_sent';
   static const auth_auth_forgot_password_title = 'auth.auth_forgot_password_title';
@@ -135,7 +136,7 @@ abstract class  LocaleKeys {
   static const success_screen_order_successfully_placed_message = 'success_screen.order_successfully_placed_message';
   static const success_screen_order_successfully_placed = 'success_screen.order_successfully_placed';
   static const success_screen = 'success_screen';
-  static const car_screen_receipt = 'car_screen.receipt';
+  static const car_screen_dispatch = 'car_screen.dispatch';
   static const car_screen_please_choose_your_location = 'car_screen.please_choose_your_location';
   static const car_screen_all_price = 'car_screen.all_price';
   static const car_screen_delivery = 'car_screen.delivery';
@@ -149,6 +150,7 @@ abstract class  LocaleKeys {
   static const car_screen_confirm_booking_info = 'car_screen.confirm_booking_info';
   static const car_screen_confirm_booking = 'car_screen.confirm_booking';
   static const car_screen = 'car_screen';
+  static const form_add_specific_address = 'form.add_specific_address';
   static const form_name_hint = 'form.name_hint';
   static const form_name_empty = 'form.name_empty';
   static const form_phone_hint = 'form.phone_hint';

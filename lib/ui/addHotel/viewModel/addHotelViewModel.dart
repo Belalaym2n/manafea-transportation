@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/domain/models/hotelModels/addHotel.dart';
 import 'package:manafea/ui/addHotel/connector/addHotelConnector.dart';
@@ -29,14 +30,19 @@ class AddHotelViewModel extends BaseViewModel<AddHotelConnector> {
   }
 
   Future<dynamic> pickImage() async {
-    _image = await imagePickerRepo.pickImage();
-    notifyListeners();
+    try {
+      _image = await imagePickerRepo.pickImage();
+      notifyListeners();
+
+    }catch(e){
+      connector!.onError("يرجى اختيار الصورة");
+    }
   }
 
   Future<String?> uploadImage() async {
     try {
       if (_image == null) throw Exception("No image selected");
-      return await imagePickerRepo.uploadImage(_image!);
+      return await imagePickerRepo.uploadImage(_image!,"hotels.images");
     } catch (e) {
       return connector?.onError(e.toString());
     }
@@ -45,7 +51,12 @@ class AddHotelViewModel extends BaseViewModel<AddHotelConnector> {
   Future addHotelToSupabase(AddHotelModel hotelModel) async {
     setLoading(true);
     try {
-      imageUrl = await uploadImage(); // ← هنا بناخد رابط الصورة
+      imageUrl = await uploadImage();
+      if (imageUrl == null || imageUrl!.contains("Exception")) {
+        setLoading(false);
+        return; // أوقف العملية فورًا
+      }
+      print("image Url $imageUrl");// ← هنا بناخد رابط الصورة
       final hotel = AddHotelBuilder()
           .setItemDescription(hotelModel.itemDescription)
           .setCommonRoomPricing(

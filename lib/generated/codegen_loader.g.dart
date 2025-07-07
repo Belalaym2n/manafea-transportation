@@ -75,6 +75,7 @@ class CodegenLoader extends AssetLoader{
   },
   "loading": "تحميل",
   "auth": {
+    "dont_have_account": "ليس لديك حساب؟",
     "auth_forgot_password": "هل نسيت كلمة المرور؟",
     "auth_reset_password_email_sent": "تم إرسال رابط إعادة تعيين كلمة المرور بنجاح.",
     "auth_forgot_password_title": "هل نسيت كلمة المرور؟",
@@ -161,10 +162,10 @@ class CodegenLoader extends AssetLoader{
     "order_successfully_placed": "تم تقديم الطلب بنجاح"
   },
   "car_screen": {
-    "receipt": "الإيصال",
+    "dispatch": "التسليم ",
     "please_choose_your_location": "يرجى اختيار الموقع",
     "all_price": "كل الأسعار",
-    "delivery": "التوصيل",
+    "delivery": "الاستلام ",
     "select_location_prompt": "اضغط للاختيار",
     "no_cars_available": "لا توجد سيارات متاحة",
     "cars": "السيارات",
@@ -176,6 +177,7 @@ class CodegenLoader extends AssetLoader{
     "confirm_booking": "تأكيد الحجز"
   },
   "form": {
+    "add_specific_address": "أضف عنوانًا محددًا",
     "name_hint": "أدخل اسمك الأول",
     "name_empty": "الاسم لا يمكن أن يكون فارغًا",
     "phone_hint": "أدخل رقم هاتفك",
@@ -319,6 +321,7 @@ static const Map<String,dynamic> _en = {
     "auto_verification_failed___e": "❌ Auto verification failed: Please try again"
   },
   "auth": {
+    "dont_have_account": "Don't have an account?",
     "auth_forgot_password": "Forgot Password?",
     "auth_reset_password_email_sent": "Password reset email sent successfully.",
     "auth_forgot_password_title": "Forgot Password?",
@@ -410,7 +413,7 @@ static const Map<String,dynamic> _en = {
     "delivery": "Delivery",
     "select_location_prompt": "Click to Select",
     "no_cars_available": "No cars available",
-    "receipt": " Receipt",
+    "dispatch": "Dispatch",
     "please_choose_your_location": "Please Choose Your Location",
     "cars": "Cars",
     "about_the_car": "About the Car",
@@ -430,6 +433,7 @@ static const Map<String,dynamic> _en = {
     "order_successfully_placed_message": "Your order has been successfully placed.\nWe will deliver your order soon."
   },
   "form": {
+    "add_specific_address": "Add specific address",
     "name_hint": "Enter your name",
     "name_empty": "Name can't be empty",
     "phone_hint": "Enter your phone number",
@@ -569,6 +573,7 @@ static const Map<String,dynamic> _ur = {
     "auto_verification_failed___e": "❌ خودکار توثیق ناکام ہوئی: براہ کرم دوبارہ کوشش کریں"
   },
   "auth": {
+    "dont_have_account": "کیا آپ کا اکاؤنٹ نہیں ہے؟",
     "auth_forgot_password_title": "پاسورڈ بھول گئے؟",
     "auth_forgot_password_description": "ری سیٹ لنک حاصل کرنے کے لیے اپنا ای میل ایڈریس درج کریں۔",
     "auth_reset_password_button": "پاسورڈ ری سیٹ کریں",
@@ -660,7 +665,7 @@ static const Map<String,dynamic> _ur = {
     "delivery": "ڈیلیوری",
     "select_location_prompt": "منتخب کرنے کے لیے کلک کریں",
     "no_cars_available": "کوئی گاڑیاں دستیاب نہیں",
-    "receipt": "رسید",
+    "dispatch": "ترسیل ",
     "please_choose_your_location": "براہ کرم اپنا مقام منتخب کریں",
     "cars": "گاڑیاں",
     "about_the_car": "گاڑی کے بارے میں",
@@ -680,6 +685,7 @@ static const Map<String,dynamic> _ur = {
     "order_successfully_placed_message": "آپ کا آرڈر کامیابی سے دے دیا گیا ہے۔\nہم جلد ہی آپ کا آرڈر پہنچائیں گے۔"
   },
   "form": {
+    "add_specific_address": "مخصوص پتہ شامل کریں",
     "name_hint": "اپنا نام درج کریں",
     "name_empty": "نام خالی نہیں ہو سکتا",
     "phone_hint": "اپنا فون نمبر درج کریں",

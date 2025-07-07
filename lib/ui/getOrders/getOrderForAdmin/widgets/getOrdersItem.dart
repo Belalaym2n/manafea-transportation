@@ -117,7 +117,7 @@ class _GetOrdersItemState extends State<GetAdminOrdersItem> {
             const Icon(Icons.help_outline, color: Colors.orange),
               SizedBox(width:  0.022*AppConstants.screenHeight),
             Text(
-              'Confirmation',
+              'تأكيد',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 0.055*AppConstants.screenWidth,
@@ -134,7 +134,7 @@ class _GetOrdersItemState extends State<GetAdminOrdersItem> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text(
-              'No',
+              'لا',
               style: TextStyle(color: Colors.red),
             ),
           ),
@@ -150,7 +150,7 @@ class _GetOrdersItemState extends State<GetAdminOrdersItem> {
               onYes(); // ثم نفذ الفعل
             },
             child: const Text(
-              'Yes',
+              'نعم',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -168,7 +168,7 @@ class _GetOrdersItemState extends State<GetAdminOrdersItem> {
           onTap: () {
             showConfirmDialog(
               context: context,
-              question: 'Are you sure you want to accept this order?',
+              question: 'هل أنت متأكد أنك تريد قبول هذا الطلب؟',
               onYes: () {
                 widget.updateStatus(widget.order.id, "Success");
                 Navigator.pop(context);
@@ -183,7 +183,7 @@ class _GetOrdersItemState extends State<GetAdminOrdersItem> {
           onTap: () {
             showConfirmDialog(
               context: context,
-              question: 'Are you sure you want to decline this order?',
+              question: 'هل أنت متأكد أنك تريد رفض هذا الطلب؟',
               onYes: () {
                 widget.updateStatus(widget.order.id, "Failed");
                 Navigator.pop(context);
@@ -198,7 +198,7 @@ class _GetOrdersItemState extends State<GetAdminOrdersItem> {
           onTap: () {
             showConfirmDialog(
               context: context,
-              question: 'Keep this order pending?',
+              question: 'هل تريد الإبقاء على هذا الطلب معلقًا؟',
               onYes: () async {
                 await widget.updateStatus(widget.order.id, "Pending");
                 Navigator.pop(context);

@@ -33,10 +33,10 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
 
 
   DateTime focusedDateCheckOut =
-  DateTime.now().subtract(const Duration(days: 2));
+  DateTime.now().add(const Duration(days: 0));
 
   DateTime focusedDateCheckIn =
-  DateTime.now().subtract(Duration(days: 2));
+  DateTime.now().add(Duration(days: 1));
 
   bool get orderIsDone => _orderIsDone;
 
@@ -277,10 +277,12 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
       print("name $name");
       final orderBuilder = RequestHotelBookingBuilder()
           .setName(name)
+
           .setPhoneNumber(phoneNumber)
           .setOrderDate(formattedDate)
           .setPrice(_totalPrice.toDouble())
           .setUserId(id)
+      .setHotelName(hotel.itemName)
           .setStatus("Pending")
           .setTime(formatter.format(DateTime.now()))
           .setCheckIn(checkInDateString)

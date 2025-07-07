@@ -43,9 +43,11 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
                 _buildButtonBooking(widget.onStepContinue),
                 SizedBox(width: AppConstants.screenWidth * 0.01),
                 _buildPriceText(),
+                SizedBox(width: AppConstants.screenWidth * 0.02),
+
               ],
             ),
-          ),
+          ), 
         ),
         SizedBox(height: AppConstants.screenHeight * 0.013),
         elevated_button(
@@ -55,6 +57,8 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
           buttonName: LocaleKeys.confirm_booking_screen_cancel.tr(), // Use LocaleKeys
           valid: true,
         ),
+        SizedBox(height: AppConstants.screenHeight * 0.043),
+
       ],
     );
   }
@@ -76,7 +80,7 @@ class _ConfirmBookingInStepperState extends State<ConfirmBookingInStepper> {
         Text(
           "${widget.totalPrice}",
           style: TextStyle(
-            fontSize: AppConstants.screenWidth * 0.044,
+            fontSize: AppConstants.screenWidth * 0.03,
             fontWeight: FontWeight.w700,
             color: Colors.white,
           ),

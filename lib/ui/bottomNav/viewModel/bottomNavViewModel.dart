@@ -43,41 +43,61 @@ class BottomNavViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> getUserIfo() async {
-    _name = await SharedPreferencesHelper.getData(
-      SharedSharedPreferencesKeys.firsName,
-    );
+  Future<void> getUserInfo() async {
+    try {
+      _name = await SharedPreferencesHelper.getData(
+          SharedSharedPreferencesKeys.firsName);
+      _phone = await SharedPreferencesHelper.getData(
+          SharedSharedPreferencesKeys.phoneNumberKey);
 
-    _phone = await SharedPreferencesHelper.getData(
-      SharedSharedPreferencesKeys.phoneNumberKey,
-    );
+      if (_name == null || _name.toString().trim().isEmpty) {
+        DocumentSnapshot? documentSnapshot = await getDataFromDatabase();
 
-    if (_name == null || _name.toString().trim().isEmpty) {
-      print("create request");
+        if (documentSnapshot!.exists && documentSnapshot.data() != null) {
+          final data = documentSnapshot.data() as Map<String, dynamic>;
 
-      DocumentSnapshot documentSnapshot = await getDataFromDatabase();
-      _name = documentSnapshot['firstName'];
+          _name = data['firstName']?.toString() ?? '';
 
-      SharedPreferencesHelper.saveData(
-        key: SharedSharedPreferencesKeys.firsName,
-        value: _name,
-      );
+          if (_name == null || _name.toString().trim().isEmpty) {
+            _name = "user";
+          }
 
-      notifyListeners();
+          await SharedPreferencesHelper.saveData(
+            key: SharedSharedPreferencesKeys.firsName,
+            value: _name,
+          );
+        } else {
+          _name = "Traveler";
+          await SharedPreferencesHelper.saveData(
+            key: SharedSharedPreferencesKeys.firsName,
+            value: _name,
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint("❌ Error in getUserInfo: $e");
     }
 
     notifyListeners();
   }
 
-  Future<DocumentSnapshot> getDataFromDatabase() async {
-    String id = await SharedPreferencesHelper.getData(
-      SharedSharedPreferencesKeys.userId,
-    );
+  Future<DocumentSnapshot?> getDataFromDatabase() async {
+    try {
+      String? id = await SharedPreferencesHelper.getData(
+          SharedSharedPreferencesKeys.userId);
 
-    return await FirebaseFirestore.instance
-        .collection("users_development")
-        .doc(id)
-        .get();
+      if (id == null || id.isEmpty) {
+        throw Exception("User ID is null or empty");
+      }
+
+      return await FirebaseFirestore.instance
+          .collection("users_development")
+          .doc(id)
+          .get();
+    } catch (e) {
+      debugPrint("❌ Error in getDataFromDatabase: $e");
+      return null;
+    }
   }
 
   initObjects() {

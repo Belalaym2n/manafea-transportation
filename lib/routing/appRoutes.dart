@@ -5,6 +5,7 @@ import 'package:manafea/ui/addActivity/view/addActivity.dart';
 import 'package:manafea/ui/auth/view/withEmail/forgetPassword.dart';
 import 'package:manafea/ui/auth/view/withEmail/verifyScreen.dart';
 import 'package:manafea/ui/bottomNav/view/bottomNav.dart';
+import 'package:manafea/ui/splashScreen/view/adminSplashScreen.dart';
 
  import 'package:manafea/ui/splashScreen/view/splashScreen%5D.dart';
 
@@ -21,15 +22,16 @@ import '../ui/hotels/hotels/view/filterHotels.dart';
  import '../ui/onBoard/view/onBoardScreen.dart';
 
 class AppRoutes {
-  static const String splash = "adminLogin/";
+  static const String splash = "/";
+  static const String adminSplashScreen = "sdfsdwet/";
   static const String adminLogin = "login/";
   static const String addActivity = "xcv/";
   static const String signUp = "signUp/";
   static const String onBoard = "/sfsdf";
   static const String orders = "sfsffdf";
   static const String login = "sdf/";
-  static const String autoLogin = "login/";
-  static const String autoLoginAdmin = "/";
+  static const String autoLogin = "lasdassadogin/";
+  static const String autoLoginAdmin = "sdfdsfdsfsd/";
   static const String verifyScreen = "verify";
   static const String homeScreen = "home";
   static const String bottomNav = "5784/";
@@ -64,6 +66,10 @@ class Routes {
       case AppRoutes.onBoard:
         return MaterialPageRoute(
           builder: (context) =>   OnBoardScreen(),
+        );
+      case AppRoutes.adminSplashScreen:
+        return MaterialPageRoute(
+          builder: (context) =>   const AdminSplashScreen(),
         );
 
       case AppRoutes.forgetPassword:

@@ -29,11 +29,14 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
 
   _buildCarCard() {
     return Container(
+
       decoration: BoxDecoration(
         color: Colors.white,
+
         borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.039),
         boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8, spreadRadius: 2),
+          BoxShadow(color: Colors.black12, blurRadius: 8,
+              spreadRadius: 2),
         ],
       ),
       child: Column(
@@ -42,7 +45,10 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
           _buildImage(),
           _buildCarName(),
           _buildCarPricing(),
-          _buildBookButton()
+          _buildBookButton(),
+          SizedBox(
+            height: AppConstants.screenHeight*0.02,
+          ),
         ],
       ),
     );
@@ -51,7 +57,9 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
   Widget _buildBookButton() {
     return Padding(
       padding:
-          EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.015),
+      EdgeInsets.symmetric(horizontal:0.022
+    *AppConstants.screenWidth),
+
       child: smallElevatedButton(
           onTap: () {
             Navigator.push(
@@ -92,7 +100,7 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
             child: Icon(
               Icons.broken_image,
               color: Colors.grey.shade700,
-              size: 40,
+              size: 0.11*AppConstants.screenWidth,
             ),
           );
         },
@@ -105,9 +113,9 @@ class _CarBookingScreenItemState extends State<CarScreenItem> {
               height: AppConstants.screenHeight * 0.14,
               width: double.infinity,
               color: Colors.grey[300], // لون خلفية خفيف
-              child: const Icon(
+              child:   Icon(
                 Icons.image_not_supported,
-                size: 50,
+                size: 0.138*AppConstants.screenWidth,
                 color: Colors.grey,
               ),
             ),

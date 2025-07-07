@@ -51,7 +51,7 @@ Widget smallElevatedButton({
   return
      ElevatedButton(
         style: ElevatedButton.styleFrom(
-          minimumSize: const Size(158, 33), // يحدد الحجم الأدنى للزر
+          minimumSize:   Size(0.4388*AppConstants.screenWidth, 0.042*AppConstants.screenHeight), // يحدد الحجم الأدنى للزر
           padding: EdgeInsets.zero, // يزيل الـ padding الافتراضي
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),

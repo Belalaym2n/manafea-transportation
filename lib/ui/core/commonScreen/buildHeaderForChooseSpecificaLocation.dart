@@ -36,7 +36,7 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
    Widget build(BuildContext context) {
      return Scaffold(
        appBar: AppBar(
-         toolbarHeight: 10,
+         toolbarHeight: 0.012*AppConstants.screenHeight,
          backgroundColor: Colors.white,
          elevation: 0,
          scrolledUnderElevation: 0,
@@ -63,10 +63,8 @@ class BuildHeaderForChooseSpecificLocation extends StatefulWidget {
                      child: Container(
                        padding: EdgeInsets.symmetric(
                            vertical: AppConstants.screenHeight * 0.015,
-                           // 1.5% من الارتفاع
-                           horizontal: AppConstants.screenWidth * 0.04),
-                       // 4% من العرض
-                       decoration: BoxDecoration(
+                            horizontal: AppConstants.screenWidth * 0.04),
+                        decoration: BoxDecoration(
                          border: Border.all(
                              color: AppColors.primaryColor, width: 1.5),
                          borderRadius: BorderRadius.circular(8),

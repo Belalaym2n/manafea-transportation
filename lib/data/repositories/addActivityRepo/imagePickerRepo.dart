@@ -14,9 +14,9 @@ class ImagePickerRepo {
     }
   }
 
-  Future<String> uploadImage(File file) async {
+  Future<String> uploadImage(File file,String imagesFile) async {
     try {
-      return await imagePickerService.uploadImageToSupabase(file);
+      return await imagePickerService.uploadImageToSupabase(file,imagesFile);
     } catch (e) {
       throw Exception("Upload failed: ${e.toString()}");
     }

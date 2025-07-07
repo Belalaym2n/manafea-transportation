@@ -22,6 +22,7 @@ class _AutoLoginAdminState extends State<AutoLoginAdmin> {
       isLogin = isAdminLogin == true;
     });
 
+    print("isLogin $isLogin");
   }
 @override
   void initState() {
@@ -31,6 +32,6 @@ class _AutoLoginAdminState extends State<AutoLoginAdmin> {
   }
   @override
   Widget build(BuildContext context) {
-    return isLogin ? BottomNavAdmin() : SingInAdmin();
+    return isLogin ? const BottomNavAdmin() : SingInAdmin();
   }
 }

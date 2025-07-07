@@ -53,8 +53,7 @@ class OTPService {
           completer.complete();
         },
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-        timeout: const Duration(seconds: 118),
-      );
+       );
 
       return completer.future;
     } catch (e) {
@@ -116,12 +115,12 @@ class OTPService {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final uid = user.uid;
-      print("🔑 UID: $uid");
+
 
       await SharedPreferencesHelper.saveData(
         key: SharedSharedPreferencesKeys.userId,
         value: uid,
       );
-    } else {}
+    } else { }
   }
 }

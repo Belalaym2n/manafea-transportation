@@ -11,6 +11,7 @@ Step buildStep({
   required bool isCurrentStep,
 }) {
   return Step(
+
     stepStyle: StepStyle(
       indexStyle: TextStyle(
         color: colorIndex ? Colors.white : AppColors.primaryColor,
@@ -21,7 +22,7 @@ Step buildStep({
     title: AnimatedDefaultTextStyle(
       duration: const Duration(milliseconds: 300),
       style: TextStyle(
-        fontSize: isCurrentStep ? 18 : 14,
+        fontSize: isCurrentStep ? 0.05*AppConstants.screenWidth : 0.0388*AppConstants.screenWidth,
         fontWeight: FontWeight.bold,
         color: isCurrentStep ? AppColors.primaryColor : Colors.grey,
       ),

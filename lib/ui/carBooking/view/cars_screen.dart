@@ -29,6 +29,8 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel, CarsScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(AppConstants.screenHeight);
+    print(AppConstants.screenWidth);
     viewModel.getData();
     viewModel.connector = this;
   }
@@ -79,6 +81,9 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel, CarsScreen>
 
   @override
   showLoading() {
+    double spetRatio =
+        (AppConstants.screenWidth * 0.86)
+            / (AppConstants.screenHeight * 0.5);
     // TODO: implement showLoading
     return Skeletonizer(
         child: Padding(
@@ -88,7 +93,7 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel, CarsScreen>
                   crossAxisCount: 2,
                   crossAxisSpacing: AppConstants.screenWidth * 0.03,
                   mainAxisSpacing: AppConstants.screenHeight * 0.017,
-                  childAspectRatio: 0.8,
+                  childAspectRatio:  spetRatio ,
                 ),
                 itemCount: 6,
                 itemBuilder: (context, index) {
@@ -100,8 +105,10 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel, CarsScreen>
                       .setItemPricing(
                           12) // pricing تصحيح هنا برضو
                       .build();
-                  return CarScreenItem(
-                    carModel: car,
+                  return SingleChildScrollView(
+                    child: CarScreenItem(
+                      carModel: car,
+                    ),
                   );
                 })));
   }
@@ -122,6 +129,11 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel, CarsScreen>
 
   @override
   gridViewData(List<CarModel> cars) {
+    double spetRatio =
+        (AppConstants.screenWidth * 0.86)
+            / (AppConstants.screenHeight * 0.5);
+    print("ratio $spetRatio");
+
     // TODO: implement gridViewData
     return Padding(
         padding: EdgeInsets.all(AppConstants.screenWidth * 0.036),
@@ -130,12 +142,13 @@ class _CarBookingScreenState extends BaseView<GetAllCarsViewModel, CarsScreen>
               crossAxisCount: 2,
               crossAxisSpacing: AppConstants.screenWidth * 0.03,
               mainAxisSpacing: AppConstants.screenHeight * 0.017,
-              childAspectRatio: 0.8,
+              childAspectRatio: spetRatio    ,
             ),
             itemCount: cars.length,
             itemBuilder: (context, index) {
               var carModel = cars[index];
-              return CarScreenItem(carModel: carModel);
+              return SingleChildScrollView(
+                  child:CarScreenItem(carModel: carModel))     ;
             }));
     ;
   }

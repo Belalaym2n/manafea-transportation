@@ -33,11 +33,20 @@ class _SingInAdminState extends BaseView<LoginAdminViewModel, SingInAdmin>
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    email.dispose();
+    password.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
         value: viewModel,
         builder: (context, child) => Consumer<LoginAdminViewModel>(
-              builder: (context, value, child) => Scaffold(
+              builder: (context, value, child) =>AbsorbPointer(
+                absorbing: value.isLoading,
+                child: Scaffold(
                 resizeToAvoidBottomInset: false,
                 body: Stack(
                   children: [
@@ -51,7 +60,7 @@ class _SingInAdminState extends BaseView<LoginAdminViewModel, SingInAdmin>
                   ],
                 ),
               ),
-            ));
+              )));
   }
 
   @override
@@ -82,7 +91,7 @@ class _SingInAdminState extends BaseView<LoginAdminViewModel, SingInAdmin>
   @override
   showLoading() {
     // TODO: implement showLoading
-    return LoadingWidget();
+    return const LoadingWidget();
   }
 
   @override

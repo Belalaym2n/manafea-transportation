@@ -19,9 +19,12 @@ void showLocationsPicker({
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (context) {
-      return Container(
+      return SizedBox(
+        width: AppConstants.screenWidth  ,
         height: AppConstants.screenHeight * 0.7,
         child: StatefulBuilder(
+
+
           builder: (context, setModalState) {
             return Padding(
               padding: EdgeInsets.symmetric(

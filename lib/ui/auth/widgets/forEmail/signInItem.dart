@@ -37,6 +37,12 @@ class _SignInItemState extends State<SignInItem> {
     widget.emailController.addListener(updateValidation);
     widget.passwordController.addListener(updateValidation);
   }
+  @override
+  void dispose() {
+    widget.emailController.removeListener(updateValidation);
+    widget.passwordController.removeListener(updateValidation);
+    super.dispose();
+  }
 
   void updateValidation() {
     setState(() {
@@ -84,7 +90,7 @@ class _SignInItemState extends State<SignInItem> {
                       isValid
                           ? widget.signIn(
                           email:
-                          widget.emailController.text,
+                          widget.emailController.text.trim(),
                           password:
                           widget.passwordController.text)
                           : SizedBox();
@@ -97,7 +103,7 @@ class _SignInItemState extends State<SignInItem> {
                     height: AppConstants.screenHeight * 0.02,
                   ),
                   if(widget.isAdmin==false)
-                  already_have_account(),
+                    dont_have_account(),
                   SizedBox(
                     height: AppConstants.screenHeight * 0.05,
                   )
@@ -125,7 +131,7 @@ class _SignInItemState extends State<SignInItem> {
     );
   }
 
-  Widget already_have_account() {
+  Widget dont_have_account() {
     return Center(
       child: Wrap(
         alignment: WrapAlignment.center,
@@ -133,7 +139,7 @@ class _SignInItemState extends State<SignInItem> {
         spacing: 4,
         children: [
           Text(
-            LocaleKeys.auth_have_account_question.tr(),
+            LocaleKeys.auth_dont_have_account.tr(),
             style: const TextStyle(fontSize: 16, color: Colors.black87),
           ),
           GestureDetector(
@@ -141,7 +147,7 @@ class _SignInItemState extends State<SignInItem> {
               Navigator.pushNamed(context, AppRoutes.login);
              },
             child: Text(
-              LocaleKeys.auth_sign_in.tr(),
+              LocaleKeys.auth_create_account.tr(),
               style: TextStyle(
                 fontSize: AppConstants.screenWidth * 0.045,
                 color: AppColors.primaryColor,
