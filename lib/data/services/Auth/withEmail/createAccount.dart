@@ -9,7 +9,9 @@ class CreateAccountService {
     required String email,
     required String password,
   }) async {
-    final credential = await _auth.createUserWithEmailAndPassword(
+
+
+      final credential = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -44,13 +46,16 @@ class CreateAccountService {
     }
 
     await user.reload();
-    if(user.emailVerified==true){
-      final uid = user.uid;
+    final refreshedUser = _auth.currentUser;
+
+     final isVerified = refreshedUser?.emailVerified ?? false;
+    if (isVerified) {
       await SharedPreferencesHelper.saveData(
-          key: SharedSharedPreferencesKeys.userId,
-          value: uid);
-    }// Refresh user data
-    return user.emailVerified   ;
+        key: SharedSharedPreferencesKeys.userId,
+        value: refreshedUser!.uid,
+      );
+    }
+     return user.emailVerified   ;
   }
 
 }

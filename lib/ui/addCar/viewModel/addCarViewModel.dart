@@ -31,18 +31,21 @@ class AddCarViewModel extends BaseViewModel<AddCarConnector> {
   }
 
   Future<dynamic> pickImage() async {
-
+    try {
       _image = await imagePickerRepo.pickImage();
       notifyListeners();
-
+    } catch (e) {
+      connector!.onError("يرجى اختيار الصورة");
+    }
   }
 
   Future<String?> uploadImage() async {
     try {
       if (_image == null) throw Exception("No image selected");
-      return await imagePickerRepo.uploadImage(_image!);
+      return await imagePickerRepo.uploadImage(_image!, "cars.images");
     } catch (e) {
-       return connector?.onError(e.toString());
+      print("e ${e.toString()}");
+      return connector?.onError(e.toString());
     }
   }
 
@@ -70,7 +73,7 @@ class AddCarViewModel extends BaseViewModel<AddCarConnector> {
 
       connector!.success();
     } catch (e) {
-       setLoading(false);
+      setLoading(false);
       return connector!.onError(e.toString());
     }
   }

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/config/appImages.dart';
 import 'package:manafea/data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
@@ -18,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _controller;
   late Animation<double> _fadeIn;
   late Animation<Offset> _slideUp;
+  final box = GetStorage();
 
   @override
   void initState() {
@@ -28,19 +30,19 @@ class _SplashScreenState extends State<SplashScreen>
     );
     _fadeIn = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _slideUp = Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _controller, curve:
-    Curves.easeOutBack));
+        .animate(
+            CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
     Future.delayed(const Duration(milliseconds: 500), () {
-      _controller.forward() ;
+      _controller.forward();
     });
     Future.delayed(const Duration(seconds: 3), () async {
-  // await SharedPreferencesHelper.clearAll();
-      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.autoLogin,
-            (route) => false
-        ,);
+       Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.autoLogin,
+        (route) => false,
+      );
     });
-
   }
 
   @override
@@ -49,9 +51,6 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-  deleteCashe() async {
-   await SharedPreferencesHelper.clearAll();
-  }
   @override
   Widget build(BuildContext context) {
     final isEnglish = context.locale.languageCode == 'en';
@@ -66,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _animatedSlide(isEnglish ? -1 : 1, _logo()),
-                  SizedBox(width: AppConstants.screenWidth*0.022),
+                SizedBox(width: AppConstants.screenWidth * 0.022),
                 _animatedSlide(isEnglish ? 1 : -1, _logoText()),
               ],
             ),
@@ -118,8 +117,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Widget _animatedSlide(double offset, Widget child) {
     return TweenAnimationBuilder(
-      tween: Tween<Offset>(begin:
-      Offset(offset, 0), end: Offset.zero),
+      tween: Tween<Offset>(begin: Offset(offset, 0), end: Offset.zero),
       duration: const Duration(milliseconds: 1200),
       curve: Curves.easeOutExpo,
       builder: (_, value, child) {

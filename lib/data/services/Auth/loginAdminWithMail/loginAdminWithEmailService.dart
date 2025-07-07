@@ -20,6 +20,8 @@ class LoginAdminWithEmailFirebaseService {
 
       if (snapshot.docs.isNotEmpty) {
         box.write(SharedSharedPreferencesKeys.isAdminLogin,true);
+        final isAdminLogin = box.read(SharedSharedPreferencesKeys.isAdminLogin) ?? false;
+print("object $isAdminLogin");
 
         return Result.success("Has been login");
       } else {

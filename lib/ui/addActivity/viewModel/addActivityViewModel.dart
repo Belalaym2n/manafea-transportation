@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/domain/models/activityModel/activityModel.dart';
 import 'package:manafea/ui/addActivity/connector/addActivityConnector.dart';
@@ -34,14 +35,18 @@ class AddActivityViewModel extends BaseViewModel<AddActivityConnector> {
   }
 
   Future<dynamic> pickImage() async {
-    _image = await imagePickerRepo.pickImage();
-    notifyListeners();
+    try {
+      _image = await imagePickerRepo.pickImage();
+      notifyListeners();
+    } catch (e) {
+      connector!.onError("يرجى اختيار الصورة");
+    }
   }
 
   Future<String?> uploadImage() async {
     try {
       if (_image == null) throw Exception("No image selected");
-      return await imagePickerRepo.uploadImage(_image!);
+      return await imagePickerRepo.uploadImage(_image!, "activities.images");
     } catch (e, stacktrace) {
       return connector?.onError(e.toString());
     }

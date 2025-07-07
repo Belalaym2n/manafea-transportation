@@ -145,7 +145,7 @@ class ActivityBookingViewModel extends BaseViewModel<ActivityConnector> {
       final order = RequestActivityOrderBuilder()
           .setName(_name)
           .setActivityName(activityModel.itemName)
-          .setPeopleCount(12)
+          .setPeopleCount(_peopleCount)
           .setService("Activity")
           .setPhoneNumber(_phoneNumber)
           .setOrderDate(dateString)

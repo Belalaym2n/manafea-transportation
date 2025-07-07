@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
+import 'buildLocationWidget.dart';
 
 Widget buildBookingDescription({
   required String BookingTittle,
@@ -28,6 +29,12 @@ Widget buildBookingDescription({
               ),
             ),
           ),
+          InfoIconDialog(
+            location: "location",
+            description: description,
+            url: "dsf",
+
+          )
 
         ],
       ),

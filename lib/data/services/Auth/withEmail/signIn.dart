@@ -45,4 +45,8 @@ class SignInFirebaseService {
       return Result.failure("Something went wrong.");
     }
   }
+
+  checkEmailRegex(){
+
+  }
 }

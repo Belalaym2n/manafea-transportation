@@ -33,7 +33,7 @@ class _ChooseDayBookingState extends State<ChooseDayBooking> {
               , vertical: AppConstants.screenHeight*0.02),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(0.041*360),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.2),
@@ -47,12 +47,12 @@ class _ChooseDayBookingState extends State<ChooseDayBooking> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _buildCheckInWidget(widget.dateString.toString()),
-              Icon(Icons.calendar_today,
-                  color: AppColors.primaryColor, size: 22),
+                Icon(Icons.calendar_today,
+                  color: AppColors.primaryColor, size: 0.0611*AppConstants.screenWidth),
             ],
           ),
         ),
-        const SizedBox(height: 20),
+          SizedBox(height: 0.026*AppConstants.screenWidth),
       ],
     );
   }
@@ -71,70 +71,72 @@ class _ChooseDayBookingState extends State<ChooseDayBooking> {
             child: Text(
               LocaleKeys.activity_screen_step_choose_booking_day.tr(),
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 0.058*AppConstants.screenWidth,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87),
             ),
           ),
           content: SizedBox(
-            height: 400,
+            height: 0.515*AppConstants.screenHeight,
             width: double.maxFinite,
             child: StatefulBuilder(
               builder: (context, setState) {
-                return TableCalendar(
-                    firstDay: DateTime.utc(2020, 1, 1),
-                    lastDay: DateTime.utc(2040, 12, 31),
-                    focusedDay:selectedDate,
-                    selectedDayPredicate: (day) => isSameDay(selectedDate, day),
-                    onDaySelected: (selectedDay, focusedDay) {
-                      setState(() {
-                        selectedDate = selectedDay;
-                      });
-                      widget.onSelectDate(selectedDay);
-                      Future.delayed(const Duration(milliseconds: 700), () {
-                        Navigator.pop(context);
-                      });
-                    },
-                    headerStyle: HeaderStyle(
-                      formatButtonVisible: false,
-                      titleCentered: true,
-                      titleTextStyle: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87),
-                      leftChevronIcon: Icon(Icons.chevron_left,
-                          color: Colors.green.shade700, size: 28),
-                      rightChevronIcon: Icon(Icons.chevron_right,
-                          color: Colors.green.shade700, size: 28),
-                    ),
-                    daysOfWeekStyle: const DaysOfWeekStyle(
-                      weekendStyle: TextStyle(
-                          color: Colors.redAccent, fontWeight: FontWeight.bold),
-                      weekdayStyle: TextStyle(
-                          color: Colors.black87, fontWeight: FontWeight.bold),
-                    ),
-                    calendarStyle: CalendarStyle(
-                      isTodayHighlighted: true,
-                      todayDecoration: BoxDecoration(
-                        color: Colors.blueAccent.withOpacity(0.5),
-                        shape: BoxShape.circle,
+                return SingleChildScrollView(
+                  child: TableCalendar(
+                      firstDay: DateTime.utc(2020, 1, 1),
+                      lastDay: DateTime.utc(2040, 12, 31),
+                      focusedDay:selectedDate,
+                      selectedDayPredicate: (day) => isSameDay(selectedDate, day),
+                      onDaySelected: (selectedDay, focusedDay) {
+                        setState(() {
+                          selectedDate = selectedDay;
+                        });
+                        widget.onSelectDate(selectedDay);
+                        Future.delayed(const Duration(milliseconds: 700), () {
+                          Navigator.pop(context);
+                        });
+                      },
+                      headerStyle: HeaderStyle(
+                        formatButtonVisible: false,
+                        titleCentered: true,
+                        titleTextStyle:   TextStyle(
+                            fontSize: 0.05*AppConstants.screenWidth,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87),
+                        leftChevronIcon: Icon(Icons.chevron_left,
+                            color: Colors.green.shade700, size: 0.077*AppConstants.screenWidth),
+                        rightChevronIcon: Icon(Icons.chevron_right,
+                            color: Colors.green.shade700, size:  0.077*AppConstants.screenWidth),
                       ),
-                      selectedDecoration: const BoxDecoration(
-                        color: Colors.deepOrange,
-                        shape: BoxShape.circle,
+                      daysOfWeekStyle: const DaysOfWeekStyle(
+                        weekendStyle: TextStyle(
+                            color: Colors.redAccent, fontWeight: FontWeight.bold),
+                        weekdayStyle: TextStyle(
+                            color: Colors.black87, fontWeight: FontWeight.bold),
                       ),
-                      weekendTextStyle: const TextStyle(color: Colors.red),
-                      defaultTextStyle: const TextStyle(
-                          color: Colors.black87,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                      outsideDaysVisible: false,
-                    ),
-                    enabledDayPredicate: (day) {
-                      return
-                      day.isAfter(
-                          DateTime.now().add(Duration(days: 1)));
-                    });
+                      calendarStyle: CalendarStyle(
+                        isTodayHighlighted: true,
+                        todayDecoration: BoxDecoration(
+                          color: Colors.blueAccent.withOpacity(0.5),
+                          shape: BoxShape.circle,
+                        ),
+                        selectedDecoration: const BoxDecoration(
+                          color: Colors.deepOrange,
+                          shape: BoxShape.circle,
+                        ),
+                        weekendTextStyle: const TextStyle(color: Colors.red),
+                        defaultTextStyle:   TextStyle(
+                            color: Colors.black87,
+                            fontSize:  0.044*AppConstants.screenWidth,
+                            fontWeight: FontWeight.w500),
+                        outsideDaysVisible: false,
+                      ),
+                      enabledDayPredicate: (day) {
+                        return
+                        day.isAfter(
+                            DateTime.now().add(Duration(days: 1)));
+                      }),
+                );
               },
             ),
           ),

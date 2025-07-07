@@ -23,7 +23,7 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.getUserIfo();
+    viewModel.getUserInfo();
     viewModel.initObjects();
     viewModel.requestNotificationPermission();
   }

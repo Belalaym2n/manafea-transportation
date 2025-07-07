@@ -21,8 +21,7 @@ class LoginViewModel extends BaseViewModel<LoginConnector> {
 
   Future<void> sendVerification({required String number}) async {
     try {
-      print("belal");
-      setLoading(true);
+       setLoading(true);
       await _otpRepo.sendOTP(phoneNumber: number); // إرسال الرقم بتنسيق E.164
       await SharedPreferencesHelper.saveData(
           key: SharedSharedPreferencesKeys.phoneNumberKey, value: number);

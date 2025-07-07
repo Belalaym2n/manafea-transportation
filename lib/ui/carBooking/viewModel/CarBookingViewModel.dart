@@ -13,37 +13,46 @@ import '../../core/shared_widget/stepper_widget.dart';
 
 class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
   int index = 0;
+
   // for step one
-  String _selectedLocation =LocaleKeys.car_screen_select_location_prompt.tr();
+  String _selectedLocation = LocaleKeys.car_screen_select_location_prompt.tr();
+
   String get selectedLocation => _selectedLocation;
 
 // paramterrs for step two
   String deliveryDateString = LocaleKeys.hotelsScreen_select_Date.tr();
   String receiptDateString = LocaleKeys.hotelsScreen_select_Date.tr();
-  DateTime focusedDateReceipt = DateTime.now(
-
-  ).subtract(Duration(days: 2));
-  DateTime focusedDateDelivery = DateTime.now().subtract(Duration(days: 3));
+  DateTime focusedDateReceipt =
+  DateTime.now().add(const Duration(days: 0));
+  DateTime focusedDateDelivery = DateTime.now().add(const Duration(days: 1));
 
 // parammetter for step three
   String get name => _name;
   String _phoneNumber = '';
+  String _address = '';
   String _name = '';
+
   String get phoneNumber => _phoneNumber;
+
+  String get address => _address;
+
 // all price
 
-  int allPrice=0;
+  int allPrice = 0;
+
   // for loading
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
   bool _orderIsDone = false;
+
   bool get orderIsDone => _orderIsDone;
 
   // for constructor
   CarModel car;
-   RequestOrderRepo requestOrderRepo;
+  RequestOrderRepo requestOrderRepo;
 
-  CarBookingViewModel(this.car,this.requestOrderRepo);
+  CarBookingViewModel(this.car, this.requestOrderRepo);
 
   void onStepCancel() {
     if (index > 0) {
@@ -52,28 +61,30 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
     }
   }
 
-
   onStepContinue({
     String? phoneNumber,
     String? name,
+    String? address,
   }) async {
     bool isLocationValid = stepOneValidLocation();
     bool isDatsValid = validDatesSelected();
     bool isValidDataBooking = await validBookingData(
       name: name,
+      address: address,
       phoneNumber: phoneNumber,
     );
 
     if (isLocationValid == false) {
-      return connector!
-          .onError(LocaleKeys.errors_please_choose_location_you_want_ro_recei.tr()
-           );
+      return connector!.onError(
+          LocaleKeys.errors_please_choose_location_you_want_ro_recei.tr());
     }
     if (isDatsValid == false) {
-      return connector!.onError(LocaleKeys.errors_booking_at_least_one_day.tr());
+      return connector!
+          .onError(LocaleKeys.errors_booking_at_least_one_day.tr());
     }
     if (isValidDataBooking == false) {
-      return connector?.onError(LocaleKeys.errors_name_and_number_must_not_be_empty.tr());
+      return connector
+          ?.onError(LocaleKeys.errors_name_and_number_must_not_be_empty.tr());
     }
 
     if (index == 3) {
@@ -91,7 +102,9 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
 
 // step one logic
   bool stepOneValidLocation() {
-    if (index == 0 && _selectedLocation == LocaleKeys.car_screen_select_location_prompt.tr()) {
+    if (index == 0 &&
+        _selectedLocation ==
+            LocaleKeys.car_screen_select_location_prompt.tr()) {
       return false;
     }
     return true;
@@ -118,24 +131,32 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
     receiptDateString = DateFormat('dd/MM/yyyy').format(dateTime);
     notifyListeners();
   }
+
   bool validDatesSelected() {
     if (index == 1 && receiptDateString == 'Select Date' ||
-        index == 1 &&
-            deliveryDateString == "Select Date") {
+        index == 1 && deliveryDateString == "Select Date") {
+      return false;
+    }if (index == 1 && receiptDateString == deliveryDateString) {
       return false;
     }
 
     return true;
   }
+
 // step three confirmBooking
 
-  Future<bool> validBookingData({String? phoneNumber, String? name}) async {
+  Future<bool> validBookingData(
+      {String? phoneNumber, String? name, String? address}) async {
     if (index == 2) {
       if ((phoneNumber?.trim().isEmpty ?? true) ||
+          (address?.trim().isEmpty ?? true) ||
           (name?.trim().isEmpty ?? true)) {
         return false;
       } else {
-        await setUserDate(phoneNumber: phoneNumber ?? "", name: name ?? '');
+        await setUserDate(
+            address: address ?? "",
+            phoneNumber: phoneNumber ?? "",
+            name: name ?? '');
       }
     }
     return true;
@@ -144,22 +165,21 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
   setUserDate({
     required String phoneNumber,
     required String name,
+    required String address,
   }) async {
     _phoneNumber = phoneNumber;
     _name = name;
+    _address = address;
     notifyListeners();
   }
-
-
-
 
   // step four confirm order
   requestOrder() async {
     try {
       print("after");
 
-      String id =await SharedPreferencesHelper.getData(SharedSharedPreferencesKeys.userId);
-
+      String id = await SharedPreferencesHelper.getData(
+          SharedSharedPreferencesKeys.userId);
 
       final DateFormat formatterTime = DateFormat('h:mm a');
       DateTime now = DateTime.now();
@@ -168,14 +188,14 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
       final order = RequestCarBookingOrderBuilder()
           .setName(_name)
           .setCarName(car.itemName)
-           .setService("Car")
+          .setService("Car")
           .setPhoneNumber(_phoneNumber)
           .setOrderDate(formattedDate.toString())
-          .setPrice( allPrice.toDouble())
+          .setPrice(allPrice.toDouble())
           .setDeliveryDate(deliveryDateString)
-           .setReceiptDate(receiptDateString)
-           .setDeliveryLocation(selectedLocation)
-           .setUserId(id)
+          .setReceiptDate(receiptDateString)
+          .setDeliveryLocation(selectedLocation + _address)
+          .setUserId(id)
           .setStatus("Pending")
           .setTime(formatterTime.format(DateTime.now()))
           .build();
@@ -193,40 +213,40 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
   }
 
   // calculate all price
-  int calculateStayDuration(
-       ) {
-    final normalizedCheckIn =
-    DateTime(focusedDateDelivery.year, focusedDateDelivery.month, focusedDateDelivery.day);
-    final normalizedCheckOut =
-    DateTime(focusedDateReceipt.year, focusedDateReceipt.month, focusedDateReceipt.day);
+  int calculateStayDuration() {
+    final normalizedCheckIn = DateTime(focusedDateDelivery.year,
+        focusedDateDelivery.month, focusedDateDelivery.day);
+    final normalizedCheckOut = DateTime(focusedDateReceipt.year,
+        focusedDateReceipt.month, focusedDateReceipt.day);
     final duration = normalizedCheckOut.difference(normalizedCheckIn);
     int days = duration.inDays;
 
     print(duration);
     print(days);
 
-    if (receiptDateString=='Select Date' ){
-      days=0;
+    if (receiptDateString == 'Select Date') {
+      days = 0;
       notifyListeners();
     }
 
     return days;
   }
 
-
-  calculateAllPrice(){
-    int allDays=calculateStayDuration();
+  calculateAllPrice() {
+    int allDays = calculateStayDuration();
     print("allDays $allDays");
     print("all price${car.itemPricing}");
-    allPrice=car.itemPricing*allDays;
+    allPrice = car.itemPricing * allDays;
 
     print(allPrice);
   }
+
 // common function in steps
   setLoading(bool isLoading) {
     _isLoading = isLoading;
     notifyListeners();
   }
+
   void _moveToNextStep() {
     index += 1;
     notifyListeners();
@@ -240,7 +260,6 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
         content:
             connector?.stepOneContentInStepperChooseLocation() ?? Container(),
         isCurrentStep: index == 0,
-
         tittle: LocaleKeys.car_screen_choose_location.tr(),
       ),
       buildStep(
@@ -248,7 +267,7 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
         isActive: index > 1,
         content: connector!.stepTwoContentInStepperChooseCheckInAndCheckOut(),
         isCurrentStep: index == 1,
-        tittle:LocaleKeys.car_screen_receipt_delivery.tr(),
+        tittle: LocaleKeys.car_screen_receipt_delivery.tr(),
       ),
       buildStep(
         colorIndex: index > 2,
@@ -262,7 +281,7 @@ class CarBookingViewModel extends BaseViewModel<CarBookingConnector> {
         isActive: index > 4,
         content: connector!.stepFourContentInStepperBookingButton(),
         isCurrentStep: index == 4,
-        tittle:LocaleKeys.car_screen_confirm_booking.tr(),
+        tittle: LocaleKeys.car_screen_confirm_booking.tr(),
       ),
     ];
   }

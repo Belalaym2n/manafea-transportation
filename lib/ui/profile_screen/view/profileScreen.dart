@@ -3,11 +3,13 @@ import 'package:flutter/cupertino.dart';
 import '../widgets/profileScreenItem.dart';
 
 class ProfileScreen extends StatefulWidget {
-    ProfileScreen({super.key,
+  ProfileScreen({
+    super.key,
     required this.name,
     required this.phoneNumber,
   });
-    String? phoneNumber;
+
+  String? phoneNumber;
   String? name;
 
   @override
@@ -18,9 +20,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return ProfileScreenItem(
-      name:widget.name ,
-      phoneNumber: widget.phoneNumber
-
-    );
+        name: widget.name, phoneNumber: widget.phoneNumber);
   }
 }

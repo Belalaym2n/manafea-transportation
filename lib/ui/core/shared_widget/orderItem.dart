@@ -18,26 +18,32 @@ Widget buildOrderHeader({
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              orderId,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: AppConstants.screenWidth * 0.038,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-                "${LocaleKeys.orders_screen_total_price.tr()}:$price",
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                orderId,
+                overflow: TextOverflow.ellipsis,
+
                 style: TextStyle(
-                  fontSize: AppConstants.screenWidth * 0.032,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.green[700],
-                )
-            ),
-          ],
+                  overflow: TextOverflow.ellipsis,
+
+                  fontWeight: FontWeight.bold,
+                  fontSize: AppConstants.screenWidth * 0.038,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                  "${LocaleKeys.orders_screen_total_price.tr()}:$price",
+                  style: TextStyle(
+                    fontSize: AppConstants.screenWidth * 0.032,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.green[700],
+                  )
+              ),
+            ],
+          ),
         ),
         GestureDetector(
             onTap: () {

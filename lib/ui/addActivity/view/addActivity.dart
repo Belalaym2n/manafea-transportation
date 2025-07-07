@@ -1,5 +1,6 @@
  import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/config/base_class.dart';
 import 'package:manafea/data/repositories/addActivityRepo/addActivityToSubabaseRepo.dart';
 import 'package:manafea/data/repositories/addActivityRepo/imagePickerRepo.dart';
@@ -39,9 +40,13 @@ class _AddActivityState extends BaseView<AddActivityViewModel, AddActivity>
             child: Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
-                  title: const Text(
+                  title:   Text(
+
                     'إضافة نشاط جديد',
-                    style: TextStyle(color: AppColors.primaryColor),
+                    style: TextStyle(color: AppColors.primaryColor,
+
+                    fontSize: AppConstants.screenWidth*0.06
+                    ),
                   ),
                   backgroundColor: Colors.white,
                   centerTitle: true,
@@ -58,7 +63,7 @@ class _AddActivityState extends BaseView<AddActivityViewModel, AddActivity>
                                     addActivity: value.addActivity,
                                     openImage: value.pickImage,
                                     onChangedDestination:
-                                        value.changeDestination,
+                                    value.changeDestination,
                                     selectedDestination: value.destination,
                                   ),
                                 ],
@@ -93,7 +98,7 @@ class _AddActivityState extends BaseView<AddActivityViewModel, AddActivity>
   @override
   showLoading() {
     // TODO: implement showLoading
-    return LoadingWidget();
+    return const LoadingWidget();
   }
 
   @override

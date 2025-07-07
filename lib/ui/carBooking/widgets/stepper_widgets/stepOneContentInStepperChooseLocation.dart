@@ -121,7 +121,7 @@ class _BuildStepOneContentInStepperChooseLocationState
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       height: isExpanded ? locations.length * 50.0 : 0,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin:   EdgeInsets.symmetric(horizontal: 0.022*AppConstants.screenWidth),
       curve: Curves.easeInOut,
       child: ClipRRect(
         child: ListView.builder(

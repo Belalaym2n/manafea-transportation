@@ -24,8 +24,7 @@ class PersonalDetailedViewModel
 
   uploadUserToDatabase({required UserModel user}) async {
     setLoading(true);
-    print("object");
-    await loadData();
+     await loadData();
     bool notNull = isNullable(user);
     if (!notNull) {
       setLoading(false);

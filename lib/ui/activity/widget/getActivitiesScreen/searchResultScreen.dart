@@ -34,9 +34,10 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
 
   _buildActivityCard() {
     return Container(
+
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(0.044*AppConstants.screenWidth),
         boxShadow: const [
           BoxShadow(color: Colors.black12, blurRadius: 8, spreadRadius: 2),
         ],
@@ -51,6 +52,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           ),
           _buildTravelLocation(),
           _buildSmallBookingButton(),
+            SizedBox(
+            height: AppConstants.screenHeight*0.02,
+          ),
         ],
       ),
     );
@@ -58,7 +62,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
 
   _buildSmallBookingButton() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding:   EdgeInsets.symmetric(horizontal:0.022
+          *AppConstants.screenWidth),
       child: smallElevatedButton(
           onTap: () {
             widget.bookingNav();
@@ -69,10 +74,10 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
 
   _buildTravelLocation() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8),
+      padding: EdgeInsets.symmetric(horizontal: 0.022*AppConstants.screenWidth),
       child: Row(
         children: [
-          Icon(Icons.location_on, color: Colors.red, size: 12),
+          Icon(Icons.location_on, color: Colors.red, size: 0.033*AppConstants.screenWidth),
           SizedBox(width: 4), // مسافة صغيرة بين الأيقونة والنص
           Expanded(
             // يمنع تجاوز النص خارج الحدود
@@ -80,7 +85,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
               maxLines: 1,
 
               widget.location,
-              style: TextStyle(fontSize: 10, color: Colors.black54),
+              style: TextStyle(fontSize: 0.0277*AppConstants.screenWidth, color: Colors.black54),
               overflow: TextOverflow.ellipsis, // يضيف "..." إذا كان النص طويلًا
             ),
           ),
@@ -90,38 +95,35 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   }
 
   _buildTravelName() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      child: Text(
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          widget.itemName,
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              shadows: [
-                Shadow(
-                  //blurRadius: 4,
-                  color: Colors.black.withOpacity(0.5),
-                  offset: const Offset(1, 0),
-                )
-              ])),
-    );
+    return Text(
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        widget.itemName,
+        style: TextStyle(
+            color: Colors.black,
+            fontSize: 0.033*AppConstants.screenWidth,
+            fontWeight: FontWeight.bold,
+            shadows: [
+              Shadow(
+                //blurRadius: 4,
+                color: Colors.black.withOpacity(0.5),
+                offset: const Offset(1, 0),
+              )
+            ]));
   }
 
   _buildImage() {
     return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(0.044*AppConstants.screenWidth)),
       child: Image.network(errorBuilder: (context, error, stackTrace) {
         return Container(
           width: AppConstants.screenWidth * 0.75,
           height: AppConstants.screenHeight * 0.14,
           color: Colors.grey,
-          child: Icon(Icons.error), // لون بديل في حال الخطأ
+          child: const Icon(Icons.error), // لون بديل في حال الخطأ
         );
       }, widget.imageUrl,
-          height: 110, fit: BoxFit.cover, width: double.infinity),
+          height: 0.141*AppConstants.screenHeight, fit: BoxFit.cover, width: double.infinity),
     );
   }
 }

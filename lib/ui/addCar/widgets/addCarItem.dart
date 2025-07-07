@@ -82,16 +82,14 @@ class _AddCarItemState extends State<AddCarItem> {
             elevated_button(
               onPressed: areFieldsValid
                   ? () async {
-                      try {
+
                         await widget.addCar(nameController.text,
                             descriptionController.text, pricingController.text);
 
                         nameController.clear();
                         descriptionController.clear();
                         pricingController.clear();
-                      } catch (e) {
-                        print(e.toString());
-                      }
+
                     }
                   : () {
                       print("null");

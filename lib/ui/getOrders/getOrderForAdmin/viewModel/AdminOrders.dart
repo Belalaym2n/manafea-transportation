@@ -69,7 +69,7 @@ class AdminOrderViewModel extends BaseViewModel<AdminOrderConnector> {
     notifyListeners();
 
     if (result.isSuccess) {
-      connector?.onMessage("Status updated successfully ✅");
+      connector?.onMessage("تم تحديث الحالة بنجاح✅");
     } else {
       connector?.onError(result.error ?? "Something went wrong ❌");
     }
@@ -86,7 +86,6 @@ class AdminOrderViewModel extends BaseViewModel<AdminOrderConnector> {
     if (allOrders.isEmpty) {
       return connector!.emptyOrders();
     }
-
     return connector!.showOrders(allOrders);
   }
 

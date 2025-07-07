@@ -6,7 +6,7 @@ import 'package:manafea/data/repositories/userOrdersHistoryRepo/userOrdersHistor
 import 'package:manafea/data/services/userHistoryOrderDatabaseService/userOrdersHistoryServic.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:manafea/ui/auth/widgets/loadingWidget.dart';
- import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../config/appConstants.dart';
@@ -94,10 +94,10 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
       ),
     );
   }
+
   Widget buildScreenName() {
     return Text(
       LocaleKeys.screensName_orders.tr(),
-
       style: TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: AppConstants.screenWidth * 0.055,
@@ -114,6 +114,7 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
       ),
     );
   }
+
   @override
   GetUserOrdersViewModel init_my_view_model() {
     UserOrderHistoryFirebaseService _userOrderHistoryService =
@@ -139,8 +140,7 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
           itemCount: 3,
           itemBuilder: (context, index) {
             return OrderItem(
-                status:"Pending",
-
+                status: "Pending",
                 orderName: 'bella',
                 orderType: "fbas;fkd",
                 cancelOrder: (String id) {},
@@ -176,18 +176,16 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
   @override
   showOrders(List<BaseOrder> order) {
     // TODO: implement showOrders
-  return  ListView.builder(
+    return ListView.builder(
       itemCount: order.length,
       itemBuilder: (context, index) {
         var orderData = order[index];
         final strategy = OrderWidgetStrategy.getStrategy(orderData);
 
         if (strategy != null) {
-          return strategy.buildWidget(orderData,
-
-                  (String orderId) {
-                viewModel.deleteOrder(orderId);
-              });
+          return strategy.buildWidget(orderData, (String orderId) {
+            viewModel.deleteOrder(orderId);
+          });
         }
         print("sdf");
 
@@ -195,6 +193,4 @@ class _UserOrdersState extends BaseView<GetUserOrdersViewModel, UserOrders>
       },
     );
   }
-
-
 }

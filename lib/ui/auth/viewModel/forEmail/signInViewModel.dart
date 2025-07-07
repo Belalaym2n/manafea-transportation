@@ -23,6 +23,7 @@ class SignInViewModel extends BaseViewModel<SignInConnector> {
     required String email,
     required String password,
   }) async {
+
     setLoading(true);
 
     final result = await _repo.signInWithEmailAndPassword(
@@ -39,8 +40,18 @@ class SignInViewModel extends BaseViewModel<SignInConnector> {
     return  connector?.onError(LocaleKeys.errors_invalid_credentials.tr());
     }
   }
+  bool isValidEmail(String email) {
+    final regex = RegExp(
+        r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$"
+    );
+    return regex.hasMatch(email);
+  }
 
   Future<void> resetPassword({required String email}) async {
+    if(!isValidEmail(email)){
+      return connector!.onError(LocaleKeys.errors_invalid_email.tr());
+
+    }
     setLoading(true);
 
     final result = await _repo.sendPasswordResetEmail(email: email);
@@ -53,9 +64,8 @@ class SignInViewModel extends BaseViewModel<SignInConnector> {
       );
     } else {
 
-      print(result.error.toString());
 
-      connector?.onError(  LocaleKeys.errors_something_went_wrong);
+      connector?.onError(  result.error.toString());
     }
   }
 

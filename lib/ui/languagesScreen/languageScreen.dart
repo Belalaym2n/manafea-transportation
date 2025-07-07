@@ -57,7 +57,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
               Center(
               child: Text(
                   LocaleKeys.onboard_1_headline.tr(),
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 20),

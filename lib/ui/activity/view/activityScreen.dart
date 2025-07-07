@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../../config/appConstants.dart';
 import '../../core/commonScreen/buildHeaderForChooseSpecificaLocation.dart';
- import '../widget/getActivitiesScreen/searchResultScreen.dart';
+import '../widget/getActivitiesScreen/searchResultScreen.dart';
 import 'activityScreenBooking.dart';
 
 class ActivityScreen extends StatefulWidget {
@@ -38,25 +38,23 @@ class _ActivityScreenState
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
         value: viewModel,
-        builder: (context, child) => Consumer
-        <GetActivitiesScreenViewModel>(
+        builder: (context, child) => Consumer<GetActivitiesScreenViewModel>(
             builder: (context, value, child) =>
                 BuildHeaderForChooseSpecificLocation(
-
-                  questionText:
-                   Text(
-                     LocaleKeys.activity_screen_where_do_you_want_to_move_from.tr(),
-                      style: TextStyle(
-                          fontSize: AppConstants.screenWidth * 0.045,
-                          fontWeight: FontWeight.bold), // حجم الخط بناءً على العرض
-                    )
-                   ,
-              changeSearchBool: value.changeSearchBool,
-              getServiceItems: value.showActivity,
-              isSearchPressed: value.isSearchPressed,
+                  questionText: Text(
+                    LocaleKeys.activity_screen_where_do_you_want_to_move_from
+                        .tr(),
+                    style: TextStyle(
+                        fontSize: AppConstants.screenWidth * 0.045,
+                        fontWeight:
+                            FontWeight.bold), // حجم الخط بناءً على العرض
+                  ),
+                  changeSearchBool: value.changeSearchBool,
+                  getServiceItems: value.showActivity,
+                  isSearchPressed: value.isSearchPressed,
                   changeLocation: value.changeDestination,
                   location: value.destinationLanguage,
-                ))) ;
+                )));
   }
 
   @override
@@ -83,7 +81,7 @@ class _ActivityScreenState
 
   @override
   Widget emptyData() {
-    return   Expanded(
+    return Expanded(
       child: Center(
         child: Text(
           LocaleKeys.activity_screen_no_activity_found.tr(), // مفتاح الترجمة
@@ -95,32 +93,37 @@ class _ActivityScreenState
 
   @override
   gridViewData(List<ActivityModel> activity) {
+    double spetRatio =
+        (AppConstants.screenWidth * 0.86) / (AppConstants.screenHeight * 0.5);
+    print("ratio $spetRatio");
+
     // TODO: implement gridViewData
-  return  Expanded(
+    return Expanded(
         child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // سيارتين في كل صف
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.8, // التحكم في أبعاد الودجت
-            ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // سيارتين في كل صف
+                crossAxisSpacing: 0.033 * AppConstants.screenWidth,
+                mainAxisSpacing: 0.0154 * AppConstants.screenHeight,
+                childAspectRatio: spetRatio),
             itemCount: activity.length,
             itemBuilder: (context, index) {
               var activityData = activity[index];
 
-              return SearchResultScreen(
-                bookingNav: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>
-                        ActivityScreenBooking(
-                          activityModel: activityData,
-                        )),
-                  );
-                },
-                imageUrl: activityData.itemImageUrl,
-                itemName: activityData.itemName,
-                location: activityData.itemAddress,
+              return SingleChildScrollView(
+                child: SearchResultScreen(
+                  bookingNav: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ActivityScreenBooking(
+                                activityModel: activityData,
+                              )),
+                    );
+                  },
+                  imageUrl: activityData.itemImageUrl,
+                  itemName: activityData.itemName,
+                  location: activityData.itemAddress,
+                ),
               );
             }));
   }

@@ -40,6 +40,7 @@ dependencies:
   firebase_auth: ^5.5.1
 # for cash data
   get_storage: ^2.1.1
+  flutter_secure_storage: ^9.2.4
   shared_preferences: ^2.5.3
   onesignal_flutter: ^5.2.2
 #  for get orders by day

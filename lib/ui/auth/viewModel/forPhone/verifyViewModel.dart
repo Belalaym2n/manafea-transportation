@@ -1,12 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:manafea/config/base_class.dart';
+ import 'package:manafea/config/base_class.dart';
 
 import '../../../../data/repositories/authRepo/otpRepo.dart';
 import '../../../../data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 import '../../../../generated/locale_keys.g.dart';
-import '../../connector/loginConnector.dart';
-import '../../connector/verifyConnector.dart';
+ import '../../connector/verifyConnector.dart';
 
 class VerifyViewModel extends BaseViewModel<VerifyConnector> {
   final OTPRepo _otpRepo;
