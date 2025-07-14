@@ -91,23 +91,8 @@ class _ProfileScreenItemState extends State<ProfileScreenItem> {
                   icon: Icons.phone,
                   iconColor: AppColors.primaryColor),
               SizedBox(height: AppConstants.screenHeight * 0.04),
-              _buildDrawerData(
-                  isSelected: index == 2,
-                  onTap: () {
-                    index = 2;
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LanguageScreen(),
-                          ));
-                    });
-                  },
-                  name: LocaleKeys.drawer_setting.tr(),
-                  icon: Icons.settings,
-                  iconColor: Colors.black),
-              SizedBox(height: AppConstants.screenHeight * 0.04),
-              _buildDrawerData(
+
+               _buildDrawerData(
                   isSelected: index == 3,
                   onTap: () async {
                     index = 3;

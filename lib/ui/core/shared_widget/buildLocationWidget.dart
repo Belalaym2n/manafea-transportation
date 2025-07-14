@@ -14,14 +14,6 @@ class InfoIconDialog extends StatelessWidget {
     required this.url,
   });
 
-  void _openGoogleMaps() async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      debugPrint('Could not launch $url');
-    }
-  }
 
   void _showDetailsDialog(BuildContext context) {
     showDialog(
@@ -49,18 +41,7 @@ class InfoIconDialog extends StatelessWidget {
               color:  AppColors.primaryColor
             ),),
           ),
-          ElevatedButton.icon(
-            style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(
-                AppColors.primaryColor
-              )
-            ),
-            onPressed: _openGoogleMaps,
-            icon: const Icon(Icons.map,color:    Colors.white,),
-            label: const Text('Open in Maps',style: TextStyle(
-              color: Colors.white
-            ),),
-          ),
+          openGoogleMaps(url)
         ],
       ),
     );
@@ -74,4 +55,28 @@ class InfoIconDialog extends StatelessWidget {
       tooltip: 'View Details',
     );
   }
+}
+
+void _openGoogleMaps(String url) async {
+  final Uri uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } else {
+    debugPrint('Could not launch $url');
+  }
+}
+
+openGoogleMaps(String url){
+  return           ElevatedButton.icon(
+    style: const ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(
+            AppColors.primaryColor
+        )
+    ),
+    onPressed: (){_openGoogleMaps(url);},
+    icon: const Icon(Icons.map,color:    Colors.white,),
+    label: const Text('Open in Maps',style: TextStyle(
+        color: Colors.white
+    ),),
+  );
 }

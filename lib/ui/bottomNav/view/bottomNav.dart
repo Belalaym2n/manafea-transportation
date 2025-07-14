@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:manafea/config/appConstants.dart';
 import 'package:manafea/config/base_class.dart';
+import 'package:manafea/config/checkNetwork/mainWrapper.dart';
 import 'package:manafea/generated/locale_keys.g.dart';
 import 'package:manafea/ui/bottomNav/viewModel/bottomNavViewModel.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,8 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
   }
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return MainWrapper(childWidget:
+        ChangeNotifierProvider(
       create: (context) => viewModel,
       child: Consumer<BottomNavViewModel>(
           builder:(context, value, child) => Scaffold(
@@ -106,7 +108,7 @@ class _BottomNavState extends BaseView<BottomNavViewModel,BottomNav> {
             ,
         body: viewModel.userPages[viewModel.selectedIndex],
       )),
-    );
+    ));
   }
 
   @override

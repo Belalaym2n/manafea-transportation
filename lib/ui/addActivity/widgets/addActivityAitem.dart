@@ -11,7 +11,7 @@ import '../../../config/appConstants.dart';
 import '../../../generated/locale_keys.g.dart';
 import '../../core/commonScreen/chooseLocationPicker.dart';
 import '../../core/shared_widget/addImageWidget.dart';
- import '../../core/shared_widget/textFormFieldForAdmin.dart';
+import '../../core/shared_widget/textFormFieldForAdmin.dart';
 
 class AddActivityItem extends StatefulWidget {
   AddActivityItem(
@@ -44,6 +44,7 @@ class _AddActivityItemState extends State<AddActivityItem> {
   TextEditingController descriptionController = TextEditingController();
 
   TextEditingController addressController = TextEditingController();
+  TextEditingController googleMapUrlController = TextEditingController();
 
   bool get areFieldsValid =>
       activityNameController.text.trim().isNotEmpty &&
@@ -51,6 +52,7 @@ class _AddActivityItemState extends State<AddActivityItem> {
       widget.selectedDestination != null &&
       pricingController.text.trim().isNotEmpty &&
       descriptionController.text.trim().isNotEmpty &&
+      googleMapUrlController.text.trim().isNotEmpty &&
       widget.image != null &&
       addressController.text.trim().isNotEmpty;
 
@@ -63,6 +65,7 @@ class _AddActivityItemState extends State<AddActivityItem> {
     pricingController.addListener(_updateState);
     descriptionController.addListener(_updateState);
     addressController.addListener(_updateState);
+    googleMapUrlController.addListener(_updateState);
   }
 
   void _updateState() => setState(() {});
@@ -73,6 +76,7 @@ class _AddActivityItemState extends State<AddActivityItem> {
     pricingController.dispose();
     descriptionController.dispose();
     addressController.dispose();
+    googleMapUrlController.dispose();
     super.dispose();
   }
 
@@ -97,6 +101,8 @@ class _AddActivityItemState extends State<AddActivityItem> {
             buildTextField("أبرز الأحداث",
                 controller: descriptionController, maxLines: 3),
             buildTextField("عنوان التحرك", controller: addressController),
+            buildTextField(" أضف رابط خرائط جوجل",
+                controller: googleMapUrlController),
             SizedBox(height: AppConstants.screenHeight * 0.04),
             elevated_button(
               onPressed: areFieldsValid
@@ -106,10 +112,11 @@ class _AddActivityItemState extends State<AddActivityItem> {
                             .setName(activityNameController.text)
                             .setAddress(addressController.text)
                             .setDescription(descriptionController.text)
-                             .setPricing(int.parse(pricingController.text))
+                            .setPricing(int.parse(pricingController.text))
                             .setDescription(descriptionController.text)
+                            .setGoogleMapsUrl(googleMapUrlController.text)
                             .build();
-                         await widget.addActivity(activity);
+                        await widget.addActivity(activity);
                         activityNameController.clear();
                         pricingController.clear();
                         descriptionController.clear();
@@ -139,8 +146,8 @@ class _AddActivityItemState extends State<AddActivityItem> {
       child: Container(
         padding: EdgeInsets.symmetric(
             vertical: AppConstants.screenHeight * 0.015,
-             horizontal: AppConstants.screenWidth * 0.04),
-         decoration: BoxDecoration(
+            horizontal: AppConstants.screenWidth * 0.04),
+        decoration: BoxDecoration(
           border: Border.all(color: AppColors.primaryColor, width: 1.5),
           borderRadius: BorderRadius.circular(8),
         ),
@@ -149,8 +156,8 @@ class _AddActivityItemState extends State<AddActivityItem> {
           children: [
             Text(
               widget.selectedDestination == null
-        ? "اختر الوجهة"
-                   : widget.selectedDestination.toString(),
+                  ? "اختر الوجهة"
+                  : widget.selectedDestination.toString(),
               style: TextStyle(
                   fontSize: AppConstants.screenWidth * 0.04,
                   // 4% من العرض

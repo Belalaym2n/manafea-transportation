@@ -9,6 +9,7 @@ import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../config/appConstants.dart';
+import '../../../../config/checkNetwork/mainWrapper.dart';
 import '../../../../data/repositories/authRepo/forEmail/signInRepo.dart';
 import '../../../../data/services/Auth/withEmail/signIn.dart';
 import '../../connector/signInConnector.dart';
@@ -35,7 +36,8 @@ void initState() {
 }
 @override
 Widget build(BuildContext context) {
-  return ChangeNotifierProvider.value(
+  return MainWrapper(
+      childWidget: ChangeNotifierProvider.value(
       value: viewModel,
       builder: (context, child) => Consumer<SignInViewModel>(
         builder: (context, value, child) => Scaffold(
@@ -50,7 +52,7 @@ Widget build(BuildContext context) {
             ],
           ),
         ),
-      ));
+      )));
 }
 
 

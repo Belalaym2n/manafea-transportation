@@ -11,7 +11,6 @@ void showCalendarDialog(
     required DateTime focusedDateCheckInDate,
     Function? calculatePrice,
     bool checkIn = false}) {
-  final screenWidth = MediaQuery.of(context).size.width;
 
   showDialog(
     context: context,
@@ -101,7 +100,8 @@ void showCalendarDialog(
                     enabledDayPredicate: (day) {
                       if (checkIn) {
                         return !day
-                            .isBefore(DateTime.now().add(const Duration(days: 1)));
+                            .isBefore(DateTime.now()
+                            .add(const Duration(days: 0)));
                       } else {
                         return !day.isBefore(focusedDateCheckInDate
                             .add(const Duration(days: 1)));

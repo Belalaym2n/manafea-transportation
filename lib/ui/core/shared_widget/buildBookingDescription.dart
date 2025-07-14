@@ -8,6 +8,8 @@ import 'buildLocationWidget.dart';
 Widget buildBookingDescription({
   required String BookingTittle,
   required String description,
+  required String location,
+  required String googleMapsUrl,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,9 +32,9 @@ Widget buildBookingDescription({
             ),
           ),
           InfoIconDialog(
-            location: "location",
+            location: location,
             description: description,
-            url: "dsf",
+            url: googleMapsUrl,
 
           )
 

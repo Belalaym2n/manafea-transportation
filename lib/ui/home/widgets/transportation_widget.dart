@@ -14,7 +14,8 @@ class ServicesWidget extends StatefulWidget {
   State<ServicesWidget> createState() => _ServicesWidgetState();
 }
 
-class _ServicesWidgetState extends State<ServicesWidget> {
+class _ServicesWidgetState extends State<ServicesWidget>
+    with SingleTickerProviderStateMixin {
   IconData? selectedIcon;
 
   @override
@@ -22,110 +23,117 @@ class _ServicesWidgetState extends State<ServicesWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        serviceName(name:         LocaleKeys.home_screen_choose_your_service.tr(),
-
-
+        serviceName(
+          name: LocaleKeys.home_screen_choose_your_service.tr(),
         ),
-          SizedBox(height: 0.01 * AppConstants.screenHeight), // Adjust space based on screen height
+        SizedBox(height: 0.02 * AppConstants.screenHeight),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0.07 * AppConstants.screenWidth), // Adjust padding based on screen width
+          padding: EdgeInsets.symmetric(
+              horizontal: 0.07 * AppConstants.screenWidth),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildServicesWidget(
-                  onTap: (){
-                    Navigator.
-                    push(context,MaterialPageRoute(builder:
-                        (context) => const CarsScreen(),));
-
-                  },
-                  icon: Icons.directions_car,
-                  iconName: LocaleKeys.screensName_car.tr()),
-              _buildServicesWidget(
-                  onTap: (){
-                    Navigator.pushNamed(context, AppRoutes.activityBooking);
-                  },
-                  icon: Icons.local_activity
-                  , iconName:  LocaleKeys.screensName_activities.tr()),
-              _buildServicesWidget(
-                  onTap: (){
-                    Navigator.pushNamed(context, AppRoutes.filterHotels);
-                  },
-                  icon:
-              Icons.hotel, iconName:  LocaleKeys.screensName_hotels.tr()),
-             ],
+              _buildAnimatedService(
+                icon: Icons.directions_car,
+                label: LocaleKeys.screensName_car.tr(),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const CarsScreen(),
+                  ),
+                ),
+              ),
+              _buildAnimatedService(
+                icon: Icons.local_activity,
+                label: LocaleKeys.screensName_activities.tr(),
+                onTap: () => Navigator.pushNamed(
+                    context, AppRoutes.activityBooking),
+              ),
+              _buildAnimatedService(
+                icon: Icons.hotel,
+                label: LocaleKeys.screensName_hotels.tr(),
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoutes.filterHotels),
+              ),
+            ],
           ),
         ),
       ],
     );
   }
 
-
-
-
-
-  Widget _buildServicesWidget({required IconData icon,
-    required String iconName,
-  Function? onTap
+  Widget _buildAnimatedService({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
   }) {
-    bool isSelected =
-        selectedIcon == icon;
+    bool isSelected = selectedIcon == icon;
 
     return GestureDetector(
       onTap: () {
         setState(() {
-           selectedIcon = isSelected ? null : icon;
+          selectedIcon = icon;
         });
 
-         Future.delayed(Duration(milliseconds: 300), () {
-          onTap!();
+        Future.delayed(const Duration(milliseconds: 300), () {
+          onTap();
         });
 
-         Future.delayed(Duration(milliseconds: 300), () {
+        Future.delayed(const Duration(milliseconds: 800), () {
           setState(() {
-            selectedIcon = isSelected ? icon : null;
+            selectedIcon = null;
           });
         });
-
       },
       child: Column(
         children: [
-          AnimatedContainer(
+          AnimatedScale(
+            scale: isSelected ? 1.15 : 1.0,
             duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            padding: EdgeInsets.all(0.044 * AppConstants.screenWidth), // Adjust padding based on screen width
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isSelected ? AppColors.primaryColor : Colors.grey[300],
-              boxShadow: isSelected
-                  ? [
-                BoxShadow(
-                  color: AppColors.primaryColor.withOpacity(0.4),
-                  blurRadius: 12,
-                  offset: const Offset(0, 6),
-                )
-              ]
-                  : [],
-            ),
-            child: Icon(
-              icon,
-              size: 0.076 * AppConstants.screenWidth, // Adjust icon size based on screen width
-              color: isSelected ? Colors.white : Colors.black87,
+            curve: Curves.easeOutBack,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              padding:
+              EdgeInsets.all(0.045 * AppConstants.screenWidth),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color:
+                isSelected ? AppColors.primaryColor : Colors.grey[200],
+                boxShadow: isSelected
+                    ? [
+                  BoxShadow(
+                    color: AppColors.primaryColor.withOpacity(0.3),
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                    offset: const Offset(0, 4),
+                  )
+                ]
+                    : [],
+              ),
+              child: Icon(
+                icon,
+                size: 0.076 * AppConstants.screenWidth,
+                color: isSelected ? Colors.white : Colors.black87,
+              ),
             ),
           ),
-            SizedBox(height: AppConstants.screenHeight*0.0087),
-          Text(
-            iconName,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: isSelected ? AppColors.primaryColor : Colors.black54,
-              fontSize: 0.035 * AppConstants.screenWidth, // Adjust font size based on screen width
+          const SizedBox(height: 8),
+          AnimatedOpacity(
+            opacity: 1.0,
+            duration: const Duration(milliseconds: 200),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 0.036 * AppConstants.screenWidth,
+                color:
+                isSelected ? AppColors.primaryColor : Colors.black54,
+              ),
             ),
           ),
         ],
       ),
     );
   }
-
-
 }

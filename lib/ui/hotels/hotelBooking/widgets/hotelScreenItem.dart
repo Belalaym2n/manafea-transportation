@@ -28,12 +28,16 @@ class _HotelScreenItemState extends State<HotelScreenItem> {
             ),
             SizedBox(height: AppConstants.screenHeight * 0.012),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.05),
+              padding: EdgeInsets.symmetric(horizontal:
+              AppConstants.screenWidth * 0.05),
               child: buildBookingDescription(
+                googleMapsUrl: widget.hotelModel.googleMapsUrl,
+                location: widget.hotelModel.itemAddress,
 
                 description:  widget.hotelModel.itemDescription
                 ,
-                  BookingTittle: LocaleKeys.hotelsScreen_about_the_hotel.tr()),
+                  BookingTittle:
+                  LocaleKeys.hotelsScreen_about_the_hotel.tr()),
             ),
           ],
 

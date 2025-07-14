@@ -29,6 +29,8 @@ class _ActivityScreenBookingItemState extends State<ActivityScreenBookingItem> {
           padding:
               EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.05),
           child: buildBookingDescription(
+              googleMapsUrl: widget.activity.googleMapsUrl,
+              location: widget.activity.itemAddress,
               description: widget.activity.itemDescription,
               BookingTittle: "About ${widget.activity.itemName}"),
         )

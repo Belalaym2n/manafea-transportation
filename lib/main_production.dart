@@ -11,6 +11,7 @@ import 'package:manafea/routing/appRoutes.dart';
 import 'package:manafea/ui/notification/widgets/notificationDetailedItem.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'config/appConstants.dart';
@@ -20,6 +21,7 @@ import 'data/services/notifcationService/notificationService.dart';
 import 'domain/models/notificationModel/notificationModel.dart';
 import 'firebase_options.dart';
 import 'generated/codegen_loader.g.dart';
+import 'main.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,46 +57,27 @@ void main() async {
           path: 'assets/translations',
           fallbackLocale: const Locale('en'),
           startLocale: Locale(langCode),
-          child: const MyApp())));
-
-  // await SentryFlutter.init(
-  //       (options) {
-  //     options.dsn = 'https://f98968bded543a720197a8d0e76ef160@o4508100777082880.ingest.us.sentry.io/4508972885737472';
-  //     // Adds request headers and IP for users,
-  //     // visit: https://docs.sentry.io/platforms/dart/data-management/data-collected/ for more info
-  //     options.sendDefaultPii = true;
-  //   },
-  //   appRunner: () => runApp(
-  //     SentryWidget(
-  //       child: const MyApp(),
-  //     ),
-  //   ),
-  // );
+          child: MyApp(
+            flavor: "production",
+          ))));
+  await trackErrors();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
-
-  @override
-  Widget build(BuildContext context) {
-    AppConstants.initSize(context);
-    GetNotificationService.openNotification();
-
-    return ChangeNotifierProvider(
-        create: (_) => LanguageProvider()..loadSavedLanguage(),
-        child: Consumer<LanguageProvider>(builder: (context, langProvider, _) {
-          return MaterialApp(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: langProvider.locale,
-            navigatorKey: navigatorKey,
-            debugShowCheckedModeBanner: false,
-            initialRoute: '/',
-            onGenerateRoute: (settings) => Routes.onGenerate(settings),
-          );
-        }));
-  }
+trackErrors() async {
+  return await SentryFlutter.init(
+    (options) {
+      options.dsn =
+          'https://f98968bded543a720197a8d0e76ef160@o4508100777082880.ingest.us.sentry.io/4508972885737472';
+      // Adds request headers and IP for users,
+      // visit: https://docs.sentry.io/platforms/dart/data-management/data-collected/ for more info
+      options.sendDefaultPii = true;
+    },
+    appRunner: () => runApp(
+      SentryWidget(
+        child: MyApp(
+          flavor: "production",
+        ),
+      ),
+    ),
+  );
 }

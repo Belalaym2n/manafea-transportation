@@ -31,7 +31,7 @@ class ImagePickerService {
       print("Upload response: $storageResponse");
 
       final publicUrl = supabase.storage
-          .from('activities.images')
+          .from(imagesFile)
           .getPublicUrl('public/$fileName.jpg');
 
       return publicUrl;

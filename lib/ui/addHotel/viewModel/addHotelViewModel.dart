@@ -63,6 +63,7 @@ class AddHotelViewModel extends BaseViewModel<AddHotelConnector> {
               int.parse(hotelModel.commonRoomPricing.toString()))
           .setItemName(hotelModel.itemName)
           .setItemImageUrl(imageUrl.toString())
+      .setGoogleMapsUrl(hotelModel.googleMapsUrl)
           .setSpecialRoomPricing(
               int.parse(hotelModel.specialRoomPricing.toString()))
           .setItemAddress(hotelModel.itemAddress)

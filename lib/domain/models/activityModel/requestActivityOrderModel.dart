@@ -4,11 +4,13 @@ class RequestActivityOrderModel extends BaseOrder {
 
     int? peopleCount;
     String? activityName;
+    String? googleMapsUrl;
     RequestActivityOrderModel._({
       required String id,
       required this.peopleCount,
       required String orderDate,
       required this.activityName,
+      required this.googleMapsUrl,
       required String time,
       required String name,
       required String service,
@@ -31,6 +33,7 @@ class RequestActivityOrderModel extends BaseOrder {
   factory RequestActivityOrderModel.fromJson(Map<String, dynamic> json) {
     return RequestActivityOrderModel._(
       id: json['id'],
+      googleMapsUrl: json['googleMapsUrl'],
       activityName: json['activityName'],
       peopleCount: json['peopleCount'],
       orderDate: json['orderDate'],
@@ -50,6 +53,7 @@ class RequestActivityOrderModel extends BaseOrder {
     final json = super.toJson();
     json['peopleCount'] = peopleCount;// Get the BaseOrder JSON first
     json['activityName'] = activityName;// Get the BaseOrder JSON first
+    json['googleMapsUrl'] = googleMapsUrl;// Get the BaseOrder JSON first
     return json;
   }
 }
@@ -60,9 +64,14 @@ class RequestActivityOrderBuilder extends  BaseOrderBuilder<RequestActivityOrder
 
   int ?peopleCount;
   String? activityName;
+  String? googleMapsUrl;
 
   RequestActivityOrderBuilder setPeopleCount(int peopleNumber){
     this.peopleCount=peopleNumber;
+    return this;
+  }
+  RequestActivityOrderBuilder setGoogleMapsUrl(String url) {
+    this.googleMapsUrl = url;
     return this;
   }
   RequestActivityOrderBuilder setActivityName(String activity) {
@@ -75,6 +84,7 @@ class RequestActivityOrderBuilder extends  BaseOrderBuilder<RequestActivityOrder
     // TODO: implement build
     return  RequestActivityOrderModel._(
       id: id??'sd',
+      googleMapsUrl: googleMapsUrl??'',
       peopleCount:peopleCount??1,
       activityName: activityName??'sd',
        service:service??'',

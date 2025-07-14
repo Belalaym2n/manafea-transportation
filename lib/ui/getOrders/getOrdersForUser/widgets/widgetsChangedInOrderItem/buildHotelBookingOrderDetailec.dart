@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:manafea/domain/models/carModels/requestCarBookingOrder.dart';
+import 'package:manafea/domain/models/hotelModels/addHotel.dart';
 import 'package:manafea/domain/models/hotelModels/requestHotelBooking.dart';
 import '../../../../../config/appConstants.dart';
 import '../../../../../domain/models/baseOrderModel/baseOrderModel.dart';
@@ -25,14 +26,18 @@ class HotelOrderWidgetStrategy extends OrderWidgetStrategy {
 
   @override
   Widget buildWidget(BaseOrder order, Function(String) cancelOrder) {
+    final hotelOrder = order as RequestHotelBooking;
+
     return OrderItem(
       status: order.status,
+      url: hotelOrder.googleMapsUrl.toString()??'',
 
       orderName: order.name,
       orderType: LocaleKeys.orders_screen_hotel_nae.tr(),
       cancelOrder: cancelOrder,
       order: order,
-      orderDetailedChanged: buildHotelWidget(hotel: order as RequestHotelBooking),
+      orderDetailedChanged:
+      buildHotelWidget(hotel: order),
     );
   }
 }

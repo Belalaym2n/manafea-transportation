@@ -2,6 +2,7 @@ import 'package:manafea/domain/models/baseItemInServiceModel/baseItemInServiceMo
 
 class ActivityModel extends BaseItemInServiceModel {
   String destination;
+  String googleMapsUrl;
 
   ActivityModel._({
     required String name,
@@ -9,6 +10,7 @@ class ActivityModel extends BaseItemInServiceModel {
     required String imageUrl,
     required int pricing,
     required this.destination,
+    required this.googleMapsUrl,
     required String address,
   }) : super(
           itemAddress: address,
@@ -22,12 +24,14 @@ class ActivityModel extends BaseItemInServiceModel {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json['destination'] = destination;
+    json['googleMapsUrl'] = googleMapsUrl;
     return json;
   }
 
   factory ActivityModel.fromJson(Map<String, dynamic> json) {
     return ActivityModel._(
       name: json['itemName']??'',
+      googleMapsUrl: json['googleMapsUrl']??'',
       description: json['itemDescription']??'',
       imageUrl: json['itemImageUrl']??'',
       address: json['itemAddress']??'',
@@ -43,6 +47,8 @@ class ActivityModel extends BaseItemInServiceModel {
     extends BaseItemBuilder<ActivityModel, ActivityModelBuilder> {
   String? name;
   String? description;
+  String? googleMapsUrl;
+
   String? imageUrl;
   int? pricing;
   String? address;
@@ -58,6 +64,10 @@ class ActivityModel extends BaseItemInServiceModel {
     return this;
   }
 
+  ActivityModelBuilder setGoogleMapsUrl(String url) {
+    this.googleMapsUrl = url;
+    return this;
+  }
   ActivityModelBuilder setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
     return this;
@@ -82,6 +92,7 @@ class ActivityModel extends BaseItemInServiceModel {
   ActivityModel build() {
     return ActivityModel._(
       name: name ?? '',
+      googleMapsUrl: googleMapsUrl ?? '',
       description: description ?? '',
       imageUrl: imageUrl ?? '',
       pricing: pricing ?? 0,

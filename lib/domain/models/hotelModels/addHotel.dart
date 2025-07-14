@@ -5,6 +5,8 @@ class AddHotelModel  extends BaseItemInServiceModel {
 
   int commonRoomPricing;
   int specialRoomPricing;
+  String googleMapsUrl;
+
   String country;
 
   AddHotelModel._({
@@ -13,6 +15,7 @@ class AddHotelModel  extends BaseItemInServiceModel {
     required String imageUrl,
     required int pricing,
     required this.commonRoomPricing,
+    required this.googleMapsUrl,
     required this.country,
     required this.specialRoomPricing,
      required String address,
@@ -28,6 +31,7 @@ class AddHotelModel  extends BaseItemInServiceModel {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json['commonRoomPricing']=commonRoomPricing;
+    json['googleMapsUrl']=googleMapsUrl;
     json['country']=country;
     json['specialRoomPricing']=specialRoomPricing;
      return json;
@@ -35,14 +39,15 @@ class AddHotelModel  extends BaseItemInServiceModel {
 
   factory AddHotelModel.fromJson(Map<String, dynamic> json) {
     return AddHotelModel._(
-      name: json['itemName'],
+      name: json['itemName']??'',
+      googleMapsUrl: json['googleMapsUrl']??'',
       country: json['country'],
-      specialRoomPricing: json['specialRoomPricing'],
-      commonRoomPricing: json['commonRoomPricing'],
-      description: json['itemDescription'],
-      imageUrl: json['itemImageUrl'],
-      address: json['itemAddress'],
-      pricing: json['itemPricing'],
+      specialRoomPricing: json['specialRoomPricing']??'',
+      commonRoomPricing: json['commonRoomPricing']??'',
+      description: json['itemDescription']??'',
+      imageUrl: json['itemImageUrl']??'',
+      address: json['itemAddress']??'',
+      pricing: json['itemPricing']??'',
      );
   }
 }
@@ -51,7 +56,11 @@ class AddHotelModel  extends BaseItemInServiceModel {
        String? country;
   int ?commonRoomPricing;
   int ?specialRoomPricing;
-
+       String? googleMapsUrl;
+       AddHotelBuilder setGoogleMapsUrl(String url) {
+         this.googleMapsUrl = url;
+         return this;
+       }
   AddHotelBuilder setCommonRoomPricing(int commonPricing) {
     this.commonRoomPricing = commonPricing;
     return this  ;
@@ -75,6 +84,7 @@ class AddHotelModel  extends BaseItemInServiceModel {
   AddHotelModel build() {
     return AddHotelModel._(
       commonRoomPricing: commonRoomPricing??0,
+      googleMapsUrl: googleMapsUrl??"",
       specialRoomPricing: commonRoomPricing??0,
       name: itemName ?? '',
       country: country ?? '',

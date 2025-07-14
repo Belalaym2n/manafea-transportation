@@ -95,7 +95,10 @@ dependencies:
   easy_localization: ^3.0.7+1
 
   #  table_calendar: ^3.2.0
-  # for success order
+  # for Check Internet
+  flutter_offline: ^5.0.0
+#   for track errors
+  sentry_flutter: ^9.4.0
 
 flutter_launcher_icons:
 

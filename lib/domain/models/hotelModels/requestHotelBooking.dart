@@ -5,6 +5,7 @@ class RequestHotelBooking extends BaseOrder {
   final String checkIn;
   final String checkOut;
   final String hotelName;
+  final String googleMapsUrl;
   final int roomCount;
   final String? commonRoomTyp;
 
@@ -12,6 +13,7 @@ class RequestHotelBooking extends BaseOrder {
     required String id,
     required String orderDate,
     required this.roomType,
+    required this.googleMapsUrl,
     required this.checkIn,
     required this.checkOut,
     this.commonRoomTyp,
@@ -38,6 +40,7 @@ class RequestHotelBooking extends BaseOrder {
   factory RequestHotelBooking.fromJson(Map<String, dynamic> json) {
     return RequestHotelBooking._(
       id: json['id'] ?? '',
+      googleMapsUrl: json['googleMapsUrl'] ?? '',
       hotelName: json['hotelName'] ?? '',
       checkOut: json['checkOut'] ?? '',
       checkIn: json['checkIn'] ?? '',
@@ -59,6 +62,7 @@ class RequestHotelBooking extends BaseOrder {
     final json = super.toJson(); // Get the BaseOrder JSON first
     json['roomType'] = roomType;
     json['roomCount'] = roomCount;
+    json['googleMapsUrl'] = googleMapsUrl;
     json['checkIn'] = checkIn;
     json['checkOut'] = checkOut;
     json['hotelName'] = hotelName;
@@ -76,10 +80,15 @@ class RequestHotelBookingBuilder
   String? commonRoomTyp;
   String? checkOut;
   String? checkIn;
+  String? googleMapsUrl;
   String? hotelName;
 
   RequestHotelBookingBuilder setRoomType(String roomType) {
     this.roomType = roomType;
+    return this;
+  }
+  RequestHotelBookingBuilder setGoogleMapsUrl(String Url) {
+    this.googleMapsUrl = Url;
     return this;
   }
 
@@ -111,21 +120,22 @@ class RequestHotelBookingBuilder
   @override
   RequestHotelBooking build() {
     return RequestHotelBooking._(
-      id: id ?? 'sd',
+      id: id ?? '',
+      googleMapsUrl: googleMapsUrl ?? '',
       hotelName:   hotelName??'',
       service: service ?? '',
       checkOut: checkOut ?? '',
       checkIn: checkIn ?? '',
       commonRoomTyp: commonRoomTyp,
-      name: name ?? 'sd',
-      userId: userId ?? 'user',
+      name: name ?? '',
+      userId: userId ?? '',
       status: status ?? 'pending',
       orderDate: orderDate ?? '',
-      roomType: roomType ?? 'not extis',
+      roomType: roomType ?? '',
       roomCount: roomCount ?? 1,
-      time: time ?? 'dfs',
-      price: price ?? 5.8,
-      phoneNumber: phoneNumber ?? 'dsf',
+      time: time ?? ' ',
+      price: price ?? 0,
+      phoneNumber: phoneNumber ?? ' ',
     );
   }
 }

@@ -10,7 +10,7 @@ class ApiManager {
   }
 
   static const String _apiUrl = 'https://onesignal.com/api/v1/notifications';
-  static String appId = AppConstants.oneSignalAppId;
+  static String appId = AppConstants.oneSignalAPPID;
   static String restApiKey = AppConstants.oneSignalApiKey;
 
   Future<Response> getNotification( ) {
