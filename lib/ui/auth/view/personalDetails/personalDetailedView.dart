@@ -9,6 +9,7 @@ import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 
 import 'package:provider/provider.dart';
 
+import '../../../../config/checkNetwork/mainWrapper.dart';
 import '../../connector/personalDetailedConnector.dart';
 import '../../viewModel/forPersonalDetails/personalDetailedVeiwModel.dart';
 import '../../widgets/loadingWidget.dart';
@@ -37,7 +38,8 @@ class _PersonalDetailedScreenState
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return MainWrapper(
+        childWidget: ChangeNotifierProvider(
         create: (context) => viewModel,
         builder: (context, child) => Consumer<PersonalDetailedViewModel>(
                 builder: (context, view, child) {
@@ -60,7 +62,7 @@ class _PersonalDetailedScreenState
                       ],
                     ),
                   ));
-            }));
+            })));
   }
 
   @override

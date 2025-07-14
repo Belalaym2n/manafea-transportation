@@ -11,6 +11,8 @@ import 'package:manafea/ui/auth/widgets/loadingWidget.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../config/checkNetwork/mainWrapper.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -35,7 +37,8 @@ class _SignUpScreenState extends BaseView<CreateAccountViewModel,
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
+    return MainWrapper(
+        childWidget:  ChangeNotifierProvider.value(
         value: viewModel,
         builder: (context, child) => Consumer<CreateAccountViewModel>(
               builder: (context, value, child) => Scaffold(
@@ -51,7 +54,7 @@ class _SignUpScreenState extends BaseView<CreateAccountViewModel,
                   ],
                 ),
               ),
-            ));
+            )));
   }
 
   @override

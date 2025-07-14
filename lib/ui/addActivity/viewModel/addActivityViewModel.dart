@@ -66,6 +66,7 @@ class AddActivityViewModel extends BaseViewModel<AddActivityConnector> {
           .setImageUrl(imageUrl.toString())
           .setDestination(_destination.toString())
           .setPricing(int.parse(activityModel.itemPricing.toString()))
+      .setGoogleMapsUrl(activityModel.googleMapsUrl.toString())
           .build();
 
       await addActivityToSupabseRepo.addItemInService(activity, 'activities');

@@ -6,7 +6,7 @@ import 'package:manafea/domain/models/hotelModels/addHotel.dart';
 
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
-  import '../../core/commonScreen/chooseLocationPicker.dart';
+import '../../core/commonScreen/chooseLocationPicker.dart';
 import '../../core/shared_widget/addImageWidget.dart';
 import '../../core/shared_widget/elevatedButton.dart';
 import '../../core/shared_widget/textFormFieldForAdmin.dart';
@@ -37,6 +37,7 @@ class _AddHotelItemState extends State<AddHotelItem> {
   TextEditingController hotelName = TextEditingController();
 
   TextEditingController hotelAddress = TextEditingController();
+  TextEditingController googleMapUrlController = TextEditingController();
 
   TextEditingController hotelCommonRoomPricing = TextEditingController();
   TextEditingController hotelSpecialRoomPricing = TextEditingController();
@@ -48,6 +49,7 @@ class _AddHotelItemState extends State<AddHotelItem> {
       hotelAddress.text.trim().isNotEmpty &&
       hotelCommonRoomPricing.text.trim().isNotEmpty &&
       hotelSpecialRoomPricing.text.trim().isNotEmpty &&
+      googleMapUrlController.text.trim().isNotEmpty &&
       widget.image != null &&
       widget.selectedLocation != null &&
       hotelDescription.text.trim().isNotEmpty;
@@ -58,6 +60,7 @@ class _AddHotelItemState extends State<AddHotelItem> {
     super.initState();
     hotelAddress.addListener(_updateState);
     hotelName.addListener(_updateState);
+    googleMapUrlController.addListener(_updateState);
     hotelCommonRoomPricing.addListener(_updateState);
     hotelSpecialRoomPricing.addListener(_updateState);
     hotelDescription.addListener(_updateState);
@@ -69,6 +72,7 @@ class _AddHotelItemState extends State<AddHotelItem> {
   void dispose() {
     hotelAddress.dispose();
     hotelName.dispose();
+    googleMapUrlController.dispose();
     hotelSpecialRoomPricing.dispose();
     hotelDescription.dispose();
     hotelCommonRoomPricing.dispose();
@@ -87,6 +91,10 @@ class _AddHotelItemState extends State<AddHotelItem> {
           children: [
             buildChooseImage(image: widget.image, openImage: widget.openImage),
             SizedBox(height: AppConstants.screenHeight * 0.03),
+
+            chooseCountry(),
+            SizedBox(height: AppConstants.screenHeight * 0.03),
+
             buildTextField("اسم الفندق", controller: hotelName),
             buildTextField('عنوان الفندق', controller: hotelAddress),
             buildTextField(" سعر الغرف المشتركة في الفندق",
@@ -99,7 +107,9 @@ class _AddHotelItemState extends State<AddHotelItem> {
             ),
             buildTextField("وصف الفندق",
                 controller: hotelDescription, maxLines: 3),
-            chooseCountry(),
+            buildTextField(" أضف رابط خرائط جوجل",
+                controller: googleMapUrlController),
+
             SizedBox(height: AppConstants.screenHeight * 0.04),
             elevated_button(
               onPressed: areFieldsValid
@@ -114,6 +124,7 @@ class _AddHotelItemState extends State<AddHotelItem> {
                             .setSpecialRoomPricing(
                                 int.parse(hotelSpecialRoomPricing.text))
                             .setItemAddress(hotelAddress.text)
+                            .setGoogleMapsUrl(googleMapUrlController.text)
                             .setCountry(widget.selectedLocation.toString())
                             .build();
 
@@ -146,8 +157,8 @@ class _AddHotelItemState extends State<AddHotelItem> {
         child: Container(
           padding: EdgeInsets.symmetric(
               vertical: AppConstants.screenHeight * 0.015,
-               horizontal: AppConstants.screenWidth * 0.04),
-           decoration: BoxDecoration(
+              horizontal: AppConstants.screenWidth * 0.04),
+          decoration: BoxDecoration(
             border: Border.all(color: AppColors.primaryColor, width: 1.5),
             borderRadius: BorderRadius.circular(8),
           ),

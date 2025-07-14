@@ -36,7 +36,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
   DateTime.now().add(const Duration(days: 0));
 
   DateTime focusedDateCheckIn =
-  DateTime.now().add(Duration(days: 1));
+  DateTime.now().add(Duration(days: 0));
 
   bool get orderIsDone => _orderIsDone;
 
@@ -279,6 +279,7 @@ class HotelBookingViewModel extends BaseViewModel<HotelConnector> {
           .setName(name)
 
           .setPhoneNumber(phoneNumber)
+      .setGoogleMapsUrl(hotel.googleMapsUrl)
           .setOrderDate(formattedDate)
           .setPrice(_totalPrice.toDouble())
           .setUserId(id)

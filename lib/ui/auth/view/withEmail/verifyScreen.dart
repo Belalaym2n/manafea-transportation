@@ -10,6 +10,7 @@ import 'package:manafea/ui/auth/widgets/loadingWidget.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../config/checkNetwork/mainWrapper.dart';
 import '../../../../data/repositories/authRepo/createAccount.dart';
 import '../../../../data/services/Auth/withEmail/createAccount.dart';
 import '../../../../data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
@@ -38,7 +39,8 @@ class _VerifyEmailScreenState
   }
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
+    return MainWrapper(
+        childWidget: ChangeNotifierProvider.value(
         value: viewModel,
         builder: (context, child) => Consumer<VerifyEmailViewModel>(
             builder: (context, value, child) => Scaffold(
@@ -48,7 +50,7 @@ class _VerifyEmailScreenState
                     verifyEmail: value.verifyEmail,
                   ),
                   if (value.isLoading) showLoading()
-                ]))));
+                ])))));
   }
 
   @override

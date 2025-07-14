@@ -6,6 +6,7 @@ import 'package:manafea/data/services/Auth/withEmail/signIn.dart';
 import 'package:manafea/ui/auth/viewModel/forEmail/creatAcountViewModel.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../config/checkNetwork/mainWrapper.dart';
 import '../../../../data/repositories/authRepo/createAccount.dart';
 import '../../../../data/services/Auth/withEmail/createAccount.dart';
 import '../../../../routing/appRoutes.dart';
@@ -36,7 +37,8 @@ class _SignInScreenState extends BaseView<SignInViewModel, SignInScreen>
   }
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
+    return MainWrapper(
+        childWidget:  ChangeNotifierProvider.value(
         value: viewModel,
         builder: (context, child) => Consumer<SignInViewModel>(
               builder: (context, value, child) => Scaffold(
@@ -53,7 +55,7 @@ class _SignInScreenState extends BaseView<SignInViewModel, SignInScreen>
                   ],
                 ),
               ),
-            ));
+            )));
   }
 
   @override

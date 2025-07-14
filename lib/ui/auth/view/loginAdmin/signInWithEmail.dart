@@ -8,6 +8,7 @@ import 'package:manafea/ui/auth/widgets/loadingWidget.dart';
 import 'package:manafea/ui/core/shared_widget/error_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../config/checkNetwork/mainWrapper.dart';
 import '../../../../data/repositories/authRepo/adminLoginRepo/adminLoginRepo.dart';
 import '../../connector/signInConnector.dart';
 import '../../widgets/forEmail/signInItem.dart';
@@ -41,7 +42,8 @@ class _SingInAdminState extends BaseView<LoginAdminViewModel, SingInAdmin>
   }
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
+    return MainWrapper(
+        childWidget: ChangeNotifierProvider.value(
         value: viewModel,
         builder: (context, child) => Consumer<LoginAdminViewModel>(
               builder: (context, value, child) =>AbsorbPointer(
@@ -60,7 +62,7 @@ class _SingInAdminState extends BaseView<LoginAdminViewModel, SingInAdmin>
                   ],
                 ),
               ),
-              )));
+              ))));
   }
 
   @override

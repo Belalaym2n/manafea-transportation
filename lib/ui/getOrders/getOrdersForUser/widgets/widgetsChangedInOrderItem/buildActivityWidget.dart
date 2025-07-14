@@ -28,6 +28,7 @@ class ActivityOrderWidgetStrategy extends OrderWidgetStrategy {
     final activityOrder = order as RequestActivityOrderModel;
 
     return OrderItem(
+      url: order.googleMapsUrl.toString()??'',
       status: order.status,
       orderName: activityOrder.activityName ?? "Activity",
       orderType: LocaleKeys.orders_screen_activity.tr(),

@@ -42,20 +42,25 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           BoxShadow(color: Colors.black12, blurRadius: 8, spreadRadius: 2),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildImage(),
-          _buildTravelName(),
-          const SizedBox(
-            height: 4,
-          ),
-          _buildTravelLocation(),
-          _buildSmallBookingButton(),
-            SizedBox(
-            height: AppConstants.screenHeight*0.02,
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 4,
+            ),
+            _buildImage(),
+            _buildTravelName(),
+            const SizedBox(
+              height: 4,
+            ),
+            _buildTravelLocation(),
+            _buildSmallBookingButton(),
+              SizedBox(
+              height: AppConstants.screenHeight*0.02,
+            ),
+          ],
+        ),
       ),
     );
   }

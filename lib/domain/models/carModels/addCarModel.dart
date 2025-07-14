@@ -22,11 +22,11 @@ class CarModel extends BaseItemInServiceModel{
 
   factory CarModel.fromJson(Map<String, dynamic> json) {
     return CarModel._(
-      name: json['itemName'],
-      description: json['itemDescription'],
-      imageUrl: json['itemImageUrl'],
-      address: json['itemAddress'],
-      pricing: json['itemPricing'],
+      name: json['itemName']??'',
+      description: json['itemDescription']??'',
+      imageUrl: json['itemImageUrl']??'',
+      address: json['itemAddress']??'',
+      pricing: json['itemPricing']??'',
     );
   }
 

@@ -29,7 +29,10 @@ class _CarBookingScreenItemState extends State<CarBookingScreenItem> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: AppConstants.screenWidth * 0.05),
-          child: buildBookingDescription(BookingTittle:
+          child: buildBookingDescription(
+              location: "",
+              googleMapsUrl: "",
+              BookingTittle:
           LocaleKeys.car_screen_about_the_car.tr(),
           description: widget.carModel.itemDescription),
         )

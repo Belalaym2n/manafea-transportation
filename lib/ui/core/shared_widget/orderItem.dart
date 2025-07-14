@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import '../../../config/appColors.dart';
 import '../../../config/appConstants.dart';
 import '../../../generated/locale_keys.g.dart';
+import 'buildLocationWidget.dart';
 import 'elevatedButton.dart';
 
 Widget buildOrderHeader({
   required Widget orderInfo,
   required String orderId,
   required String price,
-  required BuildContext context
+   required BuildContext context
 }) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -64,6 +65,7 @@ Widget orderInfo({
   required String name,
   required String phoneNumber,
   required String time,
+  String?url,
   required String orderType,
   required String orderName,
 }) {
@@ -75,7 +77,7 @@ Widget orderInfo({
       shadowColor: Colors.black.withOpacity(0.1),
       borderRadius: BorderRadius.circular(AppConstants.screenWidth * 0.036),
       child: Container(
-        height: AppConstants.screenHeight * 0.35,
+        height: AppConstants.screenHeight * 0.4 ,
         width: AppConstants.screenWidth * 0.85,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -91,6 +93,7 @@ Widget orderInfo({
               infoDataWidget(LocaleKeys.orders_screen_time.tr(), time),
               infoDataWidget(LocaleKeys.orders_screen_payment_method.tr(), 'Cash'),
               infoDataWidget(orderType, orderName),
+              openGoogleMaps(url??''),
               SizedBox(height: AppConstants.screenHeight * 0.02),
               elevated_button(
                 onPressed: () {

@@ -4,7 +4,6 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:manafea/data/services/notifcationService/notificationService.dart';
@@ -20,6 +19,7 @@ import 'data/services/helpers/sharedPerferance/sharedPerferanceHelper.dart';
 
 import 'firebase_options.dart';
 import 'generated/codegen_loader.g.dart';
+import 'main.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,9 +37,7 @@ void main() async {
 
   await SharedPreferencesHelper.init();
   await Supabase.initialize(
-    url:AppConstants.supabaseUrl,
-    anonKey:AppConstants.supabaseAnounKey
-  );
+      url: AppConstants.supabaseUrl, anonKey: AppConstants.supabaseAnounKey);
   final langCode = await SharedPreferencesHelper.getData('lang_code') ?? 'en';
 
   runApp(EasyLocalization(
@@ -50,34 +48,10 @@ void main() async {
         Locale('ur'),
       ],
       path: 'assets/translations',
-       fallbackLocale: const Locale('en'),
+      fallbackLocale: const Locale('en'),
       startLocale: Locale(langCode),
-      child: const MyApp()));
+      child:   MyApp(
+        flavor: "development",
+      )));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
-
-  @override
-  Widget build(BuildContext context) {
-    AppConstants.initSize(context);
-
-    GetNotificationService.openNotification();
-    return ChangeNotifierProvider(
-        create: (_) => LanguageProvider()..loadSavedLanguage(),
-        child: Consumer<LanguageProvider>(builder: (context, langProvider, _) {
-          return MaterialApp(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: langProvider.locale,
-            navigatorKey: navigatorKey,
-            debugShowCheckedModeBanner: false,
-            initialRoute: '/',
-            onGenerateRoute: (settings) => Routes.onGenerate(settings),
-          );
-        }));
-  }
-}

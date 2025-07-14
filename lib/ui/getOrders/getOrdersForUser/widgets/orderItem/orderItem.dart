@@ -12,6 +12,7 @@ class OrderItem extends StatefulWidget {
     super.key,
     required this.order,
     required this.status,
+    this.url='',
     required this.orderDetailedChanged,
     required this.cancelOrder,
     required this.orderType,
@@ -21,6 +22,7 @@ class OrderItem extends StatefulWidget {
   BaseOrder order;
   Widget orderDetailedChanged;
   String orderType;
+  String url;
   String orderName;
   String status;
   Function(String) cancelOrder;
@@ -49,6 +51,7 @@ class _OrderItemState extends State<OrderItem> {
                 context: context,
                 price: widget.order.price.toString(),
                   orderInfo: orderInfo(
+                    url: widget.url,
                     context: context,
                     name: widget.order.name,
                     phoneNumber: widget.order.phoneNumber,
