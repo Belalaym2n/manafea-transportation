@@ -6,6 +6,9 @@ class AppConfiguration{
   static bool get isProd => flavor == 'production';
 
 
+
+
+
   static String get usersCollectionName =>
       isDev ? 'users_development' : 'Users';
   static String get ordersCollectionName =>
